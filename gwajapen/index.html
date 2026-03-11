@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Anuphan:wght@200;400;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --bg-color: #FAFAFA; 
+            --surface-color: #FFFFFF;
+            --text-main: #1A1A1A; 
+            --text-muted: #666666; 
+            --border-color: #EAEAEA; 
+            --accent-gold: #D4AF37;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- SMOOTH LANGUAGE TRANSITION --- */
+        [data-th] { transition: opacity 0.25s ease-in-out; }
+
+        /* --- NAVIGATION --- */
+        nav.top-bar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 30px 6vw; display: flex; justify-content: space-between;
+            z-index: 100; mix-blend-mode: difference; color: white;
+        }
+        .back-link {
+            text-decoration: none; color: inherit; font-weight: 600;
+            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+            display: flex; align-items: center; gap: 8px; transition: opacity 0.3s;
+        }
+        .back-link:hover { opacity: 0.7; }
+        
+        .lang-switcher { display: flex; gap: 10px; }
+        .lang-switcher button { 
+            background: transparent; border: none; font-size: 0.8rem; 
+            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.5;
+            transition: opacity 0.3s; letter-spacing: 1px;
+        }
+        .lang-switcher button:hover { opacity: 0.8; }
+        .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative; width: 100%; height: 85vh; min-height: 600px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; overflow: hidden;
+        }
+        .hero-banner-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -2;
+            /* Placeholder background color if image is missing */
+            background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* A slightly darker gradient to make white text pop beautifully */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+            z-index: -1;
+        }
+        .hero-content {
+            max-width: 800px; padding: 0 20px;
+            animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            margin-top: 10vh; /* Push content slightly down for better framing */
+        }
+        .hero-title {
+            font-family: 'Lora', serif; font-size: 5rem; font-weight: 500;
+            letter-spacing: -2px; margin-bottom: 25px; line-height: 1.1;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .hero-subtitle {
+            font-size: 1.25rem; font-weight: 300; opacity: 0.9;
+            max-width: 650px; margin: 0 auto; line-height: 1.8;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* --- LAYOUT WRAPPER --- */
+        .section-container {
+            max-width: 1400px; margin: 0 auto; padding: 120px 6vw;
+        }
+        .section-header {
+            margin-bottom: 70px; text-align: center;
+        }
+        .section-header h2 {
+            font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 400; margin-bottom: 15px; color: var(--text-main);
+        }
+        .section-header p {
+            color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;
+        }
+
+        /* --- VIDEO GRID (For TikTok/IG Reels) --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 50px;
+        }
+        .video-card {
+            background: var(--surface-color);
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+        }
+        .video-embed-wrapper {
+            /* 9:16 Aspect Ratio for Shorts/Reels */
+            position: relative; width: 100%; padding-top: 177.77%; 
+            background-color: #000;
+        }
+        .video-embed-wrapper iframe, 
+        .video-embed-wrapper blockquote {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+        /* Aesthetic Placeholder for videos */
+        .placeholder-video {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #f8f8f8, #efefef); color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .play-icon { font-size: 3.5rem; margin-bottom: 15px; color: var(--text-muted); opacity: 0.3; transition: opacity 0.3s; }
+        .video-card:hover .play-icon { opacity: 0.8; }
+        
+        .video-info { padding: 30px; }
+        .video-tag { 
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; 
+            color: var(--accent-gold); font-weight: 600; margin-bottom: 12px; display: block; 
+        }
+        .video-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; color: var(--text-main); }
+        .video-desc { font-size: 0.95rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- WRITTEN ARCHIVES (Blog Section) --- */
+        .archive-section {
+            background-color: var(--surface-color);
+            padding: 120px 0; border-top: 1px solid var(--border-color);
+        }
+        .blog-grid {
+            display: flex; flex-direction: column; gap: 0;
+            border-top: 1px solid var(--border-color);
+        }
+        .blog-card {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 50px 0; border-bottom: 1px solid var(--border-color);
+            text-decoration: none; color: inherit; transition: all 0.4s ease;
+        }
+        .blog-card:hover {
+            padding-left: 30px; padding-right: 30px;
+            background-color: rgba(0,0,0,0.02);
+        }
+        .blog-meta {
+            width: 220px; font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem; color: var(--text-muted);
+        }
+        .blog-meta span {
+            color: var(--accent-gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: block; margin-top: 5px;
+        }
+        .blog-content { flex: 1; padding-right: 50px; }
+        .blog-content h3 { font-family: 'Lora', serif; font-size: 2rem; font-weight: 400; margin-bottom: 12px; color: var(--text-main); }
+        .blog-content p { font-size: 1.05rem; color: var(--text-muted); max-width: 800px; }
+        
+        .blog-arrow { font-size: 1.8rem; color: var(--accent-gold); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateX(-20px); }
+        .blog-card:hover .blog-arrow { opacity: 1; transform: translateX(0); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center; padding: 80px 20px;
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem; color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media Queries */
+        @media (max-width: 900px) {
+            .hero-title { font-size: 3.5rem; letter-spacing: -1px; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .section-header h2 { font-size: 2.2rem; }
+            
+            .blog-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 40px 0; }
+            .blog-card:hover { padding-left: 0; padding-right: 0; background-color: transparent; }
+            .blog-meta { width: 100%; }
+            .blog-content { padding-right: 0; }
+            .blog-content h3 { font-size: 1.6rem; }
+            .blog-arrow { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-bar">
+        <a href="https://prawees.com" class="back-link">
+            <span>←</span> <span data-th="กลับสู่หน้าหลัก" data-en="Back to Prawees">กลับสู่หน้าหลัก</span>
+        </a>
+        <div class="lang-switcher">
+            <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
+            <button onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="banner.jpg" alt="กว่า-จะ-เป็น Channel Banner" class="hero-banner-img">
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title" data-th="กว่า-จะ-เป็น" data-en="The Journey Before">กว่า-จะ-เป็น</h1>
+            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์ของเหล่าผู้เชี่ยวชาญ" data-en="The untold stories, the unseen struggles, and the unfiltered inspiration behind every medical coat.">
+                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์ของเหล่าผู้เชี่ยวชาญ
+            </p>
+        </div>
+    </section>
+
+    <section class="section-container">
+        <div class="section-header">
+            <h2 data-th="วิดีโอสัมภาษณ์" data-en="The Visual Series">วิดีโอสัมภาษณ์</h2>
+            <p data-th="เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง" data-en="Deep dives into their lives through the lens.">เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง</p>
+        </div>
+
+        <div class="video-grid">
+            
+            <div class="video-card">
+                <div class="video-embed-wrapper">
+                    <div class="placeholder-video">
+                        <div class="play-icon">▶</div>
+                        <span style="font-size: 0.8rem; letter-spacing: 1px;">VIDEO AREA (9:16)</span>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">EPISODE 01</span>
+                    <h3 class="video-title" data-th="เส้นทางสู่ศัลยแพทย์" data-en="Path to Surgery">เส้นทางสู่ศัลยแพทย์</h3>
+                    <p class="video-desc" data-th="คุยกับรุ่นพี่ศัลยกรรม ถึงสิ่งที่ต้องแลกมากับความฝัน" data-en="Discussing the sacrifices behind the dream with a surgical resident.">คุยกับรุ่นพี่ศัลยกรรม ถึงสิ่งที่ต้องแลกมากับความฝัน</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-embed-wrapper">
+                    <div class="placeholder-video">
+                        <div class="play-icon">▶</div>
+                        <span style="font-size: 0.8rem; letter-spacing: 1px;">VIDEO AREA (9:16)</span>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">EPISODE 02</span>
+                    <h3 class="video-title" data-th="ชีวิตหมอฉุกเฉิน" data-en="Life in the ER">ชีวิตหมอฉุกเฉิน</h3>
+                    <p class="video-desc" data-th="ทุกวินาทีคือชีวิต เบื้องหลังการตัดสินใจในห้องฉุกเฉิน" data-en="Every second counts: Behind the scenes of ER decisions.">ทุกวินาทีคือชีวิต เบื้องหลังการตัดสินใจในห้องฉุกเฉิน</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-embed-wrapper">
+                    <div class="placeholder-video">
+                        <div class="play-icon">▶</div>
+                        <span style="font-size: 0.8rem; letter-spacing: 1px;">VIDEO AREA (9:16)</span>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">EPISODE 03</span>
+                    <h3 class="video-title" data-th="แพทย์และวิศวะ" data-en="Medicine & Engineering">แพทย์และวิศวะ</h3>
+                    <p class="video-desc" data-th="การผสมผสานสองศาสตร์เพื่อสร้างนวัตกรรมแห่งอนาคต" data-en="Fusing two disciplines to build the innovations of tomorrow.">การผสมผสานสองศาสตร์เพื่อสร้างนวัตกรรมแห่งอนาคต</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="archive-section">
+        <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+            <div class="section-header">
+                <h2 data-th="จดหมายจากอาจารย์" data-en="The Written Archives">จดหมายจากอาจารย์</h2>
+                <p data-th="บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เจาะลึกข้อมูล Uncut และ Roadmap" data-en="Inspiring editorial interviews, uncut data, and roadmap insights.">บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เจาะลึกข้อมูล Uncut และ Roadmap</p>
+            </div>
+
+            <div class="blog-grid">
+                
+                <a href="#" class="blog-card">
+                    <div class="blog-meta">
+                        March 15, 2026
+                        <span>Interview</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 data-th="กว่าจะเป็นอาจารย์แพทย์ใหญ่" data-en="Becoming the Chief of Medicine">กว่าจะเป็นอาจารย์แพทย์ใหญ่</h3>
+                        <p data-th="คุยกับ ศ.นพ. ถึงปรัชญาการทำงานและความหมายของการเป็นหมอ พร้อม Roadmap สู่การเป็นผู้เชี่ยวชาญ" data-en="A conversation with the Professor on work philosophy, the meaning of being a doctor, and the roadmap to expertise.">คุยกับ ศ.นพ. ถึงปรัชญาการทำงานและความหมายของการเป็นหมอ พร้อม Roadmap สู่การเป็นผู้เชี่ยวชาญ</p>
+                    </div>
+                    <div class="blog-arrow">→</div>
+                </a>
+
+                <a href="#" class="blog-card">
+                    <div class="blog-meta">
+                        February 28, 2026
+                        <span>Reflection</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 data-th="เมื่อความผิดพลาดคือครูที่ดีที่สุด" data-en="When Failure is the Best Teacher">เมื่อความผิดพลาดคือครูที่ดีที่สุด</h3>
+                        <p data-th="เรื่องเล่าจากเวรดึกที่เปลี่ยนมุมมองการใช้ชีวิตไปตลอดกาล พร้อมสรุป Hard Data การทำงานในวอร์ด" data-en="A story from a night shift that changed a perspective on life forever, including hard data on ward hours.">เรื่องเล่าจากเวรดึกที่เปลี่ยนมุมมองการใช้ชีวิตไปตลอดกาล พร้อมสรุป Hard Data การทำงานในวอร์ด</p>
+                    </div>
+                    <div class="blog-arrow">→</div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Prawees • Gwa-Ja-Pen Series</p>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            const elements = document.querySelectorAll('[data-th]');
+            elements.forEach(el => {
+                // Subtle fade transition for text
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
+                    el.style.opacity = '1';
+                }, 250); // Timing matches the CSS transition
+            });
+        }
+        
+        // Initialize with Thai, without triggering the transition on load
+        window.onload = () => {
+            const elements = document.querySelectorAll('[data-th]');
+            elements.forEach(el => {
+                el.textContent = el.getAttribute('data-th');
+            });
+            document.getElementById('btn-th').classList.add('active');
+            document.getElementById('btn-en').classList.remove('active');
+        };
+    </script>
+</body>
+</html>
