@@ -28,19 +28,21 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- SMOOTH LANGUAGE TRANSITION --- */
-        [data-th] { transition: opacity 0.25s ease-in-out; }
+        [data-th], [data-en] { transition: opacity 0.25s ease-in-out; }
 
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 30px 6vw; display: flex; justify-content: space-between;
-            z-index: 100; mix-blend-mode: difference; color: white;
+            padding: 25px 6vw; display: flex; justify-content: space-between;
+            z-index: 100; color: white;
+            /* Added subtle gradient so nav is always readable over the banner */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
         }
         .back-link {
             text-decoration: none; color: inherit; font-weight: 600;
             font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
             display: flex; align-items: center; gap: 8px; transition: opacity 0.3s;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .back-link:hover { opacity: 0.7; }
         
@@ -49,50 +51,51 @@
             background: transparent; border: none; font-size: 0.8rem; 
             font-weight: 600; color: inherit; cursor: pointer; opacity: 0.5;
             transition: opacity 0.3s; letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .lang-switcher button:hover { opacity: 0.8; }
         .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
         /* --- HERO SECTION --- */
         .hero {
-            position: relative; width: 100%; height: 85vh; min-height: 600px;
+            position: relative; width: 100%; height: 75vh; min-height: 500px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; color: white; overflow: hidden;
+            /* Added top padding to prevent overlap with the top banner */
+            padding-top: 80px; 
         }
         .hero-banner-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -2;
-            /* Placeholder background color if image is missing */
-            background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
+            object-fit: cover; object-position: center 20%; z-index: -2;
+            background: #1a1a1a;
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* A slightly darker gradient to make white text pop beautifully */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
             z-index: -1;
         }
         .hero-content {
             max-width: 800px; padding: 0 20px;
             animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            margin-top: 10vh; /* Push content slightly down for better framing */
+            margin-top: 5vh;
         }
         .hero-title {
-            font-family: 'Lora', serif; font-size: 5rem; font-weight: 500;
-            letter-spacing: -2px; margin-bottom: 25px; line-height: 1.1;
+            font-family: 'Lora', serif; font-size: 4.5rem; font-weight: 500;
+            letter-spacing: -2px; margin-bottom: 20px; line-height: 1.1;
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .hero-subtitle {
-            font-size: 1.25rem; font-weight: 300; opacity: 0.9;
+            font-size: 1.2rem; font-weight: 300; opacity: 0.9;
             max-width: 650px; margin: 0 auto; line-height: 1.8;
             text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         /* --- LAYOUT WRAPPER --- */
         .section-container {
-            max-width: 1400px; margin: 0 auto; padding: 120px 6vw;
+            max-width: 1400px; margin: 0 auto; padding: 100px 6vw;
         }
         .section-header {
-            margin-bottom: 70px; text-align: center;
+            margin-bottom: 60px; text-align: center;
         }
         .section-header h2 {
             font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 400; margin-bottom: 15px; color: var(--text-main);
@@ -101,7 +104,7 @@
             color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;
         }
 
-        /* --- VIDEO GRID (For TikTok/IG Reels) --- */
+        /* --- VIDEO GRID --- */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -111,43 +114,35 @@
             background: var(--surface-color);
             border-radius: 20px; overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.03);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            display: flex; flex-direction: column;
         }
         .video-card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-10px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.08);
         }
         .video-embed-wrapper {
-            /* 9:16 Aspect Ratio for Shorts/Reels */
-            position: relative; width: 100%; padding-top: 177.77%; 
-            background-color: #000;
+            position: relative; width: 100%; padding-top: 177.77%; /* 9:16 Ratio */
+            background-color: #050505;
         }
+        /* Forces TikTok/IG iframes to fit beautifully */
         .video-embed-wrapper iframe, 
         .video-embed-wrapper blockquote {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+            position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; margin: 0 !important;
         }
-        /* Aesthetic Placeholder for videos */
-        .placeholder-video {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, #f8f8f8, #efefef); color: var(--text-muted);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .play-icon { font-size: 3.5rem; margin-bottom: 15px; color: var(--text-muted); opacity: 0.3; transition: opacity 0.3s; }
-        .video-card:hover .play-icon { opacity: 0.8; }
         
-        .video-info { padding: 30px; }
+        .video-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
         .video-tag { 
             font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; 
             color: var(--accent-gold); font-weight: 600; margin-bottom: 12px; display: block; 
         }
         .video-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; color: var(--text-main); }
-        .video-desc { font-size: 0.95rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .video-desc { font-size: 0.95rem; color: var(--text-muted); }
 
-        /* --- WRITTEN ARCHIVES (Blog Section) --- */
+        /* --- WRITTEN ARCHIVES --- */
         .archive-section {
             background-color: var(--surface-color);
-            padding: 120px 0; border-top: 1px solid var(--border-color);
+            padding: 100px 0; border-top: 1px solid var(--border-color);
         }
         .blog-grid {
             display: flex; flex-direction: column; gap: 0;
@@ -173,35 +168,28 @@
         .blog-content h3 { font-family: 'Lora', serif; font-size: 2rem; font-weight: 400; margin-bottom: 12px; color: var(--text-main); }
         .blog-content p { font-size: 1.05rem; color: var(--text-muted); max-width: 800px; }
         
-        .blog-arrow { font-size: 1.8rem; color: var(--accent-gold); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateX(-20px); }
+        .blog-arrow { font-size: 1.8rem; color: var(--accent-gold); transition: transform 0.4s; opacity: 0; transform: translateX(-20px); }
         .blog-card:hover .blog-arrow { opacity: 1; transform: translateX(0); }
 
         /* --- FOOTER --- */
         footer {
-            text-align: center; padding: 80px 20px;
+            text-align: center; padding: 60px 20px;
             background-color: var(--bg-color);
             border-top: 1px solid var(--border-color);
             font-size: 0.9rem; color: var(--text-muted);
-            letter-spacing: 1px;
         }
 
-        /* Animations */
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Media Queries */
         @media (max-width: 900px) {
-            .hero-title { font-size: 3.5rem; letter-spacing: -1px; }
-            .hero-subtitle { font-size: 1.1rem; }
-            .section-header h2 { font-size: 2.2rem; }
-            
+            .hero-title { font-size: 3rem; }
             .blog-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 40px 0; }
             .blog-card:hover { padding-left: 0; padding-right: 0; background-color: transparent; }
             .blog-meta { width: 100%; }
             .blog-content { padding-right: 0; }
-            .blog-content h3 { font-size: 1.6rem; }
             .blog-arrow { display: none; }
         }
     </style>
@@ -221,7 +209,6 @@
     <section class="hero">
         <img src="banner.jpg" alt="กว่า-จะ-เป็น Channel Banner" class="hero-banner-img">
         <div class="hero-overlay"></div>
-        
         <div class="hero-content">
             <h1 class="hero-title" data-th="กว่า-จะ-เป็น" data-en="The Journey Before">กว่า-จะ-เป็น</h1>
             <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์ของเหล่าผู้เชี่ยวชาญ" data-en="The untold stories, the unseen struggles, and the unfiltered inspiration behind every medical coat.">
@@ -235,52 +222,8 @@
             <h2 data-th="วิดีโอสัมภาษณ์" data-en="The Visual Series">วิดีโอสัมภาษณ์</h2>
             <p data-th="เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง" data-en="Deep dives into their lives through the lens.">เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง</p>
         </div>
-
-        <div class="video-grid">
-            
-            <div class="video-card">
-                <div class="video-embed-wrapper">
-                    <div class="placeholder-video">
-                        <div class="play-icon">▶</div>
-                        <span style="font-size: 0.8rem; letter-spacing: 1px;">VIDEO AREA (9:16)</span>
-                    </div>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">EPISODE 01</span>
-                    <h3 class="video-title" data-th="เส้นทางสู่ศัลยแพทย์" data-en="Path to Surgery">เส้นทางสู่ศัลยแพทย์</h3>
-                    <p class="video-desc" data-th="คุยกับรุ่นพี่ศัลยกรรม ถึงสิ่งที่ต้องแลกมากับความฝัน" data-en="Discussing the sacrifices behind the dream with a surgical resident.">คุยกับรุ่นพี่ศัลยกรรม ถึงสิ่งที่ต้องแลกมากับความฝัน</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-embed-wrapper">
-                    <div class="placeholder-video">
-                        <div class="play-icon">▶</div>
-                        <span style="font-size: 0.8rem; letter-spacing: 1px;">VIDEO AREA (9:16)</span>
-                    </div>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">EPISODE 02</span>
-                    <h3 class="video-title" data-th="ชีวิตหมอฉุกเฉิน" data-en="Life in the ER">ชีวิตหมอฉุกเฉิน</h3>
-                    <p class="video-desc" data-th="ทุกวินาทีคือชีวิต เบื้องหลังการตัดสินใจในห้องฉุกเฉิน" data-en="Every second counts: Behind the scenes of ER decisions.">ทุกวินาทีคือชีวิต เบื้องหลังการตัดสินใจในห้องฉุกเฉิน</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-embed-wrapper">
-                    <div class="placeholder-video">
-                        <div class="play-icon">▶</div>
-                        <span style="font-size: 0.8rem; letter-spacing: 1px;">VIDEO AREA (9:16)</span>
-                    </div>
-                </div>
-                <div class="video-info">
-                    <span class="video-tag">EPISODE 03</span>
-                    <h3 class="video-title" data-th="แพทย์และวิศวะ" data-en="Medicine & Engineering">แพทย์และวิศวะ</h3>
-                    <p class="video-desc" data-th="การผสมผสานสองศาสตร์เพื่อสร้างนวัตกรรมแห่งอนาคต" data-en="Fusing two disciplines to build the innovations of tomorrow.">การผสมผสานสองศาสตร์เพื่อสร้างนวัตกรรมแห่งอนาคต</p>
-                </div>
-            </div>
-
-        </div>
+        
+        <div class="video-grid" id="video-container"></div>
     </section>
 
     <section class="archive-section">
@@ -289,34 +232,8 @@
                 <h2 data-th="จดหมายจากอาจารย์" data-en="The Written Archives">จดหมายจากอาจารย์</h2>
                 <p data-th="บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เจาะลึกข้อมูล Uncut และ Roadmap" data-en="Inspiring editorial interviews, uncut data, and roadmap insights.">บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เจาะลึกข้อมูล Uncut และ Roadmap</p>
             </div>
-
-            <div class="blog-grid">
-                
-                <a href="#" class="blog-card">
-                    <div class="blog-meta">
-                        March 15, 2026
-                        <span>Interview</span>
-                    </div>
-                    <div class="blog-content">
-                        <h3 data-th="กว่าจะเป็นอาจารย์แพทย์ใหญ่" data-en="Becoming the Chief of Medicine">กว่าจะเป็นอาจารย์แพทย์ใหญ่</h3>
-                        <p data-th="คุยกับ ศ.นพ. ถึงปรัชญาการทำงานและความหมายของการเป็นหมอ พร้อม Roadmap สู่การเป็นผู้เชี่ยวชาญ" data-en="A conversation with the Professor on work philosophy, the meaning of being a doctor, and the roadmap to expertise.">คุยกับ ศ.นพ. ถึงปรัชญาการทำงานและความหมายของการเป็นหมอ พร้อม Roadmap สู่การเป็นผู้เชี่ยวชาญ</p>
-                    </div>
-                    <div class="blog-arrow">→</div>
-                </a>
-
-                <a href="#" class="blog-card">
-                    <div class="blog-meta">
-                        February 28, 2026
-                        <span>Reflection</span>
-                    </div>
-                    <div class="blog-content">
-                        <h3 data-th="เมื่อความผิดพลาดคือครูที่ดีที่สุด" data-en="When Failure is the Best Teacher">เมื่อความผิดพลาดคือครูที่ดีที่สุด</h3>
-                        <p data-th="เรื่องเล่าจากเวรดึกที่เปลี่ยนมุมมองการใช้ชีวิตไปตลอดกาล พร้อมสรุป Hard Data การทำงานในวอร์ด" data-en="A story from a night shift that changed a perspective on life forever, including hard data on ward hours.">เรื่องเล่าจากเวรดึกที่เปลี่ยนมุมมองการใช้ชีวิตไปตลอดกาล พร้อมสรุป Hard Data การทำงานในวอร์ด</p>
-                    </div>
-                    <div class="blog-arrow">→</div>
-                </a>
-
-            </div>
+            
+            <div class="blog-grid" id="blog-container"></div>
         </div>
     </section>
 
@@ -325,30 +242,127 @@
     </footer>
 
     <script>
+        const database = {
+            
+            // 🎬 1. ADD YOUR VIDEOS HERE
+            videos: [
+                /* HOW TO ADD A VIDEO:
+                  1. Copy the block below.
+                  2. Go to your TikTok/IG video on a computer, click Share -> Embed.
+                  3. Paste that massive code inside the backticks (` `) next to embed_code.
+                */
+                {
+                    episode: "01",
+                    title_th: "กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪",
+                    title_en: "Neurosurgery Resident 🧠🔪",
+                    desc_th: "พญ.ธนพร เจริญงามเสมอ",
+                    desc_en: "Tanaporn Jaroenngarmsamer, M.D.",
+                    embed_code: `
+                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#111; color:#fff;">
+                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 <a title="studygramthailand" target="_blank" href="https://www.tiktok.com/tag/studygramthailand?refer=embed">#studygramthailand</a> <a title="แพทย์" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C?refer=embed">#แพทย์</a> <a title="neurosurgery" target="_blank" href="https://www.tiktok.com/tag/neurosurgery?refer=embed">#neurosurgery</a> <a target="_blank" title="♬ original sound  - gwa.ja.pen" href="https://www.tiktok.com/music/original-sound-gwajapen-7605159890834836242?refer=embed">♬ original sound  - gwa.ja.pen</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+                        </div>
+                    `
+                },
+                // Add more videos here...
+            ],
+
+            // 📝 2. ADD YOUR BLOG ENTRIES HERE
+            blogs: [
+                /*
+                  HOW TO ADD A BLOG:
+                  1. Copy the block below.
+                  2. Create a new HTML file for your blog (e.g., episode1.html).
+                  3. Put the file name in the "link" field.
+                */
+                {
+                    date: "March 15, 2026",
+                    tag: "Interview",
+                    title_th: "ตัวอย่างบทความสัมภาษณ์",
+                    title_en: "Example Interview Article",
+                    desc_th: "รออัปเดตบทสัมภาษณ์ฉบับเต็มเร็วๆ นี้...",
+                    desc_en: "Full interview article coming soon...",
+                    link: "#" // Example: "blog-ep1.html"
+                }
+                // Add more blogs here...
+            ]
+        };
+
+        // ==========================================
+        // ⚙️ THE ENGINE (DO NOT EDIT BELOW THIS LINE) ⚙️
+        // ==========================================
+        
+        let currentLang = 'th';
+
+        function renderContent() {
+            // Render Videos
+            const videoContainer = document.getElementById('video-container');
+            videoContainer.innerHTML = '';
+            
+            if(database.videos.length === 0) {
+                videoContainer.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:var(--text-muted);">Coming soon...</p>`;
+            } else {
+                database.videos.forEach(video => {
+                    videoContainer.innerHTML += `
+                        <div class="video-card">
+                            <div class="video-embed-wrapper">
+                                ${video.embed_code}
+                            </div>
+                            <div class="video-info">
+                                <span class="video-tag">EPISODE ${video.episode}</span>
+                                <h3 class="video-title" data-th="${video.title_th}" data-en="${video.title_en}">${currentLang === 'th' ? video.title_th : video.title_en}</h3>
+                                <p class="video-desc" data-th="${video.desc_th}" data-en="${video.desc_en}">${currentLang === 'th' ? video.desc_th : video.desc_en}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // Render Blogs
+            const blogContainer = document.getElementById('blog-container');
+            blogContainer.innerHTML = '';
+            
+            if(database.blogs.length === 0) {
+                blogContainer.innerHTML = `<p style="text-align:center; padding: 40px; color:var(--text-muted);">Coming soon...</p>`;
+            } else {
+                database.blogs.forEach(blog => {
+                    blogContainer.innerHTML += `
+                        <a href="${blog.link}" class="blog-card">
+                            <div class="blog-meta">
+                                ${blog.date}
+                                <span>${blog.tag}</span>
+                            </div>
+                            <div class="blog-content">
+                                <h3 data-th="${blog.title_th}" data-en="${blog.title_en}">${currentLang === 'th' ? blog.title_th : blog.title_en}</h3>
+                                <p data-th="${blog.desc_th}" data-en="${blog.desc_en}">${currentLang === 'th' ? blog.desc_th : blog.desc_en}</p>
+                            </div>
+                            <div class="blog-arrow">→</div>
+                        </a>
+                    `;
+                });
+            }
+        }
+
         function setLanguage(lang) {
+            currentLang = lang;
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             
             const elements = document.querySelectorAll('[data-th]');
             elements.forEach(el => {
-                // Subtle fade transition for text
                 el.style.opacity = '0';
                 setTimeout(() => {
                     el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
                     el.style.opacity = '1';
-                }, 250); // Timing matches the CSS transition
+                }, 250);
             });
         }
         
-        // Initialize with Thai, without triggering the transition on load
+        // Initialize
         window.onload = () => {
-            const elements = document.querySelectorAll('[data-th]');
-            elements.forEach(el => {
-                el.textContent = el.getAttribute('data-th');
-            });
-            document.getElementById('btn-th').classList.add('active');
-            document.getElementById('btn-en').classList.remove('active');
+            renderContent(); // Build the DB first
+            setLanguage('th'); // Then set the language
         };
     </script>
+    <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
