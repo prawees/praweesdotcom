@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prawees | Medical Student & Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Anuphan:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #FDFDFD; --text-main: #111111; --text-muted: #888888; --border-color: #EAEAEA; --hover-bg: #F5F5F5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 100; display: flex; gap: 8px; }
+        .lang-switcher button { background: transparent; border: none; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); cursor: pointer; letter-spacing: 1px; }
+        .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 4px; }
+        .layout-wrapper { display: flex; min-height: 100vh; }
+        .content-side { flex: 1; padding: 8vw 6vw; display: flex; flex-direction: column; justify-content: center; }
+        .image-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4vw; background-color: #F8F8F8; }
+        .name-title { font-size: 4.5rem; font-weight: 200; letter-spacing: -2px; line-height: 1; margin-bottom: 15px; }
+        .role { font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 20px; }
+        .bio { font-size: 1.1rem; max-width: 80%; color: var(--text-muted); margin-bottom: 60px; }
+        .abstract-menu { display: flex; flex-direction: column; border-top: 1px solid var(--border-color); }
+        .menu-item { display: flex; align-items: center; padding: 30px 0; border-bottom: 1px solid var(--border-color); text-decoration: none; color: var(--text-main); transition: all 0.4s; }
+        .menu-item:hover { background-color: var(--hover-bg); padding-left: 20px; }
+        .menu-num { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); width: 50px; }
+        .menu-text { flex: 1; }
+        .menu-text h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 4px; }
+        .menu-text p { font-size: 0.9rem; color: var(--text-muted); }
+        .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-15px) translateY(15px); transition: all 0.4s ease; }
+        .menu-item:hover .menu-arrow { opacity: 1; transform: translateX(0) translateY(0); }
+        .image-frame { width: 100%; max-width: 500px; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        .portrait-img { width: 100%; height: 100%; object-fit: cover; }
+        .social-footer { margin-top: 60px; display: flex; gap: 30px; }
+        .social-footer a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+        @media (max-width: 900px) {
+            .layout-wrapper { flex-direction: column-reverse; }
+            .image-side { padding: 8vw 4vw; background-color: transparent; }
+            .content-side { padding: 12vw 6vw; }
+            .name-title { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body class="lang-th">
+    <nav class="lang-switcher">
+        <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
+        <button onclick="setLanguage('en')" id="btn-en">EN</button>
+    </nav>
+    <div class="layout-wrapper">
+        <div class="content-side">
+            <header class="header-intro">
+                <h1 class="name-title">Prawees</h1>
+                <p class="role" data-th="นักศึกษาแพทย์ (M.D.-M.Eng)" data-en="Medical Student (M.D.-M.Eng)">นักศึกษาแพทย์ (M.D.-M.Eng)</p>
+                <p class="bio" data-th="เชื่อมโยงเรื่องราวทางการแพทย์ แรงบันดาลใจ และการขับเคลื่อนชุมชน" data-en="Connecting medical narratives, inspiration, and community movement.">เชื่อมโยงเรื่องราวทางการแพทย์ แรงบันดาลใจ และการขับเคลื่อนชุมชน</p>
+            </header>
+            <nav class="abstract-menu">
+                <a href="https://gwajapen.prawees.com" class="menu-item">
+                    <span class="menu-num">01</span>
+                    <div class="menu-text">
+                        <h2 data-th="กว่า-จะ-เป็น" data-en="Gwa-Ja-Pen">กว่า-จะ-เป็น</h2>
+                        <p data-th="ซีรีส์สัมภาษณ์เส้นทางแพทย์เฉพาะทาง" data-en="Unfiltered medical journey interviews">ซีรีส์สัมภาษณ์เส้นทางแพทย์เฉพาะทาง</p>
+                    </div>
+                    <span class="menu-arrow">↗</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-num">02</span>
+                    <div class="menu-text">
+                        <h2 data-th="รามาธอน" data-en="Ramathon">รามาธอน</h2>
+                        <p data-th="ชมรมวิ่งรามาธิบดี (Ramathibodi Run Club)" data-en="Ramathibodi Run Club">ชมรมวิ่งรามาธิบดี (Ramathibodi Run Club)</p>
+                    </div>
+                    <span class="menu-arrow">↗</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-num">03</span>
+                    <div class="menu-text">
+                        <h2 data-th="เกี่ยวกับฉัน" data-en="About Me">เกี่ยวกับฉัน</h2>
+                        <p data-th="เส้นทางแพทย์-วิศวะ และช่องทางการติดต่อ" data-en="The M.D.-M.Eng Journey & Contact">เส้นทางแพทย์-วิศวะ และช่องทางการติดต่อ</p>
+                    </div>
+                    <span class="menu-arrow">↗</span>
+                </a>
+            </nav>
+            <footer class="social-footer">
+                <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok</a>
+                <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">Instagram</a>
+            </footer>
+        </div>
+        <div class="image-side">
+            <div class="image-frame">
+                <img src="portrait.jpg" alt="Portrait" class="portrait-img">
+            </div>
+        </div>
+    </div>
+    <script>
+        function setLanguage(lang) {
+            document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            const elements = document.querySelectorAll('[data-th]');
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
+                    el.style.opacity = '1';
+                }, 150);
+            });
+        }
+        window.onload = () => setLanguage('th');
+    </script>
+</body>
+</html>
