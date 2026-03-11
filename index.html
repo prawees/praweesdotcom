@@ -3,104 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prawee S. | Medical Student & Creator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Anuphan:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Anuphan:wght@200;400;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --bg-color: #FDFDFD; --text-main: #111111; --text-muted: #888888; --border-color: #EAEAEA; --hover-bg: #F5F5F5; }
+        :root { 
+            --bg-color: #FAFAFA; 
+            --surface-color: #FFFFFF;
+            --text-main: #1A1A1A; 
+            --text-muted: #666666; 
+            --border-color: #EAEAEA; 
+            --accent-gold: #D4AF37;
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
-        .lang-switcher { position: fixed; top: 40px; right: 40px; z-index: 100; display: flex; gap: 8px; }
-        .lang-switcher button { background: transparent; border: none; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); cursor: pointer; letter-spacing: 1px; }
-        .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 4px; }
-        .layout-wrapper { display: flex; min-height: 100vh; }
-        .content-side { flex: 1; padding: 8vw 6vw; display: flex; flex-direction: column; justify-content: center; }
-        .image-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4vw; background-color: #F8F8F8; }
-        .name-title { font-size: 4.5rem; font-weight: 200; letter-spacing: -2px; line-height: 1; margin-bottom: 15px; }
-        .role { font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 20px; }
-        .bio { font-size: 1.1rem; max-width: 80%; color: var(--text-muted); margin-bottom: 60px; }
-        .abstract-menu { display: flex; flex-direction: column; border-top: 1px solid var(--border-color); }
-        .menu-item { display: flex; align-items: center; padding: 30px 0; border-bottom: 1px solid var(--border-color); text-decoration: none; color: var(--text-main); transition: all 0.4s; }
-        .menu-item:hover { background-color: var(--hover-bg); padding-left: 20px; }
-        .menu-num { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); width: 50px; }
-        .menu-text { flex: 1; }
-        .menu-text h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 4px; }
-        .menu-text p { font-size: 0.9rem; color: var(--text-muted); }
-        .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-15px) translateY(15px); transition: all 0.4s ease; }
-        .menu-item:hover .menu-arrow { opacity: 1; transform: translateX(0) translateY(0); }
-        .image-frame { width: 100%; max-width: 500px; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
-        .portrait-img { width: 100%; height: 100%; object-fit: cover; }
-        .social-footer { margin-top: 60px; display: flex; gap: 30px; }
-        .social-footer a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVIGATION --- */
+        nav.top-bar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 30px 6vw; display: flex; justify-content: space-between;
+            z-index: 100; mix-blend-mode: difference; color: white;
+        }
+        .back-link {
+            text-decoration: none; color: inherit; font-weight: 600;
+            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+            display: flex; align-items: center; gap: 8px; transition: opacity 0.3s;
+        }
+        .back-link:hover { opacity: 0.7; }
+        .lang-switcher button { 
+            background: transparent; border: none; font-size: 0.8rem; 
+            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.5; margin-left: 10px;
+        }
+        .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative; width: 100%; height: 80vh; min-height: 600px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; overflow: hidden;
+        }
+        .hero-banner-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -2;
+            /* Placeholder background color if image is missing */
+            background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+        .hero-content {
+            max-width: 800px; padding: 0 20px;
+            animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero-title {
+            font-family: 'Lora', serif; font-size: 4.5rem; font-weight: 500;
+            letter-spacing: -1px; margin-bottom: 20px; line-height: 1.1;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem; font-weight: 300; opacity: 0.9;
+            max-width: 600px; margin: 0 auto;
+        }
+
+        /* --- LAYOUT WRAPPER --- */
+        .section-container {
+            max-width: 1400px; margin: 0 auto; padding: 100px 6vw;
+        }
+        .section-header {
+            margin-bottom: 60px; text-align: center;
+        }
+        .section-header h2 {
+            font-family: 'Lora', serif; font-size: 2.5rem; font-weight: 400; margin-bottom: 10px;
+        }
+        .section-header p {
+            color: var(--text-muted); font-size: 1rem;
+        }
+
+        /* --- VIDEO GRID (For TikTok/IG Reels) --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .video-card {
+            background: var(--surface-color);
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .video-embed-wrapper {
+            /* 9:16 Aspect Ratio for Shorts/Reels */
+            position: relative; width: 100%; padding-top: 177.77%; 
+            background-color: #000;
+        }
+        .video-embed-wrapper iframe, 
+        .video-embed-wrapper blockquote {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+        /* Placeholder styling for before you embed videos */
+        .placeholder-video {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(45deg, #f3f3f3, #e9e9e9); color: var(--text-muted);
+        }
+        .play-icon { font-size: 3rem; margin-bottom: 10px; color: var(--text-main); }
+        .video-info { padding: 25px; }
+        .video-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-gold); font-weight: 600; margin-bottom: 8px; display: block; }
+        .video-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+        .video-desc { font-size: 0.9rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- WRITTEN ARCHIVES (Blog Section) --- */
+        .archive-section {
+            background-color: var(--surface-color);
+            padding: 100px 0; border-top: 1px solid var(--border-color);
+        }
+        .blog-grid {
+            display: flex; flex-direction: column; gap: 0;
+            border-top: 1px solid var(--border-color);
+        }
+        .blog-card {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 40px 0; border-bottom: 1px solid var(--border-color);
+            text-decoration: none; color: inherit; transition: all 0.3s ease;
+        }
+        .blog-card:hover {
+            padding-left: 20px; padding-right: 20px;
+            background-color: rgba(0,0,0,0.01);
+        }
+        .blog-meta {
+            width: 200px; font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem; color: var(--text-muted);
+        }
+        .blog-content { flex: 1; padding-right: 40px; }
+        .blog-content h3 { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 400; margin-bottom: 8px; }
+        .blog-content p { font-size: 1rem; color: var(--text-muted); }
+        .blog-arrow { font-size: 1.5rem; color: var(--accent-gold); transition: transform 0.3s; }
+        .blog-card:hover .blog-arrow { transform: translateX(10px); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center; padding: 60px 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem; color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media Queries */
         @media (max-width: 900px) {
-            .layout-wrapper { flex-direction: column-reverse; }
-            .image-side { padding: 8vw 4vw; background-color: transparent; }
-            .content-side { padding: 12vw 6vw; }
-            .name-title { font-size: 3.5rem; }
+            .hero-title { font-size: 3rem; }
+            .blog-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .blog-meta { width: 100%; }
+            .blog-content { padding-right: 0; }
+            .blog-arrow { display: none; }
         }
     </style>
 </head>
-<body class="lang-th">
-    <nav class="lang-switcher">
-        <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
-        <button onclick="setLanguage('en')" id="btn-en">EN</button>
-    </nav>
-    <div class="layout-wrapper">
-        <div class="content-side">
-            <header class="header-intro">
-                <h1 class="name-title">Prawee S. (Smart)</h1>
-                <p class="role" data-th="นักศึกษาแพทย์ (M.D.-M.Eng)" data-en="Medical Student (M.D.-M.Eng)">นักศึกษาแพทย์ (M.D.-M.Eng)</p>
-                <p class="bio" data-th="เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่" data-en="Connecting medical narratives to inspire youth.">เชื่อมโยงเรื่องราวทางการแพทย์ แรงบันดาลใจ และการขับเคลื่อนชุมชน</p>
-            </header>
-            <nav class="abstract-menu">
-                <a href="https://gwajapen.prawees.com" class="menu-item">
-                    <span class="menu-num">01</span>
-                    <div class="menu-text">
-                        <h2 data-th="⛰️ กว่า-จะ-เป็น" data-en="⛰️ Gwa-Ja-Pen">กว่า-จะ-เป็น</h2>
-                        <p data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ว่า “กว่า-จะ-เป็น” ต้องเจออะไรมาบ้าง ?" data-en="Unfiltered journey interviews from established seniors">ซีรีส์สัมภาษณ์เส้นทางแพทย์เฉพาะทาง</p>
-                    </div>
-                    <span class="menu-arrow">↗</span>
-                </a>
-                <a href="https://ramathonrun.prawees.com" class="menu-item">
-                    <span class="menu-num">02</span>
-                    <div class="menu-text">
-                        <h2 data-th="🏃 รามาธอน" data-en="🏃 Ramathon Run Club">รามาธอนรันคลับ</h2>
-                        <p data-th="งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ" data-en="Ramathibodi Run Club">ชมรมวิ่งรามาธิบดี (Ramathibodi Run Club)</p>
-                    </div>
-                    <span class="menu-arrow">↗</span>
-                </a>
-                <a href="https://about.prawees.com" class="menu-item">
-                    <span class="menu-num">03</span>
-                    <div class="menu-text">
-                        <h2 data-th="👦🏻 รู้จักสมาร์ท" data-en="👦🏻 About Smart">เกี่ยวกับสมาร์ท</h2>
-                        <p data-th="เรื่องราวจากการเรียนแพทย์-วิศวะ และช่องทางการติดต่อ" data-en="The M.D.-M.Eng Journey & Contact">เส้นทางแพทย์-วิศวะ และช่องทางการติดต่อ</p>
-                    </div>
-                    <span class="menu-arrow">↗</span>
-                </a>
-            </nav>
-            <footer class="social-footer">
-                <a href="https://www.tiktok.com/@prawees" target="_blank">TikTok</a>
-                <a href="https://www.instagram.com/smprv" target="_blank">Instagram</a>
-            </footer>
+<body>
+
+    <nav class="top-bar">
+        <a href="https://prawees.com" class="back-link">
+            <span>←</span> <span data-th="กลับสู่หน้าหลัก" data-en="Back to Prawees">กลับสู่หน้าหลัก</span>
+        </a>
+        <div class="lang-switcher">
+            <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
+            <button onclick="setLanguage('en')" id="btn-en">EN</button>
         </div>
-        <div class="image-side">
-            <div class="image-frame">
-                <img src="portrait.jpg" alt="Portrait" class="portrait-img">
+    </nav>
+
+    <section class="hero">
+        <img src="banner.jpg" alt="กว่า-จะ-เป็น Channel Banner" class="hero-banner-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-th="กว่า-จะ-เป็น" data-en="The Journey Before">กว่า-จะ-เป็น</h1>
+            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า น้ำตาที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์ของเหล่าผู้เชี่ยวชาญ" data-en="The untold stories, the unseen struggles, and the unfiltered inspiration behind every medical coat.">
+                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์ของเหล่าผู้เชี่ยวชาญ
+            </p>
+        </div>
+    </section>
+
+    <section class="section-container">
+        <div class="section-header">
+            <h2 data-th="วิดีโอสัมภาษณ์" data-en="The Visual Series">วิดีโอสัมภาษณ์</h2>
+            <p data-th="เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง" data-en="Deep dives into their lives through the lens.">เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง</p>
+        </div>
+
+        <div class="video-grid">
+            
+            <div class="video-card">
+                <div class="video-embed-wrapper">
+                    <div class="placeholder-video">
+                        <div class="play-icon">▶</div>
+                        <span style="font-size: 0.8rem; opacity: 0.5;">Video Area (9:16)</span>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">EPISODE 01</span>
+                    <h3 class="video-title" data-th="เส้นทางสู่ศัลยแพทย์" data-en="Path to Surgery">เส้นทางสู่ศัลยแพทย์</h3>
+                    <p class="video-desc" data-th="คุยกับรุ่นพี่ศัลยกรรม ถึงสิ่งที่ต้องแลกมากับความฝัน" data-en="Discussing the sacrifices behind the dream with a surgical resident.">คุยกับรุ่นพี่ศัลยกรรม ถึงสิ่งที่ต้องแลกมากับความฝัน</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-embed-wrapper">
+                    <div class="placeholder-video">
+                        <div class="play-icon">▶</div>
+                        <span style="font-size: 0.8rem; opacity: 0.5;">Video Area (9:16)</span>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">EPISODE 02</span>
+                    <h3 class="video-title" data-th="ชีวิตหมอฉุกเฉิน" data-en="Life in the ER">ชีวิตหมอฉุกเฉิน</h3>
+                    <p class="video-desc" data-th="ทุกวินาทีคือชีวิต เบื้องหลังการตัดสินใจในห้องฉุกเฉิน" data-en="Every second counts: Behind the scenes of ER decisions.">ทุกวินาทีคือชีวิต เบื้องหลังการตัดสินใจในห้องฉุกเฉิน</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-embed-wrapper">
+                    <div class="placeholder-video">
+                        <div class="play-icon">▶</div>
+                        <span style="font-size: 0.8rem; opacity: 0.5;">Video Area (9:16)</span>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">EPISODE 03</span>
+                    <h3 class="video-title" data-th="แพทย์และวิศวะ" data-en="Medicine & Engineering">แพทย์และวิศวะ</h3>
+                    <p class="video-desc" data-th="การผสมผสานสองศาสตร์เพื่อสร้างนวัตกรรมแห่งอนาคต" data-en="Fusing two disciplines to build the innovations of tomorrow.">การผสมผสานสองศาสตร์เพื่อสร้างนวัตกรรมแห่งอนาคต</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="archive-section">
+        <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+            <div class="section-header">
+                <h2 data-th="จดหมายจากอาจารย์" data-en="The Written Archives">จดหมายจากอาจารย์</h2>
+                <p data-th="บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เปี่ยมด้วยแรงบันดาลใจ" data-en="Inspiring editorial interviews and stories.">บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เปี่ยมด้วยแรงบันดาลใจ</p>
+            </div>
+
+            <div class="blog-grid">
+                
+                <a href="#" class="blog-card">
+                    <div class="blog-meta">
+                        March 15, 2026<br>
+                        <span style="color: var(--accent-gold); font-size: 0.75rem; text-transform: uppercase;">Interview</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 data-th="กว่าจะเป็นอาจารย์แพทย์ใหญ่" data-en="Becoming the Chief of Medicine">กว่าจะเป็นอาจารย์แพทย์ใหญ่</h3>
+                        <p data-th="คุยกับ ศ.นพ. ถึงปรัชญาการทำงานและความหมายของการเป็นหมอ" data-en="A conversation with the Professor on work philosophy and the meaning of being a doctor.">คุยกับ ศ.นพ. ถึงปรัชญาการทำงานและความหมายของการเป็นหมอ</p>
+                    </div>
+                    <div class="blog-arrow">→</div>
+                </a>
+
+                <a href="#" class="blog-card">
+                    <div class="blog-meta">
+                        February 28, 2026<br>
+                        <span style="color: var(--accent-gold); font-size: 0.75rem; text-transform: uppercase;">Reflection</span>
+                    </div>
+                    <div class="blog-content">
+                        <h3 data-th="เมื่อความผิดพลาดคือครูที่ดีที่สุด" data-en="When Failure is the Best Teacher">เมื่อความผิดพลาดคือครูที่ดีที่สุด</h3>
+                        <p data-th="เรื่องเล่าจากเวรดึกที่เปลี่ยนมุมมองการใช้ชีวิตไปตลอดกาล" data-en="A story from a night shift that changed a perspective on life forever.">เรื่องเล่าจากเวรดึกที่เปลี่ยนมุมมองการใช้ชีวิตไปตลอดกาล</p>
+                    </div>
+                    <div class="blog-arrow">→</div>
+                </a>
+
             </div>
         </div>
-    </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Prawees • Gwa-Ja-Pen Series</p>
+    </footer>
+
     <script>
         function setLanguage(lang) {
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
             const elements = document.querySelectorAll('[data-th]');
             elements.forEach(el => {
+                // Subtle fade transition for text
+                el.style.transition = 'opacity 0.2s';
                 el.style.opacity = '0';
                 setTimeout(() => {
                     el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
                     el.style.opacity = '1';
-                }, 150);
+                }, 200);
             });
         }
+        
+        // Initialize with Thai
         window.onload = () => setLanguage('th');
     </script>
 </body>
