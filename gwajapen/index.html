@@ -35,62 +35,42 @@
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 25px 6vw; display: flex; justify-content: space-between;
             z-index: 100; color: white;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
+            /* ปรับ Gradient ให้จางลงเพื่อให้เห็นภาพชัดขึ้น แต่ยังอ่านปุ่มเมนูได้ */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
         }
         .back-link {
             text-decoration: none; color: inherit; font-weight: 600;
             font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
             display: flex; align-items: center; gap: 8px; transition: opacity 0.3s;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         .back-link:hover { opacity: 0.7; }
         
         .lang-switcher { display: flex; gap: 10px; }
         .lang-switcher button { 
             background: transparent; border: none; font-size: 0.8rem; 
-            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.5;
+            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.6;
             transition: opacity 0.3s; letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        .lang-switcher button:hover { opacity: 0.8; }
+        .lang-switcher button:hover { opacity: 0.9; }
         .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (CLEAN VERSION) --- */
         .hero {
-            position: relative; width: 100%; height: 75vh; min-height: 500px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; color: white; overflow: hidden;
-            padding-top: 80px; 
+            position: relative; width: 100%; height: 60vh; min-height: 400px;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
         }
         .hero-banner-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center 20%; z-index: -2;
-            background: #1a1a1a;
+            object-fit: cover; object-position: center; z-index: -1;
         }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
-            z-index: -1;
-        }
-        .hero-content {
-            max-width: 800px; padding: 0 20px;
-            animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            margin-top: 5vh;
-        }
-        .hero-title {
-            font-family: 'Lora', serif; font-size: 4.5rem; font-weight: 500;
-            letter-spacing: -2px; margin-bottom: 20px; line-height: 1.1;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .hero-subtitle {
-            font-size: 1.2rem; font-weight: 300; opacity: 0.9;
-            max-width: 650px; margin: 0 auto; line-height: 1.8;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
+        /* ลบ Overlay สีดำออกเพื่อให้ภาพสว่างชัดเจน */
 
         /* --- LAYOUT WRAPPER --- */
         .section-container {
-            max-width: 1400px; margin: 0 auto; padding: 100px 6vw;
+            max-width: 1400px; margin: 0 auto; padding: 80px 6vw;
         }
         .section-header {
             margin-bottom: 60px; text-align: center;
@@ -120,12 +100,8 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.08);
         }
         .video-embed-wrapper {
-            width: 100%;
-            background-color: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* ลบ padding ที่เคยบังคับสัดส่วนออก เพื่อให้ TikTok คำนวณความสูงเอง */
+            width: 100%; background-color: #050505;
+            display: flex; justify-content: center; align-items: center;
         }
         
         .video-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -176,13 +152,8 @@
             font-size: 0.9rem; color: var(--text-muted);
         }
 
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
         @media (max-width: 900px) {
-            .hero-title { font-size: 3rem; }
+            .hero { height: 40vh; min-height: 300px; }
             .blog-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 40px 0; }
             .blog-card:hover { padding-left: 0; padding-right: 0; background-color: transparent; }
             .blog-meta { width: 100%; }
@@ -205,19 +176,12 @@
 
     <section class="hero">
         <img src="banner.jpg" alt="กว่า-จะ-เป็น Channel Banner" class="hero-banner-img">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title" data-th="กว่า-จะ-เป็น" data-en="The Journey Before">กว่า-จะ-เป็น</h1>
-            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจ" data-en="The untold stories, the unseen struggles, and unfiltered inspirations.">
-                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์ของเหล่าผู้เชี่ยวชาญ
-            </p>
-        </div>
     </section>
 
     <section class="section-container">
         <div class="section-header">
-            <h2 data-th="วิดีโอสัมภาษณ์" data-en="The Visual Series">วิดีโอสัมภาษณ์</h2>
-            <p data-th="เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง" data-en="Deep dives into their lives through the lens.">เจาะลึกเส้นทางชีวิตผ่านเลนส์กล้อง</p>
+            <h2 data-th="วิดีโอสัมภาษณ์" data-en="Interview Series">วิดีโอสัมภาษณ์</h2>
+            <p data-th="เส้นทางชีวิตผ่านบทสัมภาษณ์สั้นๆ" data-en="Dive into seniors' lives through mini-interviews.">เส้นทางชีวิตผ่านบทสัมภาษณ์สั้นๆ</p>
         </div>
         
         <div class="video-grid" id="video-container"></div>
@@ -226,8 +190,8 @@
     <section class="archive-section">
         <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
             <div class="section-header">
-                <h2 data-th="จดหมายจากอาจารย์" data-en="The Written Archives">จดหมายจากอาจารย์</h2>
-                <p data-th="บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เจาะลึกข้อมูล Uncut และ Roadmap" data-en="Inspiring editorial interviews, uncut data, and roadmap insights.">บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่เจาะลึกข้อมูล Uncut และ Roadmap</p>
+                <h2 data-th="บทความสัมภาษณ์" data-en="Written Archives">บทความสัมภาษณ์</h2>
+                <p data-th="บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่จะทำให้ทุกคนได้รู้จักกับเส้นทางในอนาคตมากขึ้น" data-en="Inspiring editorial interviews for career inspiration.">บทสัมภาษณ์พิเศษแบบฉบับอ่าน ที่จะทำให้ทุกคนได้รู้จักกับเส้นทางในอนาคตมากขึ้น</p>
             </div>
             
             <div class="blog-grid" id="blog-container"></div>
@@ -240,34 +204,24 @@
 
     <script>
         const database = {
-            
-            // 🎬 1. ADD YOUR VIDEOS HERE
             videos: [
                 {
                     episode: "01",
-                    title_th: "กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪",
-                    title_en: "Neurosurgery Resident 🧠🔪",
-                    desc_th: "พญ.ธนพร เจริญงามเสมอ",
-                    desc_en: "Tanaporn Jaroenngarmsamer, M.D.",
-                    // แก้ไขตรงนี้: ลบ Tag <script> ออกจากกล่อง embed
+                    title_th: "Neurosurgery Resident",
+                    title_en: "Neurosurgery Resident",
+                    desc_th: "กับ พญ.ธนพร เจริญงามเสมอ",
+                    desc_en: "with Tanaporn Jaroenngarmsamer, M.D.",
                     embed_code: `
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 <a title="studygramthailand" target="_blank" href="https://www.tiktok.com/tag/studygramthailand?refer=embed">#studygramthailand</a> <a title="แพทย์" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C?refer=embed">#แพทย์</a> <a title="neurosurgery" target="_blank" href="https://www.tiktok.com/tag/neurosurgery?refer=embed">#neurosurgery</a> <a target="_blank" title="♬ original sound  - gwa.ja.pen" href="https://www.tiktok.com/music/original-sound-gwajapen-7605159890834836242?refer=embed">♬ original sound  - gwa.ja.pen</a> </section> </blockquote>
                     `
                 }
             ],
-
-            // 📝 2. ADD YOUR BLOG ENTRIES HERE
             blogs: []
         };
-
-        // ==========================================
-        // ⚙️ THE ENGINE (DO NOT EDIT BELOW THIS LINE) ⚙️
-        // ==========================================
         
         let currentLang = 'th';
 
         function renderContent() {
-            // Render Videos
             const videoContainer = document.getElementById('video-container');
             videoContainer.innerHTML = '';
             
@@ -290,7 +244,6 @@
                 });
             }
 
-            // Render Blogs
             const blogContainer = document.getElementById('blog-container');
             blogContainer.innerHTML = '';
             
@@ -330,12 +283,9 @@
             });
         }
         
-        // Initialize
         window.onload = () => {
-            renderContent(); // 1. สร้างกล่อง HTML ก่อน
+            renderContent();
             setLanguage('th'); 
-            
-            // 2. โหลด Script ของ TikTok เข้าไป "หลังจาก" สร้างกล่องเสร็จแล้ว
             const ttScript = document.createElement('script');
             ttScript.src = 'https://www.tiktok.com/embed.js';
             ttScript.async = true;
