@@ -71,9 +71,6 @@
 
         /* --- LAYOUT WRAPPER --- */
         .section-container { max-width: 1300px; margin: 0 auto; padding: 60px 6vw; }
-        
-        /* Flexbox for overall structure */
-        .main-wrapper { display: flex; flex-direction: column; gap: 50px; }
 
         .aesthetic-heading {
             font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
@@ -85,8 +82,8 @@
         /* --- WORD CLOUD --- */
         .wordcloud-section { width: 100%; }
         .wordcloud-container {
-            position: relative; width: 100%; height: 120px; /* Reduced height */
-            overflow: hidden; display: block; margin-bottom: 10px;
+            position: relative; width: 100%; height: 120px; /* Reduced space */
+            overflow: hidden; display: block; margin-bottom: 20px;
         }
         .cloud-word {
             position: absolute; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
@@ -95,14 +92,7 @@
         }
         .cloud-word.visible { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .cloud-word:hover { color: var(--accent-blue) !important; transform: translate(-50%, -50%) scale(1.1) !important; z-index: 10; }
-
-        /* --- NOTION EMBED (DATABASE) --- */
-        .database-section { width: 100%; }
-        .notion-container {
-            width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: var(--surface-color); position: relative;
-        }
-        .notion-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .cloud-word.fade-out { opacity: 0 !important; }
 
         /* --- VIDEO SECTION --- */
         .video-section { width: 100%; }
@@ -132,11 +122,19 @@
         .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .tiktok-embed { margin: 0 !important; width: 100% !important; max-width: 100% !important; min-width: 100% !important; }
 
+        /* --- NOTION EMBED (DATABASE) --- */
+        .database-section { width: 100%; }
+        .notion-container {
+            width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: var(--surface-color); position: relative;
+        }
+        .notion-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
         /* --- GOOGLE FORM --- */
         .suggestion-section { width: 100%; }
         .form-container {
             width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
-            background: var(--surface-color); position: relative; height: 500px;
+            background: var(--surface-color); position: relative; height: 480px;
         }
         .form-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
@@ -153,15 +151,9 @@
 
         /* --- RESPONSIVE DESKTOP (Side by Side) --- */
         @media (min-width: 1024px) {
-            .main-wrapper { 
-                flex-direction: row; 
-                align-items: flex-start; /* สำคัญมาก: ไม่ให้คอลัมน์สูงเท่ากันจนเกิดพื้นที่ว่าง */
-            }
-            .desktop-col-left { flex: 1; display: flex; flex-direction: column; gap: 50px; }
-            .desktop-col-right { flex: 1.2; display: flex; flex-direction: column; gap: 50px; }
-            
-            .video-grid-container { max-width: 480px; margin: 0; } 
-            .notion-container { height: 600px; }
+            .main-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+            .col-left { display: flex; flex-direction: column; gap: 40px; }
+            .col-right { display: flex; flex-direction: column; gap: 40px; }
         }
 
         /* --- RESPONSIVE MOBILE (Order override) --- */
@@ -169,9 +161,9 @@
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
             
-            /* ใช้ Flex column ซ้อนกัน 1 ชั้น ให้เรียงง่ายๆ */
-            .desktop-col-left, .desktop-col-right { display: contents; }
-            .main-wrapper { display: flex; flex-direction: column; gap: 40px; }
+            .main-layout { display: flex; flex-direction: column; gap: 50px; }
+            /* Unlock the columns so we can reorder children directly */
+            .col-left, .col-right { display: contents; }
             
             /* Order: Word Cloud > Database > Videos > Form */
             .wordcloud-section { order: 1; }
@@ -180,7 +172,6 @@
             .suggestion-section { order: 4; }
             
             .notion-container { height: 500px; }
-            .form-container { height: 450px; }
             .video-grid-container { max-width: 100%; } 
         }
     </style>
@@ -213,9 +204,10 @@
     </section>
 
     <section class="section-container">
-        <div class="main-wrapper">
+        <div class="main-layout">
             
-            <div class="desktop-col-left">
+            <div class="col-left">
+                
                 <div class="wordcloud-section">
                     <div class="wordcloud-container" id="wordcloud">
                         </div>
@@ -234,22 +226,29 @@
                             </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="desktop-col-right">
+            <div class="col-right">
+                
                 <div class="database-section">
                     <div class="aesthetic-heading" data-th="คลังความรู้" data-en="Resources">คลังความรู้</div>
                     <div class="notion-container">
-                        <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" allowfullscreen></iframe>
+                        <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" 
+                                style="width:100%; height:100%; border:0;" 
+                                allowfullscreen></iframe>
                     </div>
                 </div>
 
                 <div class="suggestion-section">
                     <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
                     <div class="form-container">
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" allowfullscreen>Loading…</iframe>
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" 
+                                style="width:100%; height:100%; border:0;" 
+                                allowfullscreen>Loading…</iframe>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -265,7 +264,7 @@
     </footer>
 
     <script>
-        // --- 1. CONTINUOUS WORD CLOUD (Fast Start, Smooth Single Replace) ---
+        // --- 1. CONTINUOUS WORD CLOUD (Immediate Load, Staggered Swap) ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
@@ -283,13 +282,15 @@
         ];
         
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0'];
-        const wordCount = 10; 
+        const wordCount = 8; // ลดจำนวนให้เหลือ 8 ตำแหน่ง เพื่อไม่ให้เบียดกันจนเกินขอบ
 
+        // ปรับตำแหน่งให้กระจายพอดี และขยับเข้าตรงกลางมากขึ้นป้องกันคำยาวทะลุจอ
         const positions = [
-            { top: '20%', left: '15%' }, { top: '30%', left: '50%' }, { top: '15%', left: '85%' },
-            { top: '50%', left: '25%' }, { top: '65%', left: '60%' }, { top: '45%', left: '90%' },
-            { top: '80%', left: '10%' }, { top: '85%', left: '40%' }, { top: '75%', left: '75%' },
-            { top: '35%', left: '5%' }
+            { top: '20%', left: '25%' }, { top: '20%', left: '75%' },
+            { top: '50%', left: '50%' },
+            { top: '80%', left: '25%' }, { top: '80%', left: '75%' },
+            { top: '40%', left: '15%' }, { top: '40%', left: '85%' },
+            { top: '65%', left: '50%' }
         ];
 
         function initWordCloud() {
@@ -301,7 +302,7 @@
                 span.className = 'cloud-word';
                 span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.4 + 0.65).toFixed(2); // 0.65rem - 1.05rem
+                const size = (Math.random() * 0.4 + 0.8).toFixed(2); // ขนาด 0.8rem - 1.2rem
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
                 span.style.fontSize = `${size}rem`;
@@ -312,24 +313,33 @@
                 
                 container.appendChild(span);
                 
-                // Show IMMEDIATELY when loaded
-                setTimeout(() => { span.classList.add('visible'); }, 50);
+                // 1. ให้คำเริ่มปรากฏขึ้นมาทันทีที่เว็บโหลดเสร็จ (ค่อยๆ ทยอยโผล่)
+                setTimeout(() => { 
+                    span.classList.add('visible'); 
+                }, i * 200);
 
-                // Start swapping ONE word at a time continuously
-                setInterval(() => { swapWord(span); }, Math.random() * 4000 + 4000); // 4-8 วิ
+                // 2. ให้เริ่มระบบสลับคำแบบหน่วงเวลา (คำแรกสลับไวหน่อย คำหลังๆ รอนานหน่อย)
+                setTimeout(() => {
+                    swapWord(span);
+                    // หลังจากนั้นให้วนลูปสลับทุกๆ 4 วินาที
+                    setInterval(() => { swapWord(span); }, 4000);
+                }, 1000 + Math.random() * 3000); 
             }
         }
 
         function swapWord(element) {
+            // เฟดออกก่อน 1.5 วินาที
             element.classList.remove('visible');
             element.classList.add('fade-out');
             
             setTimeout(() => {
                 const newWord = medicalWords[Math.floor(Math.random() * medicalWords.length)];
                 const newColor = colors[Math.floor(Math.random() * colors.length)];
+                
                 element.innerText = newWord;
                 element.style.color = newColor;
                 
+                // เฟดกลับเข้ามาใหม่
                 element.classList.remove('fade-out');
                 element.classList.add('visible');
             }, 1500); 
