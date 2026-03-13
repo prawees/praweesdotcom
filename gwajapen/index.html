@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -110,17 +110,14 @@
 
         /* --- CREATIVE WORD CLOUD --- */
         .wordcloud-container {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px 20px;
-            margin-bottom: 40px;
+            /* Removed border and background to make it blend with the site */
+            padding: 20px 0;
+            margin-bottom: 30px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 8px 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            gap: 10px 20px;
             text-align: center;
         }
         .cloud-word {
@@ -128,15 +125,43 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: default;
             display: inline-block;
+            
+            /* Initial state for Pop-out animation */
+            opacity: 0;
+            transform: scale(0.5) translateY(20px);
+            animation: popOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transition: color 0.3s, text-shadow 0.3s; /* for hover */
         }
+        
+        @keyframes popOut {
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         .cloud-word:hover {
-            transform: scale(1.15) !important;
-            opacity: 1 !important;
             color: var(--accent-blue) !important;
-            text-shadow: 0 4px 10px rgba(0, 102, 204, 0.2);
+            text-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        /* --- SUGGESTION BOX --- */
+        .suggestion-box {
+            text-align: center; margin-bottom: 60px;
+            padding: 25px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, transparent 100%);
+            border: 1px dashed var(--border-color);
+        }
+        .suggestion-box p {
+            font-size: 0.95rem; color: var(--text-muted); font-weight: 600; margin-bottom: 15px;
+        }
+        .suggestion-btn {
+            display: inline-block; padding: 10px 25px; border-radius: 30px;
+            background-color: var(--text-main); color: white; text-decoration: none;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .suggestion-btn:hover {
+            transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         /* --- SLIM SLIDER SECTION (VIDEO) --- */
@@ -145,8 +170,7 @@
         }
         
         .carousel-controls {
-            display: flex; /* แสดงเสมอสำหรับ Slim Slider */
-            gap: 10px;
+            display: flex; gap: 10px;
         }
         .carousel-btn {
             background: var(--surface-color); border: 1px solid var(--border-color);
@@ -158,30 +182,22 @@
         .carousel-btn:hover { background: var(--border-color); transform: scale(1.05); }
 
         .video-grid-container {
-            width: 100%;
-            overflow: hidden;
-            /* Slim slider on desktop: confine max-width so it's sleek */
-            max-width: 450px; 
+            width: 100%; overflow: hidden;
+            max-width: 450px; /* Slim slider on mobile */
             margin: 0 auto;
         }
         .video-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            gap: 20px;
-            padding-bottom: 15px;
-            scrollbar-width: none; /* Firefox */
+            display: flex; overflow-x: auto;
+            scroll-snap-type: x mandatory; scroll-behavior: smooth;
+            gap: 20px; padding-bottom: 15px; scrollbar-width: none;
         }
-        .video-grid::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+        .video-grid::-webkit-scrollbar { display: none; }
         
         .video-card {
             background: var(--surface-color); border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column;
             border: 1px solid var(--border-color);
-            /* ควบคุมให้แสดงทีละ 1 การ์ด 100% พอดีจอ */
-            min-width: 100%;
-            flex: 0 0 100%;
+            min-width: 100%; flex: 0 0 100%;
             scroll-snap-align: center;
         }
         .video-info-top { padding: 20px; border-bottom: 1px solid var(--border-color); }
@@ -191,7 +207,7 @@
 
         .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; }
 
-        /* --- NOTION EMBED SECTION (NESTED) --- */
+        /* --- NOTION EMBED SECTION --- */
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -200,24 +216,33 @@
 
         /* --- FOOTER --- */
         .footer-contact {
-            text-align: center; padding: 50px 20px; border-top: 1px solid var(--border-color);
+            text-align: center; padding: 60px 20px 40px 20px; border-top: 1px solid var(--border-color);
         }
         .footer-links {
-            display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;
         }
+        
+        /* FOOTER ACTUAL BUTTONS */
         .footer-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.3s;
+            color: var(--text-main); text-decoration: none; font-size: 0.75rem; font-weight: 700; 
             font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 1px;
+            padding: 10px 24px; border: 1px solid var(--border-color); border-radius: 8px;
+            background-color: var(--surface-color); box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.3s ease; display: inline-flex; align-items: center;
         }
-        .footer-links a:hover { color: var(--text-main); }
-        .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; }
+        .footer-links a:hover { 
+            border-color: var(--text-main); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; margin-top: 20px; }
 
-        /* RESPONSIVE DESKTOP LAYOUT */
+        /* RESPONSIVE DESKTOP LAYOUT (Side by Side) */
         @media (min-width: 1024px) {
             .main-split { grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: start; }
             .sticky-notion { position: sticky; top: 100px; }
             .notion-container { height: calc(100vh - 200px); min-height: 500px; max-height: 800px; }
-            .video-grid-container { max-width: 100%; } /* คลายให้เต็มกล่องฝั่งซ้ายบน Desktop */
+            
+            /* Keep video container restricted so embeds don't look gigantic */
+            .video-grid-container { max-width: 480px; margin: 0; } 
         }
 
         @media (max-width: 768px) {
@@ -255,12 +280,18 @@
     </section>
 
     <section class="section-container">
+        
         <div class="main-split">
             
             <div class="videos-side">
                 
                 <div class="wordcloud-container" id="wordcloud">
                     </div>
+                
+                <div class="suggestion-box">
+                    <p data-th="อยากให้เราสัมภาษณ์สายงานไหนต่อไป?" data-en="Who should we interview next?">อยากให้เราสัมภาษณ์สายงานไหนต่อไป?</p>
+                    <a href="mailto:prawee.sin@gmail.com?subject=Gwa-Ja-Pen Suggestion" class="suggestion-btn" data-th="ส่งไอเดียของคุณ" data-en="Send Suggestion">ส่งไอเดียของคุณ</a>
+                </div>
 
                 <div class="video-header-controls">
                     <div class="aesthetic-heading" style="margin-bottom:0;" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
@@ -298,7 +329,7 @@
     </footer>
 
     <script>
-        // --- 1. WORD CLOUD LOGIC ---
+        // --- 1. WORD CLOUD LOGIC WITH ANIMATION ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
@@ -307,26 +338,25 @@
             "Pathologist", "Creator", "General Practitioner", "Data Analyst", "Policy Maker"
         ];
         
-        // พาเลทสีสไตล์มินิมอล/พรีเมียม
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0'];
 
         function renderWordCloud() {
             const cloudContainer = document.getElementById('wordcloud');
-            
-            // Randomize array
             const shuffled = medicalWords.sort(() => 0.5 - Math.random());
             
-            cloudContainer.innerHTML = shuffled.map(word => {
-                const size = (Math.random() * 0.65 + 0.6).toFixed(2); // 0.6rem to 1.25rem
-                const opacity = (Math.random() * 0.6 + 0.4).toFixed(2); // 0.4 to 1.0
+            cloudContainer.innerHTML = shuffled.map((word, index) => {
+                const size = (Math.random() * 0.7 + 0.6).toFixed(2); // 0.6rem to 1.3rem
+                const initialOpacity = (Math.random() * 0.5 + 0.3).toFixed(2); 
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
-                return `<span class="cloud-word" style="font-size: ${size}rem; opacity: ${opacity}; color: ${color};">${word}</span>`;
+                // สุ่ม delay ให้ค่อยๆ โผล่มาทีละคำ
+                const delay = (Math.random() * 1.5).toFixed(2); 
+                
+                return `<span class="cloud-word" style="font-size: ${size}rem; color: ${color}; animation-delay: ${delay}s;">${word}</span>`;
             }).join('');
         }
 
         // --- 2. VIDEO DATABASE ---
-        // FIXED: แก้ max-width/min-width ใน style ของ blockquote เพื่อป้องกันกรอบทะลุจอ
         const database = {
             videos: [
                 {
@@ -378,7 +408,6 @@
                 </div>
             `).join('');
 
-            // โหลดสคริปต์ TikTok หลังจาก HTML เสร็จ เพื่อป้องกันปัญหา Embed พัง
             const ttScript = document.createElement('script');
             ttScript.src = 'https://www.tiktok.com/embed.js';
             ttScript.async = true;
@@ -388,7 +417,6 @@
         // --- 3. SLIDER NAVIGATION ---
         function scrollSlider(direction) {
             const container = document.getElementById('video-container');
-            // คำนวณความกว้างของการ์ด 1 ใบ รวมกับช่องว่าง (gap 20px)
             const cardWidth = container.querySelector('.video-card').offsetWidth + 20; 
             container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
         }
