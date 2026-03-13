@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&family=Anuphan:wght@200;400;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%231D1D1F'/><text x='50' y='68' font-family='sans-serif' font-size='50' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'>PS</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Prompt:wght@200;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --bg-color: #FAFAFA; 
             --surface-color: #FFFFFF;
-            --text-main: #1A1A1A; 
-            --text-muted: #666666; 
-            --border-color: #EAEAEA; 
+            --text-main: #1D1D1F; 
+            --text-muted: #86868B; 
+            --border-color: rgba(0, 0, 0, 0.05); 
             --accent-gold: #D4AF37;
+            --font-en: 'Outfit', sans-serif;
+            --font-th: 'Prompt', sans-serif;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,7 +26,7 @@
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            font-family: var(--font-th); 
             line-height: 1.5; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -31,26 +35,42 @@
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 15px 6vw; display: flex; justify-content: space-between;
-            z-index: 100; color: white;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+            padding: 15px 5vw; display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; background: rgba(250, 250, 252, 0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
         }
+
+        .logo-area { display: flex; align-items: center; gap: 20px; }
+        
+        .logo-svg {
+            width: 35px; height: 35px;
+            animation: floatLogo 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatLogo {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
+        }
+
         .back-link {
-            text-decoration: none; color: inherit; font-weight: 600;
-            font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
+            text-decoration: none; color: var(--text-main); font-weight: 600;
+            font-family: var(--font-en); font-size: 0.8rem; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 8px; transition: opacity 0.3s;
         }
+        .back-link:hover { opacity: 0.6; }
         
         .lang-switcher button { 
-            background: transparent; border: none; font-size: 0.8rem; 
-            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.6;
+            background: transparent; border: none; font-size: 0.75rem; font-family: var(--font-en);
+            font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s;
         }
-        .lang-switcher button.active { opacity: 1; text-decoration: underline; }
+        .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 4px; }
 
         /* --- HERO SECTION --- */
         .hero {
             position: relative; width: 100%; height: 50vh; min-height: 350px;
             display: flex; justify-content: center; align-items: flex-end;
-            overflow: hidden; padding-bottom: 40px;
+            overflow: hidden; padding-bottom: 40px; margin-top: 60px;
         }
         .hero-banner-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -58,7 +78,7 @@
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.6) 100%);
+            background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.5) 100%);
             z-index: 0;
         }
         .hero-content {
@@ -67,64 +87,51 @@
         }
         .hero-subtitle {
             font-size: 1.1rem; font-weight: 300; line-height: 1.6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
         }
 
         /* --- LAYOUT WRAPPER --- */
-        .section-container {
-            max-width: 1200px; margin: 0 auto; padding: 60px 6vw;
-        }
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 60px 5vw; }
         .section-header { margin-bottom: 40px; text-align: center; }
-        .section-header h2 { font-family: 'Lora', serif; font-size: 2.2rem; margin-bottom: 15px; }
+        .section-header h2 { font-family: 'Lora', serif; font-size: 2.5rem; font-weight: 400; margin-bottom: 15px; }
 
-        /* --- SOCIAL LINKS UNDER HEADER --- */
-        .header-socials {
-            display: flex; justify-content: center; gap: 20px; margin-top: 10px;
-        }
+        .header-socials { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
         .header-socials a {
-            text-decoration: none; font-size: 0.8rem; font-weight: 600;
-            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
-            padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 30px;
-            transition: all 0.3s ease;
+            text-decoration: none; font-size: 0.75rem; font-weight: 600; font-family: var(--font-en);
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 8px 20px; border: 1px solid var(--border-color); border-radius: 30px;
+            transition: all 0.3s;
         }
-        .header-socials a:hover {
-            color: var(--accent-gold); border-color: var(--accent-gold); background: rgba(212, 175, 55, 0.05);
-        }
+        .header-socials a:hover { color: var(--text-main); border-color: var(--text-main); background: rgba(0,0,0,0.03); }
 
         /* --- COMPACT VIDEO GRID --- */
         .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;
         }
         .video-card {
-            background: var(--surface-color);
-            border-radius: 16px; overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-            display: flex; flex-direction: column;
+            background: var(--surface-color); border-radius: 16px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column;
+            border: 1px solid var(--border-color);
         }
-        .video-info-top { padding: 20px 20px 15px 20px; border-bottom: 1px solid var(--border-color); }
-        .video-tag { font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1.5px; }
-        .video-title { font-size: 1.15rem; font-weight: 600; margin: 5px 0; line-height: 1.3; }
-        .video-desc { font-size: 0.9rem; color: var(--text-muted); }
+        .video-info-top { padding: 25px 25px 15px 25px; border-bottom: 1px solid var(--border-color); }
+        .video-tag { font-family: var(--font-en); font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
+        .video-title { font-size: 1.2rem; font-weight: 600; margin: 8px 0; line-height: 1.4; }
+        .video-desc { font-size: 0.95rem; color: var(--text-muted); }
 
-        .video-embed-wrapper {
-            width: 100%; background-color: #000;
-            display: flex; justify-content: center;
-        }
+        .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; }
 
-        /* --- NOTION EMBED SECTION --- */
-        .notion-section { background: var(--surface-color); padding: 80px 0; border-top: 1px solid var(--border-color); }
+        /* --- NOTION SECTION --- */
+        .notion-section { background: #FFFFFF; padding: 80px 0; border-top: 1px solid var(--border-color); }
         .notion-container {
-            width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            width: 100%; height: 600px; border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border-color); box-shadow: 0 10px 40px rgba(0,0,0,0.04);
         }
 
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--text-muted); }
+        footer { text-align: center; padding: 50px; font-size: 0.75rem; font-family: var(--font-en); color: var(--text-muted); letter-spacing: 2px; }
 
         @media (max-width: 768px) {
             .hero { height: 40vh; }
-            .hero-subtitle { font-size: 1rem; }
+            .section-header h2 { font-size: 2rem; }
             .notion-container { height: 500px; }
         }
     </style>
@@ -132,9 +139,17 @@
 <body>
 
     <nav class="top-bar">
-        <a href="https://prawees.com" class="back-link">
-            <span>←</span> <span data-th="กลับหน้าหลัก" data-en="Home">กลับหน้าหลัก</span>
-        </a>
+        <div class="logo-area">
+            <a href="https://prawees.com">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-svg">
+                    <rect width="100" height="100" rx="25" fill="#1D1D1F"/>
+                    <text x="50" y="68" font-family="'Outfit', sans-serif" font-size="50" font-weight="700" fill="#FFFFFF" text-anchor="middle">PS</text>
+                </svg>
+            </a>
+            <a href="https://prawees.com" class="back-link">
+                <span>←</span> <span data-th="INDEX" data-en="INDEX">INDEX</span>
+            </a>
+        </div>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
             <button onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -145,16 +160,16 @@
         <img src="banner.jpg" alt="Banner" class="hero-banner-img">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="hero-subtitle" data-th="เรื่องราวจากรุ่นพี่และอาจารย์ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ" 
-               data-en="Seniors' untold stories, hidden challenges, and unfiltered inspirations.">
-                เรื่องราวจากรุ่นพี่และอาจารย์ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ
+            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์" 
+               data-en="The untold stories, hidden challenges, and unfiltered inspirations behind the white coat.">
+                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์
             </p>
         </div>
     </section>
 
     <section class="section-container">
         <div class="section-header">
-            <h2 data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</h2>
+            <h2 data-th="คลิปสัมภาษณ์" data-en="Visual Series">คลิปสัมภาษณ์</h2>
             <div class="header-socials">
                 <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok</a>
                 <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">Instagram</a>
@@ -167,7 +182,7 @@
         <div class="section-container" style="padding-top: 0;">
             <div class="section-header">
                 <h2 data-th="คลังความรู้ & Roadmap" data-en="Resources & Roadmap">คลังความรู้ & Roadmap</h2>
-                <p data-th="สำรวจเส้นทางอาชีพและอ่านบทความน่าสนใจ ผ่าน Notion Database" data-en="Explore career paths and in-depth data via our Notion Database.">สำรวจเส้นทางอาชีพและข้อมูลเจาะลึกผ่าน Notion Database</p>
+                <p data-th="สำรวจเส้นทางอาชีพและอ่านบทความน่าสนใจ ผ่าน Notion Database" data-en="Explore career paths and in-depth data via our Notion Database.">สำรวจเส้นทางอาชีพและอ่านบทความน่าสนใจ ผ่าน Notion Database</p>
             </div>
             
             <div class="notion-container">
@@ -178,7 +193,7 @@
         </div>
     </section>
 
-    <footer><p>© 2026 Prawees • Gwa-Ja-Pen Series</p></footer>
+    <footer><p>© 2026 PRAWEES • ALL RIGHTS RESERVED</p></footer>
 
     <script>
         const database = {
