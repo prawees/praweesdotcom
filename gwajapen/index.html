@@ -91,14 +91,18 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* --- LAYOUT WRAPPER --- */
+        /* --- LAYOUT WRAPPER (FLEXBOX) --- */
         .section-container {
-            max-width: 1300px; margin: 0 auto; padding: 60px 6vw;
+            max-width: 1400px; margin: 0 auto; padding: 60px 6vw;
         }
         
-        .main-split {
-            display: grid; grid-template-columns: 1fr; gap: 60px;
+        .main-layout {
+            display: flex; gap: 60px;
+            align-items: flex-start; /* สำคัญ: ป้องกันกล่องยืดความสูงตามกัน */
         }
+        
+        .left-col { flex: 1; display: flex; flex-direction: column; gap: 50px; }
+        .right-col { flex: 1.2; display: flex; flex-direction: column; gap: 50px; }
 
         .aesthetic-heading {
             font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
@@ -112,18 +116,32 @@
 
         /* --- STABLE WORD CLOUD --- */
         .wordcloud-container {
-            padding: 0; display: flex; flex-wrap: wrap; justify-content: center;
-            align-content: center; gap: 12px 20px; text-align: center;
-            height: 160px; overflow: hidden; margin-bottom: 30px;
+            position: relative;
+            width: 100%;
+            height: 140px; /* Lock height */
+            overflow: hidden;
+            display: block; /* เลิกใช้ flex เพราะจะกำหนดตำแหน่งแบบ absolute */
         }
         .cloud-word {
+            position: absolute;
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
             cursor: default; display: inline-block;
-            transition: opacity 2s ease-in-out, color 0.4s, transform 0.4s;
+            transition: opacity 1.5s ease-in-out, color 0.4s, transform 0.4s;
+            opacity: 0;
+            white-space: nowrap;
+            /* Center elements perfectly to their absolute coordinates */
+            transform: translate(-50%, -50%) scale(1);
         }
-        .cloud-word.fade-out { opacity: 0 !important; }
-        .cloud-word:hover { color: var(--accent-blue) !important; transform: scale(1.1); }
+        .cloud-word.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .cloud-word:hover {
+            color: var(--accent-blue) !important;
+            transform: translate(-50%, -50%) scale(1.1) !important;
+            z-index: 10;
+        }
 
         /* --- VIDEO SECTION & RESPONSIVE EMBED --- */
         .video-header-controls {
@@ -139,6 +157,7 @@
 
         .video-grid-container {
             width: 100%; overflow: hidden; margin: 0 auto;
+            max-width: 480px; /* Limit width to keep slider slim */
         }
         .video-grid {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
@@ -167,7 +186,7 @@
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            background: var(--surface-color); position: relative; margin-bottom: 50px;
+            background: var(--surface-color); position: relative;
         }
         .notion-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
@@ -178,7 +197,7 @@
             width: 100%; border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
             background: var(--surface-color); position: relative;
-            height: 480px; /* Fixed height ป้องกัน Overlap */
+            height: 480px;
         }
         .form-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
@@ -206,18 +225,9 @@
         }
         .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; margin-top: 25px; }
 
-        /* --- RESPONSIVE DESKTOP (Side by Side) --- */
+        /* --- RESPONSIVE DESKTOP OVERRIDES --- */
         @media (min-width: 1024px) {
-            .main-split { grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-            .notion-container { height: 600px; } /* ถอด calc เพื่อป้องกันปัญหาล้นกรอบ */
-            .video-grid-container { max-width: 480px; margin: 0; } 
-            
-            /* แก้ไขการจัดเรียงภายในฝั่งขวา */
-            .notion-side {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
+            /* ไม่ทำอะไรมาก เพราะ Flexbox เรียงซ้ายขวาอยู่แล้ว */
         }
 
         /* --- RESPONSIVE MOBILE (Strict Order) --- */
@@ -225,16 +235,21 @@
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
             
-            .main-split { display: flex; flex-direction: column; gap: 50px; }
-            .videos-side, .notion-side { display: contents; }
+            /* เปลี่ยน Layout ให้เรียงลงมาตรงๆ (Single Column) */
+            .main-layout { display: flex; flex-direction: column; gap: 50px; }
             
-            #wordcloud { order: 1; margin-bottom: 0; }
+            /* ใช้ display: contents ให้ div ซ้าย-ขวา หายไปในเชิงโครงสร้าง
+               แล้วใช้ order สลับตำแหน่ง Element ภายใน */
+            .left-col, .right-col { display: contents; }
+            
+            /* Order: Word Cloud > Database > Videos > Form */
+            .wordcloud-section { order: 1; }
             .database-section { order: 2; }
             .video-section { order: 3; }
             .suggestion-section { order: 4; }
             
-            .notion-container { height: 500px; margin-bottom: 0; }
-            .form-container { height: 480px; }
+            .notion-container { height: 500px; }
+            .video-grid-container { max-width: 100%; } /* ยืดเต็มจอบนมมือถือ */
         }
     </style>
 </head>
@@ -266,14 +281,17 @@
     </section>
 
     <section class="section-container">
-        <div class="main-split">
+        
+        <div class="main-layout">
             
-            <div class="videos-side">
+            <div class="left-col">
                 
-                <div class="wordcloud-container order-1" id="wordcloud">
-                    </div>
+                <div class="wordcloud-section">
+                    <div class="wordcloud-container" id="wordcloud">
+                        </div>
+                </div>
 
-                <div class="video-section order-3">
+                <div class="video-section">
                     <div class="video-header-controls">
                         <div class="aesthetic-heading" style="margin-bottom:0;" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
                         <div class="carousel-controls">
@@ -289,9 +307,9 @@
 
             </div>
 
-            <div class="notion-side">
+            <div class="right-col">
                 
-                <div class="database-section order-2">
+                <div class="database-section">
                     <div class="aesthetic-heading" data-th="คลังความรู้" data-en="Resources">คลังความรู้</div>
                     <div class="notion-container">
                         <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" 
@@ -300,7 +318,7 @@
                     </div>
                 </div>
 
-                <div class="suggestion-section order-4">
+                <div class="suggestion-section">
                     <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
                     <div class="form-container">
                         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" 
@@ -324,7 +342,7 @@
     </footer>
 
     <script>
-        // --- 1. CONTINUOUS WORD CLOUD ---
+        // --- 1. CONTINUOUS WORD CLOUD (Stable Position, Fast Start) ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
@@ -344,6 +362,14 @@
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0'];
         const wordCount = 10; 
 
+        // คำนวณตำแหน่งคงที่ 10 จุด ให้อยู่กระจายทั่วกล่อง 160px
+        const positions = [
+            { top: '20%', left: '15%' }, { top: '30%', left: '50%' }, { top: '15%', left: '85%' },
+            { top: '50%', left: '25%' }, { top: '65%', left: '60%' }, { top: '45%', left: '90%' },
+            { top: '80%', left: '10%' }, { top: '85%', left: '40%' }, { top: '75%', left: '75%' },
+            { top: '35%', left: '5%' }
+        ];
+
         function initWordCloud() {
             const container = document.getElementById('wordcloud');
             const shuffled = medicalWords.sort(() => 0.5 - Math.random());
@@ -353,26 +379,33 @@
                 span.className = 'cloud-word';
                 span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.4 + 0.6).toFixed(2); 
+                const size = (Math.random() * 0.4 + 0.7).toFixed(2); // 0.7rem - 1.1rem
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
                 span.style.fontSize = `${size}rem`;
                 span.style.color = color;
                 span.innerText = shuffled[i];
                 
+                // กำหนดตำแหน่งคงที่ (Absolute Position) แบบ Center Origin
+                span.style.top = positions[i].top;
+                span.style.left = positions[i].left;
+                
                 container.appendChild(span);
                 
+                // สั่งให้คำชุดแรก Fade In ทันทีที่โหลด (หน่วงเวลานิดๆ ให้สวย)
                 setTimeout(() => {
-                    span.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2);
-                }, 100);
+                    span.classList.add('visible');
+                }, Math.random() * 500);
 
+                // เริ่มลูปสลับคำ (หน่วงเวลาเปลี่ยนให้ยาวขึ้น)
                 setInterval(() => {
                     swapWord(span);
-                }, Math.random() * 6000 + 6000); 
+                }, Math.random() * 5000 + 5000); // ทุก 5-10 วิ
             }
         }
 
         function swapWord(element) {
+            element.classList.remove('visible');
             element.classList.add('fade-out');
             
             setTimeout(() => {
@@ -383,8 +416,8 @@
                 element.style.color = newColor;
                 
                 element.classList.remove('fade-out');
-                element.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2); 
-            }, 2000); 
+                element.classList.add('visible');
+            }, 1500); 
         }
 
         // --- 2. VIDEO DATABASE ---
