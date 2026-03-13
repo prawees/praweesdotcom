@@ -3,11 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prawee S. | Medical Student & Creator</title>
+    
+    <title>ประวีร์ สินวีรุทัย (Prawee Sinweeruthai) | prawees - smprv</title>
+    <meta name="description" content="เว็บไซต์ทางการของ ประวีร์ สินวีรุทัย (Prawee Sinweeruthai) หรือ สมาร์ท (Smart) นักศึกษาแพทย์ M.D.-M.Eng รามาธิบดี และผู้สร้างสรรค์เนื้อหา prawees / smprv">
+    <meta name="keywords" content="ประวีร์ สินวีรุทัย, Prawee Sinweeruthai, prawees, smprv, ประวีร์, สมาร์ท">
+    <meta name="author" content="Prawee Sinweeruthai">
+    
+    <meta property="og:title" content="ประวีร์ สินวีรุทัย (Prawee Sinweeruthai) | prawees">
+    <meta property="og:description" content="นักศึกษาแพทย์ M.D.-M.Eng ที่เชื่อมโยงเรื่องราวทางการแพทย์ วิศวกรรม และการเล่าเรื่อง">
+    <meta property="og:image" content="https://prawees.com/portrait.jpg">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "ประวีร์ สินวีรุทัย",
+      "alternateName": ["Prawee Sinweeruthai", "prawees", "smprv", "ประวีร์", "สมาร์ท", "Smart"],
+      "url": "https://prawees.com",
+      "image": "https://prawees.com/portrait.jpg",
+      "jobTitle": "Medical Student & Content Creator",
+      "alumniOf": "Mahidol University"
+    }
+    </script>
     
     <link rel="icon" type="image/png" href="logo.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -25,7 +47,7 @@
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            font-family: 'Plus Jakarta Sans', 'Anuphan', sans-serif; 
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
             line-height: 1.6; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -35,34 +57,34 @@
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 20px 4vw; display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; background: rgba(251, 251, 253, 0.7);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            z-index: 100; background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
         }
         .site-logo {
-            height: 24px; width: auto; opacity: 0.8; transition: opacity 0.3s;
+            height: 22px; width: auto; opacity: 0.85; transition: opacity 0.3s, transform 0.3s;
         }
-        .site-logo:hover { opacity: 1; }
+        .site-logo:hover { opacity: 1; transform: scale(0.95); }
         
         .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-left: 15px; transition: 0.3s; cursor: pointer; }
         .lang-switcher button.active { color: var(--text-main); border-bottom: 1.5px solid var(--text-main); padding-bottom: 2px; }
 
         /* --- SPLIT LAYOUT --- */
-        .layout-wrapper { display: flex; min-height: 100vh; padding-top: 60px; }
-        .content-side { flex: 1; padding: 6vw; display: flex; flex-direction: column; justify-content: center; }
+        .layout-wrapper { display: flex; min-height: 100vh; padding-top: 70px; }
+        .content-side { flex: 1; padding: 6vw 5vw 6vw 7vw; display: flex; flex-direction: column; justify-content: center; }
         .image-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4vw; }
         
         /* --- TYPOGRAPHY --- */
         .header-intro { margin-bottom: 60px; opacity: 0; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .name-title { 
-            font-size: 4.5rem; font-weight: 600; 
+            font-family: 'Lora', serif; font-size: 4.5rem; font-weight: 400; 
             letter-spacing: -2px; line-height: 1.4; margin-bottom: 15px; padding-bottom: 10px;
             background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .role { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 20px; }
         .bio { font-size: 1.15rem; max-width: 85%; color: var(--text-muted); line-height: 1.8; font-weight: 400; }
 
-        /* --- ABSTRACT MENU (DIRECTORY STYLE) --- */
+        /* --- ABSTRACT MENU --- */
         .abstract-menu { display: flex; flex-direction: column; border-top: 1px solid var(--border-color); }
         .menu-item { 
             display: flex; align-items: center; padding: 35px 0; 
@@ -74,23 +96,25 @@
         .menu-item:nth-child(2) { animation-delay: 0.2s; }
         .menu-item:nth-child(3) { animation-delay: 0.3s; }
         
-        .menu-item:hover { padding-left: 20px; background-color: rgba(0,0,0,0.01); }
-        .menu-num { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); width: 60px; letter-spacing: 1px; }
+        .menu-item:hover { padding-left: 20px; background-color: rgba(0,0,0,0.015); border-bottom-color: rgba(0,0,0,0.1); }
+        .menu-num { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); width: 60px; letter-spacing: 1px; transition: color 0.3s; }
+        .menu-item:hover .menu-num { color: var(--accent-blue); }
+        
         .menu-text { flex: 1; }
-        .menu-text h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 6px; }
+        .menu-text h2 { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 400; margin-bottom: 6px; }
         .menu-text p { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
         
-        .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
+        .menu-arrow { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
         .menu-item:hover .menu-arrow { opacity: 1; transform: translateX(0) translateY(0); color: var(--text-main); }
 
         /* --- PORTRAIT IMAGE --- */
         .image-frame { 
             width: 100%; max-width: 480px; aspect-ratio: 4 / 5; overflow: hidden; flex-shrink: 0;
-            border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+            border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); 
             opacity: 0; animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
-        .portrait-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .image-frame:hover .portrait-img { transform: scale(1.04); }
+        .portrait-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .image-frame:hover .portrait-img { transform: scale(1.03); }
 
         /* --- FOOTER --- */
         .social-footer { 
@@ -100,7 +124,7 @@
         .social-footer a { 
             text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
             font-weight: 700; letter-spacing: 2px; text-transform: uppercase; 
-            transition: color 0.3s, transform 0.3s;
+            transition: color 0.3s, transform 0.3s; display: inline-block;
         }
         .social-footer a:hover { color: var(--accent-blue); transform: translateY(-2px); }
 
@@ -117,7 +141,7 @@
             .layout-wrapper { flex-direction: column-reverse; padding-top: 80px; }
             .image-side { padding: 4vw 6vw 0 6vw; }
             .content-side { padding: 10vw 6vw; }
-            .name-title { font-size: 3rem; }
+            .name-title { font-size: 3.2rem; }
             .bio { max-width: 100%; }
         }
     </style>
@@ -126,7 +150,7 @@
 
     <nav class="top-bar">
         <div class="logo-area">
-            <a href="https://prawees.com"><img src="logo.png" alt="PS Logo" class="site-logo"></a>
+            <a href="https://prawees.com"><img src="logo.png" alt="Prawees Logo" class="site-logo"></a>
         </div>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
@@ -177,7 +201,7 @@
         
         <div class="image-side">
             <div class="image-frame">
-                <img src="portrait.jpg" alt="Portrait" class="portrait-img">
+                <img src="portrait.jpg" alt="ประวีร์ สินวีรุทัย Prawee Sinweeruthai prawees smprv" class="portrait-img">
             </div>
         </div>
     </div>
