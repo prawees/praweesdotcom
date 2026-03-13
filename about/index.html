@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Smart | Prawee Sinweeruthai</title>
+    <title>About Smart | Prawee S.</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%231D1D1F'/><text x='50' y='68' font-family='sans-serif' font-size='50' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'>PS</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Prompt:wght@200;300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --bg-color: #FBFBFD; /* Apple-esque light gray */
-            --surface-color: rgba(255, 255, 255, 0.6);
+            --bg-color: #FBFBFD; 
+            --surface-color: rgba(255, 255, 255, 0.7);
             --text-main: #1D1D1F; 
             --text-muted: #86868B; 
-            --border-color: rgba(0, 0, 0, 0.06); 
+            --border-color: rgba(0, 0, 0, 0.08); 
             --accent-blue: #0066CC;
-            --gradient-text: linear-gradient(90deg, #1D1D1F, #555555);
+            --gradient-text: linear-gradient(135deg, #111111 0%, #555555 100%);
+            --font-en: 'Outfit', sans-serif;
+            --font-th: 'Prompt', sans-serif;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -23,35 +27,41 @@
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            font-family: var(--font-th); 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* --- CUSTOM CURSOR (Light Mode) --- */
-        .cursor { width: 8px; height: 8px; background: var(--text-main); border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transition: transform 0.1s ease; }
-        .cursor-follower { width: 32px; height: 32px; border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; position: fixed; pointer-events: none; z-index: 998; transition: transform 0.15s ease; }
+        /* --- AMBIENT BACKGROUND --- */
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none; }
+        .ambient-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; animation: float-blob 15s infinite alternate ease-in-out; }
+        .blob-1 { width: 400px; height: 400px; background: #D0E5FF; top: -10%; left: -10%; }
+        .blob-2 { width: 500px; height: 500px; background: #F0F0F5; bottom: -20%; right: -10%; animation-delay: -5s; }
+        @keyframes float-blob { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor { width: 6px; height: 6px; background: var(--text-main); border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transition: transform 0.1s ease; }
+        .cursor-follower { width: 36px; height: 36px; border: 1px solid rgba(0,0,0,0.15); border-radius: 50%; position: fixed; pointer-events: none; z-index: 998; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, border-color 0.2s; }
 
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 20px 4vw; display: flex; justify-content: space-between;
-            z-index: 100; background: rgba(251, 251, 253, 0.7);
+            padding: 20px 4vw; display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; background: rgba(251, 251, 253, 0.6);
             backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
             border-bottom: 1px solid var(--border-color);
         }
-        .back-link { 
-            text-decoration: none; color: var(--text-main); font-weight: 600; 
-            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; 
-            display: inline-flex; align-items: center; gap: 8px;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
-        }
-        .back-link:hover { opacity: 0.6; transform: translateX(-6px); }
-        .back-arrow { font-size: 1.1rem; line-height: 1; transition: transform 0.3s; }
+        .logo-area { display: flex; align-items: center; gap: 20px; }
+        .logo-svg { width: 35px; height: 35px; animation: floatLogo 4s ease-in-out infinite alternate; transition: transform 0.3s; }
+        .logo-area a:hover .logo-svg { transform: scale(0.9); }
+        @keyframes floatLogo { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
+
+        .back-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-family: var(--font-en); font-size: 0.8rem; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: opacity 0.3s; }
+        .back-link:hover { opacity: 0.6; }
         
-        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-left: 15px; transition: 0.3s; }
-        .lang-switcher button.active { color: var(--text-main); border-bottom: 1.5px solid var(--text-main); padding-bottom: 2px; }
+        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; font-family: var(--font-en); color: var(--text-muted); margin-left: 15px; transition: 0.3s; }
+        .lang-switcher button.active { color: var(--text-main); border-bottom: 2px solid var(--text-main); padding-bottom: 2px; }
 
         /* --- LAYOUT --- */
         .layout { display: flex; max-width: 1400px; margin: 0 auto; min-height: 100vh; padding-top: 80px; }
@@ -65,77 +75,107 @@
             width: 170px; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 30px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.08); position: relative;
         }
-        /* No more grayscale. Just a soft premium zoom on hover */
         .profile-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .profile-img-container:hover .profile-img { transform: scale(1.04); }
         
-        .name-title { font-family: 'Lora', serif; font-size: 3.2rem; font-weight: 500; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; }
-        .nickname { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; font-weight: 400; }
+        .name-title { font-family: var(--font-en); font-size: 4rem; font-weight: 600; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; letter-spacing: -1px; }
+        .nickname { font-family: var(--font-en); font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; font-weight: 400; }
         .tagline { font-size: 0.95rem; color: var(--text-main); font-weight: 500; letter-spacing: 0.3px; border-left: 2px solid var(--accent-blue); padding-left: 15px; line-height: 1.6; }
         
-        /* Contact Info Restored */
         .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
         .contact-links a { 
-            font-size: 0.85rem; font-weight: 600; color: var(--text-muted); 
+            font-size: 0.85rem; font-weight: 500; font-family: var(--font-en); color: var(--text-muted); 
             text-decoration: none; display: flex; align-items: center; gap: 10px; 
             transition: color 0.3s, transform 0.3s; width: fit-content;
         }
         .contact-links a:hover { color: var(--accent-blue); transform: translateX(5px); }
 
-        /* --- RIGHT CONTENT --- */
+        /* RIGHT: CONTENT */
         .right-col { width: 65%; padding: 60px 6vw 0 6vw; }
         
-        .content-section { margin-bottom: 90px; opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .content-section { margin-bottom: 80px; opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .content-section.visible { opacity: 1; transform: translateY(0); }
 
-        .section-title { 
-            font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px;
+        /* VIDEO EMBED STYLES */
+        .video-container {
+            position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            background: #000; transition: transform 0.4s;
         }
+        .video-container:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .portfolio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
+        .portfolio-caption { margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; font-family: var(--font-en); }
+
+        /* SECTION HEADERS & DIVIDERS */
+        .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
+        .section-title { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; white-space: nowrap; }
+        .divider { height: 1px; background: var(--border-color); flex: 1; }
         
         .bio-text { font-size: 1.15rem; color: var(--text-main); font-weight: 400; line-height: 1.8; margin-bottom: 30px; }
 
-        /* --- CV ITEMS --- */
+        /* CV ITEMS */
         .cv-item { margin-bottom: 50px; position: relative; }
-        .cv-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
-        .cv-date { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
+        .cv-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+        .cv-date { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
         .cv-desc { font-size: 1rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
 
-        /* --- GRID KEYWORDS (3 Columns dynamically fitting) --- */
+        /* GRID KEYWORDS */
         .interest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
         .interest-card { 
             padding: 35px 30px; border-radius: 16px; background: var(--surface-color);
             border: 1px solid var(--border-color); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
-        .interest-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); border-color: rgba(0, 102, 204, 0.2); }
-        .interest-card h4 { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
-        .interest-card .keywords { font-size: 1.05rem; color: var(--text-main); font-weight: 600; line-height: 1.5; }
+        .interest-card:hover { transform: translateY(-8px); border-color: rgba(0, 102, 204, 0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .interest-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px; }
+        .interest-card .keywords { font-family: var(--font-en); font-size: 1.05rem; color: var(--text-main); font-weight: 500; line-height: 1.5; }
 
-        /* --- FOOTER --- */
-        .footer { padding: 80px 0 50px; text-align: center; }
-        .footer-text { font-size: 0.65rem; font-weight: 700; letter-spacing: 6px; color: var(--text-muted); text-transform: uppercase; }
+        /* FOOTER & CONTACT */
+        .footer-contact { margin-top: 80px; padding: 80px 0 40px; text-align: center; }
+        .contact-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 30px; }
+        .contact-grid a { 
+            text-decoration: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; 
+            font-family: var(--font-en); letter-spacing: 2px; transition: 0.3s;
+        }
+        .contact-grid a:hover { color: var(--accent-blue); transform: translateY(-3px); }
+        .footer-text { margin-top: 60px; font-family: var(--font-en); font-size: 0.65rem; font-weight: 700; letter-spacing: 6px; color: var(--text-muted); text-transform: uppercase; }
 
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
             .left-col { width: 100%; position: relative; top: 0; height: auto; border-right: none; padding: 40px 6vw; border-bottom: 1px solid var(--border-color); }
             .right-col { width: 100%; padding: 60px 6vw; }
+            .portfolio-grid { grid-template-columns: 1fr; }
             .interest-grid { grid-template-columns: 1fr; }
             .cursor, .cursor-follower { display: none; }
             * { cursor: auto; }
+            .ambient-bg { display: none; }
         }
     </style>
 </head>
 <body class="lang-th">
 
+    <div class="ambient-bg">
+        <div class="ambient-blob blob-1"></div>
+        <div class="ambient-blob blob-2"></div>
+    </div>
+
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
     <nav class="top-bar">
-        <a href="https://prawees.com" class="back-link">
-            <span class="back-arrow">←</span> <span data-th="INDEX" data-en="INDEX">INDEX</span>
-        </a>
+        <div class="logo-area">
+            <a href="https://prawees.com">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-svg">
+                    <rect width="100" height="100" rx="25" fill="#1D1D1F"/>
+                    <text x="50" y="68" font-family="'Outfit', sans-serif" font-size="50" font-weight="700" fill="#FFFFFF" text-anchor="middle">PS</text>
+                </svg>
+            </a>
+            <a href="https://prawees.com" class="back-link">
+                <span data-th="INDEX" data-en="INDEX">INDEX</span>
+            </a>
+        </div>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
             <button onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -143,6 +183,7 @@
     </nav>
 
     <div class="layout">
+        
         <aside class="left-col">
             <div class="profile-img-container">
                 <img src="portrait.jpg" alt="Smart" class="profile-img">
@@ -153,49 +194,97 @@
             
             <div class="contact-links">
                 <a href="mailto:prawee.sin@gmail.com">✉️ prawee.sin@gmail.com</a>
+                <a href="https://www.youtube.com/smprv" target="_blank">🎥 YouTube: @smprv</a>
                 <a href="https://www.tiktok.com/@prawees" target="_blank">📱 TikTok: @prawees</a>
                 <a href="https://www.instagram.com/smprv" target="_blank">📷 Instagram: @smprv</a>
             </div>
         </aside>
 
         <main class="right-col">
+            
+            <section class="content-section" style="margin-bottom: 60px;">
+                <div class="video-container" style="box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+                    <iframe src="https://www.youtube.com/embed/IDK4Yb0WmUU?si=26SFNci2G8_SyjVA" title="Prawee S. Intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
             <section class="content-section">
-                <div class="section-title">01 / OVERVIEW</div>
+                <div class="section-header">
+                    <div class="section-title">01 / OVERVIEW</div>
+                    <div class="divider"></div>
+                </div>
                 <p class="bio-text" data-th="นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต รามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจ" data-en="A dual-degree M.D.-M.Eng candidate at Ramathibodi. Dedicated to engineering solutions for healthcare and crafting digital narratives to drive community engagement.">
                     นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต รามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจ
                 </p>
             </section>
 
             <section class="content-section">
-                <div class="section-title">02 / FORMATION</div>
+                <div class="section-header">
+                    <div class="section-title">02 / EDUCATION</div>
+                    <div class="divider"></div>
+                </div>
                 <div class="cv-item">
-                    <div class="cv-title" data-th="มหาวิทยาลัยมหิดล (รามาธิบดี)" data-en="Mahidol University (Ramathibodi)">มหาวิทยาลัยมหิดล (รามาธิบดี)</div>
+                    <div class="cv-title" data-th="คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล" data-en="Faculty of Medicine Ramathibodi Hospital, Mahidol University">คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</div>
                     <div class="cv-date">2021 — PRESENT</div>
                     <div class="cv-desc" data-th="Doctor of Medicine & Master of Engineering" data-en="Doctor of Medicine & Master of Engineering">Doctor of Medicine & Master of Engineering</div>
                 </div>
                 <div class="cv-item">
-                    <div class="cv-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="Mahidol Wittayanusorn">โรงเรียนมหิดลวิทยานุสรณ์</div>
+                    <div class="cv-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="Mahidol Wittayanusorn School">โรงเรียนมหิดลวิทยานุสรณ์</div>
                     <div class="cv-date">2018 — 2021</div>
                     <div class="cv-desc" data-th="Vice President of the Student Council" data-en="Vice President of the Student Council">Vice President of the Student Council</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-title" data-th="โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน" data-en="Patumwan Demonstration School, Srinakharinwirot University">โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน</div>
+                    <div class="cv-date">2015 — 2018</div>
+                </div>
+                <div class="cv-item" style="margin-bottom: 0;">
+                    <div class="cv-title" data-th="โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย" data-en="Chulalongkorn University Demonstration School">โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย</div>
+                    <div class="cv-date">2009 — 2015</div>
                 </div>
             </section>
 
             <section class="content-section">
-                <div class="section-title">03 / INITIATIVES</div>
+                <div class="section-header">
+                    <div class="section-title">03 / INITIATIVES</div>
+                    <div class="divider"></div>
+                </div>
                 <div class="cv-item">
                     <div class="cv-title">Virtual Ramathon Run</div>
                     <div class="cv-date">PROJECT LEAD</div>
                     <div class="cv-desc" data-th="Digital wellness platform • Strava API • Gamified fitness for 250+ staff" data-en="Digital wellness platform • Strava API • Gamified fitness for 250+ staff">Digital wellness platform • Strava API • Gamified fitness for 250+ staff</div>
                 </div>
                 <div class="cv-item">
-                    <div class="cv-title">Producer of กว่า-จะ-เป็น Series and Independent Videomaker</div>
+                    <div class="cv-title" data-th="กว่า-จะ-เป็น Series" data-en="Gwa-Ja-Pen Series">กว่า-จะ-เป็น Series</div>
                     <div class="cv-date">CREATOR & STRATEGIST</div>
                     <div class="cv-desc" data-th="Career journey platform • 60k+ Combined following • Visual storytelling" data-en="Career journey platform • 60k+ Combined following • Visual storytelling">Career journey platform • 60k+ Combined following • Visual storytelling</div>
+                </div>
+                
+                <div class="cv-item">
+                    <div class="cv-title" data-th="Independent Videomaker" data-en="Independent Videomaker">Independent Videomaker</div>
+                    <div class="cv-date">DIRECTOR & EDITOR</div>
+                    
+                    <div class="portfolio-grid">
+                        <div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/SHBhbCXhGsw?si=ZyVt780IVY1-59Jr" title="Essence of Sickness" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="portfolio-caption">Essence of Sickness (A Short Film)</div>
+                        </div>
+                        <div>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/HxxRjaMzGc4?si=FFhsmBRvF-l248TE" title="Allegro in Red" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="portfolio-caption">Allegro in Red (Ramadrama Trailer)</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section class="content-section">
-                <div class="section-title">04 / FOCUS</div>
+                <div class="section-header">
+                    <div class="section-title">04 / FOCUS</div>
+                    <div class="divider"></div>
+                </div>
                 <div class="interest-grid">
                     <div class="interest-card">
                         <h4 data-th="วิสัยทัศน์" data-en="Vision">วิสัยทัศน์</h4>
@@ -212,7 +301,18 @@
                 </div>
             </section>
 
-            <footer class="footer">
+            <footer class="footer-contact">
+                <div class="section-header" style="justify-content: center;">
+                    <div class="divider" style="max-width: 50px;"></div>
+                    <div class="section-title" style="margin-bottom: 0;">GET IN TOUCH</div>
+                    <div class="divider" style="max-width: 50px;"></div>
+                </div>
+                <div class="contact-grid">
+                    <a href="mailto:prawee.sin@gmail.com">EMAIL</a>
+                    <a href="https://www.youtube.com/smprv" target="_blank">YOUTUBE</a>
+                    <a href="https://www.tiktok.com/@prawees" target="_blank">TIKTOK</a>
+                    <a href="https://www.instagram.com/smprv" target="_blank">INSTAGRAM</a>
+                </div>
                 <div class="footer-text">© 2026 PRAWEES • ALL RIGHTS RESERVED</div>
             </footer>
         </main>
@@ -224,20 +324,21 @@
         const follower = document.querySelector('.cursor-follower');
 
         document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            follower.style.transform = `translate3d(${e.clientX - 16}px, ${e.clientY - 16}px, 0)`;
+            cursor.style.transform = `translate3d(${e.clientX - 3}px, ${e.clientY - 3}px, 0)`;
+            follower.style.transform = `translate3d(${e.clientX - 18}px, ${e.clientY - 18}px, 0)`;
         });
 
         // Hover effect for Interactive elements
         const interactives = document.querySelectorAll('a, button');
         interactives.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursor.style.transform += ' scale(1.5)';
+                follower.style.backgroundColor = 'rgba(0, 102, 204, 0.05)';
+                follower.style.borderColor = 'rgba(0, 102, 204, 0.3)';
                 follower.style.transform += ' scale(1.5)';
-                follower.style.borderColor = 'var(--accent-blue)';
             });
             el.addEventListener('mouseleave', () => {
-                follower.style.borderColor = 'rgba(0,0,0,0.2)';
+                follower.style.backgroundColor = 'transparent';
+                follower.style.borderColor = 'rgba(0,0,0,0.15)';
             });
         });
 
@@ -261,7 +362,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.content-section').forEach(section => observer.observe(section));
+        document.querySelectorAll('.content-section, .footer-contact').forEach(section => observer.observe(section));
         
         window.onload = () => setLanguage('th');
     </script>
