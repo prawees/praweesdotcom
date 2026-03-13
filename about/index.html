@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Smart | Prawee Sinweeruthai</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;500;600;700&family=Anuphan:wght@200;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --bg-color: #0A0A0A; /* Dark mode สำหรับความพรีเมียม */
-            --surface-color: rgba(255, 255, 255, 0.03);
-            --text-main: #FFFFFF; 
-            --text-muted: #A1A1A6; 
-            --border-color: rgba(255, 255, 255, 0.1); 
-            --accent-blue: #0071E3;
-            --gradient-text: linear-gradient(90deg, #FFFFFF, #888888);
+            --bg-color: #FBFBFD; /* Apple-esque light gray */
+            --surface-color: rgba(255, 255, 255, 0.6);
+            --text-main: #1D1D1F; 
+            --text-muted: #86868B; 
+            --border-color: rgba(0, 0, 0, 0.06); 
+            --accent-blue: #0066CC;
+            --gradient-text: linear-gradient(90deg, #1D1D1F, #555555);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Custom Cursor */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
         body { 
             background-color: var(--bg-color); 
@@ -29,71 +29,93 @@
             overflow-x: hidden;
         }
 
-        /* --- CUSTOM CURSOR --- */
-        .cursor { width: 10px; height: 10px; background: white; border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transition: transform 0.1s ease; mix-blend-mode: difference; }
-        .cursor-follower { width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 998; transition: transform 0.15s ease; }
+        /* --- CUSTOM CURSOR (Light Mode) --- */
+        .cursor { width: 8px; height: 8px; background: var(--text-main); border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transition: transform 0.1s ease; }
+        .cursor-follower { width: 32px; height: 32px; border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; position: fixed; pointer-events: none; z-index: 998; transition: transform 0.15s ease; }
 
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 25px 4vw; display: flex; justify-content: space-between;
-            z-index: 100; background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color);
+            padding: 20px 4vw; display: flex; justify-content: space-between;
+            z-index: 100; background: rgba(251, 251, 253, 0.7);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-color);
         }
-        .back-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
-        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; margin-left: 15px; transition: 0.3s; }
-        .lang-switcher button.active { color: white; border-bottom: 1px solid white; }
+        .back-link { 
+            text-decoration: none; color: var(--text-main); font-weight: 600; 
+            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; 
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+        }
+        .back-link:hover { opacity: 0.6; transform: translateX(-6px); }
+        .back-arrow { font-size: 1.1rem; line-height: 1; transition: transform 0.3s; }
+        
+        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-left: 15px; transition: 0.3s; }
+        .lang-switcher button.active { color: var(--text-main); border-bottom: 1.5px solid var(--text-main); padding-bottom: 2px; }
 
         /* --- LAYOUT --- */
-        .layout { display: flex; max-width: 1400px; margin: 0 auto; min-height: 100vh; padding-top: 100px; }
+        .layout { display: flex; max-width: 1400px; margin: 0 auto; min-height: 100vh; padding-top: 80px; }
         
+        /* LEFT: PROFILE */
         .left-col {
-            width: 35%; padding: 40px 4vw; position: sticky; top: 100px; height: calc(100vh - 100px);
+            width: 35%; padding: 60px 4vw; position: sticky; top: 80px; height: calc(100vh - 80px);
             display: flex; flex-direction: column; border-right: 1px solid var(--border-color);
         }
         .profile-img-container {
-            width: 180px; height: 230px; border-radius: 4px; overflow: hidden; margin-bottom: 35px;
-            position: relative;
+            width: 170px; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 30px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08); position: relative;
         }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .profile-img-container:hover .profile-img { filter: grayscale(0%); transform: scale(1.05); }
+        /* No more grayscale. Just a soft premium zoom on hover */
+        .profile-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .profile-img-container:hover .profile-img { transform: scale(1.04); }
         
-        .name-title { font-family: 'Lora', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nickname { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 300; }
-        .tagline { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.5px; border-left: 2px solid var(--accent-blue); padding-left: 20px; }
+        .name-title { font-family: 'Lora', serif; font-size: 3.2rem; font-weight: 500; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; }
+        .nickname { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; font-weight: 400; }
+        .tagline { font-size: 0.95rem; color: var(--text-main); font-weight: 500; letter-spacing: 0.3px; border-left: 2px solid var(--accent-blue); padding-left: 15px; line-height: 1.6; }
         
+        /* Contact Info Restored */
+        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+        .contact-links a { 
+            font-size: 0.85rem; font-weight: 600; color: var(--text-muted); 
+            text-decoration: none; display: flex; align-items: center; gap: 10px; 
+            transition: color 0.3s, transform 0.3s; width: fit-content;
+        }
+        .contact-links a:hover { color: var(--accent-blue); transform: translateX(5px); }
+
         /* --- RIGHT CONTENT --- */
-        .right-col { width: 65%; padding: 40px 6vw 0 6vw; }
+        .right-col { width: 65%; padding: 60px 6vw 0 6vw; }
         
-        .content-section { margin-bottom: 100px; opacity: 0; transform: translateY(30px); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .content-section { margin-bottom: 90px; opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .content-section.visible { opacity: 1; transform: translateY(0); }
 
         .section-title { 
             font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px;
+            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px;
         }
         
-        .bio-text { font-size: 1.2rem; color: var(--text-main); font-weight: 300; line-height: 1.8; margin-bottom: 30px; }
+        .bio-text { font-size: 1.15rem; color: var(--text-main); font-weight: 400; line-height: 1.8; margin-bottom: 30px; }
 
         /* --- CV ITEMS --- */
         .cv-item { margin-bottom: 50px; position: relative; }
-        .cv-title { font-size: 1.4rem; font-weight: 500; margin-bottom: 6px; }
-        .cv-date { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 15px; }
-        .cv-desc { font-size: 1rem; color: var(--text-muted); font-weight: 300; }
+        .cv-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+        .cv-date { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
+        .cv-desc { font-size: 1rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
 
-        /* --- GRID KEYWORDS --- */
-        .interest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        /* --- GRID KEYWORDS (3 Columns dynamically fitting) --- */
+        .interest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
         .interest-card { 
-            padding: 40px; border-radius: 2px; background: var(--surface-color);
-            border: 1px solid var(--border-color); transition: 0.5s;
+            padding: 35px 30px; border-radius: 16px; background: var(--surface-color);
+            border: 1px solid var(--border-color); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
-        .interest-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); }
-        .interest-card h4 { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
-        .interest-card .keywords { font-size: 1.1rem; color: white; font-weight: 400; line-height: 1.4; }
+        .interest-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); border-color: rgba(0, 102, 204, 0.2); }
+        .interest-card h4 { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+        .interest-card .keywords { font-size: 1.05rem; color: var(--text-main); font-weight: 600; line-height: 1.5; }
 
         /* --- FOOTER --- */
-        .footer { padding: 100px 0 50px; text-align: center; }
-        .footer-text { font-size: 0.6rem; font-weight: 700; letter-spacing: 8px; color: var(--text-muted); text-transform: uppercase; }
+        .footer { padding: 80px 0 50px; text-align: center; }
+        .footer-text { font-size: 0.65rem; font-weight: 700; letter-spacing: 6px; color: var(--text-muted); text-transform: uppercase; }
 
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
@@ -111,7 +133,9 @@
     <div class="cursor-follower"></div>
 
     <nav class="top-bar">
-        <a href="https://prawees.com" class="back-link">← <span data-th="INDEX" data-en="INDEX">INDEX</span></a>
+        <a href="https://prawees.com" class="back-link">
+            <span class="back-arrow">←</span> <span data-th="INDEX" data-en="INDEX">INDEX</span>
+        </a>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
             <button onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -126,6 +150,12 @@
             <h1 class="name-title">Prawee S.</h1>
             <p class="nickname" data-th="Smart" data-en="Smart">Smart</p>
             <p class="tagline" data-th="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives." data-en="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.">M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.</p>
+            
+            <div class="contact-links">
+                <a href="mailto:prawee.sin@gmail.com">✉️ prawee.sin@gmail.com</a>
+                <a href="https://www.tiktok.com/@prawees" target="_blank">📱 TikTok: @prawees</a>
+                <a href="https://www.instagram.com/smprv" target="_blank">📷 Instagram: @smprv</a>
+            </div>
         </aside>
 
         <main class="right-col">
@@ -158,8 +188,8 @@
                     <div class="cv-desc" data-th="Digital wellness platform • Strava API • Gamified fitness for 250+ staff" data-en="Digital wellness platform • Strava API • Gamified fitness for 250+ staff">Digital wellness platform • Strava API • Gamified fitness for 250+ staff</div>
                 </div>
                 <div class="cv-item">
-                    <div class="cv-title">กว่า-จะ-เป็น Series</div>
-                    <div class="cv-date">STRATEGIST</div>
+                    <div class="cv-title">Producer of กว่า-จะ-เป็น Series and Independent Videomaker</div>
+                    <div class="cv-date">CREATOR & STRATEGIST</div>
                     <div class="cv-desc" data-th="Career journey platform • 60k+ Combined following • Visual storytelling" data-en="Career journey platform • 60k+ Combined following • Visual storytelling">Career journey platform • 60k+ Combined following • Visual storytelling</div>
                 </div>
             </section>
@@ -172,16 +202,12 @@
                         <p class="keywords" data-th="Healthcare Tech • PM&R • Global Systems" data-en="Healthcare Tech • PM&R • Global Systems">Healthcare Tech • PM&R • Global Systems</p>
                     </div>
                     <div class="interest-card">
-                        <h4 data-th="ไลฟ์สไตล์" data-en="Lifestyle">ไลฟ์สไตล์</h4>
-                        <p class="keywords" data-th="Endurance Running • Bouldering • Golf" data-en="Endurance Running • Bouldering • Golf">Endurance Running • Bouldering • Golf</p>
+                        <h4 data-th="งานอดิเรก" data-en="Hobbies">งานอดิเรก</h4>
+                        <p class="keywords" data-th="Running • Bowling • Petanque • Golf" data-en="Running • Bowling • Petanque • Golf">Running • Bowling • Petanque • Golf</p>
                     </div>
                     <div class="interest-card">
-                        <h4 data-th="ความชอบ" data-en="Creative">ความชอบ</h4>
-                        <p class="keywords" data-th="Street Photography • Compact Gear • Alt-Rock" data-en="Street Photography • Compact Gear • Alt-Rock">Street Photography • Compact Gear • Alt-Rock</p>
-                    </div>
-                    <div class="interest-card">
-                        <h4 data-th="ความหลงใหล" data-en="Passions">ความหลงใหล</h4>
-                        <p class="keywords" data-th="Horology • Football Spirit • Design" data-en="Horology • Football Spirit • Design">Horology • Football Spirit • Design</p>
+                        <h4 data-th="ความชอบ" data-en="Interests">ความชอบ</h4>
+                        <p class="keywords" data-th="Street Photography • Alt-Rock • Manchester United" data-en="Street Photography • Alt-Rock • Manchester United">Street Photography • Alt-Rock • Manchester United</p>
                     </div>
                 </div>
             </section>
@@ -193,12 +219,26 @@
     </div>
 
     <script>
+        // Custom Cursor Logic
         const cursor = document.querySelector('.cursor');
         const follower = document.querySelector('.cursor-follower');
 
         document.addEventListener('mousemove', (e) => {
             cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            follower.style.transform = `translate3d(${e.clientX - 10}px, ${e.clientY - 10}px, 0)`;
+            follower.style.transform = `translate3d(${e.clientX - 16}px, ${e.clientY - 16}px, 0)`;
+        });
+
+        // Hover effect for Interactive elements
+        const interactives = document.querySelectorAll('a, button');
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform += ' scale(1.5)';
+                follower.style.transform += ' scale(1.5)';
+                follower.style.borderColor = 'var(--accent-blue)';
+            });
+            el.addEventListener('mouseleave', () => {
+                follower.style.borderColor = 'rgba(0,0,0,0.2)';
+            });
         });
 
         function setLanguage(lang) {
@@ -214,6 +254,7 @@
             document.body.className = `lang-${lang}`;
         }
 
+        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
