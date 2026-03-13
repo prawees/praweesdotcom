@@ -112,47 +112,28 @@
 
         /* --- STABLE WORD CLOUD --- */
         .wordcloud-container {
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center; /* Center items vertically */
-            gap: 12px 20px;
-            text-align: center;
-            height: 160px; /* ล็อกความสูงป้องกันหน้าเว็บกระโดด */
-            overflow: hidden;
-            margin-bottom: 30px;
+            padding: 0; display: flex; flex-wrap: wrap; justify-content: center;
+            align-content: center; gap: 12px 20px; text-align: center;
+            height: 160px; overflow: hidden; margin-bottom: 30px;
         }
         .cloud-word {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: default;
-            display: inline-block;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            cursor: default; display: inline-block;
             transition: opacity 2s ease-in-out, color 0.4s, transform 0.4s;
         }
-        .cloud-word.fade-out {
-            opacity: 0 !important;
-        }
-        .cloud-word:hover {
-            color: var(--accent-blue) !important;
-            transform: scale(1.1);
-        }
+        .cloud-word.fade-out { opacity: 0 !important; }
+        .cloud-word:hover { color: var(--accent-blue) !important; transform: scale(1.1); }
 
         /* --- VIDEO SECTION & RESPONSIVE EMBED --- */
         .video-header-controls {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
         }
-        .carousel-controls {
-            display: flex; gap: 10px;
-        }
+        .carousel-controls { display: flex; gap: 10px; }
         .carousel-btn {
             background: var(--surface-color); border: 1px solid var(--border-color);
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer; color: var(--text-main); transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; color: var(--text-main); transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
         .carousel-btn:hover { background: var(--border-color); transform: scale(1.05); }
 
@@ -160,8 +141,7 @@
             width: 100%; overflow: hidden; margin: 0 auto;
         }
         .video-grid {
-            display: flex; overflow-x: auto;
-            scroll-snap-type: x mandatory; scroll-behavior: smooth;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
             gap: 20px; padding-bottom: 15px; scrollbar-width: none;
         }
         .video-grid::-webkit-scrollbar { display: none; }
@@ -170,8 +150,7 @@
             background: var(--surface-color); border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column;
             border: 1px solid var(--border-color);
-            min-width: 100%; flex: 0 0 100%; max-width: 100%;
-            scroll-snap-align: center;
+            min-width: 100%; flex: 0 0 100%; max-width: 100%; scroll-snap-align: center;
         }
         
         .video-info-top { padding: 20px; border-bottom: 1px solid var(--border-color); }
@@ -180,9 +159,7 @@
         .video-desc { font-size: 0.9rem; color: var(--text-muted); }
 
         .video-embed-wrapper { 
-            width: 100%; background-color: #000; 
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
+            width: 100%; background-color: #000; display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
         .tiktok-embed { margin: 0 !important; width: 100% !important; max-width: 100% !important; min-width: 100% !important; }
 
@@ -190,7 +167,7 @@
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            background: var(--surface-color); position: relative;
+            background: var(--surface-color); position: relative; margin-bottom: 50px;
         }
         .notion-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
@@ -201,7 +178,7 @@
             width: 100%; border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
             background: var(--surface-color); position: relative;
-            height: 480px; /* ล็อกความสูงไม่ให้เกินกรอบ */
+            height: 480px; /* Fixed height ป้องกัน Overlap */
         }
         .form-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
@@ -215,12 +192,11 @@
             display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;
         }
         
-        /* ACTUAL SOLID BUTTONS */
         .footer-links a {
             background-color: var(--text-main); color: #FFFFFF;
             text-decoration: none; font-size: 0.75rem; font-weight: 700; 
             font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 1px;
-            padding: 12px 28px; border-radius: 30px; /* Pill shape */
+            padding: 12px 28px; border-radius: 30px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             transition: all 0.3s ease; display: inline-flex; align-items: center;
         }
@@ -233,9 +209,15 @@
         /* --- RESPONSIVE DESKTOP (Side by Side) --- */
         @media (min-width: 1024px) {
             .main-split { grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-            .sticky-notion { position: sticky; top: 100px; }
-            .notion-container { height: calc(100vh - 350px); min-height: 500px; }
+            .notion-container { height: 600px; } /* ถอด calc เพื่อป้องกันปัญหาล้นกรอบ */
             .video-grid-container { max-width: 480px; margin: 0; } 
+            
+            /* แก้ไขการจัดเรียงภายในฝั่งขวา */
+            .notion-side {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
         }
 
         /* --- RESPONSIVE MOBILE (Strict Order) --- */
@@ -243,11 +225,9 @@
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
             
-            /* ใช้ display contents เพื่อให้ลูกๆ เข้าไปเรียงใน main-split ได้โดยตรง */
             .main-split { display: flex; flex-direction: column; gap: 50px; }
             .videos-side, .notion-side { display: contents; }
             
-            /* กำหนดลำดับ (Order) ชัดเจน */
             #wordcloud { order: 1; margin-bottom: 0; }
             .database-section { order: 2; }
             .video-section { order: 3; }
@@ -290,10 +270,10 @@
             
             <div class="videos-side">
                 
-                <div class="wordcloud-container" id="wordcloud">
+                <div class="wordcloud-container order-1" id="wordcloud">
                     </div>
 
-                <div class="video-section">
+                <div class="video-section order-3">
                     <div class="video-header-controls">
                         <div class="aesthetic-heading" style="margin-bottom:0;" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
                         <div class="carousel-controls">
@@ -311,7 +291,7 @@
 
             <div class="notion-side">
                 
-                <div class="database-section sticky-notion">
+                <div class="database-section order-2">
                     <div class="aesthetic-heading" data-th="คลังความรู้" data-en="Resources">คลังความรู้</div>
                     <div class="notion-container">
                         <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" 
@@ -320,7 +300,7 @@
                     </div>
                 </div>
 
-                <div class="suggestion-section" style="margin-top: 40px;">
+                <div class="suggestion-section order-4">
                     <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
                     <div class="form-container">
                         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" 
@@ -344,7 +324,7 @@
     </footer>
 
     <script>
-        // --- 1. CONTINUOUS WORD CLOUD (Nausea-Free) ---
+        // --- 1. CONTINUOUS WORD CLOUD ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
@@ -373,7 +353,7 @@
                 span.className = 'cloud-word';
                 span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.4 + 0.6).toFixed(2); // 0.6rem - 1.0rem (ไม่ใหญ่ไป)
+                const size = (Math.random() * 0.4 + 0.6).toFixed(2); 
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
                 span.style.fontSize = `${size}rem`;
@@ -382,23 +362,19 @@
                 
                 container.appendChild(span);
                 
-                // Initial fade in
                 setTimeout(() => {
                     span.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2);
                 }, 100);
 
-                // Loop swap with slow intervals (ช้าลง ไม่ทำให้ตาลาย)
                 setInterval(() => {
                     swapWord(span);
-                }, Math.random() * 6000 + 6000); // 6s - 12s
+                }, Math.random() * 6000 + 6000); 
             }
         }
 
         function swapWord(element) {
-            // 1. ค่อยๆ เฟดออก (2 วินาที)
             element.classList.add('fade-out');
             
-            // 2. เมื่อเฟดเสร็จ เปลี่ยนคำและสี แล้วเฟดเข้ากลับมา
             setTimeout(() => {
                 const newWord = medicalWords[Math.floor(Math.random() * medicalWords.length)];
                 const newColor = colors[Math.floor(Math.random() * colors.length)];
