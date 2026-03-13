@@ -284,12 +284,12 @@
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0'];
         const wordCount = 8; // ลดจำนวนให้เหลือ 8 ตำแหน่ง เพื่อไม่ให้เบียดกันจนเกินขอบ
 
-        // ปรับตำแหน่งให้กระจายพอดี และขยับเข้าตรงกลางมากขึ้นป้องกันคำยาวทะลุจอ
+        // ปรับตำแหน่งให้ขยับเข้าตรงกลางมากขึ้น ป้องกันคำยาวทะลุขอบจอซ้ายขวา
         const positions = [
-            { top: '20%', left: '25%' }, { top: '20%', left: '75%' },
+            { top: '20%', left: '30%' }, { top: '20%', left: '70%' },
             { top: '50%', left: '50%' },
-            { top: '80%', left: '25%' }, { top: '80%', left: '75%' },
-            { top: '40%', left: '15%' }, { top: '40%', left: '85%' },
+            { top: '80%', left: '30%' }, { top: '80%', left: '70%' },
+            { top: '40%', left: '25%' }, { top: '40%', left: '75%' },
             { top: '65%', left: '50%' }
         ];
 
@@ -302,10 +302,11 @@
                 span.className = 'cloud-word';
                 span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.4 + 0.8).toFixed(2); // ขนาด 0.8rem - 1.2rem
+                const size = (Math.random() * 0.3 + 0.7).toFixed(2); // ปรับ base ให้เล็กลงนิดนึง (0.7rem - 1.0rem)
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
-                span.style.fontSize = `${size}rem`;
+                // ใช้ clamp เพื่อให้ตัวอักษรหดลงอัตโนมัติเมื่ออยู่ในหน้าจอมือถือ (ป้องกันการทะลุขอบ)
+                span.style.fontSize = `clamp(0.6rem, 2.5vw, ${size}rem)`;
                 span.style.color = color;
                 span.innerText = shuffled[i];
                 span.style.top = positions[i].top;
