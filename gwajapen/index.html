@@ -31,13 +31,18 @@
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 15px 6vw; display: flex; justify-content: space-between;
+            padding: 15px 6vw; display: flex; justify-content: space-between; align-items: center;
             z-index: 100; color: white;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
         }
         .back-link {
-            text-decoration: none; color: inherit; font-weight: 600;
-            font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; transition: opacity 0.3s; opacity: 0.9;
+        }
+        .back-link:hover { opacity: 1; transform: scale(0.95); }
+        .site-logo {
+            height: 24px; width: auto; 
+            /* ใส่ filter กลับสีดำเป็นขาว หาก logo.png ของคุณเป็นสีดำ */
+            filter: invert(1) brightness(2); 
         }
         
         .lang-switcher button { 
@@ -48,9 +53,9 @@
 
         /* --- HERO SECTION --- */
         .hero {
-            position: relative; width: 100%; height: 50vh; min-height: 350px;
+            position: relative; width: 100%; height: 50vh; min-height: 400px;
             display: flex; justify-content: center; align-items: flex-end;
-            overflow: hidden; padding-bottom: 40px;
+            overflow: hidden; padding-bottom: 50px;
         }
         .hero-banner-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -58,37 +63,50 @@
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.6) 100%);
+            background: linear-gradient(to bottom, transparent 10%, rgba(0,0,0,0.8) 100%);
             z-index: 0;
         }
         .hero-content {
             position: relative; z-index: 1; text-align: center; color: white;
             max-width: 700px; padding: 0 20px;
         }
+        
+        /* SOCIAL LINKS (MOVED UP) */
+        .hero-socials {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 25px;
+        }
+        .hero-socials a {
+            text-decoration: none; font-size: 0.75rem; font-weight: 600;
+            color: white; text-transform: uppercase; letter-spacing: 2px;
+            padding: 8px 20px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 30px;
+            transition: all 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .hero-socials a:hover {
+            background: white; color: black;
+        }
+
         .hero-subtitle {
             font-size: 1.1rem; font-weight: 300; line-height: 1.6;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* --- LAYOUT WRAPPER --- */
+        /* --- LAYOUT WRAPPER (SIDE BY SIDE) --- */
         .section-container {
-            max-width: 1200px; margin: 0 auto; padding: 60px 6vw;
+            max-width: 1300px; margin: 0 auto; padding: 60px 6vw;
         }
-        .section-header { margin-bottom: 40px; text-align: center; }
-        .section-header h2 { font-family: 'Lora', serif; font-size: 2.2rem; margin-bottom: 15px; }
+        
+        .main-split {
+            display: grid; grid-template-columns: 1fr; gap: 60px;
+        }
 
-        /* --- SOCIAL LINKS UNDER HEADER --- */
-        .header-socials {
-            display: flex; justify-content: center; gap: 20px; margin-top: 10px;
+        /* SMALL AESTHETIC HEADING */
+        .aesthetic-heading {
+            font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px;
+            display: flex; align-items: center; gap: 15px;
         }
-        .header-socials a {
-            text-decoration: none; font-size: 0.8rem; font-weight: 600;
-            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
-            padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-        .header-socials a:hover {
-            color: var(--accent-gold); border-color: var(--accent-gold); background: rgba(212, 175, 55, 0.05);
+        .aesthetic-heading::after {
+            content: ''; height: 1px; background: var(--border-color); flex: 1;
         }
 
         /* --- COMPACT VIDEO GRID --- */
@@ -98,32 +116,36 @@
             gap: 30px;
         }
         .video-card {
-            background: var(--surface-color);
-            border-radius: 16px; overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-            display: flex; flex-direction: column;
+            background: var(--surface-color); border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column;
+            border: 1px solid var(--border-color);
         }
         .video-info-top { padding: 20px 20px 15px 20px; border-bottom: 1px solid var(--border-color); }
         .video-tag { font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1.5px; }
         .video-title { font-size: 1.15rem; font-weight: 600; margin: 5px 0; line-height: 1.3; }
         .video-desc { font-size: 0.9rem; color: var(--text-muted); }
 
-        .video-embed-wrapper {
-            width: 100%; background-color: #000;
-            display: flex; justify-content: center;
-        }
+        .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; }
 
-        /* --- NOTION EMBED SECTION --- */
-        .notion-section { background: var(--surface-color); padding: 80px 0; border-top: 1px solid var(--border-color); }
+        /* --- NOTION EMBED SECTION (NESTED) --- */
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: var(--surface-color);
         }
 
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--text-muted); }
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+
+        /* RESPONSIVE DESKTOP LAYOUT (Side by Side) */
+        @media (min-width: 1024px) {
+            .main-split { grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: start; }
+            /* ทำให้กล่อง Notion เลื่อนตามลงมาได้ถ้าเนื้อหาฝั่งซ้ายยาว */
+            .sticky-notion { position: sticky; top: 100px; }
+            .notion-container { height: calc(100vh - 200px); min-height: 500px; max-height: 800px; }
+        }
 
         @media (max-width: 768px) {
-            .hero { height: 40vh; }
+            .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
             .notion-container { height: 500px; }
         }
@@ -133,7 +155,7 @@
 
     <nav class="top-bar">
         <a href="https://prawees.com" class="back-link">
-            <span>←</span> <span data-th="กลับหน้าหลัก" data-en="Home">กลับหน้าหลัก</span>
+            <img src="../logo.png" alt="Prawees Logo" class="site-logo">
         </a>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
@@ -145,6 +167,10 @@
         <img src="banner.jpg" alt="Banner" class="hero-banner-img">
         <div class="hero-overlay"></div>
         <div class="hero-content">
+            <div class="hero-socials">
+                <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok</a>
+                <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">Instagram</a>
+            </div>
             <p class="hero-subtitle" data-th="เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ" 
                data-en="Seniors' untold stories, hidden challenges, and unfiltered inspirations.">
                 เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ
@@ -153,28 +179,22 @@
     </section>
 
     <section class="section-container">
-        <div class="section-header">
-            <h2 data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</h2>
-            <div class="header-socials">
-                <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok</a>
-                <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">Instagram</a>
-            </div>
-        </div>
-        <div class="video-grid" id="video-container"></div>
-    </section>
-
-    <section class="notion-section">
-        <div class="section-container" style="padding-top: 0;">
-            <div class="section-header">
-                <h2 data-th="คลังความรู้ & Roadmap" data-en="Resources & Roadmap">คลังความรู้ & Roadmap</h2>
-                <p data-th="สำรวจเส้นทางอาชีพและอ่านบทความน่าสนใจ ผ่าน Notion Database" data-en="Explore career paths and in-depth data via our Notion Database.">สำรวจเส้นทางอาชีพและข้อมูลเจาะลึกผ่าน Notion Database</p>
-            </div>
+        <div class="main-split">
             
-            <div class="notion-container">
-                <iframe src="https://notionwidget.com/embed/YOUR_NOTION_PAGE_ID" 
-                        style="width:100%; height:100%; border:0;" 
-                        allowfullscreen></iframe>
+            <div class="videos-side">
+                <div class="aesthetic-heading" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
+                <div class="video-grid" id="video-container"></div>
             </div>
+
+            <div class="notion-side sticky-notion">
+                <div class="aesthetic-heading" data-th="คลังความรู้" data-en="Resources">คลังความรู้</div>
+                <div class="notion-container">
+                    <iframe src="https://notionwidget.com/embed/YOUR_NOTION_PAGE_ID" 
+                            style="width:100%; height:100%; border:0;" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+
         </div>
     </section>
 
