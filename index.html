@@ -98,6 +98,7 @@
         .menu-item:nth-child(1) { animation-delay: 0.1s; }
         .menu-item:nth-child(2) { animation-delay: 0.2s; }
         .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; } /* For Substack item */
         
         .menu-item:hover { padding-left: 20px; background-color: rgba(0,0,0,0.015); border-bottom-color: rgba(0,0,0,0.1); }
         .menu-num { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); width: 60px; letter-spacing: 1px; transition: color 0.3s; }
@@ -139,10 +140,8 @@
 
         [data-th], [data-en] { transition: opacity 0.3s ease-in-out; }
 
-        /* --- THAI TYPOGRAPHY FIX (ป้องกันสระลอยบนมือถือ) --- */
-        body.lang-th .name-title,
-        body.lang-th .sub-name,
-        body.lang-th .role {
+        /* --- THAI TYPOGRAPHY FIX (ป้องกันสระลอยบนมือถืออย่างเด็ดขาด) --- */
+        body.lang-th * {
             letter-spacing: normal !important;
         }
 
@@ -172,32 +171,40 @@
             <header class="header-intro">
                 <h1 class="name-title" data-th="สวัสดีครับ สมาร์ทครับ :-)" data-en="Hi, I'm Smart :-)">สวัสดีครับ สมาร์ทครับ :-)</h1>
                 <p class="sub-name" data-th="ประวีร์ สินวีรุทัย" data-en="Prawee Sinweeruthai">ประวีร์ สินวีรุทัย</p>
-                <p class="role" data-th="นักศึกษาแพทย์ (M.D.-M.Eng)" data-en="Medical Student  (M.D.-M.Eng)">นักศึกษาแพทย์  (M.D.-M.Eng)</p>
+                <p class="role" data-th="นักศึกษาแพทย์ (M.D.-M.Eng)" data-en="Medical Student (M.D.-M.Eng)">นักศึกษาแพทย์ (M.D.-M.Eng)</p>
                 <p class="bio" data-th="เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่" data-en="Connecting medical narratives to inspire youth.">เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่</p>
             </header>
             
             <nav class="abstract-menu">
-                <a href="https://gwajapen.prawees.com" class="menu-item">
+                <a href="https://about.prawees.com" class="menu-item">
                     <span class="menu-num">01</span>
                     <div class="menu-text">
-                        <h2 data-th="⛰️  กว่า-จะ-เป็น" data-en="⛰️  Gwa-Ja-Pen">⛰️  กว่า-จะ-เป็น</h2>
+                        <h2 data-th="👦🏻 รู้จักสมาร์ท" data-en="👦🏻 About Smart">👦🏻 รู้จักสมาร์ท</h2>
+                        <p data-th="เรื่องราวจากการเรียนแพทย์-วิศวะ และช่องทางการติดต่อ" data-en="The M.D.-M.Eng Journey & Contact">เรื่องราวจากการเรียนแพทย์-วิศวะ และช่องทางการติดต่อ</p>
+                    </div>
+                    <span class="menu-arrow">↗</span>
+                </a>
+                <a href="https://gwajapen.prawees.com" class="menu-item">
+                    <span class="menu-num">02</span>
+                    <div class="menu-text">
+                        <h2 data-th="⛰️ กว่า-จะ-เป็น" data-en="⛰️ Gwa-Ja-Pen">⛰️ กว่า-จะ-เป็น</h2>
                         <p data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ว่า “กว่า-จะ-เป็น” ต้องเจออะไรมาบ้าง ?" data-en="Unfiltered journey interviews from established seniors">ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ว่า “กว่า-จะ-เป็น” ต้องเจออะไรมาบ้าง ?</p>
                     </div>
                     <span class="menu-arrow">↗</span>
                 </a>
                 <a href="https://ramathonrun.prawees.com" class="menu-item">
-                    <span class="menu-num">02</span>
+                    <span class="menu-num">03</span>
                     <div class="menu-text">
-                        <h2 data-th="🏃  รามาธอน" data-en="🏃  Ramathon Run Club">🏃  รามาธอน</h2>
+                        <h2 data-th="🏃 รามาธอน" data-en="🏃 Ramathon Run Club">🏃 รามาธอน</h2>
                         <p data-th="งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ" data-en="Ramathibodi Run Club">งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ</p>
                     </div>
                     <span class="menu-arrow">↗</span>
                 </a>
-                <a href="https://about.prawees.com" class="menu-item">
-                    <span class="menu-num">03</span>
+                <a href="https://blog.prawees.com" class="menu-item" target="_blank">
+                    <span class="menu-num">04</span>
                     <div class="menu-text">
-                        <h2 data-th="👦🏻  รู้จักสมาร์ท" data-en="👦🏻  About Smart">👦🏻  รู้จักสมาร์ท</h2>
-                        <p data-th="เรื่องราวจากการเรียนแพทย์-วิศวะ และช่องทางการติดต่อ" data-en="The M.D.-M.Eng Journey & Contact">เรื่องราวจากการเรียนแพทย์-วิศวะ และช่องทางการติดต่อ</p>
+                        <h2 data-th="💡 Somewhat Smart" data-en="💡 Somewhat Smart">💡 Somewhat Smart</h2>
+                        <p data-th="บล็อกของสมาร์ท พื้นที่บันทึกเรื่องราวที่ยังไม่สมบูรณ์ของผมเอง" data-en="A personal blog of incomplete thoughts and journeys.">บล็อกของสมาร์ท พื้นที่บันทึกเรื่องราวที่ยังไม่สมบูรณ์ของผมเอง</p>
                     </div>
                     <span class="menu-arrow">↗</span>
                 </a>
