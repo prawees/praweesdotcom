@@ -79,19 +79,28 @@
         }
         .aesthetic-heading::after { content: ''; height: 1px; background: var(--border-color); flex: 1; }
 
-        /* --- WORD CLOUD --- */
+        /* --- PERFECT GRID WORD CLOUD --- */
         .wordcloud-section { width: 100%; }
         .wordcloud-container {
-            position: relative; width: 100%; height: 140px; /* Slightly increased space for breathing room */
-            overflow: hidden; display: block; margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* แบ่ง 3 คอลัมน์เท่าๆ กัน */
+            grid-template-rows: repeat(3, 1fr);    /* แบ่ง 3 แถว */
+            width: 100%;
+            height: 130px; /* คุมความสูงให้กระชับ ลดพื้นที่ว่าง */
+            gap: 5px;
+            align-items: center;
+            justify-items: center;
+            margin-bottom: 25px;
+            overflow: hidden;
         }
         .cloud-word {
-            position: absolute; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-            cursor: default; display: inline-block; transition: opacity 1.5s ease-in-out, color 0.4s, transform 0.4s;
-            opacity: 0; white-space: nowrap; transform: translate(-50%, -50%) scale(1);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            cursor: default; display: inline-block;
+            transition: opacity 1s ease-in-out, color 0.4s, transform 0.4s;
+            opacity: 0; white-space: nowrap;
         }
-        .cloud-word.visible { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .cloud-word:hover { color: var(--accent-blue) !important; transform: translate(-50%, -50%) scale(1.1) !important; z-index: 10; }
+        .cloud-word:hover { color: var(--accent-blue) !important; transform: scale(1.1) !important; z-index: 10; }
         .cloud-word.fade-out { opacity: 0 !important; }
 
         /* --- VIDEO SECTION --- */
@@ -122,7 +131,7 @@
         .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .tiktok-embed { margin: 0 !important; width: 100% !important; max-width: 100% !important; min-width: 100% !important; }
 
-        /* --- NOTION EMBED (DATABASE) --- */
+        /* --- NOTION EMBED --- */
         .database-section { width: 100%; }
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
@@ -134,7 +143,7 @@
         .suggestion-section { width: 100%; }
         .form-container {
             width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
-            background: var(--surface-color); position: relative; height: 480px;
+            background: var(--surface-color); position: relative; height: 400px; /* ลดความสูงเพื่อตัดพื้นที่ว่างสีขาวของ Google Form ออก */
         }
         .form-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
@@ -161,11 +170,10 @@
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
             
-            .main-layout { display: flex; flex-direction: column; gap: 50px; }
-            /* Unlock the columns so we can reorder children directly */
+            .main-layout { display: flex; flex-direction: column; gap: 40px; }
             .col-left, .col-right { display: contents; }
             
-            /* Order: Word Cloud > Database > Videos > Form */
+            /* ลำดับเป๊ะ: Word Cloud > Database > Videos > Form */
             .wordcloud-section { order: 1; }
             .database-section { order: 2; }
             .video-section { order: 3; }
@@ -173,6 +181,7 @@
             
             .notion-container { height: 500px; }
             .video-grid-container { max-width: 100%; } 
+            .wordcloud-container { height: 130px; }
         }
     </style>
 </head>
@@ -264,34 +273,24 @@
     </footer>
 
     <script>
-        // --- 1. CONTINUOUS WORD CLOUD (Immediate Load, Staggered Swap) ---
+        // --- 1. CONTINUOUS GRID WORD CLOUD ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
             "Radiologist", "Educator", "Oncologist", "Leader", "Dermatologist", 
             "Visionary", "Ophthalmologist", "Advocate", "Anesthesiologist", "Developer", 
-            "Pathologist", "Creator", "General Practitioner", "Data Analyst", "Policy Maker",
+            "Pathologist", "Creator", "Practitioner", "Data Analyst", "Policy Maker",
             "Orthopedist", "Gynecologist", "Urologist", "Endocrinologist", "Gastroenterologist",
             "Nephrologist", "Pulmonologist", "Rheumatologist", "Hematologist", "Immunologist",
-            "Infectious Disease", "Allergist", "Geriatrician", "Sports Medicine",
-            "Medical Illustrator", "Health Economist", "Clinical Trial", "Bioinformatician",
-            "Medical Writer", "Epidemiologist", "Public Health", "Telemedicine",
-            "Genomic Counselor", "Medical Device", "Health IT", "Global Health",
-            "Nutritionist", "Rehabilitation", "Clinical Pharmacist", "Geneticist", "Toxicologist",
+            "Allergist", "Geriatrician", "Sports Med", "Medical Illustrator", "Health Economist", 
+            "Clinical Trial", "Bioinformatician", "Medical Writer", "Epidemiologist", "Public Health", 
+            "Telemedicine", "Genomic Counselor", "Medical Device", "Health IT", "Global Health",
+            "Nutritionist", "Rehabilitation", "Pharmacist", "Geneticist", "Toxicologist",
             "Audiologist", "Occupational Therapist", "Physical Therapist", "Healthcare Admin", "Ethicist"
         ];
         
-        // ถอยสีกลับเป็นโทนเดิม: น้ำเงิน เหลือง เขียวหม่น และเทา (เอาสีแดงออก)
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#2B7A78', '#588157', '#4A4A4A'];
-        const wordCount = 8; 
-
-        // จัดเรียงแบบ Honeycomb (รังผึ้ง) เพื่อให้มี Space หายใจตรงกลาง และหลบขอบจอ
-        const positions = [
-            { top: '25%', left: '35%' }, { top: '25%', left: '65%' },
-            { top: '50%', left: '25%' }, { top: '50%', left: '75%' },
-            { top: '75%', left: '35%' }, { top: '75%', left: '65%' },
-            { top: '50%', left: '50%' }, { top: '15%', left: '50%' }
-        ];
+        const wordCount = 9; // 3x3 Grid = 9 slots perfectly
 
         function initWordCloud() {
             const container = document.getElementById('wordcloud');
@@ -300,33 +299,30 @@
             for(let i=0; i<wordCount; i++) {
                 const span = document.createElement('span');
                 span.className = 'cloud-word';
-                span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.3 + 0.7).toFixed(2); 
+                // ขยายฟอนต์ให้ใหญ่ขึ้น 
+                const size = (Math.random() * 0.4 + 0.8).toFixed(2); // 0.8rem - 1.2rem
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
-                // ลดขนาด clamp ต่ำสุดลงอีกนิด เพื่อการันตีว่าคำยาวๆ จะไม่ชนขอบมือถือ
-                span.style.fontSize = `clamp(0.5rem, 2vw, ${size}rem)`;
+                span.style.fontSize = `clamp(0.6rem, 1.8vw, ${size}rem)`;
                 span.style.color = color;
                 span.innerText = shuffled[i];
-                span.style.top = positions[i].top;
-                span.style.left = positions[i].left;
                 
                 container.appendChild(span);
                 
+                // เฟดขึ้นมาทันทีที่เว็บโหลด (Staggered นิดๆ ให้สวยงาม)
                 setTimeout(() => { 
-                    span.classList.add('visible'); 
-                }, i * 200);
+                    span.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2);
+                }, i * 150);
 
+                // สุ่มดีเลย์เริ่มต้นไม่ให้ขยับพร้อมกันทั้งหมด แล้วเริ่มลูป
                 setTimeout(() => {
-                    swapWord(span);
-                    setInterval(() => { swapWord(span); }, 4000);
-                }, 1000 + Math.random() * 3000); 
+                    setInterval(() => { swapWord(span); }, 3500 + Math.random() * 4000); 
+                }, Math.random() * 2500); 
             }
         }
 
         function swapWord(element) {
-            element.classList.remove('visible');
             element.classList.add('fade-out');
             
             setTimeout(() => {
@@ -337,8 +333,8 @@
                 element.style.color = newColor;
                 
                 element.classList.remove('fade-out');
-                element.classList.add('visible');
-            }, 1500); 
+                element.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2);
+            }, 1000); 
         }
 
         // --- 2. VIDEO DATABASE ---
