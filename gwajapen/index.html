@@ -41,7 +41,6 @@
         .back-link:hover { opacity: 1; transform: scale(0.95); }
         .site-logo {
             height: 24px; width: auto; 
-            /* ใส่ filter กลับสีดำเป็นขาว หาก logo.png ของคุณเป็นสีดำ */
             filter: invert(1) brightness(2); 
         }
         
@@ -71,7 +70,6 @@
             max-width: 700px; padding: 0 20px;
         }
         
-        /* SOCIAL LINKS (MOVED UP) */
         .hero-socials {
             display: flex; justify-content: center; gap: 15px; margin-bottom: 25px;
         }
@@ -99,7 +97,6 @@
             display: grid; grid-template-columns: 1fr; gap: 60px;
         }
 
-        /* SMALL AESTHETIC HEADING */
         .aesthetic-heading {
             font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
             text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px;
@@ -139,7 +136,6 @@
         /* RESPONSIVE DESKTOP LAYOUT (Side by Side) */
         @media (min-width: 1024px) {
             .main-split { grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: start; }
-            /* ทำให้กล่อง Notion เลื่อนตามลงมาได้ถ้าเนื้อหาฝั่งซ้ายยาว */
             .sticky-notion { position: sticky; top: 100px; }
             .notion-container { height: calc(100vh - 200px); min-height: 500px; max-height: 800px; }
         }
@@ -189,7 +185,7 @@
             <div class="notion-side sticky-notion">
                 <div class="aesthetic-heading" data-th="คลังความรู้" data-en="Resources">คลังความรู้</div>
                 <div class="notion-container">
-                    <iframe src="https://notionwidget.com/embed/YOUR_NOTION_PAGE_ID" 
+                    <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" 
                             style="width:100%; height:100%; border:0;" 
                             allowfullscreen></iframe>
                 </div>
@@ -209,7 +205,7 @@
                     title_en: "Neurosurgery Resident",
                     desc_th: "กับ พญ.ธนพร เจริญงามเสมอ",
                     desc_en: "with Tanaporn Jaroenngarmsamer, M.D.",
-                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 </section> </blockquote>`
+                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย” 🧠🔪 </section> </blockquote>`
                 }
             ]
         };
