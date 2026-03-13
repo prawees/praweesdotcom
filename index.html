@@ -73,7 +73,7 @@
         
         /* UN-BOLDED TITLE */
         .name-title { 
-            font-size: 3.5rem; font-weight: 400; /* เอา Bold ออก */
+            font-size: 3.5rem; font-weight: 400;
             letter-spacing: -1px; line-height: 1.3; margin-bottom: 5px; padding-bottom: 5px;
             background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
@@ -104,7 +104,7 @@
         .menu-item:hover .menu-num { color: var(--accent-blue); }
         
         .menu-text { flex: 1; }
-        .menu-text h2 { font-size: 1.6rem; font-weight: 400; margin-bottom: 6px; } /* เอา Bold ออก */
+        .menu-text h2 { font-size: 1.6rem; font-weight: 400; margin-bottom: 6px; } 
         .menu-text p { font-size: 0.95rem; color: var(--text-muted); font-weight: 300; }
         
         .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
@@ -138,6 +138,13 @@
         }
 
         [data-th], [data-en] { transition: opacity 0.3s ease-in-out; }
+
+        /* --- THAI TYPOGRAPHY FIX (ป้องกันสระลอยบนมือถือ) --- */
+        body.lang-th .name-title,
+        body.lang-th .sub-name,
+        body.lang-th .role {
+            letter-spacing: normal !important;
+        }
 
         @media (max-width: 900px) {
             .layout-wrapper { flex-direction: column-reverse; padding-top: 80px; }
