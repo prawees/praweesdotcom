@@ -97,7 +97,7 @@
         }
         
         .main-split {
-            display: grid; grid-template-columns: 1fr; gap: 50px;
+            display: grid; grid-template-columns: 1fr; gap: 60px;
         }
 
         .aesthetic-heading {
@@ -110,17 +110,18 @@
             content: ''; height: 1px; background: var(--border-color); flex: 1;
         }
 
-        /* --- WORD CLOUD (SMOOTH IN-PLACE REPLACE) --- */
+        /* --- STABLE WORD CLOUD --- */
         .wordcloud-container {
-            padding: 10px 0;
+            padding: 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
+            align-content: center; /* Center items vertically */
             gap: 12px 20px;
             text-align: center;
-            min-height: 100px;
-            margin-bottom: 40px;
+            height: 160px; /* ล็อกความสูงป้องกันหน้าเว็บกระโดด */
+            overflow: hidden;
+            margin-bottom: 30px;
         }
         .cloud-word {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -129,14 +130,14 @@
             letter-spacing: 1px;
             cursor: default;
             display: inline-block;
-            transition: opacity 1.5s ease-in-out, color 0.3s;
+            transition: opacity 2s ease-in-out, color 0.4s, transform 0.4s;
         }
         .cloud-word.fade-out {
             opacity: 0 !important;
         }
         .cloud-word:hover {
             color: var(--accent-blue) !important;
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         /* --- VIDEO SECTION & RESPONSIVE EMBED --- */
@@ -169,9 +170,7 @@
             background: var(--surface-color); border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column;
             border: 1px solid var(--border-color);
-            /* ควบคุมความกว้างของการ์ดวิดีโอ */
-            min-width: 100%; flex: 0 0 100%;
-            max-width: 100%;
+            min-width: 100%; flex: 0 0 100%; max-width: 100%;
             scroll-snap-align: center;
         }
         
@@ -180,19 +179,14 @@
         .video-title { font-size: 1.15rem; font-weight: 600; margin: 5px 0; line-height: 1.3; }
         .video-desc { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* ตัวครอบ TikTok ให้ยืดหยุ่นเต็มกรอบเสมอ */
         .video-embed-wrapper { 
             width: 100%; background-color: #000; 
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden; position: relative;
+            overflow: hidden;
         }
-        
-        /* บังคับ Blockquote ของ TikTok ให้พอดีจอ */
-        .tiktok-embed {
-            margin: 0 !important; width: 100% !important; max-width: 100% !important; min-width: 100% !important;
-        }
+        .tiktok-embed { margin: 0 !important; width: 100% !important; max-width: 100% !important; min-width: 100% !important; }
 
-        /* --- NOTION EMBED SECTION --- */
+        /* --- NOTION EMBED --- */
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -202,12 +196,12 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
         }
 
-        /* --- GOOGLE FORM SUGGESTION BOX --- */
+        /* --- GOOGLE FORM --- */
         .form-container {
             width: 100%; border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
             background: var(--surface-color); position: relative;
-            padding-bottom: 120%; /* Aspect Ratio สำหรับมือถือให้เห็นฟอร์มยาวๆ */
+            height: 480px; /* ล็อกความสูงไม่ให้เกินกรอบ */
         }
         .form-container iframe {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
@@ -220,43 +214,47 @@
         .footer-links {
             display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;
         }
+        
+        /* ACTUAL SOLID BUTTONS */
         .footer-links a {
-            color: var(--text-main); text-decoration: none; font-size: 0.75rem; font-weight: 700; 
+            background-color: var(--text-main); color: #FFFFFF;
+            text-decoration: none; font-size: 0.75rem; font-weight: 700; 
             font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 1px;
-            padding: 10px 24px; border: 1px solid var(--border-color); border-radius: 8px;
-            background-color: var(--surface-color); box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            padding: 12px 28px; border-radius: 30px; /* Pill shape */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             transition: all 0.3s ease; display: inline-flex; align-items: center;
         }
         .footer-links a:hover { 
-            border-color: var(--text-main); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            background-color: var(--accent-blue);
+            transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.2);
         }
-        .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; margin-top: 20px; }
+        .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; margin-top: 25px; }
 
-        /* RESPONSIVE DESKTOP LAYOUT (Side by Side) */
+        /* --- RESPONSIVE DESKTOP (Side by Side) --- */
         @media (min-width: 1024px) {
             .main-split { grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
             .sticky-notion { position: sticky; top: 100px; }
-            .notion-container { height: calc(100vh - 150px); min-height: 600px; }
-            
-            /* จำกัดความกว้างของการ์ดวิดีโอไม่ให้ใหญ่เกินไปบน Desktop */
+            .notion-container { height: calc(100vh - 350px); min-height: 500px; }
             .video-grid-container { max-width: 480px; margin: 0; } 
-            
-            /* ปรับสัดส่วน Form บน Desktop ให้สั้นลง */
-            .form-container { padding-bottom: 65%; }
         }
 
-        /* MOBILE LAYOUT (Stack Order) */
+        /* --- RESPONSIVE MOBILE (Strict Order) --- */
         @media (max-width: 1023px) {
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
-            .main-split { display: flex; flex-direction: column; gap: 50px; }
             
-            .order-1 { order: 1; } /* Wordcloud */
-            .order-2 { order: 2; } /* Database */
-            .order-3 { order: 3; } /* Videos */
-            .order-4 { order: 4; } /* Form */
+            /* ใช้ display contents เพื่อให้ลูกๆ เข้าไปเรียงใน main-split ได้โดยตรง */
+            .main-split { display: flex; flex-direction: column; gap: 50px; }
+            .videos-side, .notion-side { display: contents; }
+            
+            /* กำหนดลำดับ (Order) ชัดเจน */
+            #wordcloud { order: 1; margin-bottom: 0; }
+            .database-section { order: 2; }
+            .video-section { order: 3; }
+            .suggestion-section { order: 4; }
             
             .notion-container { height: 500px; margin-bottom: 0; }
+            .form-container { height: 480px; }
         }
     </style>
 </head>
@@ -288,15 +286,14 @@
     </section>
 
     <section class="section-container">
-        
         <div class="main-split">
             
             <div class="videos-side">
                 
-                <div class="wordcloud-container order-1" id="wordcloud">
+                <div class="wordcloud-container" id="wordcloud">
                     </div>
 
-                <div class="video-section order-3">
+                <div class="video-section">
                     <div class="video-header-controls">
                         <div class="aesthetic-heading" style="margin-bottom:0;" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
                         <div class="carousel-controls">
@@ -304,17 +301,9 @@
                             <button class="carousel-btn" onclick="scrollSlider(1)">❯</button>
                         </div>
                     </div>
-                    
                     <div class="video-grid-container">
                         <div class="video-grid" id="video-container">
                             </div>
-                    </div>
-                </div>
-                
-                <div class="suggestion-section order-4" style="margin-top: 50px;">
-                    <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
-                    <div class="form-container">
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true">Loading…</iframe>
                     </div>
                 </div>
 
@@ -322,10 +311,21 @@
 
             <div class="notion-side">
                 
-                <div class="database-section order-2 sticky-notion">
+                <div class="database-section sticky-notion">
                     <div class="aesthetic-heading" data-th="คลังความรู้" data-en="Resources">คลังความรู้</div>
                     <div class="notion-container">
-                        <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8"></iframe>
+                        <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" 
+                                style="width:100%; height:100%; border:0;" 
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="suggestion-section" style="margin-top: 40px;">
+                    <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
+                    <div class="form-container">
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" 
+                                style="width:100%; height:100%; border:0;" 
+                                allowfullscreen>Loading…</iframe>
                     </div>
                 </div>
 
@@ -344,7 +344,7 @@
     </footer>
 
     <script>
-        // --- 1. CONTINUOUS WORD CLOUD (SMOOTH REPLACE) ---
+        // --- 1. CONTINUOUS WORD CLOUD (Nausea-Free) ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
@@ -362,19 +362,18 @@
         ];
         
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0'];
-        const wordCount = 10; // ลดจำนวนคำลงเพื่อไม่ให้รกเกินไป
+        const wordCount = 10; 
 
         function initWordCloud() {
             const container = document.getElementById('wordcloud');
             const shuffled = medicalWords.sort(() => 0.5 - Math.random());
             
-            // สร้าง Slot ของคำทิ้งไว้
             for(let i=0; i<wordCount; i++) {
                 const span = document.createElement('span');
                 span.className = 'cloud-word';
                 span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.5 + 0.6).toFixed(2); // เล็กพอดีคำ 0.6rem - 1.1rem
+                const size = (Math.random() * 0.4 + 0.6).toFixed(2); // 0.6rem - 1.0rem (ไม่ใหญ่ไป)
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
                 span.style.fontSize = `${size}rem`;
@@ -383,23 +382,23 @@
                 
                 container.appendChild(span);
                 
-                // ให้คำแรกค่อยๆ โชว์ขึ้นมา
+                // Initial fade in
                 setTimeout(() => {
                     span.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2);
                 }, 100);
 
-                // เริ่มสลับคำ (แต่ละคำมีจังหวะสลับไม่พร้อมกัน)
+                // Loop swap with slow intervals (ช้าลง ไม่ทำให้ตาลาย)
                 setInterval(() => {
                     swapWord(span);
-                }, Math.random() * 4000 + 4000); // ทุกๆ 4 - 8 วินาที
+                }, Math.random() * 6000 + 6000); // 6s - 12s
             }
         }
 
         function swapWord(element) {
-            // 1. Fade Out
+            // 1. ค่อยๆ เฟดออก (2 วินาที)
             element.classList.add('fade-out');
             
-            // 2. รอให้จางหาย (1.5s ตาม CSS transition) แล้วเปลี่ยนคำ + สี
+            // 2. เมื่อเฟดเสร็จ เปลี่ยนคำและสี แล้วเฟดเข้ากลับมา
             setTimeout(() => {
                 const newWord = medicalWords[Math.floor(Math.random() * medicalWords.length)];
                 const newColor = colors[Math.floor(Math.random() * colors.length)];
@@ -407,10 +406,9 @@
                 element.innerText = newWord;
                 element.style.color = newColor;
                 
-                // 3. Fade In กลับมา
                 element.classList.remove('fade-out');
-                element.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2); // สุ่มความทึบ
-            }, 1500); 
+                element.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2); 
+            }, 2000); 
         }
 
         // --- 2. VIDEO DATABASE ---
@@ -422,7 +420,7 @@
                     title_en: "Health Systems Researcher",
                     desc_th: "กับ ศ.เกียรติคุณ นพ.ไพบูลย์ สุริยะวงศ์ไพศาล",
                     desc_en: "with Prof.Paibul Suriyawongpaisal, M.D.",
-                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7615096735899192594" data-video-id="7615096735899192594"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “แพทย์นักวิจัยระบบสุขภาพ” </section> </blockquote>`
+                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7615096735899192594" data-video-id="7615096735899192594" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “แพทย์นักวิจัยระบบสุขภาพ” </section> </blockquote>`
                 },
                 {
                     episode: "03",
@@ -430,7 +428,7 @@
                     title_en: "Neurology Attending",
                     desc_th: "กับ อ.พญ.วันนิษา วงษ์พิพัฒน์พงษ์",
                     desc_en: "with Wannisa Wongpipathpong, M.D.",
-                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7606275644078607634" data-video-id="7606275644078607634"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “อาจารย์แพทย์นิวโรเมด” </section> </blockquote>`
+                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7606275644078607634" data-video-id="7606275644078607634" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “อาจารย์แพทย์นิวโรเมด” </section> </blockquote>`
                 },
                 {
                     episode: "02",
@@ -438,7 +436,7 @@
                     title_en: "Pediatrics Resident",
                     desc_th: "กับ พญ.จุฑามาศ วัฒน์ชัยพนา",
                     desc_en: "with Juthamard Watchaipana, M.D.",
-                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605593446358764808" data-video-id="7605593446358764808"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident เด็ก” </section> </blockquote>`
+                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605593446358764808" data-video-id="7605593446358764808" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident เด็ก” </section> </blockquote>`
                 },
                 {
                     episode: "01",
@@ -446,7 +444,7 @@
                     title_en: "Neurosurgery Resident",
                     desc_th: "กับ พญ.ธนพร เจริญงามเสมอ",
                     desc_en: "with Tanaporn Jaroenngarmsamer, M.D.",
-                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย” </section> </blockquote>`
+                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="width: 100%; max-width: 605px; min-width: 280px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย” </section> </blockquote>`
                 }
             ]
         };
