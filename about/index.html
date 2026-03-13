@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Smart | Prawee S.</title>
+    <title>About Smart | Prawee Sinweeruthai</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%231D1D1F'/><text x='50' y='68' font-family='sans-serif' font-size='50' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'>PS</text></svg>">
     
@@ -12,7 +12,7 @@
     <style>
         :root { 
             --bg-color: #FBFBFD; 
-            --surface-color: rgba(255, 255, 255, 0.7);
+            --surface-color: rgba(255, 255, 255, 0.6);
             --text-main: #1D1D1F; 
             --text-muted: #86868B; 
             --border-color: rgba(0, 0, 0, 0.08); 
@@ -71,8 +71,10 @@
             width: 35%; padding: 60px 4vw; position: sticky; top: 80px; height: calc(100vh - 80px);
             display: flex; flex-direction: column; border-right: 1px solid var(--border-color);
         }
+        
         .profile-img-container {
-            width: 170px; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 30px;
+            width: 170px; height: 220px; min-height: 220px; flex-shrink: 0; 
+            border-radius: 12px; overflow: hidden; margin-bottom: 30px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.08); position: relative;
         }
         .profile-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -108,6 +110,16 @@
         .portfolio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
         .portfolio-caption { margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; font-family: var(--font-en); }
 
+        /* SPOTIFY EMBED STYLES */
+        .spotify-container {
+            width: 100%; border-radius: 16px; overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color); background: var(--surface-color);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .spotify-container:hover { transform: translateY(-5px); border-color: rgba(0, 102, 204, 0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+
         /* SECTION HEADERS & DIVIDERS */
         .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
         .section-title { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; white-space: nowrap; }
@@ -116,7 +128,7 @@
         .bio-text { font-size: 1.15rem; color: var(--text-main); font-weight: 400; line-height: 1.8; margin-bottom: 30px; }
 
         /* CV ITEMS */
-        .cv-item { margin-bottom: 50px; position: relative; }
+        .cv-item { margin-bottom: 45px; position: relative; }
         .cv-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
         .cv-date { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
         .cv-desc { font-size: 1rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
@@ -201,12 +213,6 @@
         </aside>
 
         <main class="right-col">
-            
-            <section class="content-section" style="margin-bottom: 60px;">
-                <div class="video-container" style="box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
-                    <iframe src="https://www.youtube.com/embed/IDK4Yb0WmUU?si=26SFNci2G8_SyjVA" title="Prawee S. Intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-            </section>
 
             <section class="content-section">
                 <div class="section-header">
@@ -245,14 +251,53 @@
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">03 / INITIATIVES</div>
+                    <div class="section-title">03 / EXPERIENCE</div>
                     <div class="divider"></div>
                 </div>
+                
                 <div class="cv-item">
-                    <div class="cv-title">Virtual Ramathon Run</div>
-                    <div class="cv-date">PROJECT LEAD</div>
-                    <div class="cv-desc" data-th="Digital wellness platform • Strava API • Gamified fitness for 250+ staff" data-en="Digital wellness platform • Strava API • Gamified fitness for 250+ staff">Digital wellness platform • Strava API • Gamified fitness for 250+ staff</div>
+                    <div class="cv-title" data-th="ประธานโครงการ Ramathon Run Club & อื่นๆ" data-en="Ramathon Run Club President & More">ประธานโครงการ Ramathon Run Club & อื่นๆ</div>
+                    <div class="cv-date">2026 (2569)</div>
+                    <div class="cv-desc" data-th="ประธานโครงการ Ramathon Run Club, Moderator งาน RAMSC Career Month และ Motion Media Team โครงการ Road Traffic Injury Pitching Challenge" data-en="President of Ramathon Run Club, Moderator for RAMSC Career Month, and Motion Media Team for Road Traffic Injury Pitching Challenge.">ประธานโครงการ Ramathon Run Club, Moderator งาน RAMSC Career Month และ Motion Media Team โครงการ Road Traffic Injury Pitching Challenge</div>
                 </div>
+
+                <div class="cv-item">
+                    <div class="cv-title" data-th="นำเสนองานวิจัยระดับนานาชาติ" data-en="International Research Presentations">นำเสนองานวิจัยระดับนานาชาติ</div>
+                    <div class="cv-date">2025 (2568)</div>
+                    <div class="cv-desc" data-th="นำเสนองานวิจัยที่งานสัมมนาวิชาการระดับนานาชาติ IEEE BioSensors 2025 ที่รัฐแคลิฟอร์เนีย สหรัฐอเมริกา และ IEEE-NSENS 2025 กัวลาลัมเปอร์ ประเทศมาเลเซีย" data-en="Presented research at the international academic conference IEEE BioSensors 2025 in California, USA, and IEEE-NSENS 2025 in Kuala Lumpur, Malaysia.">นำเสนองานวิจัยที่งานสัมมนาวิชาการระดับนานาชาติ IEEE BioSensors 2025 ที่รัฐแคลิฟอร์เนีย สหรัฐอเมริกา และ IEEE-NSENS 2025 กัวลาลัมเปอร์ ประเทศมาเลเซีย</div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-title" data-th="Virtual Ramathon 2024 & รางวัล Dean's Award" data-en="Virtual Ramathon 2024 & Dean's Award">Virtual Ramathon 2024 & รางวัล Dean's Award</div>
+                    <div class="cv-date">2024 (2567)</div>
+                    <div class="cv-desc" data-th="ประธานโครงการงานวิ่ง Virtual Ramathon 2024, รางวัล Dean’s Emerging/Impact Award และเลขานุการชมรมกอล์ฟ" data-en="Project President of Virtual Ramathon 2024, recipient of the Dean’s Emerging/Impact Award, and Secretary of the Golf Club.">ประธานโครงการงานวิ่ง Virtual Ramathon 2024, รางวัล Dean’s Emerging/Impact Award และเลขานุการชมรมกอล์ฟ</div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-title" data-th="Rama Drama ครั้งที่ 16 & กีฬาเปตอง" data-en="16th Rama Drama & Petanque">Rama Drama ครั้งที่ 16 & กีฬาเปตอง</div>
+                    <div class="cv-date">2023 (2566)</div>
+                    <div class="cv-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีในการแสดงละครเวทีการกุศล Rama Drama ครั้งที่ 16 “Allegro in Red” และผู้ประสานงานกีฬาเปตองในกิจกรรม The 34th Syringe Games" data-en="Head of Video Production and Musician for the 16th Rama Drama charity stage play 'Allegro in Red', and Petanque Coordinator for The 34th Syringe Games.">หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีในการแสดงละครเวทีการกุศล Rama Drama ครั้งที่ 16 “Allegro in Red” และผู้ประสานงานกีฬาเปตองในกิจกรรม The 34th Syringe Games</div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-title" data-th="AMSA Thailand & กีฬาเปตอง" data-en="AMSA Thailand & Petanque">AMSA Thailand & กีฬาเปตอง</div>
+                    <div class="cv-date">2022 (2565)</div>
+                    <div class="cv-desc" data-th="Assistant Director of Research สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand) ผู้จัดงานสัมมนา An Insider’s Guide to Conducting Outstanding Research และตัวแทนแข่งขันกีฬาเปตองประเภททีม ได้รับรางวัลรองชนะเลิศอันดับ 2 ในกิจกรรม The 33rd Syringe Games" data-en="Assistant Director of Research at AMSA Thailand, Organizer of 'An Insider’s Guide to Conducting Outstanding Research' seminar, and 2nd Runner-up in Team Petanque at The 33rd Syringe Games.">Assistant Director of Research สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand) ผู้จัดงานสัมมนา An Insider’s Guide to Conducting Outstanding Research และตัวแทนแข่งขันกีฬาเปตองประเภททีม ได้รับรางวัลรองชนะเลิศอันดับ 2 ในกิจกรรม The 33rd Syringe Games</div>
+                </div>
+
+                <div class="cv-item" style="margin-bottom: 0;">
+                    <div class="cv-title" data-th="AMSA Thailand (ฝ่ายวิจัย)" data-en="AMSA Thailand (Research Team)">AMSA Thailand (ฝ่ายวิจัย)</div>
+                    <div class="cv-date">2021 (2564)</div>
+                    <div class="cv-desc" data-th="สมาชิกฝ่ายวิจัย สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand)" data-en="Research Member of the Asian Medical Students' Association (AMSA) Thailand.">สมาชิกฝ่ายวิจัย สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand)</div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-title">04 / PORTFOLIO</div>
+                    <div class="divider"></div>
+                </div>
+                
                 <div class="cv-item">
                     <div class="cv-title" data-th="กว่า-จะ-เป็น Series" data-en="Gwa-Ja-Pen Series">กว่า-จะ-เป็น Series</div>
                     <div class="cv-date">CREATOR & STRATEGIST</div>
@@ -282,7 +327,7 @@
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">04 / FOCUS</div>
+                    <div class="section-title">05 / FOCUS</div>
                     <div class="divider"></div>
                 </div>
                 <div class="interest-grid">
@@ -298,6 +343,19 @@
                         <h4 data-th="ความชอบ" data-en="Interests">ความชอบ</h4>
                         <p class="keywords" data-th="Street Photography • Alt-Rock • Manchester United" data-en="Street Photography • Alt-Rock • Manchester United">Street Photography • Alt-Rock • Manchester United</p>
                     </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-title">06 / SOUNDTRACK</div>
+                    <div class="divider"></div>
+                </div>
+                <p class="bio-text" data-th="ฟังเพลงกัน" data-en="Let's listen to some music...">
+                    ฟังเพลงกัน
+                </p>
+                <div class="spotify-container">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO2O09Mg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </section>
 
