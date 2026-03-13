@@ -29,7 +29,7 @@
     
     <link rel="icon" type="image/png" href="logo.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Prompt:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -47,7 +47,8 @@
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            /* ใช้ฟอนต์ Plus Jakarta Sans + Prompt (ไม่มีหัว) ทั้งเว็บ */
+            font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif; 
             line-height: 1.6; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -77,7 +78,7 @@
         /* --- TYPOGRAPHY --- */
         .header-intro { margin-bottom: 60px; opacity: 0; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .name-title { 
-            font-family: 'Lora', serif; font-size: 4.5rem; font-weight: 400; 
+            font-size: 4.5rem; font-weight: 600; 
             letter-spacing: -2px; line-height: 1.4; margin-bottom: 15px; padding-bottom: 10px;
             background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
@@ -101,10 +102,10 @@
         .menu-item:hover .menu-num { color: var(--accent-blue); }
         
         .menu-text { flex: 1; }
-        .menu-text h2 { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 400; margin-bottom: 6px; }
+        .menu-text h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 6px; }
         .menu-text p { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
         
-        .menu-arrow { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
+        .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
         .menu-item:hover .menu-arrow { opacity: 1; transform: translateX(0) translateY(0); color: var(--text-main); }
 
         /* --- PORTRAIT IMAGE --- */
@@ -134,7 +135,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- MULTILINGUAL TRANSITION --- */
         [data-th], [data-en] { transition: opacity 0.3s ease-in-out; }
 
         @media (max-width: 900px) {
@@ -150,7 +150,7 @@
 
     <nav class="top-bar">
         <div class="logo-area">
-            <a href="https://prawees.com"><img src="logo.png" alt="Prawees Logo" class="site-logo"></a>
+            <a href="https://prawees.com"><img src="logo.png" alt="PS Logo" class="site-logo"></a>
         </div>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
@@ -161,7 +161,7 @@
     <div class="layout-wrapper">
         <div class="content-side">
             <header class="header-intro">
-                <h1 class="name-title">Prawee S. (Smart)</h1>
+                <h1 class="name-title" data-th="ประวีร์ สินวีรุทัย" data-en="Prawee Sinweeruthai">Prawee S. (Smart)</h1>
                 <p class="role" data-th="นักศึกษาแพทย์ (M.D.-M.Eng)" data-en="Medical Student (M.D.-M.Eng)">นักศึกษาแพทย์ (M.D.-M.Eng)</p>
                 <p class="bio" data-th="เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่" data-en="Connecting medical narratives to inspire youth.">เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่</p>
             </header>
@@ -207,7 +207,6 @@
     </div>
 
     <script>
-        // Multilingual Logic
         function setLanguage(lang) {
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
