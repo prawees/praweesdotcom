@@ -98,24 +98,46 @@
         }
 
         .aesthetic-heading {
-            font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px;
+            font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px;
             display: flex; align-items: center; gap: 15px;
+            white-space: nowrap; /* FIXED: ป้องกันสระลอยเบี้ยวจากการตัดคำ */
         }
         .aesthetic-heading::after {
             content: ''; height: 1px; background: var(--border-color); flex: 1;
         }
 
-        /* --- COMPACT VIDEO GRID --- */
+        /* --- VIDEO SECTION --- */
+        .video-header-controls {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        
+        .carousel-controls {
+            display: none; /* ซ่อนใน Desktop */
+            gap: 10px;
+        }
+        .carousel-btn {
+            background: transparent; border: 1px solid var(--border-color);
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; color: var(--text-main); transition: 0.3s;
+        }
+        .carousel-btn:hover { background: var(--border-color); }
+        .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* --- VIDEO GRID / CAROUSEL --- */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            transition: transform 0.4s ease;
         }
+        
         .video-card {
             background: var(--surface-color); border-radius: 12px; overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column;
             border: 1px solid var(--border-color);
+            width: 100%;
         }
         .video-info-top { padding: 20px 20px 15px 20px; border-bottom: 1px solid var(--border-color); }
         .video-tag { font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1.5px; }
@@ -131,19 +153,51 @@
             background: var(--surface-color);
         }
 
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+        /* --- FOOTER --- */
+        .footer-contact {
+            text-align: center; padding: 50px 20px; border-top: 1px solid var(--border-color);
+        }
+        .footer-links {
+            display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.3s;
+        }
+        .footer-links a:hover { color: var(--accent-gold); }
+        .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; }
 
-        /* RESPONSIVE DESKTOP LAYOUT (Side by Side) */
+        /* RESPONSIVE DESKTOP LAYOUT */
         @media (min-width: 1024px) {
             .main-split { grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: start; }
             .sticky-notion { position: sticky; top: 100px; }
             .notion-container { height: calc(100vh - 200px); min-height: 500px; max-height: 800px; }
         }
 
+        /* MOBILE CAROUSEL MODE */
         @media (max-width: 768px) {
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
             .notion-container { height: 500px; }
+            
+            .carousel-controls { display: flex; }
+            
+            /* เปลี่ยน Grid เป็น Slider บนมือถือ */
+            .video-grid-container {
+                width: 100%; overflow: hidden;
+            }
+            .video-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                grid-template-columns: none;
+                gap: 0;
+            }
+            .video-card {
+                min-width: 100%; /* บังคับให้การ์ดกว้าง 100% ของจอ */
+                flex: 0 0 100%;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            .video-card.active { opacity: 1; }
         }
     </style>
 </head>
@@ -178,8 +232,18 @@
         <div class="main-split">
             
             <div class="videos-side">
-                <div class="aesthetic-heading" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
-                <div class="video-grid" id="video-container"></div>
+                <div class="video-header-controls">
+                    <div class="aesthetic-heading" style="margin-bottom:0;" data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" id="btn-prev" onclick="moveSlide(-1)">❮</button>
+                        <button class="carousel-btn" id="btn-next" onclick="moveSlide(1)">❯</button>
+                    </div>
+                </div>
+                
+                <div class="video-grid-container">
+                    <div class="video-grid" id="video-container">
+                        </div>
+                </div>
             </div>
 
             <div class="notion-side sticky-notion">
@@ -194,11 +258,44 @@
         </div>
     </section>
 
-    <footer><p>© 2026 Prawees • Gwa-Ja-Pen Series</p></footer>
+    <footer class="footer-contact">
+        <div class="footer-links">
+            <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok: @gwa.ja.pen</a>
+            <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">IG: @gwa.ja.pen</a>
+            <a href="mailto:prawee.sin@gmail.com">prawee.sin@gmail.com</a>
+        </div>
+        <div class="footer-copyright">© 2026 Prawees</div>
+    </footer>
 
     <script>
+        // --- DATABASE FOR EPISODES ---
+        // ใส่โค้ด Embed ของ TikTok ลงใน property 'embed_code' ได้เลยครับ
         const database = {
             videos: [
+                {
+                    episode: "04",
+                    title_th: "Coming Soon...",
+                    title_en: "Coming Soon...",
+                    desc_th: "กำลังเตรียมเนื้อหาตอนใหม่",
+                    desc_en: "Preparing the next episode",
+                    embed_code: `<div style="padding: 100px 20px; color: white; text-align: center;">EP 04 Placeholder</div>` // นำโค้ด TikTok มาวางทับตรงนี้
+                },
+                {
+                    episode: "03",
+                    title_th: "Coming Soon...",
+                    title_en: "Coming Soon...",
+                    desc_th: "กำลังเตรียมเนื้อหา",
+                    desc_en: "Preparing content",
+                    embed_code: `<div style="padding: 100px 20px; color: white; text-align: center;">EP 03 Placeholder</div>` // นำโค้ด TikTok มาวางทับตรงนี้
+                },
+                {
+                    episode: "02",
+                    title_th: "Coming Soon...",
+                    title_en: "Coming Soon...",
+                    desc_th: "กำลังเตรียมเนื้อหา",
+                    desc_en: "Preparing content",
+                    embed_code: `<div style="padding: 100px 20px; color: white; text-align: center;">EP 02 Placeholder</div>` // นำโค้ด TikTok มาวางทับตรงนี้
+                },
                 {
                     episode: "01",
                     title_th: "Neurosurgery Resident",
@@ -210,10 +307,17 @@
             ]
         };
         
+        let currentIndex = 0; // เริ่มต้นที่ Index 0 (ตอนที่ 04 / ล่าสุด)
+
         function renderContent() {
             const container = document.getElementById('video-container');
-            container.innerHTML = database.videos.map(v => `
-                <div class="video-card">
+            
+            // สร้างการ์ดทั้งหมด
+            container.innerHTML = database.videos.map((v, index) => {
+                // จัดการ Autoplay (บน Desktop ให้ตอนแรกเล่นได้, บน Mobile ขึ้นอยู่กับ Slide)
+                // หมายเหตุ: โค้ด embed ของ TikTok ไม่รองรับ autoplay ผ่าน parameter โดยตรง ต้องรอ user กด
+                return `
+                <div class="video-card" id="card-${index}">
                     <div class="video-info-top">
                         <span class="video-tag">EPISODE ${v.episode}</span>
                         <h3 class="video-title" data-th="${v.title_th}" data-en="${v.title_en}">${v.title_th}</h3>
@@ -221,9 +325,47 @@
                     </div>
                     <div class="video-embed-wrapper">${v.embed_code}</div>
                 </div>
-            `).join('');
+            `}).join('');
+
+            updateCarousel();
         }
 
+        // --- CAROUSEL LOGIC (Mobile) ---
+        function moveSlide(direction) {
+            currentIndex += direction;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const isMobile = window.innerWidth <= 768;
+            const container = document.getElementById('video-container');
+            const totalSlides = database.videos.length;
+
+            if (isMobile) {
+                // ซ่อน/แสดงปุ่ม
+                document.getElementById('btn-prev').disabled = currentIndex === 0;
+                document.getElementById('btn-next').disabled = currentIndex === totalSlides - 1;
+
+                // เลื่อน Grid
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                // จัดการความทึบแสง (Active state)
+                for(let i=0; i<totalSlides; i++) {
+                    document.getElementById(`card-${i}`).classList.toggle('active', i === currentIndex);
+                }
+            } else {
+                // Desktop: แสดงหมด ไม่ต้องมี Transform
+                container.style.transform = `translateX(0)`;
+                for(let i=0; i<totalSlides; i++) {
+                    document.getElementById(`card-${i}`).classList.add('active');
+                }
+            }
+        }
+
+        // รีเซ็ตเมื่อหมุนจอ (Resize)
+        window.addEventListener('resize', updateCarousel);
+
+        // --- LANGUAGE LOGIC ---
         function setLanguage(lang) {
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
