@@ -160,7 +160,7 @@
 
         /* --- RESPONSIVE DESKTOP (Side by Side) --- */
         @media (min-width: 1024px) {
-            .main-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+            .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; }
             .col-left { display: flex; flex-direction: column; gap: 40px; }
             .col-right { display: flex; flex-direction: column; gap: 40px; }
         }
