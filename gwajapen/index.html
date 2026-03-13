@@ -23,142 +23,95 @@
             background-color: var(--bg-color); 
             color: var(--text-main); 
             font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
-            line-height: 1.6; 
+            line-height: 1.5; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        [data-th], [data-en] { transition: opacity 0.25s ease-in-out; }
-
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 25px 6vw; display: flex; justify-content: space-between;
+            padding: 15px 6vw; display: flex; justify-content: space-between;
             z-index: 100; color: white;
-            /* ปรับ Gradient ให้จางลงเพื่อให้เห็นภาพชัดขึ้น แต่ยังอ่านปุ่มเมนูได้ */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
         }
         .back-link {
             text-decoration: none; color: inherit; font-weight: 600;
-            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
-            display: flex; align-items: center; gap: 8px; transition: opacity 0.3s;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
         }
-        .back-link:hover { opacity: 0.7; }
         
-        .lang-switcher { display: flex; gap: 10px; }
         .lang-switcher button { 
             background: transparent; border: none; font-size: 0.8rem; 
             font-weight: 600; color: inherit; cursor: pointer; opacity: 0.6;
-            transition: opacity 0.3s; letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        .lang-switcher button:hover { opacity: 0.9; }
-        .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+        .lang-switcher button.active { opacity: 1; text-decoration: underline; }
 
-        /* --- HERO SECTION (CLEAN VERSION) --- */
+        /* --- HERO SECTION --- */
         .hero {
-            position: relative; width: 100%; height: 60vh; min-height: 400px;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
+            position: relative; width: 100%; height: 50vh; min-height: 350px;
+            display: flex; justify-content: center; align-items: flex-end;
+            overflow: hidden; padding-bottom: 40px;
         }
         .hero-banner-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center; z-index: -1;
+            object-fit: cover; z-index: -1;
         }
-        /* ลบ Overlay สีดำออกเพื่อให้ภาพสว่างชัดเจน */
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.6) 100%);
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative; z-index: 1; text-align: center; color: white;
+            max-width: 700px; padding: 0 20px;
+        }
+        .hero-subtitle {
+            font-size: 1.1rem; font-weight: 300; line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
 
         /* --- LAYOUT WRAPPER --- */
         .section-container {
-            max-width: 1400px; margin: 0 auto; padding: 80px 6vw;
+            max-width: 1200px; margin: 0 auto; padding: 60px 6vw;
         }
-        .section-header {
-            margin-bottom: 60px; text-align: center;
-        }
-        .section-header h2 {
-            font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 400; margin-bottom: 15px; color: var(--text-main);
-        }
-        .section-header p {
-            color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;
-        }
+        .section-header { margin-bottom: 40px; text-align: center; }
+        .section-header h2 { font-family: 'Lora', serif; font-size: 2.2rem; margin-bottom: 10px; }
 
-        /* --- VIDEO GRID --- */
+        /* --- COMPACT VIDEO GRID --- */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
         .video-card {
             background: var(--surface-color);
-            border-radius: 20px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
             display: flex; flex-direction: column;
         }
-        .video-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-        }
+        .video-info-top { padding: 20px 20px 15px 20px; border-bottom: 1px solid var(--border-color); }
+        .video-tag { font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1.5px; }
+        .video-title { font-size: 1.15rem; font-weight: 600; margin: 5px 0; line-height: 1.3; }
+        .video-desc { font-size: 0.9rem; color: var(--text-muted); }
+
         .video-embed-wrapper {
-            width: 100%; background-color: #050505;
-            display: flex; justify-content: center; align-items: center;
-        }
-        
-        .video-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-        .video-tag { 
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; 
-            color: var(--accent-gold); font-weight: 600; margin-bottom: 12px; display: block; 
-        }
-        .video-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; color: var(--text-main); }
-        .video-desc { font-size: 0.95rem; color: var(--text-muted); }
-
-        /* --- WRITTEN ARCHIVES --- */
-        .archive-section {
-            background-color: var(--surface-color);
-            padding: 100px 0; border-top: 1px solid var(--border-color);
-        }
-        .blog-grid {
-            display: flex; flex-direction: column; gap: 0;
-            border-top: 1px solid var(--border-color);
-        }
-        .blog-card {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 50px 0; border-bottom: 1px solid var(--border-color);
-            text-decoration: none; color: inherit; transition: all 0.4s ease;
-        }
-        .blog-card:hover {
-            padding-left: 30px; padding-right: 30px;
-            background-color: rgba(0,0,0,0.02);
-        }
-        .blog-meta {
-            width: 220px; font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.9rem; color: var(--text-muted);
-        }
-        .blog-meta span {
-            color: var(--accent-gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: block; margin-top: 5px;
-        }
-        .blog-content { flex: 1; padding-right: 50px; }
-        .blog-content h3 { font-family: 'Lora', serif; font-size: 2rem; font-weight: 400; margin-bottom: 12px; color: var(--text-main); }
-        .blog-content p { font-size: 1.05rem; color: var(--text-muted); max-width: 800px; }
-        
-        .blog-arrow { font-size: 1.8rem; color: var(--accent-gold); transition: transform 0.4s; opacity: 0; transform: translateX(-20px); }
-        .blog-card:hover .blog-arrow { opacity: 1; transform: translateX(0); }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center; padding: 60px 20px;
-            background-color: var(--bg-color);
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9rem; color: var(--text-muted);
+            width: 100%; background-color: #000;
+            display: flex; justify-content: center;
         }
 
-        @media (max-width: 900px) {
-            .hero { height: 40vh; min-height: 300px; }
-            .blog-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 40px 0; }
-            .blog-card:hover { padding-left: 0; padding-right: 0; background-color: transparent; }
-            .blog-meta { width: 100%; }
-            .blog-content { padding-right: 0; }
-            .blog-arrow { display: none; }
+        /* --- NOTION EMBED SECTION --- */
+        .notion-section { background: var(--surface-color); padding: 80px 0; border-top: 1px solid var(--border-color); }
+        .notion-container {
+            width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--text-muted); }
+
+        @media (max-width: 768px) {
+            .hero { height: 40vh; }
+            .hero-subtitle { font-size: 1rem; }
+            .notion-container { height: 500px; }
         }
     </style>
 </head>
@@ -166,7 +119,7 @@
 
     <nav class="top-bar">
         <a href="https://prawees.com" class="back-link">
-            <span>←</span> <span data-th="กลับสู่หน้าหลัก" data-en="Back to Prawees">กลับสู่หน้าหลัก</span>
+            <span>←</span> <span data-th="กลับหน้าหลัก" data-en="Home">กลับหน้าหลัก</span>
         </a>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
@@ -175,32 +128,39 @@
     </nav>
 
     <section class="hero">
-        <img src="banner.jpg" alt="กว่า-จะ-เป็น Channel Banner" class="hero-banner-img">
+        <img src="banner.jpg" alt="Banner" class="hero-banner-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์" 
+               data-en="The untold stories, hidden challenges, and unfiltered inspirations behind the white coat.">
+                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์
+            </p>
+        </div>
     </section>
 
     <section class="section-container">
         <div class="section-header">
-            <h2 data-th="คลิปสัมภาษณ์" data-en="Interview Series">คลิปสัมภาษณ์</h2>
-            <p data-th="เส้นทางชีวิตผ่านบทสัมภาษณ์สั้นๆ" data-en="Dive into seniors' lives through mini-interviews.">เส้นทางชีวิตผ่านบทสัมภาษณ์สั้นๆ</p>
+            <h2 data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</h2>
         </div>
-        
         <div class="video-grid" id="video-container"></div>
     </section>
 
-    <section class="archive-section">
-        <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+    <section class="notion-section">
+        <div class="section-container" style="padding-top: 0;">
             <div class="section-header">
-                <h2 data-th="ค้นหาตัวเองเพิ่มเติม" data-en="Find Inspiration">ค้นหาตัวเองเพิ่มเติม</h2>
-                <p data-th="รวบรวมแหล่งข้อมูลน่าสนใจ ที่จะทำให้ทุกคนได้สำรวจเส้นทางในอนาคตมากขึ้น" data-en="A collection of resources for career inspiration.">รวบรวมแหล่งข้อมูลน่าสนใจ ที่จะทำให้ทุกคนได้สำรวจเส้นทางในอนาคตมากขึ้น</p>
+                <h2 data-th="คลังความรู้ & Roadmap" data-en="Resources & Roadmap">คลังความรู้ & Roadmap</h2>
+                <p data-th="สำรวจเส้นทางอาชีพและข้อมูลเจาะลึกผ่าน Notion Database" data-en="Explore career paths and in-depth data via our Notion Database.">สำรวจเส้นทางอาชีพและข้อมูลเจาะลึกผ่าน Notion Database</p>
             </div>
             
-            <div class="blog-grid" id="blog-container"></div>
+            <div class="notion-container">
+                <iframe src="https://notionwidget.com/embed/YOUR_NOTION_PAGE_ID" 
+                        style="width:100%; height:100%; border:0;" 
+                        allowfullscreen></iframe>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2026 Prawees • Gwa-Ja-Pen Series</p>
-    </footer>
+    <footer><p>© 2026 Prawees • Gwa-Ja-Pen Series</p></footer>
 
     <script>
         const database = {
@@ -211,75 +171,30 @@
                     title_en: "Neurosurgery Resident",
                     desc_th: "กับ พญ.ธนพร เจริญงามเสมอ",
                     desc_en: "with Tanaporn Jaroenngarmsamer, M.D.",
-                    embed_code: `
-                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 <a title="studygramthailand" target="_blank" href="https://www.tiktok.com/tag/studygramthailand?refer=embed">#studygramthailand</a> <a title="แพทย์" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C?refer=embed">#แพทย์</a> <a title="neurosurgery" target="_blank" href="https://www.tiktok.com/tag/neurosurgery?refer=embed">#neurosurgery</a> <a target="_blank" title="♬ original sound  - gwa.ja.pen" href="https://www.tiktok.com/music/original-sound-gwajapen-7605159890834836242?refer=embed">♬ original sound  - gwa.ja.pen</a> </section> </blockquote>
-                    `
+                    embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 </section> </blockquote>`
                 }
-            ],
-            blogs: []
+            ]
         };
         
-        let currentLang = 'th';
-
         function renderContent() {
-            const videoContainer = document.getElementById('video-container');
-            videoContainer.innerHTML = '';
-            
-            if(database.videos.length === 0) {
-                videoContainer.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:var(--text-muted);">Coming soon...</p>`;
-            } else {
-                database.videos.forEach(video => {
-                    videoContainer.innerHTML += `
-                        <div class="video-card">
-                            <div class="video-embed-wrapper">
-                                ${video.embed_code}
-                            </div>
-                            <div class="video-info">
-                                <span class="video-tag">EPISODE ${video.episode}</span>
-                                <h3 class="video-title" data-th="${video.title_th}" data-en="${video.title_en}">${currentLang === 'th' ? video.title_th : video.title_en}</h3>
-                                <p class="video-desc" data-th="${video.desc_th}" data-en="${video.desc_en}">${currentLang === 'th' ? video.desc_th : video.desc_en}</p>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            const blogContainer = document.getElementById('blog-container');
-            blogContainer.innerHTML = '';
-            
-            if(database.blogs.length === 0) {
-                blogContainer.innerHTML = `<p style="text-align:center; padding: 40px; color:var(--text-muted);">Coming soon...</p>`;
-            } else {
-                database.blogs.forEach(blog => {
-                    blogContainer.innerHTML += `
-                        <a href="${blog.link}" class="blog-card">
-                            <div class="blog-meta">
-                                ${blog.date}
-                                <span>${blog.tag}</span>
-                            </div>
-                            <div class="blog-content">
-                                <h3 data-th="${blog.title_th}" data-en="${blog.title_en}">${currentLang === 'th' ? blog.title_th : blog.title_en}</h3>
-                                <p data-th="${blog.desc_th}" data-en="${blog.desc_en}">${currentLang === 'th' ? blog.desc_th : blog.desc_en}</p>
-                            </div>
-                            <div class="blog-arrow">→</div>
-                        </a>
-                    `;
-                });
-            }
+            const container = document.getElementById('video-container');
+            container.innerHTML = database.videos.map(v => `
+                <div class="video-card">
+                    <div class="video-info-top">
+                        <span class="video-tag">EPISODE ${v.episode}</span>
+                        <h3 class="video-title" data-th="${v.title_th}" data-en="${v.title_en}">${v.title_th}</h3>
+                        <p class="video-desc" data-th="${v.desc_th}" data-en="${v.desc_en}">${v.desc_th}</p>
+                    </div>
+                    <div class="video-embed-wrapper">${v.embed_code}</div>
+                </div>
+            `).join('');
         }
 
         function setLanguage(lang) {
-            currentLang = lang;
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-            
-            const elements = document.querySelectorAll('[data-th]');
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                setTimeout(() => {
-                    el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
-                    el.style.opacity = '1';
-                }, 250);
+            document.querySelectorAll('[data-th]').forEach(el => {
+                el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
             });
         }
         
@@ -288,7 +203,6 @@
             setLanguage('th'); 
             const ttScript = document.createElement('script');
             ttScript.src = 'https://www.tiktok.com/embed.js';
-            ttScript.async = true;
             document.body.appendChild(ttScript);
         };
     </script>
