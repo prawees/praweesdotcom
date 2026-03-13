@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Smart | Prawee Sinweeruthai</title>
     
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="../logo.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -18,16 +18,14 @@
             --border-color: rgba(0, 0, 0, 0.08); 
             --accent-blue: #0066CC;
             --gradient-text: linear-gradient(135deg, #111111 0%, #555555 100%);
-            --font-en: 'Plus Jakarta Sans', sans-serif;
-            --font-th: 'Anuphan', sans-serif;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            font-family: var(--font-th); 
+            font-family: 'Plus Jakarta Sans', 'Anuphan', sans-serif; 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
@@ -39,10 +37,6 @@
         .blob-1 { width: 400px; height: 400px; background: #D0E5FF; top: -10%; left: -10%; }
         .blob-2 { width: 500px; height: 500px; background: #F0F0F5; bottom: -20%; right: -10%; animation-delay: -5s; }
         @keyframes float-blob { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
-
-        /* --- CUSTOM CURSOR --- */
-        .cursor { width: 6px; height: 6px; background: var(--text-main); border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transition: transform 0.1s ease; }
-        .cursor-follower { width: 36px; height: 36px; border: 1px solid rgba(0,0,0,0.15); border-radius: 50%; position: fixed; pointer-events: none; z-index: 998; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, border-color 0.2s; }
 
         /* --- NAVIGATION --- */
         nav.top-bar {
@@ -56,10 +50,10 @@
         .site-logo { height: 28px; width: auto; transition: transform 0.3s; }
         .logo-area a:hover .site-logo { transform: scale(0.95); }
 
-        .back-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-family: var(--font-en); font-size: 0.8rem; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: opacity 0.3s; }
+        .back-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: opacity 0.3s; }
         .back-link:hover { opacity: 0.6; }
         
-        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; font-family: var(--font-en); color: var(--text-muted); margin-left: 15px; transition: 0.3s; }
+        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-left: 15px; transition: 0.3s; cursor: pointer; }
         .lang-switcher button.active { color: var(--text-main); border-bottom: 2px solid var(--text-main); padding-bottom: 2px; }
 
         /* --- LAYOUT --- */
@@ -79,15 +73,16 @@
         .profile-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .profile-img-container:hover .profile-img { transform: scale(1.04); }
 
-        .about-label { font-family: var(--font-en); font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 12px; }
+        .about-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 12px; }
         
-        .name-title { font-family: var(--font-en); font-size: 3.2rem; font-weight: 600; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; letter-spacing: -1.5px; }
+        /* FIXED: Added line-height and padding to prevent cut-off */
+        .name-title { font-size: 3.2rem; font-weight: 700; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.4; padding-bottom: 10px; letter-spacing: -1.5px; }
         .nickname { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; font-weight: 400; }
         .tagline { font-size: 0.95rem; color: var(--text-main); font-weight: 500; letter-spacing: 0.3px; border-left: 2px solid var(--accent-blue); padding-left: 15px; line-height: 1.6; }
         
         .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
         .contact-links a { 
-            font-size: 0.85rem; font-weight: 500; font-family: var(--font-en); color: var(--text-muted); 
+            font-size: 0.85rem; font-weight: 500; color: var(--text-muted); 
             text-decoration: none; display: flex; align-items: center; gap: 10px; 
             transition: color 0.3s, transform 0.3s; width: fit-content;
         }
@@ -109,7 +104,7 @@
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
         .portfolio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
-        .portfolio-caption { margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; font-family: var(--font-en); }
+        .portfolio-caption { margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
 
         /* SPOTIFY EMBED STYLES */
         .spotify-container {
@@ -123,7 +118,7 @@
 
         /* SECTION HEADERS & DIVIDERS */
         .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
-        .section-title { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; white-space: nowrap; }
+        .section-title { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; white-space: nowrap; }
         .divider { height: 1px; background: var(--border-color); flex: 1; }
         
         .bio-text { font-size: 1.15rem; color: var(--text-main); font-weight: 400; line-height: 1.8; margin-bottom: 30px; }
@@ -131,7 +126,7 @@
         /* CV ITEMS */
         .cv-item { margin-bottom: 45px; position: relative; }
         .cv-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
-        .cv-date { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
+        .cv-date { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
         .cv-desc { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
 
         /* GRID KEYWORDS */
@@ -143,17 +138,17 @@
         }
         .interest-card:hover { transform: translateY(-8px); border-color: rgba(0, 102, 204, 0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
         .interest-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px; }
-        .interest-card .keywords { font-family: var(--font-en); font-size: 1.05rem; color: var(--text-main); font-weight: 500; line-height: 1.5; }
+        .interest-card .keywords { font-size: 1.05rem; color: var(--text-main); font-weight: 500; line-height: 1.5; }
 
         /* FOOTER & CONTACT */
         .footer-contact { margin-top: 80px; padding: 80px 0 40px; text-align: center; }
         .contact-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 30px; }
         .contact-grid a { 
             text-decoration: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; 
-            font-family: var(--font-en); letter-spacing: 2px; transition: 0.3s;
+            letter-spacing: 2px; transition: 0.3s;
         }
         .contact-grid a:hover { color: var(--accent-blue); transform: translateY(-3px); }
-        .footer-text { margin-top: 60px; font-family: var(--font-en); font-size: 0.65rem; font-weight: 700; letter-spacing: 6px; color: var(--text-muted); text-transform: uppercase; }
+        .footer-text { margin-top: 60px; font-size: 0.65rem; font-weight: 700; letter-spacing: 6px; color: var(--text-muted); text-transform: uppercase; }
 
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
@@ -161,8 +156,6 @@
             .right-col { width: 100%; padding: 60px 6vw; }
             .portfolio-grid { grid-template-columns: 1fr; }
             .interest-grid { grid-template-columns: 1fr; }
-            .cursor, .cursor-follower { display: none; }
-            * { cursor: auto; }
             .ambient-bg { display: none; }
         }
     </style>
@@ -174,13 +167,10 @@
         <div class="ambient-blob blob-2"></div>
     </div>
 
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
     <nav class="top-bar">
         <div class="logo-area">
             <a href="https://prawees.com">
-                <img src="logo.png" alt="PS Logo" class="site-logo">
+                <img src="../logo.png" alt="PS Logo" class="site-logo">
             </a>
             <a href="https://prawees.com" class="back-link">
                 <span data-th="หน้าหลัก" data-en="INDEX">หน้าหลัก</span>
@@ -269,19 +259,19 @@
                 <div class="cv-item">
                     <div class="cv-title" data-th="Virtual Ramathon 2024 & รางวัล Dean's Award" data-en="Virtual Ramathon 2024 & Dean's Award">Virtual Ramathon 2024 & รางวัล Dean's Award</div>
                     <div class="cv-date">2024</div>
-                    <div class="cv-desc" data-th="ประธานจัดงาน Virtual Ramathon ได้รับรางวัล Dean’s Emerging/Impact Award และดำรงตำแหน่งเลขาฯ ชมรมกอล์ฟ" data-en="Led Virtual Ramathon 2024, received the Dean’s Emerging/Impact Award, and served as Golf Club Secretary.">ประธานจัดงาน Virtual Ramathon ได้รับรางวัล Dean’s Emerging/Impact Award และดำรงตำแหน่งเลขาฯ ชมรมกอล์ฟ</div>
+                    <div class="cv-desc" data-th="ประธานจัดงาน Virtual Ramathon และได้รับรางวัล Dean’s Emerging/Impact Award" data-en="Led Virtual Ramathon 2024 and received the Dean’s Emerging/Impact Award.">ประธานจัดงาน Virtual Ramathon และได้รับรางวัล Dean’s Emerging/Impact Award</div>
                 </div>
 
                 <div class="cv-item">
-                    <div class="cv-title" data-th="Rama Drama ครั้งที่ 16 & ผู้ประสานงานเปตอง" data-en="16th Rama Drama & Petanque Coordinator">Rama Drama ครั้งที่ 16 & ผู้ประสานงานเปตอง</div>
+                    <div class="cv-title" data-th="Rama Drama ครั้งที่ 16" data-en="16th Rama Drama">Rama Drama ครั้งที่ 16</div>
                     <div class="cv-date">2023</div>
-                    <div class="cv-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล “Allegro in Red” รวมถึงผู้ประสานงานกีฬาเปตอง The 34th Syringe Games" data-en="Head of Video Production and musician for charity stage play 'Allegro in Red', and Petanque Coordinator for Syringe Games.">หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล “Allegro in Red” รวมถึงผู้ประสานงานกีฬาเปตอง The 34th Syringe Games</div>
+                    <div class="cv-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล “Allegro in Red”" data-en="Head of Video Production and musician for charity stage play 'Allegro in Red'.">หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล “Allegro in Red”</div>
                 </div>
 
                 <div class="cv-item" style="margin-bottom: 0;">
                     <div class="cv-title" data-th="AMSA Thailand (ฝ่ายวิจัย)" data-en="AMSA Thailand (Research Team)">AMSA Thailand (ฝ่ายวิจัย)</div>
                     <div class="cv-date">2021 — 2022</div>
-                    <div class="cv-desc" data-th="ผู้ช่วยผู้อำนวยการฝ่ายวิจัย AMSA Thailand จัดงานสัมมนาให้ความรู้ด้านการวิจัย และคว้ารางวัลรองชนะเลิศอันดับ 2 กีฬาเปตอง" data-en="Assistant Director of Research at AMSA Thailand, seminar organizer, and 2nd Runner-up in Team Petanque.">ผู้ช่วยผู้อำนวยการฝ่ายวิจัย AMSA Thailand จัดงานสัมมนาให้ความรู้ด้านการวิจัย และคว้ารางวัลรองชนะเลิศอันดับ 2 กีฬาเปตอง</div>
+                    <div class="cv-desc" data-th="ผู้ช่วยผู้อำนวยการฝ่ายวิจัย AMSA Thailand และจัดงานสัมมนาให้ความรู้ด้านการวิจัย" data-en="Assistant Director of Research at AMSA Thailand and seminar organizer.">ผู้ช่วยผู้อำนวยการฝ่ายวิจัย AMSA Thailand และจัดงานสัมมนาให้ความรู้ด้านการวิจัย</div>
                 </div>
             </section>
 
@@ -294,23 +284,24 @@
                 <div class="cv-item">
                     <div class="cv-title" data-th="กว่า-จะ-เป็น Series" data-en="Gwa-Ja-Pen Series">กว่า-จะ-เป็น Series</div>
                     <div class="cv-date" data-th="ผู้สร้างสรรค์และวางกลยุทธ์" data-en="CREATOR & STRATEGIST">ผู้สร้างสรรค์และวางกลยุทธ์</div>
-                    <div class="cv-desc" data-th="แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพแพทย์ มียอดผู้ติดตามรวมกว่า 60,000 คน" data-en="Career journey platform • 60k+ Combined following • Visual storytelling">แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพแพทย์ มียอดผู้ติดตามรวมกว่า 60,000 คน</div>
+                    <div class="cv-desc" data-th="แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพ" data-en="In-depth career journey interview platform.">แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพ</div>
                 </div>
                 
                 <div class="cv-item">
                     <div class="cv-title" data-th="นักสร้างสรรค์วิดีโออิสระ" data-en="Independent Videomaker">นักสร้างสรรค์วิดีโออิสระ</div>
                     <div class="cv-date" data-th="ผู้กำกับและตัดต่อ" data-en="DIRECTOR & EDITOR">ผู้กำกับและตัดต่อ</div>
+                    <div class="cv-desc" style="margin-bottom: 15px;" data-th="มียอดผู้ติดตามรวมกว่า 60,000 คนบนแพลตฟอร์มโซเชียลมีเดีย" data-en="Director and Editor with a combined following of 60,000+ on social media.">มียอดผู้ติดตามรวมกว่า 60,000 คนบนแพลตฟอร์มโซเชียลมีเดีย</div>
                     
                     <div class="portfolio-grid">
                         <div>
                             <div class="video-container">
-                                <iframe src="https://www.youtube.com/embed/SHBhbCXhGsw?si=ZyVt780IVY1-59Jr" title="Essence of Sickness" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/HxxRjaMzGc4?si=FFhsmBRvF-l248TE" title="Essence of Sickness" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                             <div class="portfolio-caption" data-th="Essence of Sickness (หนังสั้น)" data-en="Essence of Sickness (A Short Film)">Essence of Sickness (หนังสั้น)</div>
                         </div>
                         <div>
                             <div class="video-container">
-                                <iframe src="https://www.youtube.com/embed/HxxRjaMzGc4?si=FFhsmBRvF-l248TE" title="Allegro in Red" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/SHBhbCXhGsw?si=ZyVt780IVY1-59Jr" title="Allegro in Red" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                             <div class="portfolio-caption" data-th="Allegro in Red (ตัวอย่างละครเวที)" data-en="Allegro in Red (Ramadrama Trailer)">Allegro in Red (ตัวอย่างละครเวที)</div>
                         </div>
@@ -370,29 +361,6 @@
     </div>
 
     <script>
-        // Custom Cursor Logic
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX - 3}px, ${e.clientY - 3}px, 0)`;
-            follower.style.transform = `translate3d(${e.clientX - 18}px, ${e.clientY - 18}px, 0)`;
-        });
-
-        // Hover effect for Interactive elements
-        const interactives = document.querySelectorAll('a, button');
-        interactives.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                follower.style.backgroundColor = 'rgba(0, 102, 204, 0.05)';
-                follower.style.borderColor = 'rgba(0, 102, 204, 0.3)';
-                follower.style.transform += ' scale(1.5)';
-            });
-            el.addEventListener('mouseleave', () => {
-                follower.style.backgroundColor = 'transparent';
-                follower.style.borderColor = 'rgba(0,0,0,0.15)';
-            });
-        });
-
         function setLanguage(lang) {
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
