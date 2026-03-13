@@ -35,7 +35,6 @@
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 25px 6vw; display: flex; justify-content: space-between;
             z-index: 100; color: white;
-            /* Added subtle gradient so nav is always readable over the banner */
             background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
         }
         .back-link {
@@ -61,7 +60,6 @@
             position: relative; width: 100%; height: 75vh; min-height: 500px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; color: white; overflow: hidden;
-            /* Added top padding to prevent overlap with the top banner */
             padding-top: 80px; 
         }
         .hero-banner-img {
@@ -122,13 +120,12 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.08);
         }
         .video-embed-wrapper {
-            position: relative; width: 100%; padding-top: 177.77%; /* 9:16 Ratio */
+            width: 100%;
             background-color: #050505;
-        }
-        /* Forces TikTok/IG iframes to fit beautifully */
-        .video-embed-wrapper iframe, 
-        .video-embed-wrapper blockquote {
-            position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; margin: 0 !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* ลบ padding ที่เคยบังคับสัดส่วนออก เพื่อให้ TikTok คำนวณความสูงเอง */
         }
         
         .video-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -246,46 +243,21 @@
             
             // 🎬 1. ADD YOUR VIDEOS HERE
             videos: [
-                /* HOW TO ADD A VIDEO:
-                  1. Copy the block below.
-                  2. Go to your TikTok/IG video on a computer, click Share -> Embed.
-                  3. Paste that massive code inside the backticks (` `) next to embed_code.
-                */
                 {
                     episode: "01",
                     title_th: "กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪",
                     title_en: "Neurosurgery Resident 🧠🔪",
                     desc_th: "พญ.ธนพร เจริญงามเสมอ",
                     desc_en: "Tanaporn Jaroenngarmsamer, M.D.",
+                    // แก้ไขตรงนี้: ลบ Tag <script> ออกจากกล่อง embed
                     embed_code: `
-                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#111; color:#fff;">
-                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 <a title="studygramthailand" target="_blank" href="https://www.tiktok.com/tag/studygramthailand?refer=embed">#studygramthailand</a> <a title="แพทย์" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C?refer=embed">#แพทย์</a> <a title="neurosurgery" target="_blank" href="https://www.tiktok.com/tag/neurosurgery?refer=embed">#neurosurgery</a> <a target="_blank" title="♬ original sound  - gwa.ja.pen" href="https://www.tiktok.com/music/original-sound-gwajapen-7605159890834836242?refer=embed">♬ original sound  - gwa.ja.pen</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-                        </div>
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย์” 🧠🔪 <a title="studygramthailand" target="_blank" href="https://www.tiktok.com/tag/studygramthailand?refer=embed">#studygramthailand</a> <a title="แพทย์" target="_blank" href="https://www.tiktok.com/tag/%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C?refer=embed">#แพทย์</a> <a title="neurosurgery" target="_blank" href="https://www.tiktok.com/tag/neurosurgery?refer=embed">#neurosurgery</a> <a target="_blank" title="♬ original sound  - gwa.ja.pen" href="https://www.tiktok.com/music/original-sound-gwajapen-7605159890834836242?refer=embed">♬ original sound  - gwa.ja.pen</a> </section> </blockquote>
                     `
-                },
-                // Add more videos here...
+                }
             ],
 
             // 📝 2. ADD YOUR BLOG ENTRIES HERE
-            blogs: [
-                /*
-                  HOW TO ADD A BLOG:
-                  1. Copy the block below.
-                  2. Create a new HTML file for your blog (e.g., episode1.html).
-                  3. Put the file name in the "link" field.
-                
-                {
-                    date: "March 15, 2026",
-                    tag: "Interview",
-                    title_th: "ตัวอย่างบทความสัมภาษณ์",
-                    title_en: "Example Interview Article",
-                    desc_th: "รออัปเดตบทสัมภาษณ์ฉบับเต็มเร็วๆ นี้...",
-                    desc_en: "Full interview article coming soon...",
-                    link: "#" // Example: "blog-ep1.html"
-                }
-                // Add more blogs here...
-                */
-            ]
+            blogs: []
         };
 
         // ==========================================
@@ -360,10 +332,15 @@
         
         // Initialize
         window.onload = () => {
-            renderContent(); // Build the DB first
-            setLanguage('th'); // Then set the language
+            renderContent(); // 1. สร้างกล่อง HTML ก่อน
+            setLanguage('th'); 
+            
+            // 2. โหลด Script ของ TikTok เข้าไป "หลังจาก" สร้างกล่องเสร็จแล้ว
+            const ttScript = document.createElement('script');
+            ttScript.src = 'https://www.tiktok.com/embed.js';
+            ttScript.async = true;
+            document.body.appendChild(ttScript);
         };
     </script>
-    <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
