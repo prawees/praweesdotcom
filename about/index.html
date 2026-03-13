@@ -164,6 +164,18 @@
         .contact-grid a:hover { color: var(--accent-blue); transform: translateY(-3px); }
         .footer-text { margin-top: 60px; font-size: 0.65rem; font-weight: 600; letter-spacing: 6px; color: var(--text-muted); text-transform: uppercase; }
 
+        /* --- THAI TYPOGRAPHY FIX (ป้องกันสระลอย/ตัวอักษรเหลื่อม) --- */
+        body.lang-th .about-label,
+        body.lang-th .name-title,
+        body.lang-th .tagline,
+        body.lang-th .section-title,
+        body.lang-th .cv-date,
+        body.lang-th .interest-card h4,
+        body.lang-th .contact-grid a,
+        body.lang-th .footer-text {
+            letter-spacing: normal !important;
+        }
+
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
             .left-col { width: 100%; position: relative; top: 0; height: auto; border-right: none; padding: 40px 6vw; border-bottom: 1px solid var(--border-color); }
@@ -297,7 +309,7 @@
                 
                 <div class="cv-item">
                     <div class="cv-title" data-th="กว่า-จะ-เป็น Series" data-en="Gwa-Ja-Pen Series">กว่า-จะ-เป็น Series</div>
-                    <div class="cv-date" data-th="ผู้สร้างสรรค์และวางกลยุทธ์" data-en="CREATOR & STRATEGIST">ผู้สร้างสรรค์และวางกลยุทธ์</div>
+                    <div class="cv-date" data-th="ผู้จัดทำ" data-en="CREATOR & STRATEGIST">ผู้จัดทำ</div>
                     <div class="cv-desc" data-th="แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพ" data-en="In-depth career journey interview platform.">แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพ</div>
                 </div>
                 
