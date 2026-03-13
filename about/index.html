@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Smart | Prawee Sinweeruthai</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%231D1D1F'/><text x='50' y='68' font-family='sans-serif' font-size='50' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'>PS</text></svg>">
+    <link rel="icon" type="image/png" href="logo.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Prompt:wght@200;300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Anuphan:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -18,8 +18,8 @@
             --border-color: rgba(0, 0, 0, 0.08); 
             --accent-blue: #0066CC;
             --gradient-text: linear-gradient(135deg, #111111 0%, #555555 100%);
-            --font-en: 'Outfit', sans-serif;
-            --font-th: 'Prompt', sans-serif;
+            --font-en: 'Plus Jakarta Sans', sans-serif;
+            --font-th: 'Anuphan', sans-serif;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -53,9 +53,8 @@
             border-bottom: 1px solid var(--border-color);
         }
         .logo-area { display: flex; align-items: center; gap: 20px; }
-        .logo-svg { width: 35px; height: 35px; animation: floatLogo 4s ease-in-out infinite alternate; transition: transform 0.3s; }
-        .logo-area a:hover .logo-svg { transform: scale(0.9); }
-        @keyframes floatLogo { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
+        .site-logo { height: 28px; width: auto; transition: transform 0.3s; }
+        .logo-area a:hover .site-logo { transform: scale(0.95); }
 
         .back-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-family: var(--font-en); font-size: 0.8rem; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: opacity 0.3s; }
         .back-link:hover { opacity: 0.6; }
@@ -79,9 +78,11 @@
         }
         .profile-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .profile-img-container:hover .profile-img { transform: scale(1.04); }
+
+        .about-label { font-family: var(--font-en); font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 12px; }
         
-        .name-title { font-family: var(--font-en); font-size: 4rem; font-weight: 600; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; letter-spacing: -1px; }
-        .nickname { font-family: var(--font-en); font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; font-weight: 400; }
+        .name-title { font-family: var(--font-en); font-size: 3.2rem; font-weight: 600; margin-bottom: 5px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; letter-spacing: -1.5px; }
+        .nickname { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; font-weight: 400; }
         .tagline { font-size: 0.95rem; color: var(--text-main); font-weight: 500; letter-spacing: 0.3px; border-left: 2px solid var(--accent-blue); padding-left: 15px; line-height: 1.6; }
         
         .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
@@ -100,7 +101,7 @@
 
         /* VIDEO EMBED STYLES */
         .video-container {
-            position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative; width: 100%; padding-bottom: 56.25%; 
             border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);
             background: #000; transition: transform 0.4s;
         }
@@ -112,7 +113,7 @@
 
         /* SPOTIFY EMBED STYLES */
         .spotify-container {
-            width: 100%; border-radius: 16px; overflow: hidden; 
+            width: 100%; border-radius: 12px; overflow: hidden; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color); background: var(--surface-color);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -129,9 +130,9 @@
 
         /* CV ITEMS */
         .cv-item { margin-bottom: 45px; position: relative; }
-        .cv-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+        .cv-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
         .cv-date { font-family: var(--font-en); font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 12px; }
-        .cv-desc { font-size: 1rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
+        .cv-desc { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
 
         /* GRID KEYWORDS */
         .interest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
@@ -179,13 +180,10 @@
     <nav class="top-bar">
         <div class="logo-area">
             <a href="https://prawees.com">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-svg">
-                    <rect width="100" height="100" rx="25" fill="#1D1D1F"/>
-                    <text x="50" y="68" font-family="'Outfit', sans-serif" font-size="50" font-weight="700" fill="#FFFFFF" text-anchor="middle">PS</text>
-                </svg>
+                <img src="logo.png" alt="PS Logo" class="site-logo">
             </a>
             <a href="https://prawees.com" class="back-link">
-                <span data-th="INDEX" data-en="INDEX">INDEX</span>
+                <span data-th="หน้าหลัก" data-en="INDEX">หน้าหลัก</span>
             </a>
         </div>
         <div class="lang-switcher">
@@ -198,11 +196,12 @@
         
         <aside class="left-col">
             <div class="profile-img-container">
-                <img src="portrait.jpg" alt="Smart" class="profile-img">
+                <img src="portrait.jpg" alt="Smart Prawee" class="profile-img">
             </div>
-            <h1 class="name-title">Prawee S.</h1>
-            <p class="nickname" data-th="Smart" data-en="Smart">Smart</p>
-            <p class="tagline" data-th="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives." data-en="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.">M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.</p>
+            <div class="about-label" data-th="เกี่ยวกับ" data-en="ABOUT">เกี่ยวกับ</div>
+            <h1 class="name-title" data-th="ประวีร์ สินวีรุทัย" data-en="Prawee Sinweeruthai">ประวีร์ สินวีรุทัย</h1>
+            <p class="nickname" data-th="(สมาร์ท)" data-en="(Smart)">(สมาร์ท)</p>
+            <p class="tagline" data-th="นักศึกษาแพทย์ M.D.-M.Eng ที่ผสานวิทยาศาสตร์การแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน" data-en="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.">นักศึกษาแพทย์ M.D.-M.Eng ที่ผสานวิทยาศาสตร์การแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน</p>
             
             <div class="contact-links">
                 <a href="mailto:prawee.sin@gmail.com">✉️ prawee.sin@gmail.com</a>
@@ -216,28 +215,28 @@
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">01 / OVERVIEW</div>
+                    <div class="section-title" data-th="01 / ภาพรวม" data-en="01 / OVERVIEW">01 / ภาพรวม</div>
                     <div class="divider"></div>
                 </div>
-                <p class="bio-text" data-th="นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต รามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจ" data-en="A dual-degree M.D.-M.Eng candidate at Ramathibodi. Dedicated to engineering solutions for healthcare and crafting digital narratives to drive community engagement.">
-                    นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต รามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจ
+                <p class="bio-text" data-th="นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต โรงพยาบาลรามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่" data-en="A dual-degree M.D.-M.Eng candidate at Ramathibodi Hospital. Dedicated to engineering solutions for healthcare and crafting digital narratives to drive community engagement.">
+                    นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต โรงพยาบาลรามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่
                 </p>
             </section>
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">02 / EDUCATION</div>
+                    <div class="section-title" data-th="02 / การศึกษา" data-en="02 / EDUCATION">02 / การศึกษา</div>
                     <div class="divider"></div>
                 </div>
                 <div class="cv-item">
                     <div class="cv-title" data-th="คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล" data-en="Faculty of Medicine Ramathibodi Hospital, Mahidol University">คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</div>
                     <div class="cv-date">2021 — PRESENT</div>
-                    <div class="cv-desc" data-th="Doctor of Medicine & Master of Engineering" data-en="Doctor of Medicine & Master of Engineering">Doctor of Medicine & Master of Engineering</div>
+                    <div class="cv-desc" data-th="แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (M.D.-M.Eng)" data-en="Doctor of Medicine & Master of Engineering (M.D.-M.Eng)">แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (M.D.-M.Eng)</div>
                 </div>
                 <div class="cv-item">
                     <div class="cv-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="Mahidol Wittayanusorn School">โรงเรียนมหิดลวิทยานุสรณ์</div>
                     <div class="cv-date">2018 — 2021</div>
-                    <div class="cv-desc" data-th="Vice President of the Student Council" data-en="Vice President of the Student Council">Vice President of the Student Council</div>
+                    <div class="cv-desc" data-th="รองประธานคณะกรรมการนักเรียน" data-en="Vice President of the Student Council">รองประธานคณะกรรมการนักเรียน</div>
                 </div>
                 <div class="cv-item">
                     <div class="cv-title" data-th="โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน" data-en="Patumwan Demonstration School, Srinakharinwirot University">โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน</div>
@@ -251,75 +250,69 @@
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">03 / EXPERIENCE</div>
+                    <div class="section-title" data-th="03 / ประสบการณ์" data-en="03 / EXPERIENCE">03 / ประสบการณ์</div>
                     <div class="divider"></div>
                 </div>
                 
                 <div class="cv-item">
-                    <div class="cv-title" data-th="ประธานโครงการ Ramathon Run Club & อื่นๆ" data-en="Ramathon Run Club President & More">ประธานโครงการ Ramathon Run Club & อื่นๆ</div>
-                    <div class="cv-date">2026 (2569)</div>
-                    <div class="cv-desc" data-th="ประธานโครงการ Ramathon Run Club, Moderator งาน RAMSC Career Month และ Motion Media Team โครงการ Road Traffic Injury Pitching Challenge" data-en="President of Ramathon Run Club, Moderator for RAMSC Career Month, and Motion Media Team for Road Traffic Injury Pitching Challenge.">ประธานโครงการ Ramathon Run Club, Moderator งาน RAMSC Career Month และ Motion Media Team โครงการ Road Traffic Injury Pitching Challenge</div>
+                    <div class="cv-title" data-th="ประธานโครงการ Ramathon Run Club & อื่นๆ" data-en="Ramathon Run Club President & Projects">ประธานโครงการ Ramathon Run Club & อื่นๆ</div>
+                    <div class="cv-date">2026</div>
+                    <div class="cv-desc" data-th="ประธาน Ramathon Run Club, Moderator งาน RAMSC Career Month และฝ่ายสื่อวิดีโอโครงการ Road Traffic Injury Pitching Challenge" data-en="President of Ramathon Run Club, Moderator for RAMSC Career Month, and Motion Media Team for Road Traffic Injury Pitching Challenge.">ประธาน Ramathon Run Club, Moderator งาน RAMSC Career Month และฝ่ายสื่อวิดีโอโครงการ Road Traffic Injury Pitching Challenge</div>
                 </div>
 
                 <div class="cv-item">
                     <div class="cv-title" data-th="นำเสนองานวิจัยระดับนานาชาติ" data-en="International Research Presentations">นำเสนองานวิจัยระดับนานาชาติ</div>
-                    <div class="cv-date">2025 (2568)</div>
-                    <div class="cv-desc" data-th="นำเสนองานวิจัยที่งานสัมมนาวิชาการระดับนานาชาติ IEEE BioSensors 2025 ที่รัฐแคลิฟอร์เนีย สหรัฐอเมริกา และ IEEE-NSENS 2025 กัวลาลัมเปอร์ ประเทศมาเลเซีย" data-en="Presented research at the international academic conference IEEE BioSensors 2025 in California, USA, and IEEE-NSENS 2025 in Kuala Lumpur, Malaysia.">นำเสนองานวิจัยที่งานสัมมนาวิชาการระดับนานาชาติ IEEE BioSensors 2025 ที่รัฐแคลิฟอร์เนีย สหรัฐอเมริกา และ IEEE-NSENS 2025 กัวลาลัมเปอร์ ประเทศมาเลเซีย</div>
+                    <div class="cv-date">2025</div>
+                    <div class="cv-desc" data-th="ผู้นำเสนองานวิจัยนวัตกรรมไบโอเซนเซอร์ที่เวที IEEE BioSensors (สหรัฐอเมริกา) และ IEEE-NSENS (มาเลเซีย)" data-en="Research presenter on biosensor innovations at IEEE BioSensors (USA) and IEEE-NSENS (Malaysia).">ผู้นำเสนองานวิจัยนวัตกรรมไบโอเซนเซอร์ที่เวที IEEE BioSensors (สหรัฐอเมริกา) และ IEEE-NSENS (มาเลเซีย)</div>
                 </div>
 
                 <div class="cv-item">
                     <div class="cv-title" data-th="Virtual Ramathon 2024 & รางวัล Dean's Award" data-en="Virtual Ramathon 2024 & Dean's Award">Virtual Ramathon 2024 & รางวัล Dean's Award</div>
-                    <div class="cv-date">2024 (2567)</div>
-                    <div class="cv-desc" data-th="ประธานโครงการงานวิ่ง Virtual Ramathon 2024, รางวัล Dean’s Emerging/Impact Award และเลขานุการชมรมกอล์ฟ" data-en="Project President of Virtual Ramathon 2024, recipient of the Dean’s Emerging/Impact Award, and Secretary of the Golf Club.">ประธานโครงการงานวิ่ง Virtual Ramathon 2024, รางวัล Dean’s Emerging/Impact Award และเลขานุการชมรมกอล์ฟ</div>
+                    <div class="cv-date">2024</div>
+                    <div class="cv-desc" data-th="ประธานจัดงาน Virtual Ramathon ได้รับรางวัล Dean’s Emerging/Impact Award และดำรงตำแหน่งเลขาฯ ชมรมกอล์ฟ" data-en="Led Virtual Ramathon 2024, received the Dean’s Emerging/Impact Award, and served as Golf Club Secretary.">ประธานจัดงาน Virtual Ramathon ได้รับรางวัล Dean’s Emerging/Impact Award และดำรงตำแหน่งเลขาฯ ชมรมกอล์ฟ</div>
                 </div>
 
                 <div class="cv-item">
-                    <div class="cv-title" data-th="Rama Drama ครั้งที่ 16 & กีฬาเปตอง" data-en="16th Rama Drama & Petanque">Rama Drama ครั้งที่ 16 & กีฬาเปตอง</div>
-                    <div class="cv-date">2023 (2566)</div>
-                    <div class="cv-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีในการแสดงละครเวทีการกุศล Rama Drama ครั้งที่ 16 “Allegro in Red” และผู้ประสานงานกีฬาเปตองในกิจกรรม The 34th Syringe Games" data-en="Head of Video Production and Musician for the 16th Rama Drama charity stage play 'Allegro in Red', and Petanque Coordinator for The 34th Syringe Games.">หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีในการแสดงละครเวทีการกุศล Rama Drama ครั้งที่ 16 “Allegro in Red” และผู้ประสานงานกีฬาเปตองในกิจกรรม The 34th Syringe Games</div>
-                </div>
-
-                <div class="cv-item">
-                    <div class="cv-title" data-th="AMSA Thailand & กีฬาเปตอง" data-en="AMSA Thailand & Petanque">AMSA Thailand & กีฬาเปตอง</div>
-                    <div class="cv-date">2022 (2565)</div>
-                    <div class="cv-desc" data-th="Assistant Director of Research สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand) ผู้จัดงานสัมมนา An Insider’s Guide to Conducting Outstanding Research และตัวแทนแข่งขันกีฬาเปตองประเภททีม ได้รับรางวัลรองชนะเลิศอันดับ 2 ในกิจกรรม The 33rd Syringe Games" data-en="Assistant Director of Research at AMSA Thailand, Organizer of 'An Insider’s Guide to Conducting Outstanding Research' seminar, and 2nd Runner-up in Team Petanque at The 33rd Syringe Games.">Assistant Director of Research สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand) ผู้จัดงานสัมมนา An Insider’s Guide to Conducting Outstanding Research และตัวแทนแข่งขันกีฬาเปตองประเภททีม ได้รับรางวัลรองชนะเลิศอันดับ 2 ในกิจกรรม The 33rd Syringe Games</div>
+                    <div class="cv-title" data-th="Rama Drama ครั้งที่ 16 & ผู้ประสานงานเปตอง" data-en="16th Rama Drama & Petanque Coordinator">Rama Drama ครั้งที่ 16 & ผู้ประสานงานเปตอง</div>
+                    <div class="cv-date">2023</div>
+                    <div class="cv-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล “Allegro in Red” รวมถึงผู้ประสานงานกีฬาเปตอง The 34th Syringe Games" data-en="Head of Video Production and musician for charity stage play 'Allegro in Red', and Petanque Coordinator for Syringe Games.">หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล “Allegro in Red” รวมถึงผู้ประสานงานกีฬาเปตอง The 34th Syringe Games</div>
                 </div>
 
                 <div class="cv-item" style="margin-bottom: 0;">
                     <div class="cv-title" data-th="AMSA Thailand (ฝ่ายวิจัย)" data-en="AMSA Thailand (Research Team)">AMSA Thailand (ฝ่ายวิจัย)</div>
-                    <div class="cv-date">2021 (2564)</div>
-                    <div class="cv-desc" data-th="สมาชิกฝ่ายวิจัย สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand)" data-en="Research Member of the Asian Medical Students' Association (AMSA) Thailand.">สมาชิกฝ่ายวิจัย สมาพันธ์นิสิตนักศึกษาแพทย์เอเชียแห่งประเทศไทย (AMSA Thailand)</div>
+                    <div class="cv-date">2021 — 2022</div>
+                    <div class="cv-desc" data-th="ผู้ช่วยผู้อำนวยการฝ่ายวิจัย AMSA Thailand จัดงานสัมมนาให้ความรู้ด้านการวิจัย และคว้ารางวัลรองชนะเลิศอันดับ 2 กีฬาเปตอง" data-en="Assistant Director of Research at AMSA Thailand, seminar organizer, and 2nd Runner-up in Team Petanque.">ผู้ช่วยผู้อำนวยการฝ่ายวิจัย AMSA Thailand จัดงานสัมมนาให้ความรู้ด้านการวิจัย และคว้ารางวัลรองชนะเลิศอันดับ 2 กีฬาเปตอง</div>
                 </div>
             </section>
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">04 / PORTFOLIO</div>
+                    <div class="section-title" data-th="04 / ผลงาน" data-en="04 / PORTFOLIO">04 / ผลงาน</div>
                     <div class="divider"></div>
                 </div>
                 
                 <div class="cv-item">
                     <div class="cv-title" data-th="กว่า-จะ-เป็น Series" data-en="Gwa-Ja-Pen Series">กว่า-จะ-เป็น Series</div>
-                    <div class="cv-date">CREATOR & STRATEGIST</div>
-                    <div class="cv-desc" data-th="Career journey platform • 60k+ Combined following • Visual storytelling" data-en="Career journey platform • 60k+ Combined following • Visual storytelling">Career journey platform • 60k+ Combined following • Visual storytelling</div>
+                    <div class="cv-date" data-th="ผู้สร้างสรรค์และวางกลยุทธ์" data-en="CREATOR & STRATEGIST">ผู้สร้างสรรค์และวางกลยุทธ์</div>
+                    <div class="cv-desc" data-th="แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพแพทย์ มียอดผู้ติดตามรวมกว่า 60,000 คน" data-en="Career journey platform • 60k+ Combined following • Visual storytelling">แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพแพทย์ มียอดผู้ติดตามรวมกว่า 60,000 คน</div>
                 </div>
                 
                 <div class="cv-item">
-                    <div class="cv-title" data-th="Independent Videomaker" data-en="Independent Videomaker">Independent Videomaker</div>
-                    <div class="cv-date">DIRECTOR & EDITOR</div>
+                    <div class="cv-title" data-th="นักสร้างสรรค์วิดีโออิสระ" data-en="Independent Videomaker">นักสร้างสรรค์วิดีโออิสระ</div>
+                    <div class="cv-date" data-th="ผู้กำกับและตัดต่อ" data-en="DIRECTOR & EDITOR">ผู้กำกับและตัดต่อ</div>
                     
                     <div class="portfolio-grid">
                         <div>
                             <div class="video-container">
                                 <iframe src="https://www.youtube.com/embed/SHBhbCXhGsw?si=ZyVt780IVY1-59Jr" title="Essence of Sickness" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
-                            <div class="portfolio-caption">Essence of Sickness (A Short Film)</div>
+                            <div class="portfolio-caption" data-th="Essence of Sickness (หนังสั้น)" data-en="Essence of Sickness (A Short Film)">Essence of Sickness (หนังสั้น)</div>
                         </div>
                         <div>
                             <div class="video-container">
                                 <iframe src="https://www.youtube.com/embed/HxxRjaMzGc4?si=FFhsmBRvF-l248TE" title="Allegro in Red" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
-                            <div class="portfolio-caption">Allegro in Red (Ramadrama Trailer)</div>
+                            <div class="portfolio-caption" data-th="Allegro in Red (ตัวอย่างละครเวที)" data-en="Allegro in Red (Ramadrama Trailer)">Allegro in Red (ตัวอย่างละครเวที)</div>
                         </div>
                     </div>
                 </div>
@@ -327,42 +320,42 @@
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">05 / FOCUS</div>
+                    <div class="section-title" data-th="05 / ความสนใจ" data-en="05 / FOCUS">05 / ความสนใจ</div>
                     <div class="divider"></div>
                 </div>
                 <div class="interest-grid">
                     <div class="interest-card">
                         <h4 data-th="วิสัยทัศน์" data-en="Vision">วิสัยทัศน์</h4>
-                        <p class="keywords" data-th="Healthcare Tech • PM&R • Global Systems" data-en="Healthcare Tech • PM&R • Global Systems">Healthcare Tech • PM&R • Global Systems</p>
+                        <p class="keywords" data-th="เทคโนโลยีสุขภาพ • เวชศาสตร์ฟื้นฟู • ระบบสาธารณสุขโลก" data-en="Healthcare Tech • PM&R • Global Systems">เทคโนโลยีสุขภาพ • เวชศาสตร์ฟื้นฟู • ระบบสาธารณสุขโลก</p>
                     </div>
                     <div class="interest-card">
                         <h4 data-th="งานอดิเรก" data-en="Hobbies">งานอดิเรก</h4>
-                        <p class="keywords" data-th="Running • Bowling • Petanque • Golf" data-en="Running • Bowling • Petanque • Golf">Running • Bowling • Petanque • Golf</p>
+                        <p class="keywords" data-th="วิ่ง • โบว์ลิ่ง • เปตอง • กอล์ฟ" data-en="Running • Bowling • Petanque • Golf">วิ่ง • โบว์ลิ่ง • เปตอง • กอล์ฟ</p>
                     </div>
                     <div class="interest-card">
                         <h4 data-th="ความชอบ" data-en="Interests">ความชอบ</h4>
-                        <p class="keywords" data-th="Street Photography • Alt-Rock • Manchester United" data-en="Street Photography • Alt-Rock • Manchester United">Street Photography • Alt-Rock • Manchester United</p>
+                        <p class="keywords" data-th="สตรีทโฟโต้ • ดนตรีอัลเทอร์เนทีฟ • แมนเชสเตอร์ ยูไนเต็ด" data-en="Street Photography • Alt-Rock • Manchester United">สตรีทโฟโต้ • ดนตรีอัลเทอร์เนทีฟ • แมนเชสเตอร์ ยูไนเต็ด</p>
                     </div>
                 </div>
             </section>
 
             <section class="content-section">
                 <div class="section-header">
-                    <div class="section-title">06 / SOUNDTRACK</div>
+                    <div class="section-title" data-th="06 / เพลงโปรด" data-en="06 / SOUNDTRACK">06 / เพลงโปรด</div>
                     <div class="divider"></div>
                 </div>
-                <p class="bio-text" data-th="ฟังเพลงกัน" data-en="Let's listen to some music...">
-                    ฟังเพลงกัน
+                <p class="bio-text" data-th="ดนตรีที่เป็นเสมือนฉากหลังของการเดินทาง ทั้งการทำงานและการใช้ชีวิต" data-en="The background score to my routines, blending focus with rhythm.">
+                    ดนตรีที่เป็นเสมือนฉากหลังของการเดินทาง ทั้งการทำงานและการใช้ชีวิต
                 </p>
                 <div class="spotify-container">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO2O09Mg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6TIFZk4qns5oCtxL6GHMrd?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </section>
 
             <footer class="footer-contact">
                 <div class="section-header" style="justify-content: center;">
                     <div class="divider" style="max-width: 50px;"></div>
-                    <div class="section-title" style="margin-bottom: 0;">GET IN TOUCH</div>
+                    <div class="section-title" style="margin-bottom: 0;" data-th="ช่องทางการติดต่อ" data-en="GET IN TOUCH">ช่องทางการติดต่อ</div>
                     <div class="divider" style="max-width: 50px;"></div>
                 </div>
                 <div class="contact-grid">
