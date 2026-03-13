@@ -9,11 +9,6 @@
     <meta name="keywords" content="ประวีร์ สินวีรุทัย, Prawee Sinweeruthai, prawees, smprv, ประวีร์, สมาร์ท">
     <meta name="author" content="Prawee Sinweeruthai">
     
-    <meta property="og:title" content="ประวีร์ สินวีรุทัย (Prawee Sinweeruthai) | prawees">
-    <meta property="og:description" content="นักศึกษาแพทย์ M.D.-M.Eng ที่เชื่อมโยงเรื่องราวทางการแพทย์ วิศวกรรม และการเล่าเรื่อง">
-    <meta property="og:image" content="https://prawees.com/portrait.jpg">
-    <meta property="og:type" content="website">
-
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -22,14 +17,13 @@
       "alternateName": ["Prawee Sinweeruthai", "prawees", "smprv", "ประวีร์", "สมาร์ท", "Smart"],
       "url": "https://prawees.com",
       "image": "https://prawees.com/portrait.jpg",
-      "jobTitle": "Medical Student & Content Creator",
-      "alumniOf": "Mahidol University"
+      "jobTitle": "Medical Student & Content Creator"
     }
     </script>
     
     <link rel="icon" type="image/png" href="logo.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Prompt:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600&family=Prompt:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -47,7 +41,6 @@
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            /* ใช้ฟอนต์ Plus Jakarta Sans + Prompt (ไม่มีหัว) ทั้งเว็บ */
             font-family: 'Plus Jakarta Sans', 'Prompt', sans-serif; 
             line-height: 1.6; 
             overflow-x: hidden;
@@ -67,7 +60,7 @@
         }
         .site-logo:hover { opacity: 1; transform: scale(0.95); }
         
-        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-left: 15px; transition: 0.3s; cursor: pointer; }
+        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-left: 15px; transition: 0.3s; cursor: pointer; }
         .lang-switcher button.active { color: var(--text-main); border-bottom: 1.5px solid var(--text-main); padding-bottom: 2px; }
 
         /* --- SPLIT LAYOUT --- */
@@ -77,13 +70,22 @@
         
         /* --- TYPOGRAPHY --- */
         .header-intro { margin-bottom: 60px; opacity: 0; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* UN-BOLDED TITLE */
         .name-title { 
-            font-size: 4.5rem; font-weight: 600; 
-            letter-spacing: -2px; line-height: 1.4; margin-bottom: 15px; padding-bottom: 10px;
+            font-size: 3.5rem; font-weight: 400; /* เอา Bold ออก */
+            letter-spacing: -1px; line-height: 1.3; margin-bottom: 5px; padding-bottom: 5px;
             background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .role { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 20px; }
-        .bio { font-size: 1.15rem; max-width: 85%; color: var(--text-muted); line-height: 1.8; font-weight: 400; }
+        
+        /* SMALL FULL NAME SUBCAPTION */
+        .sub-name {
+            font-size: 0.95rem; color: var(--text-muted); font-weight: 400; 
+            letter-spacing: 1px; margin-bottom: 20px;
+        }
+        
+        .role { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 20px; }
+        .bio { font-size: 1.15rem; max-width: 85%; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
         /* --- ABSTRACT MENU --- */
         .abstract-menu { display: flex; flex-direction: column; border-top: 1px solid var(--border-color); }
@@ -98,12 +100,12 @@
         .menu-item:nth-child(3) { animation-delay: 0.3s; }
         
         .menu-item:hover { padding-left: 20px; background-color: rgba(0,0,0,0.015); border-bottom-color: rgba(0,0,0,0.1); }
-        .menu-num { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); width: 60px; letter-spacing: 1px; transition: color 0.3s; }
+        .menu-num { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); width: 60px; letter-spacing: 1px; transition: color 0.3s; }
         .menu-item:hover .menu-num { color: var(--accent-blue); }
         
         .menu-text { flex: 1; }
-        .menu-text h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 6px; }
-        .menu-text p { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+        .menu-text h2 { font-size: 1.6rem; font-weight: 400; margin-bottom: 6px; } /* เอา Bold ออก */
+        .menu-text p { font-size: 0.95rem; color: var(--text-muted); font-weight: 300; }
         
         .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
         .menu-item:hover .menu-arrow { opacity: 1; transform: translateX(0) translateY(0); color: var(--text-main); }
@@ -124,7 +126,7 @@
         }
         .social-footer a { 
             text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
-            font-weight: 700; letter-spacing: 2px; text-transform: uppercase; 
+            font-weight: 600; letter-spacing: 2px; text-transform: uppercase; 
             transition: color 0.3s, transform 0.3s; display: inline-block;
         }
         .social-footer a:hover { color: var(--accent-blue); transform: translateY(-2px); }
@@ -141,7 +143,7 @@
             .layout-wrapper { flex-direction: column-reverse; padding-top: 80px; }
             .image-side { padding: 4vw 6vw 0 6vw; }
             .content-side { padding: 10vw 6vw; }
-            .name-title { font-size: 3.2rem; }
+            .name-title { font-size: 2.5rem; }
             .bio { max-width: 100%; }
         }
     </style>
@@ -161,7 +163,8 @@
     <div class="layout-wrapper">
         <div class="content-side">
             <header class="header-intro">
-                <h1 class="name-title" data-th="ประวีร์ สินวีรุทัย" data-en="Prawee Sinweeruthai">Prawee S. (Smart)</h1>
+                <h1 class="name-title" data-th="สวัสดีครับ สมาร์ทครับ :-)" data-en="Hi, I'm Smart :-)">สวัสดีครับ สมาร์ทครับ :-)</h1>
+                <p class="sub-name" data-th="ประวีร์ สินวีรุทัย" data-en="Prawee Sinweeruthai">ประวีร์ สินวีรุทัย</p>
                 <p class="role" data-th="นักศึกษาแพทย์ (M.D.-M.Eng)" data-en="Medical Student (M.D.-M.Eng)">นักศึกษาแพทย์ (M.D.-M.Eng)</p>
                 <p class="bio" data-th="เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่" data-en="Connecting medical narratives to inspire youth.">เชื่อมโยงเรื่องราวทางการแพทย์และแรงบันดาลใจ เพื่อขับเคลื่อนคนรุ่นใหม่</p>
             </header>
