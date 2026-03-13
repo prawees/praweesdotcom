@@ -9,15 +9,16 @@
     
     <style>
         :root { 
-            --bg-color: #FAFAFC; 
-            --surface-color: #FFFFFF;
-            --text-main: #1D1D1F; 
-            --text-muted: #86868B; 
-            --border-color: #EAEAEA; 
-            --accent-blue: #0066CC;
+            --bg-color: #0A0A0A; /* Dark mode สำหรับความพรีเมียม */
+            --surface-color: rgba(255, 255, 255, 0.03);
+            --text-main: #FFFFFF; 
+            --text-muted: #A1A1A6; 
+            --border-color: rgba(255, 255, 255, 0.1); 
+            --accent-blue: #0071E3;
+            --gradient-text: linear-gradient(90deg, #FFFFFF, #888888);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Custom Cursor */
         
         body { 
             background-color: var(--bg-color); 
@@ -25,111 +26,92 @@
             font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
             line-height: 1.6; 
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        [data-th], [data-en] { transition: opacity 0.3s ease; }
+        /* --- CUSTOM CURSOR --- */
+        .cursor { width: 10px; height: 10px; background: white; border-radius: 50%; position: fixed; pointer-events: none; z-index: 999; transition: transform 0.1s ease; mix-blend-mode: difference; }
+        .cursor-follower { width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 998; transition: transform 0.15s ease; }
 
         /* --- NAVIGATION --- */
         nav.top-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 20px 4vw; display: flex; justify-content: space-between;
-            z-index: 100; background: rgba(250, 250, 252, 0.85);
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.03);
+            padding: 25px 4vw; display: flex; justify-content: space-between;
+            z-index: 100; background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color);
         }
-        .back-link {
-            text-decoration: none; color: var(--text-main); font-weight: 600;
-            font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
-            letter-spacing: 1px; text-transform: uppercase;
-        }
-        .lang-switcher button { 
-            background: transparent; border: none; font-size: 0.8rem; 
-            font-weight: 700; color: var(--text-muted); cursor: pointer; margin-left: 10px;
-        }
-        .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 4px; }
+        .back-link { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        .lang-switcher button { background: transparent; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; margin-left: 15px; transition: 0.3s; }
+        .lang-switcher button.active { color: white; border-bottom: 1px solid white; }
 
-        /* --- SPLIT LAYOUT --- */
-        .layout {
-            display: flex; max-width: 1400px; margin: 0 auto; min-height: 100vh;
-            padding-top: 70px; /* Space for navbar */
-        }
+        /* --- LAYOUT --- */
+        .layout { display: flex; max-width: 1400px; margin: 0 auto; min-height: 100vh; padding-top: 100px; }
         
-        /* LEFT: STICKY PROFILE */
         .left-col {
-            width: 35%; padding: 60px 4vw; position: sticky; top: 70px; height: calc(100vh - 70px);
+            width: 35%; padding: 40px 4vw; position: sticky; top: 100px; height: calc(100vh - 100px);
             display: flex; flex-direction: column; border-right: 1px solid var(--border-color);
         }
         .profile-img-container {
-            width: 180px; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 30px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+            width: 180px; height: 230px; border-radius: 4px; overflow: hidden; margin-bottom: 35px;
+            position: relative;
         }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .profile-img-container:hover .profile-img { filter: grayscale(0%); transform: scale(1.05); }
         
-        .name-title { font-family: 'Lora', serif; font-size: 2.8rem; line-height: 1.1; margin-bottom: 10px; color: var(--text-main); }
-        .nickname { font-size: 1.2rem; color: var(--text-muted); font-weight: 400; margin-bottom: 20px; }
-        .tagline { font-size: 1rem; color: var(--text-main); font-weight: 500; margin-bottom: 40px; line-height: 1.5; }
+        .name-title { font-family: 'Lora', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nickname { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 300; }
+        .tagline { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.5px; border-left: 2px solid var(--accent-blue); padding-left: 20px; }
         
-        .contact-links { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-        .contact-links a { 
-            text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 10px; transition: color 0.3s;
-        }
-        .contact-links a:hover { color: var(--accent-blue); }
-
-        /* RIGHT: SCROLLABLE CONTENT */
-        .right-col { width: 65%; padding: 60px 5vw 100px 5vw; }
+        /* --- RIGHT CONTENT --- */
+        .right-col { width: 65%; padding: 40px 6vw 0 6vw; }
         
-        .content-section { margin-bottom: 70px; animation: fadeUp 1s ease forwards; opacity: 0; }
-        .content-section:nth-child(1) { animation-delay: 0.1s; }
-        .content-section:nth-child(2) { animation-delay: 0.2s; }
-        .content-section:nth-child(3) { animation-delay: 0.3s; }
-        .content-section:nth-child(4) { animation-delay: 0.4s; }
+        .content-section { margin-bottom: 100px; opacity: 0; transform: translateY(30px); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .content-section.visible { opacity: 1; transform: translateY(0); }
 
         .section-title { 
-            font-size: 0.8rem; font-weight: 700; color: var(--accent-blue);
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
-            display: flex; align-items: center; gap: 10px;
+            font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px;
         }
-        .section-title::after { content: ''; height: 1px; background: var(--border-color); flex: 1; }
         
-        .bio-text { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
-        .bio-text strong { color: var(--text-main); font-weight: 600; }
+        .bio-text { font-size: 1.2rem; color: var(--text-main); font-weight: 300; line-height: 1.8; margin-bottom: 30px; }
 
-        /* TIMELINE / LIST ITEMS */
-        .cv-item { margin-bottom: 35px; }
-        .cv-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-        .cv-title { font-size: 1.2rem; font-weight: 600; color: var(--text-main); }
-        .cv-date { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; }
-        .cv-role { font-size: 1rem; font-weight: 500; color: var(--text-main); margin-bottom: 10px; }
-        .cv-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
-        .cv-desc ul { margin-left: 20px; margin-top: 10px; }
-        .cv-desc li { margin-bottom: 8px; }
+        /* --- CV ITEMS --- */
+        .cv-item { margin-bottom: 50px; position: relative; }
+        .cv-title { font-size: 1.4rem; font-weight: 500; margin-bottom: 6px; }
+        .cv-date { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 15px; }
+        .cv-desc { font-size: 1rem; color: var(--text-muted); font-weight: 300; }
 
-        /* GRID FOR INTERESTS */
-        .interest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; mt-20px; }
-        .interest-card { background: var(--surface-color); padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); }
-        .interest-card h4 { font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); }
-        .interest-card p { font-size: 0.9rem; color: var(--text-muted); }
-
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-            from { opacity: 0; transform: translateY(20px); }
+        /* --- GRID KEYWORDS --- */
+        .interest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .interest-card { 
+            padding: 40px; border-radius: 2px; background: var(--surface-color);
+            border: 1px solid var(--border-color); transition: 0.5s;
         }
+        .interest-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); }
+        .interest-card h4 { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+        .interest-card .keywords { font-size: 1.1rem; color: white; font-weight: 400; line-height: 1.4; }
+
+        /* --- FOOTER --- */
+        .footer { padding: 100px 0 50px; text-align: center; }
+        .footer-text { font-size: 0.6rem; font-weight: 700; letter-spacing: 8px; color: var(--text-muted); text-transform: uppercase; }
 
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
-            .left-col { width: 100%; position: relative; top: 0; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 40px 6vw; }
-            .right-col { width: 100%; padding: 40px 6vw; }
-            .name-title { font-size: 2.5rem; }
+            .left-col { width: 100%; position: relative; top: 0; height: auto; border-right: none; padding: 40px 6vw; border-bottom: 1px solid var(--border-color); }
+            .right-col { width: 100%; padding: 60px 6vw; }
             .interest-grid { grid-template-columns: 1fr; }
+            .cursor, .cursor-follower { display: none; }
+            * { cursor: auto; }
         }
     </style>
 </head>
 <body class="lang-th">
 
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <nav class="top-bar">
-        <a href="https://prawees.com" class="back-link">
-            <span>←</span> <span data-th="กลับหน้าหลัก" data-en="Home">กลับหน้าหลัก</span>
-        </a>
+        <a href="https://prawees.com" class="back-link">← <span data-th="INDEX" data-en="INDEX">INDEX</span></a>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
             <button onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -139,176 +121,106 @@
     <div class="layout">
         <aside class="left-col">
             <div class="profile-img-container">
-                <img src="portrait.jpg" alt="Prawee Sinweeruthai" class="profile-img">
+                <img src="portrait.jpg" alt="Smart" class="profile-img">
             </div>
-            <h1 class="name-title" data-th="ประวีร์ สินวีรุทัย" data-en="Prawee Sinweeruthai">ประวีร์ สินวีรุทัย</h1>
-            <p class="nickname" data-th="(สมาร์ท)" data-en="(Smart)">(สมาร์ท)</p>
-            <p class="tagline" data-th="นักศึกษาแพทย์และวิศวกรรมชีวการแพทย์ ผสมผสานวิทยาศาสตร์การแพทย์ นวัตกรรม และการเล่าเรื่อง" data-en="Dual-degree medical student bridging clinical medicine, biomedical engineering, and storytelling.">
-                นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ ที่พยายามผสมผสานวิทยาศาสตร์การแพทย์ นวัตกรรม และการเล่าเรื่อง
-            </p>
-            
-            <div class="contact-links">
-                <a href="mailto:prawee.sin@gmail.com">✉️ prawee.sin@gmail.com</a>
-                <a href="https://www.tiktok.com/@prawees" target="_blank">📱 TikTok: @prawees</a>
-                <a href="https://www.instagram.com/smprv" target="_blank">📷 Instagram: @smprv</a>
-            </div>
+            <h1 class="name-title">Prawee S.</h1>
+            <p class="nickname" data-th="Smart" data-en="Smart">Smart</p>
+            <p class="tagline" data-th="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives." data-en="M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.">M.D.-M.Eng student exploring the synergy of medicine, engineering, and digital narratives.</p>
         </aside>
 
         <main class="right-col">
-            
             <section class="content-section">
-                <div class="section-title" data-th="เกี่ยวกับฉัน" data-en="Biography">เกี่ยวกับฉัน</div>
-                <p class="bio-text" data-th="ผมเป็นนักศึกษาแพทย์ในโครงการร่วม M.D.-M.Eng ณ คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ด้วยความหลงใหลในจุดตัดระหว่างระบบสาธารณสุขและเทคโนโลยี นอกเหนือจากการเรียนคลินิก ผมยังมุ่งมั่นสร้างพื้นที่สำหรับการสื่อสารและสร้างแรงบันดาลใจผ่านแพลตฟอร์มโซเชียลมีเดีย" data-en="I am a medical student in the M.D.-M.Eng dual-degree program at Ramathibodi Hospital, Mahidol University. Fascinated by the intersection of healthcare and technology, I balance my clinical training with a deep passion for digital community building and storytelling.">
-                    ผมเป็นนักศึกษาแพทย์ในโครงการร่วม M.D.-M.Eng ณ คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ด้วยความหลงใหลในจุดตัดระหว่างระบบสาธารณสุขและเทคโนโลยี นอกเหนือจากการเรียนคลินิก ผมยังมุ่งมั่นสร้างพื้นที่สำหรับการสื่อสารและสร้างแรงบันดาลใจผ่านแพลตฟอร์มโซเชียลมีเดีย
-                </p>
-                <p class="bio-text" data-th="ไม่ว่าจะเป็นการพัฒนาระบบหลังบ้านให้กับชมรมวิ่งรามาธอน การนำเสนองานวิจัยด้านไบโอเซนเซอร์บนเวทีระดับนานาชาติ หรือการเจาะลึกเรื่องราวชีวิตของอาจารย์แพทย์ผ่านโปรเจกต์ 'กว่า-จะ-เป็น' เป้าหมายหลักของผมคือการขับเคลื่อนสังคมรอบตัวไปข้างหน้าเสมอ" data-en="Whether developing web architectures for the Ramathon Run Club, presenting biosensor research on international stages, or capturing unfiltered insights from established physicians through 'Gwa-Ja-Pen', my ultimate goal is to drive impact and foster connection.">
-                    ไม่ว่าจะเป็นการพัฒนาระบบหลังบ้านให้กับชมรมวิ่งรามาธอน การนำเสนองานวิจัยด้านไบโอเซนเซอร์บนเวทีระดับนานาชาติ หรือการเจาะลึกเรื่องราวชีวิตของอาจารย์แพทย์ผ่านโปรเจกต์ 'กว่า-จะ-เป็น' เป้าหมายหลักของผมคือการขับเคลื่อนสังคมรอบตัวไปข้างหน้าเสมอ
+                <div class="section-title">01 / OVERVIEW</div>
+                <p class="bio-text" data-th="นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต รามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจ" data-en="A dual-degree M.D.-M.Eng candidate at Ramathibodi. Dedicated to engineering solutions for healthcare and crafting digital narratives to drive community engagement.">
+                    นักศึกษาแพทย์และวิศวกรรมมหาบัณฑิต รามาธิบดี มุ่งเน้นการใช้นวัตกรรมเพื่อแก้ปัญหาระบบสุขภาพ พร้อมสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจ
                 </p>
             </section>
 
             <section class="content-section">
-                <div class="section-title" data-th="การศึกษา" data-en="Education">การศึกษา</div>
-                
+                <div class="section-title">02 / FORMATION</div>
                 <div class="cv-item">
-                    <div class="cv-header">
-                        <div class="cv-title" data-th="มหาวิทยาลัยมหิดล (คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี)" data-en="Mahidol University (Ramathibodi Hospital)">มหาวิทยาลัยมหิดล (คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี)</div>
-                        <div class="cv-date">2021 - Present</div>
-                    </div>
-                    <div class="cv-role" data-th="แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (M.D.-M.Eng)" data-en="Doctor of Medicine (M.D.) & Master of Engineering (M.Eng)">แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (M.D.-M.Eng)</div>
-                    <div class="cv-desc" data-th="เกรดเฉลี่ย (M.Eng): 3.81/4.00" data-en="GPA (M.Eng): 3.81/4.00">เกรดเฉลี่ย (M.Eng): 3.81/4.00</div>
+                    <div class="cv-title" data-th="มหาวิทยาลัยมหิดล (รามาธิบดี)" data-en="Mahidol University (Ramathibodi)">มหาวิทยาลัยมหิดล (รามาธิบดี)</div>
+                    <div class="cv-date">2021 — PRESENT</div>
+                    <div class="cv-desc" data-th="Doctor of Medicine & Master of Engineering" data-en="Doctor of Medicine & Master of Engineering">Doctor of Medicine & Master of Engineering</div>
                 </div>
-
                 <div class="cv-item">
-                    <div class="cv-header">
-                        <div class="cv-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="Mahidol Wittayanusorn School">โรงเรียนมหิดลวิทยานุสรณ์</div>
-                        <div class="cv-date">2018 - 2021</div>
-                    </div>
-                    <div class="cv-role" data-th="วิทยาศาสตร์ - คณิตศาสตร์" data-en="Science & Mathematics">วิทยาศาสตร์ - คณิตศาสตร์</div>
-                    <div class="cv-desc" data-th="GPAX: 3.97/4.00 | รองประธานคณะกรรมการนักเรียน" data-en="GPAX: 3.97/4.00 | Vice President of the Student Council">GPAX: 3.97/4.00 | รองประธานคณะกรรมการนักเรียน</div>
+                    <div class="cv-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="Mahidol Wittayanusorn">โรงเรียนมหิดลวิทยานุสรณ์</div>
+                    <div class="cv-date">2018 — 2021</div>
+                    <div class="cv-desc" data-th="Vice President of the Student Council" data-en="Vice President of the Student Council">Vice President of the Student Council</div>
                 </div>
             </section>
 
             <section class="content-section">
-                <div class="section-title" data-th="ประสบการณ์และผลงาน" data-en="Leadership & Experience">ประสบการณ์และผลงาน</div>
-                
+                <div class="section-title">03 / INITIATIVES</div>
                 <div class="cv-item">
-                    <div class="cv-header">
-                        <div class="cv-title" data-th="Virtual Ramathon Run" data-en="Virtual Ramathon Run">Virtual Ramathon Run</div>
-                        <div class="cv-date">2024 - Present</div>
-                    </div>
-                    <div class="cv-role" data-th="ประธานโครงการและผู้ริเริ่ม" data-en="President & Project Lead">ประธานโครงการและผู้ริเริ่ม</div>
-                    <div class="cv-desc">
-                        <ul data-th="
-                            <li>ก่อตั้งกิจกรรมส่งเสริมสุขภาพระดับองค์กรสำหรับบุคลากรรามาธิบดีกว่า 250+ คน</li>
-                            <li>พัฒนาเว็บไซต์เชื่อมต่อกับ Strava API เพื่อเปลี่ยนการออกกำลังกายให้เป็นระบบ Leaderboards</li>
-                            <li>ได้รับรางวัล Dean's Impactful Leadership Award ประจำปี 2025</li>" 
-                            data-en="
-                            <li>Founded a hospital-wide digital wellness initiative for 250+ staff.</li>
-                            <li>Developed a custom Strava-integrated web platform to gamify fitness and automate leaderboards.</li>
-                            <li>Awarded the Dean's Impactful Leadership Award in 2025.</li>">
-                            <li>ก่อตั้งกิจกรรมส่งเสริมสุขภาพระดับองค์กรสำหรับบุคลากรรามาธิบดีกว่า 250+ คน</li>
-                            <li>พัฒนาเว็บไซต์เชื่อมต่อกับ Strava API เพื่อเปลี่ยนการออกกำลังกายให้เป็นระบบ Leaderboards</li>
-                            <li>ได้รับรางวัล Dean's Impactful Leadership Award ประจำปี 2025</li>
-                        </ul>
-                    </div>
+                    <div class="cv-title">Virtual Ramathon Run</div>
+                    <div class="cv-date">PROJECT LEAD</div>
+                    <div class="cv-desc" data-th="Digital wellness platform • Strava API • Gamified fitness for 250+ staff" data-en="Digital wellness platform • Strava API • Gamified fitness for 250+ staff">Digital wellness platform • Strava API • Gamified fitness for 250+ staff</div>
                 </div>
-
                 <div class="cv-item">
-                    <div class="cv-header">
-                        <div class="cv-title" data-th="กว่า-จะ-เป็น & Content Creation" data-en="Gwa-Ja-Pen & Content Creation">กว่า-จะ-เป็น & Content Creation</div>
-                        <div class="cv-date">2023 - Present</div>
-                    </div>
-                    <div class="cv-role" data-th="ผู้สร้างสรรค์เนื้อหาทางการแพทย์" data-en="Medical & Research Content Creator">ผู้สร้างสรรค์เนื้อหาทางการแพทย์</div>
-                    <div class="cv-desc">
-                        <ul data-th="
-                            <li>สร้างฐานผู้ติดตามกว่า 60,000+ คน และยอดไลก์รวมกว่า 2 ล้านครั้ง ผ่านคอนเทนต์การเรียนแพทย์และไลฟ์สไตล์</li>
-                            <li>ริเริ่มโปรเจกต์ 'กว่า-จะ-เป็น' เพื่อสัมภาษณ์เส้นทางและแรงบันดาลใจจากแพทย์เฉพาะทาง</li>" 
-                            data-en="
-                            <li>Built a verified audience of 60,000+ followers and 2M+ likes focusing on medical research and student lifestyle.</li>
-                            <li>Initiated the 'Gwa-Ja-Pen' interview series to explore the diverse journeys of medical specialists.</li>">
-                            <li>สร้างฐานผู้ติดตามกว่า 60,000+ คน และยอดไลก์รวมกว่า 2 ล้านครั้ง ผ่านคอนเทนต์การเรียนแพทย์และไลฟ์สไตล์</li>
-                            <li>ริเริ่มโปรเจกต์ 'กว่า-จะ-เป็น' เพื่อสัมภาษณ์เส้นทางและแรงบันดาลใจจากแพทย์เฉพาะทาง</li>
-                        </ul>
-                    </div>
+                    <div class="cv-title">กว่า-จะ-เป็น Series</div>
+                    <div class="cv-date">STRATEGIST</div>
+                    <div class="cv-desc" data-th="Career journey platform • 60k+ Combined following • Visual storytelling" data-en="Career journey platform • 60k+ Combined following • Visual storytelling">Career journey platform • 60k+ Combined following • Visual storytelling</div>
                 </div>
             </section>
 
             <section class="content-section">
-                <div class="section-title" data-th="งานวิจัยและการนำเสนอ" data-en="Research & Conferences">งานวิจัยและการนำเสนอ</div>
-                
-                <div class="cv-item">
-                    <div class="cv-header">
-                        <div class="cv-title" data-th="IEEE BioSensors 2025" data-en="IEEE BioSensors 2025">IEEE BioSensors 2025</div>
-                        <div class="cv-date">California, USA</div>
-                    </div>
-                    <div class="cv-desc" data-th="ผู้นำเสนอผลงานวิจัยนวัตกรรม DNA biosensors สำหรับการประยุกต์ใช้เภสัชพันธุศาสตร์ (Pharmacogenomics) ในคลินิก" data-en="Presented novel research on DNA biosensors designed to aid the integration of pharmacogenomics into clinical practice.">ผู้นำเสนอผลงานวิจัยนวัตกรรม DNA biosensors สำหรับการประยุกต์ใช้เภสัชพันธุศาสตร์ (Pharmacogenomics) ในคลินิก</div>
-                </div>
-
-                <div class="cv-item">
-                    <div class="cv-header">
-                        <div class="cv-title" data-th="HIV-1 Latency Study" data-en="HIV-1 Latency Study">HIV-1 Latency Study</div>
-                        <div class="cv-date">2019 - 2020</div>
-                    </div>
-                    <div class="cv-desc" data-th="ผู้ช่วยวิจัยร่วมกับโรงพยาบาลศิริราช (ได้รับเหรียญทองจากการประกวดระดับนานาชาติ Kolmogorov Readings ประเทศรัสเซีย และ ISSI)" data-en="Student researcher co-authoring with Siriraj Hospital. Won Gold Medals at Kolmogorov Readings (Russia) and ISSI.">ผู้ช่วยวิจัยร่วมกับโรงพยาบาลศิริราช (ได้รับเหรียญทองจากการประกวดระดับนานาชาติ Kolmogorov Readings ประเทศรัสเซีย และ ISSI)</div>
-                </div>
-            </section>
-
-            <section class="content-section">
-                <div class="section-title" data-th="เส้นทางต่อไป & ไลฟ์สไตล์" data-en="Beyond the Wards & Future Plans">เส้นทางต่อไป & ไลฟ์สไตล์</div>
-                
+                <div class="section-title">04 / FOCUS</div>
                 <div class="interest-grid">
                     <div class="interest-card">
-                        <h4 data-th="ก้าวต่อไปทางคลินิก" data-en="Clinical Horizons">ก้าวต่อไปทางคลินิก</h4>
-                        <p data-th="เตรียมพร้อมสำหรับการฝึกงาน Elective ด้านเวชศาสตร์ฟื้นฟู (PM&R) ที่ ม.สงขลานครินทร์ (PSU) และ ม.ขอนแก่น (KKU) ในปี 2026 รวมถึงการไป Elective ที่ NUS ประเทศสิงคโปร์ ในปี 2027" data-en="Preparing for upcoming PM&R electives at Prince of Songkla University and Khon Kaen University in 2026, followed by a medical elective at NUS, Singapore in 2027.">
-                            เตรียมพร้อมสำหรับการฝึกงาน Elective ด้านเวชศาสตร์ฟื้นฟู (PM&R) ที่ ม.สงขลานครินทร์ (PSU) และ ม.ขอนแก่น (KKU) ในปี 2026 รวมถึงการไป Elective ที่ NUS ประเทศสิงคโปร์ ในปี 2027
-                        </p>
+                        <h4 data-th="วิสัยทัศน์" data-en="Vision">วิสัยทัศน์</h4>
+                        <p class="keywords" data-th="Healthcare Tech • PM&R • Global Systems" data-en="Healthcare Tech • PM&R • Global Systems">Healthcare Tech • PM&R • Global Systems</p>
                     </div>
-                    
                     <div class="interest-card">
-                        <h4 data-th="การเคลื่อนไหว" data-en="On the Move">การเคลื่อนไหว</h4>
-                        <p data-th="การวิ่งคือพื้นที่พักผ่อนทางใจของผม ปัจจุบันกำลังฝึกซ้อมอย่างต่อเนื่องเพื่อทำลายสถิติวิ่ง 10 กิโลเมตร ในเวลาต่ำกว่า 50 นาที นอกจากนี้ยังสนุกกับการปีนหน้าผาจำลอง (Bouldering) และตีกอล์ฟในวันว่าง" data-en="Running is my meditation. I am currently training to break the 50-minute barrier for my 10k races. When not running, I enjoy the problem-solving aspects of bouldering and playing golf.">
-                            การวิ่งคือพื้นที่พักผ่อนทางใจของผม ปัจจุบันกำลังฝึกซ้อมอย่างต่อเนื่องเพื่อทำลายสถิติวิ่ง 10 กิโลเมตร ในเวลาต่ำกว่า 50 นาที นอกจากนี้ยังสนุกกับการปีนหน้าผาจำลอง (Bouldering) และตีกอล์ฟในวันว่าง
-                        </p>
+                        <h4 data-th="ไลฟ์สไตล์" data-en="Lifestyle">ไลฟ์สไตล์</h4>
+                        <p class="keywords" data-th="Endurance Running • Bouldering • Golf" data-en="Endurance Running • Bouldering • Golf">Endurance Running • Bouldering • Golf</p>
                     </div>
-
                     <div class="interest-card">
-                        <h4 data-th="มุมมองผ่านเลนส์" data-en="Through the Lens">มุมมองผ่านเลนส์</h4>
-                        <p data-th="มักจะพกกล้องคู่ใจอย่าง Ricoh GR III เพื่อบันทึกภาพถ่ายสตรีทและผู้คนรอบตัวเสมอ ผสมผสานกับการฟังเพลงของ Radiohead และ Jeff Buckley ระหว่างการเดินทาง" data-en="I rarely leave the house without my Ricoh GR III, capturing street photography and daily moments, usually soundtracked by the likes of Radiohead or Jeff Buckley.">
-                            มักจะพกกล้องคู่ใจอย่าง Ricoh GR III เพื่อบันทึกภาพถ่ายสตรีทและผู้คนรอบตัวเสมอ ผสมผสานกับการฟังเพลงของ Radiohead และ Jeff Buckley ระหว่างการเดินทาง
-                        </p>
+                        <h4 data-th="ความชอบ" data-en="Creative">ความชอบ</h4>
+                        <p class="keywords" data-th="Street Photography • Compact Gear • Alt-Rock" data-en="Street Photography • Compact Gear • Alt-Rock">Street Photography • Compact Gear • Alt-Rock</p>
                     </div>
-
                     <div class="interest-card">
-                        <h4 data-th="ความชอบส่วนตัว" data-en="Personal Interests">ความชอบส่วนตัว</h4>
-                        <p data-th="มีความสนใจในเรื่องกลไกและศิลปะของนาฬิกาคลาสสิก (โดยเฉพาะดีไซน์ของ Hamilton และ Tissot) และเป็นแฟนคลับฟุตบอลที่กำลังจะเดินทางไปเชียร์แมตช์ที่ Old Trafford ร่วมกับครอบครัวที่อังกฤษ" data-en="Fascinated by the mechanics and design of classic watches (particularly Hamilton and Tissot). I'm also an avid football fan eagerly anticipating a family trip to an Old Trafford match in the UK.">
-                            มีความสนใจในเรื่องกลไกและศิลปะของนาฬิกาคลาสสิก (โดยเฉพาะดีไซน์ของ Hamilton และ Tissot) และเป็นแฟนคลับฟุตบอลที่กำลังจะเดินทางไปเชียร์แมตช์ที่ Old Trafford ร่วมกับครอบครัวที่อังกฤษ
-                        </p>
+                        <h4 data-th="ความหลงใหล" data-en="Passions">ความหลงใหล</h4>
+                        <p class="keywords" data-th="Horology • Football Spirit • Design" data-en="Horology • Football Spirit • Design">Horology • Football Spirit • Design</p>
                     </div>
                 </div>
             </section>
 
+            <footer class="footer">
+                <div class="footer-text">© 2026 PRAWEES • ALL RIGHTS RESERVED</div>
+            </footer>
         </main>
     </div>
 
     <script>
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            follower.style.transform = `translate3d(${e.clientX - 10}px, ${e.clientY - 10}px, 0)`;
+        });
+
         function setLanguage(lang) {
             document.getElementById('btn-th').classList.toggle('active', lang === 'th');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-            
-            const elements = document.querySelectorAll('[data-th]');
-            elements.forEach(el => {
+            document.querySelectorAll('[data-th]').forEach(el => {
                 el.style.opacity = '0';
                 setTimeout(() => {
-                    if (lang === 'th') {
-                        el.innerHTML = el.getAttribute('data-th');
-                    } else {
-                        el.innerHTML = el.getAttribute('data-en');
-                    }
+                    el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
                     el.style.opacity = '1';
                 }, 150);
             });
             document.body.className = `lang-${lang}`;
         }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.content-section').forEach(section => observer.observe(section));
         
         window.onload = () => setLanguage('th');
     </script>
