@@ -75,7 +75,21 @@
             max-width: 1200px; margin: 0 auto; padding: 60px 6vw;
         }
         .section-header { margin-bottom: 40px; text-align: center; }
-        .section-header h2 { font-family: 'Lora', serif; font-size: 2.2rem; margin-bottom: 10px; }
+        .section-header h2 { font-family: 'Lora', serif; font-size: 2.2rem; margin-bottom: 15px; }
+
+        /* --- SOCIAL LINKS UNDER HEADER --- */
+        .header-socials {
+            display: flex; justify-content: center; gap: 20px; margin-top: 10px;
+        }
+        .header-socials a {
+            text-decoration: none; font-size: 0.8rem; font-weight: 600;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+            padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .header-socials a:hover {
+            color: var(--accent-gold); border-color: var(--accent-gold); background: rgba(212, 175, 55, 0.05);
+        }
 
         /* --- COMPACT VIDEO GRID --- */
         .video-grid {
@@ -131,9 +145,9 @@
         <img src="banner.jpg" alt="Banner" class="hero-banner-img">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์" 
-               data-en="The untold stories, hidden challenges, and unfiltered inspirations behind the white coat.">
-                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจภายใต้เสื้อกาวน์
+            <p class="hero-subtitle" data-th="เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจ" 
+               data-en="The untold stories, hidden challenges, and unfiltered inspirations.">
+                เรื่องราวที่ไม่ได้ถูกเล่า ความท้าทายที่ซ่อนอยู่ และแรงบันดาลใจ
             </p>
         </div>
     </section>
@@ -141,6 +155,10 @@
     <section class="section-container">
         <div class="section-header">
             <h2 data-th="คลิปสัมภาษณ์" data-en="Video Series">คลิปสัมภาษณ์</h2>
+            <div class="header-socials">
+                <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok</a>
+                <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">Instagram</a>
+            </div>
         </div>
         <div class="video-grid" id="video-container"></div>
     </section>
