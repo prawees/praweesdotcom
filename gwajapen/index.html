@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
     
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -110,15 +112,15 @@
 
         /* --- CREATIVE WORD CLOUD --- */
         .wordcloud-container {
-            /* Removed border and background to make it blend with the site */
-            padding: 20px 0;
-            margin-bottom: 30px;
+            padding: 10px 0 30px 0;
+            margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 10px 20px;
             text-align: center;
+            min-height: 150px; /* ให้มีพื้นที่สุ่มโผล่ */
         }
         .cloud-word {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -128,40 +130,35 @@
             cursor: default;
             display: inline-block;
             
-            /* Initial state for Pop-out animation */
+            /* แอนิเมชัน Fade In & Out แบบวนซ้ำ */
             opacity: 0;
-            transform: scale(0.5) translateY(20px);
-            animation: popOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            transition: color 0.3s, text-shadow 0.3s; /* for hover */
+            animation: fadeInOut linear infinite;
+            transition: color 0.3s, text-shadow 0.3s; 
         }
         
-        @keyframes popOut {
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.8); }
+            15% { opacity: 1; transform: scale(1); }
+            85% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
         }
 
         .cloud-word:hover {
             color: var(--accent-blue) !important;
             text-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+            animation-play-state: paused; /* หยุดแอนิเมชันตอนเอาเมาส์ชี้ */
+            opacity: 1 !important;
+            transform: scale(1.1) !important;
         }
 
-        /* --- SUGGESTION BOX --- */
-        .suggestion-box {
-            text-align: center; margin-bottom: 60px;
-            padding: 25px; border-radius: 12px;
-            background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, transparent 100%);
-            border: 1px dashed var(--border-color);
+        /* --- GOOGLE FORM SUGGESTION BOX --- */
+        .form-container {
+            width: 100%; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
+            background: var(--surface-color); margin-bottom: 50px;
         }
-        .suggestion-box p {
-            font-size: 0.95rem; color: var(--text-muted); font-weight: 600; margin-bottom: 15px;
-        }
-        .suggestion-btn {
-            display: inline-block; padding: 10px 25px; border-radius: 30px;
-            background-color: var(--text-main); color: white; text-decoration: none;
-            font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .suggestion-btn:hover {
-            transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        .form-container iframe {
+            width: 100%; height: 426px; border: none;
         }
 
         /* --- SLIM SLIDER SECTION (VIDEO) --- */
@@ -183,7 +180,7 @@
 
         .video-grid-container {
             width: 100%; overflow: hidden;
-            max-width: 450px; /* Slim slider on mobile */
+            max-width: 450px; /* Slim slider on mobile & desktop */
             margin: 0 auto;
         }
         .video-grid {
@@ -207,7 +204,7 @@
 
         .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; }
 
-        /* --- NOTION EMBED SECTION --- */
+        /* --- NOTION EMBED SECTION (NESTED) --- */
         .notion-container {
             width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -288,9 +285,8 @@
                 <div class="wordcloud-container" id="wordcloud">
                     </div>
                 
-                <div class="suggestion-box">
-                    <p data-th="อยากให้เราสัมภาษณ์สายงานไหนต่อไป?" data-en="Who should we interview next?">อยากให้เราสัมภาษณ์สายงานไหนต่อไป?</p>
-                    <a href="mailto:prawee.sin@gmail.com?subject=Gwa-Ja-Pen Suggestion" class="suggestion-btn" data-th="ส่งไอเดียของคุณ" data-en="Send Suggestion">ส่งไอเดียของคุณ</a>
+                <div class="form-container">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                 </div>
 
                 <div class="video-header-controls">
@@ -325,36 +321,46 @@
             <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">IG: @GWA.JA.PEN</a>
             <a href="mailto:prawee.sin@gmail.com">PRAWEE.SIN@GMAIL.COM</a>
         </div>
-        <div class="footer-copyright">© 2026 PRAWEES</div>
     </footer>
 
     <script>
-        // --- 1. WORD CLOUD LOGIC WITH ANIMATION ---
+        // --- 1. WORD CLOUD LOGIC WITH FADE IN/OUT ANIMATION ---
         const medicalWords = [
             "Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", 
             "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", 
             "Radiologist", "Educator", "Oncologist", "Leader", "Dermatologist", 
             "Visionary", "Ophthalmologist", "Advocate", "Anesthesiologist", "Developer", 
-            "Pathologist", "Creator", "General Practitioner", "Data Analyst", "Policy Maker"
+            "Pathologist", "Creator", "General Practitioner", "Data Analyst", "Policy Maker",
+            "Orthopedist", "Gynecologist", "Urologist", "Endocrinologist", "Gastroenterologist",
+            "Nephrologist", "Pulmonologist", "Rheumatologist", "Hematologist", "Immunologist",
+            "Infectious Disease Specialist", "Allergist", "Geriatrician", "Sports Medicine",
+            "Medical Illustrator", "Health Economist", "Clinical Trial Manager", "Bioinformatician",
+            "Medical Writer", "Epidemiologist", "Public Health Director", "Telemedicine Expert",
+            "Genomic Counselor", "Medical Device Engineer", "Health IT Specialist", "Global Health Specialist"
         ];
         
         const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0'];
 
         function renderWordCloud() {
             const cloudContainer = document.getElementById('wordcloud');
-            const shuffled = medicalWords.sort(() => 0.5 - Math.random());
+            
+            // สุ่มเลือกมาแค่ 15-20 คำเพื่อไม่ให้รกเกินไปในแต่ละครั้ง
+            const shuffled = medicalWords.sort(() => 0.5 - Math.random()).slice(0, 18);
             
             cloudContainer.innerHTML = shuffled.map((word, index) => {
                 const size = (Math.random() * 0.7 + 0.6).toFixed(2); // 0.6rem to 1.3rem
-                const initialOpacity = (Math.random() * 0.5 + 0.3).toFixed(2); 
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
-                // สุ่ม delay ให้ค่อยๆ โผล่มาทีละคำ
-                const delay = (Math.random() * 1.5).toFixed(2); 
+                // สุ่มระยะเวลาการวนลูปและการหน่วงเวลา เพื่อให้แต่ละคำผลุบโผล่ไม่พร้อมกัน
+                const duration = (Math.random() * 4 + 4).toFixed(2); // 4s - 8s
+                const delay = (Math.random() * 5).toFixed(2); // 0s - 5s
                 
-                return `<span class="cloud-word" style="font-size: ${size}rem; color: ${color}; animation-delay: ${delay}s;">${word}</span>`;
+                return `<span class="cloud-word" style="font-size: ${size}rem; color: ${color}; animation-duration: ${duration}s; animation-delay: ${delay}s;">${word}</span>`;
             }).join('');
         }
+
+        // ทำให้ Word Cloud รีเฟรชคำใหม่ๆ ทุกๆ 12 วินาที
+        setInterval(renderWordCloud, 12000);
 
         // --- 2. VIDEO DATABASE ---
         const database = {
