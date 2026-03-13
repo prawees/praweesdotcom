@@ -82,7 +82,7 @@
         /* --- WORD CLOUD --- */
         .wordcloud-section { width: 100%; }
         .wordcloud-container {
-            position: relative; width: 100%; height: 120px; /* Reduced space */
+            position: relative; width: 100%; height: 140px; /* Slightly increased space for breathing room */
             overflow: hidden; display: block; margin-bottom: 20px;
         }
         .cloud-word {
@@ -281,17 +281,16 @@
             "Audiologist", "Occupational Therapist", "Physical Therapist", "Healthcare Admin", "Ethicist"
         ];
         
-        // เพิ่มความหลากหลายของสีให้มากขึ้น
-        const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#4A4A4A', '#A0A0A0', '#003366', '#2B7A78', '#D9534F', '#B8860B'];
-        const wordCount = 8; // ลดจำนวนให้เหลือ 8 ตำแหน่ง เพื่อไม่ให้เบียดกันจนเกินขอบ
+        // ถอยสีกลับเป็นโทนเดิม: น้ำเงิน เหลือง เขียวหม่น และเทา (เอาสีแดงออก)
+        const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#2B7A78', '#588157', '#4A4A4A'];
+        const wordCount = 8; 
 
-        // ปรับตำแหน่งให้กระจายออกจากกันแบบสลับฟันปลามากขึ้น ลดโอกาสคำชนกัน
+        // จัดเรียงแบบ Honeycomb (รังผึ้ง) เพื่อให้มี Space หายใจตรงกลาง และหลบขอบจอ
         const positions = [
-            { top: '15%', left: '28%' }, { top: '20%', left: '72%' },
-            { top: '45%', left: '48%' },
-            { top: '85%', left: '32%' }, { top: '80%', left: '68%' },
-            { top: '50%', left: '22%' }, { top: '55%', left: '78%' },
-            { top: '70%', left: '52%' }
+            { top: '25%', left: '35%' }, { top: '25%', left: '65%' },
+            { top: '50%', left: '25%' }, { top: '50%', left: '75%' },
+            { top: '75%', left: '35%' }, { top: '75%', left: '65%' },
+            { top: '50%', left: '50%' }, { top: '15%', left: '50%' }
         ];
 
         function initWordCloud() {
@@ -303,11 +302,11 @@
                 span.className = 'cloud-word';
                 span.id = `word-slot-${i}`;
                 
-                const size = (Math.random() * 0.3 + 0.7).toFixed(2); // ปรับ base ให้เล็กลงนิดนึง (0.7rem - 1.0rem)
+                const size = (Math.random() * 0.3 + 0.7).toFixed(2); 
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
-                // ใช้ clamp เพื่อให้ตัวอักษรหดลงอัตโนมัติเมื่ออยู่ในหน้าจอมือถือ (ป้องกันการทะลุขอบ)
-                span.style.fontSize = `clamp(0.6rem, 2.5vw, ${size}rem)`;
+                // ลดขนาด clamp ต่ำสุดลงอีกนิด เพื่อการันตีว่าคำยาวๆ จะไม่ชนขอบมือถือ
+                span.style.fontSize = `clamp(0.5rem, 2vw, ${size}rem)`;
                 span.style.color = color;
                 span.innerText = shuffled[i];
                 span.style.top = positions[i].top;
@@ -315,22 +314,18 @@
                 
                 container.appendChild(span);
                 
-                // 1. ให้คำเริ่มปรากฏขึ้นมาทันทีที่เว็บโหลดเสร็จ (ค่อยๆ ทยอยโผล่)
                 setTimeout(() => { 
                     span.classList.add('visible'); 
                 }, i * 200);
 
-                // 2. ให้เริ่มระบบสลับคำแบบหน่วงเวลา (คำแรกสลับไวหน่อย คำหลังๆ รอนานหน่อย)
                 setTimeout(() => {
                     swapWord(span);
-                    // หลังจากนั้นให้วนลูปสลับทุกๆ 4 วินาที
                     setInterval(() => { swapWord(span); }, 4000);
                 }, 1000 + Math.random() * 3000); 
             }
         }
 
         function swapWord(element) {
-            // เฟดออกก่อน 1.5 วินาที
             element.classList.remove('visible');
             element.classList.add('fade-out');
             
@@ -341,7 +336,6 @@
                 element.innerText = newWord;
                 element.style.color = newColor;
                 
-                // เฟดกลับเข้ามาใหม่
                 element.classList.remove('fade-out');
                 element.classList.add('visible');
             }, 1500); 
