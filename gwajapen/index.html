@@ -83,10 +83,10 @@
         .wordcloud-section { width: 100%; }
         .wordcloud-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* แบ่ง 3 คอลัมน์เท่าๆ กัน */
-            grid-template-rows: repeat(3, 1fr);    /* แบ่ง 3 แถว */
+            grid-template-columns: repeat(3, 1fr); 
+            grid-template-rows: repeat(3, 1fr);    
             width: 100%;
-            height: 130px; /* คุมความสูงให้กระชับ ลดพื้นที่ว่าง */
+            height: 130px; 
             gap: 5px;
             align-items: center;
             justify-items: center;
@@ -143,7 +143,7 @@
         .suggestion-section { width: 100%; }
         .form-container {
             width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
-            background: var(--surface-color); position: relative; height: 400px; /* ลดความสูงเพื่อตัดพื้นที่ว่างสีขาวของ Google Form ออก */
+            background: var(--surface-color); position: relative; height: 400px; 
         }
         .form-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
@@ -158,6 +158,16 @@
         .footer-links a:hover { background-color: var(--accent-blue); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.2); }
         .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; margin-top: 25px; }
 
+        /* --- THAI TYPOGRAPHY FIX (ป้องกันสระลอย) --- */
+        body.lang-th .aesthetic-heading,
+        body.lang-th .cloud-word,
+        body.lang-th .video-tag,
+        body.lang-th .hero-socials a,
+        body.lang-th .footer-links a,
+        body.lang-th .footer-copyright {
+            letter-spacing: normal !important;
+        }
+
         /* --- RESPONSIVE DESKTOP (Side by Side) --- */
         @media (min-width: 1024px) {
             .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; }
@@ -165,7 +175,7 @@
             .col-right { display: flex; flex-direction: column; gap: 40px; }
         }
 
-        /* --- RESPONSIVE MOBILE (Order override) --- */
+        /* --- RESPONSIVE MOBILE (Order override & Overflow fixes) --- */
         @media (max-width: 1023px) {
             .hero { height: 45vh; }
             .hero-subtitle { font-size: 1rem; }
@@ -182,10 +192,13 @@
             .notion-container { height: 500px; }
             .video-grid-container { max-width: 100%; } 
             .wordcloud-container { height: 130px; }
+            
+            /* อนุญาตให้หัวข้อที่ยาวมากๆ ปัดตกบรรทัดใหม่ได้ ป้องกันหน้าจอทะลุขอบ */
+            .aesthetic-heading { white-space: normal; line-height: 1.4; }
         }
     </style>
 </head>
-<body>
+<body class="lang-th">
 
     <nav class="top-bar">
         <a href="https://prawees.com" class="back-link">
@@ -409,6 +422,7 @@
             document.querySelectorAll('[data-th]').forEach(el => {
                 el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
             });
+            document.body.className = `lang-${lang}`; // เพื่อให้ CSS แก้สระลอยทำงานตรงภาษา
         }
         
         window.onload = () => {
