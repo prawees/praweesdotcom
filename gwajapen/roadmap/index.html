@@ -8,21 +8,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg-color: #FDF8F2; --surface-color: #FFFFFF;
-            --text-main: #4A3F35; --text-muted: #8C7A6B; 
+            /* --- EARTH TONE THEME --- */
+            --bg-color: #FDF8F2; 
+            --surface-color: #FFFFFF;
+            --text-main: #4A3F35; 
+            --text-muted: #8C7A6B; 
             --border-color: rgba(140, 122, 107, 0.2); 
-            --accent-primary: #A67B5B; --accent-gold: #D4AF37;
+            --accent-primary: #A67B5B; 
+            --accent-gold: #D4AF37;
             --line-color: rgba(166, 123, 91, 0.4);
-            --category-surg: #B2533E; --category-med: #576F72; --category-supp: #7D8F69;
+            --category-surg: #B2533E;
+            --category-med: #576F72;
+            --category-supp: #7D8F69;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; overflow: hidden; height: 100vh; position: relative; }
         
-        #bg-canvas { position: fixed; inset: -50%; z-index: -10; background: radial-gradient(ellipse at center, #FFFFFF 0%, #FDF8F2 40%, #EFE1D1 100%); background-size: 200% 200%; animation: calmBreath 20s ease-in-out infinite alternate; }
+        body { 
+            background-color: var(--bg-color); color: var(--text-main); 
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            overflow: hidden; height: 100vh; position: relative;
+        }
+        
+        /* --- CALMING CONTINUOUS BACKGROUND --- */
+        #bg-canvas { 
+            position: fixed; inset: -50%; z-index: -10; 
+            background: radial-gradient(ellipse at center, #FFFFFF 0%, #FDF8F2 40%, #EFE1D1 100%);
+            background-size: 200% 200%;
+            animation: calmBreath 20s ease-in-out infinite alternate;
+        }
         @keyframes calmBreath { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        /* --- HEADER --- */
+        /* --- HEADER & TOP CONTROLS --- */
         .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.85; }
         
@@ -44,19 +61,22 @@
         .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.1); }
         .calling-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
-        /* --- SVG CANVAS --- */
+        /* --- SVG CANVAS FOR CONNECTING LINES --- */
         #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-        .connection-line { fill: none; stroke: var(--line-color); stroke-width: 2.5px; }
-        .animate-draw { stroke-dasharray: 600; stroke-dashoffset: 600; animation: drawLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .connection-line { fill: none; stroke: var(--line-color); stroke-width: 2px; }
+        .animate-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes drawLine { to { stroke-dashoffset: 0; } }
 
         /* --- ROADMAP VIEWPORT --- */
         #roadmap-container { 
             display: none; height: calc(100vh - 140px); margin-top: 140px;
-            overflow: auto; padding: 50px 8vw 100px; align-items: flex-start; scroll-behavior: smooth; position: relative; z-index: 10;
+            overflow: auto; padding: 60px 8vw 100px;
+            align-items: flex-start; scroll-behavior: smooth; 
+            position: relative; z-index: 10;
         }
         
         .flex-wrapper { display: flex; gap: 150px; min-width: max-content; padding-bottom: 50px; position: relative; }
+
         .node-column { display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 10; padding: 10px 0; }
         
         .node-box { 
@@ -72,15 +92,26 @@
         .node-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px; line-height: 1.3; }
         .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        /* Result */
-        .specialty-result { background: linear-gradient(135deg, #4A3F35 0%, #2B231D 100%); border: 2px solid var(--accent-gold); color: white; padding: 40px; width: 420px; box-shadow: 0 30px 60px rgba(0,0,0,0.25); }
+        /* Glamorous Specialty Result */
+        .specialty-result { 
+            background: linear-gradient(135deg, #4A3F35 0%, #2B231D 100%);
+            border: 2px solid var(--accent-gold); color: white; padding: 40px; width: 420px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+        }
         .specialty-result * { color: white !important; }
         .specialty-result .node-tag { color: var(--accent-gold) !important; }
-        .aamc-btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 25px; padding: 14px 30px; background: var(--accent-gold); color: #000 !important; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+        
+        .aamc-btn { 
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 25px; padding: 14px 30px; 
+            background: var(--accent-gold); color: #000 !important; 
+            text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
         .aamc-btn:hover { transform: translateY(-3px); background: #E5C35D; }
 
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-corner { background: transparent; }
         
         body.lang-th .node-title, body.lang-th .node-desc, body.lang-th .roadmap-title-badge { letter-spacing: normal !important; }
     </style>
@@ -121,27 +152,28 @@
         </div>
     </div>
     
-    <main id="roadmap-container" onscroll="drawLines(false)">
+    <main id="roadmap-container" onscroll="drawLines()">
         <div class="flex-wrapper" id="content-wrapper">
             <svg id="svg-canvas"></svg> 
             
             <div class="node-column" id="col-1">
-                <div class="node-box" id="box-1-1" onclick="branch(1, 'surgical_vibe', this)" style="border-left: 8px solid var(--category-surg)">
-                    <span class="node-emoji">⚔️</span><span class="node-tag" data-th="The Performer" data-en="The Performer">The Performer</span>
+                <div class="node-box" id="box-1-1" onclick="branch(1, 'procedural_vibe', this)" style="border-left: 8px solid var(--category-surg)">
+                    <span class="node-emoji">⚡</span><span class="node-tag" data-th="The Performer" data-en="The Performer">The Performer</span>
                     <p class="node-title" data-th="สายหัตถการและปฏิบัติ (Procedural)" data-en="Procedural & Hands-on">สายหัตถการและปฏิบัติ (Procedural)</p>
-                    <p class="node-desc" data-th="ชอบการลงมือทำ หัตถการ ผ่าตัด หรือรับมือกับสภาวะวิกฤตหน้างาน เห็นผลลัพธ์การรักษาทันตา" data-en="Thrives in the OR or ER. Prefers physical interventions, procedures, and immediate results.">ชอบการลงมือทำ หัตถการ ผ่าตัด หรือรับมือกับสภาวะวิกฤตหน้างาน เห็นผลลัพธ์การรักษาทันตา</p>
+                    <p class="node-desc" data-th="ชอบการลงมือทำ หัตถการ ผ่าตัด หรือรับมือกับสภาวะวิกฤตหน้างาน เห็นผลลัพธ์การรักษาที่ชัดเจน" data-en="Thrives in the OR or ER. Prefers physical interventions, procedures, and immediate tangible results.">ชอบการลงมือทำ หัตถการ ผ่าตัด หรือรับมือกับสภาวะวิกฤตหน้างาน เห็นผลลัพธ์การรักษาที่ชัดเจน</p>
                 </div>
-                <div class="node-box" id="box-1-2" onclick="branch(1, 'medical_vibe', this)" style="border-left: 8px solid var(--category-med)">
+                <div class="node-box" id="box-1-2" onclick="branch(1, 'cognitive_vibe', this)" style="border-left: 8px solid var(--category-med)">
                     <span class="node-emoji">🔍</span><span class="node-tag" data-th="The Detective" data-en="The Detective">The Detective</span>
                     <p class="node-title" data-th="สายวินิจฉัยและการใช้ยา (Cognitive)" data-en="Cognitive & Diagnostic">สายวินิจฉัยและการใช้ยา (Cognitive)</p>
-                    <p class="node-desc" data-th="ชอบสืบสวนโรค คิดวิเคราะห์ความซับซ้อนของร่างกาย วางแผนรักษาด้วยยา และสานสัมพันธ์คนไข้" data-en="Enjoys deep clinical reasoning, pathophysiology, medical management, and patient continuity.">ชอบสืบสวนโรค คิดวิเคราะห์ความซับซ้อนของร่างกาย วางแผนรักษาด้วยยา และสานสัมพันธ์คนไข้</p>
+                    <p class="node-desc" data-th="ชอบสืบสวนโรค คิดวิเคราะห์ความซับซ้อนของร่างกาย วางแผนรักษาด้วยยา และสานสัมพันธ์คนไข้ระยะยาว" data-en="Enjoys deep clinical reasoning, pathophysiology, medical management, and patient continuity.">ชอบสืบสวนโรค คิดวิเคราะห์ความซับซ้อนของร่างกาย วางแผนรักษาด้วยยา และสานสัมพันธ์คนไข้ระยะยาว</p>
                 </div>
-                <div class="node-box" id="box-1-3" onclick="branch(1, 'support_vibe', this)" style="border-left: 8px solid var(--category-supp)">
-                    <span class="node-emoji">🧭</span><span class="node-tag" data-th="The Observer" data-en="The Observer">The Observer</span>
-                    <p class="node-title" data-th="สายภาพรวมและเบื้องหลัง (Holistic & Support)" data-en="Holistic & Diagnostic Support">สายภาพรวมและเบื้องหลัง (Holistic & Support)</p>
-                    <p class="node-desc" data-th="ชอบการดูแลคุณภาพชีวิตแบบองค์รวม ทำงานกับภาพสแกน ผลแล็บ หรือดูแลสุขภาพระดับประชากร" data-en="Prefers big-picture care, rehabilitation, or solving cases behind the scenes via imaging and labs.">ชอบการดูแลคุณภาพชีวิตแบบองค์รวม ทำงานกับภาพสแกน ผลแล็บ หรือดูแลสุขภาพระดับประชากร</p>
+                <div class="node-box" id="box-1-3" onclick="branch(1, 'system_vibe', this)" style="border-left: 8px solid var(--category-supp)">
+                    <span class="node-emoji">🛡️</span><span class="node-tag" data-th="The Architect" data-en="The Architect">The Architect</span>
+                    <p class="node-title" data-th="สายภาพรวมและเบื้องหลัง (Observer & Systems)" data-en="Systems & Diagnostic Support">สายภาพรวมและเบื้องหลัง (Observer & Systems)</p>
+                    <p class="node-desc" data-th="ชอบออกแบบคุณภาพชีวิต ทำงานกับแล็บ/ภาพสแกน หรือดูแลสุขภาพในระดับประชากรและสังคม" data-en="Prefers solving cases behind the scenes, rehabilitation, or focusing on population-level health.">ชอบออกแบบคุณภาพชีวิต ทำงานกับแล็บ/ภาพสแกน หรือดูแลสุขภาพในระดับประชากรและสังคม</p>
                 </div>
             </div>
+            
             <div class="node-column" id="col-2" style="display:none;"></div>
             <div class="node-column" id="col-3" style="display:none;"></div>
             <div class="node-column" id="col-4" style="display:none;"></div>
@@ -151,115 +183,139 @@
     
     <script>
         const treeData = {
-            // --- THE PERFORMER (PROCEDURAL) ---
-            surgical_vibe: { title_th: "Action Style", title_en: "Action Style", options: [
-                { id: 's_crisis', emoji: '🚨', title_th: "ควบคุมนาทีชีวิต (Frontline Heroics)", title_en: "Frontline Heroics", desc_th: "ตัดสินใจเฉียบขาดในห้องฉุกเฉิน หรือควบคุมสัญญาณชีพคนไข้ในห้องผ่าตัด", desc_en: "Making split-second decisions in the ER or controlling vitals in the OR.", next: 's_crisis_sub' },
-                { id: 's_major', emoji: '🫀', title_th: "ผ่าตัดอวัยวะสำคัญ (Major Organs)", title_en: "Major Organs", desc_th: "รับมือกับการผ่าตัดใหญ่ในช่องท้อง ทรวงอก ระบบสืบพันธุ์ หรือทางเดินปัสสาวะ", desc_en: "High-stakes surgeries in the abdomen, chest, or reproductive/urinary tracts.", next: 's_major_sub' },
-                { id: 's_heavy', emoji: '🔩', title_th: "ซ่อมแซมโครงสร้าง (Structural)", title_en: "Structural Engineering", desc_th: "งานวิศวกรรมร่างกาย ซ่อมกระดูก ข้อต่อ หรือผ่าตัดเส้นประสาทสมอง", desc_en: "Fixing bones, joints, or performing high-precision neurosurgery.", next: 's_heavy_sub' },
-                { id: 's_micro', emoji: '✨', title_th: "งานละเอียดอ่อน (Delicate & Micro)", title_en: "Delicate & Micro", desc_th: "เน้นงานฝีมือประณีต หู คอ จมูก ดวงตา หรือการบูรณะศัลยกรรมตกแต่ง", desc_en: "Intricate procedures in ENT, ophthalmology, or plastic surgery.", next: 's_micro_sub' }
+            // --- 1. PROCEDURAL / ACTION (The Performer) ---
+            procedural_vibe: { title_th: "Operative Environment", title_en: "Operative Environment", options: [
+                { id: 'p_crisis', emoji: '🚨', title_th: "กู้ชีพและภาวะฉุกเฉิน", title_en: "Frontline Heroics & Resuscitation", desc_th: "รับมือกับความเป็นความตาย ตัดสินใจเฉียบขาดในห้องฉุกเฉิน หรือควบคุมสัญญาณชีพ", desc_en: "Managing life-or-death crises, airway management, and acute trauma.", next: 'p_crisis_sub' },
+                { id: 'p_major', emoji: '🫀', title_th: "ผ่าตัดอวัยวะสำคัญ", title_en: "Major Cavities & Organs", desc_th: "รับมือกับการผ่าตัดใหญ่ในช่องท้อง ทรวงอก เส้นเลือด หรือสูตินรีเวช", desc_en: "High-stakes surgeries in the abdomen, chest, or reproductive tracts.", next: 'p_major_sub' },
+                { id: 'p_heavy', emoji: '🔩', title_th: "วิศวกรรมร่างกาย", title_en: "Structural & Neural Engineering", desc_th: "ซ่อมแซมโครงสร้างหนักอย่างกระดูก กล้ามเนื้อ หรือระบบประมวลผลของสมอง", desc_en: "Reconstructing the musculoskeletal system or the central nervous system.", next: 'p_heavy_sub' },
+                { id: 'p_micro', emoji: '✨', title_th: "งานละเอียดและเฉพาะส่วน", title_en: "Delicate & Micro-Surgeries", desc_th: "เน้นงานฝีมือประณีต หู คอ จมูก ดวงตา หรือการบูรณะศัลยกรรมตกแต่ง", desc_en: "Intricate procedures in ENT, ophthalmology, or reconstructive plastic surgery.", next: 'p_micro_sub' }
             ]},
-            s_crisis_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+            p_crisis_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'er', emoji: '🚑', title_th: "เวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", desc_th: "ด่านหน้าผู้ตัดสินใจในเสี้ยววินาที", desc_en: "First-line decision makers in crisis.", next: 'ER_END' },
-                { id: 'anes', emoji: '😴', title_th: "วิสัญญีวิทยา", title_en: "Anesthesiology", desc_th: "ผู้กุมชีวิตและระงับปวดในห้องผ่าตัด", desc_en: "Masters of pain relief and intraoperative care.", next: 'ANES_END' }
+                { id: 'anes', emoji: '😴', title_th: "วิสัญญีวิทยา", title_en: "Anesthesiology", desc_th: "ผู้กุมชีวิตและระงับปวดในห้องผ่าตัด", desc_en: "Masters of pain relief and intraoperative care.", next: 'ANES_END' },
+                { id: 'trauma', emoji: '🩸', title_th: "ศัลยศาสตร์อุบัติเหตุ", title_en: "Trauma Surgery", desc_th: "ผ่าตัดกู้ชีพผู้ป่วยอุบัติเหตุรุนแรง", desc_en: "Surgical management of acute trauma.", next: 'TRAUMA_END' }
             ]},
-            s_major_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+            p_major_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'gs', emoji: '🩹', title_th: "ศัลยกรรมทั่วไป", title_en: "General Surgery", desc_th: "เสาหลักของการผ่าตัดช่องท้อง", desc_en: "The pillar of abdominal surgeries.", next: 'GS_END' },
                 { id: 'cvt', emoji: '🫁', title_th: "ศัลยกรรมทรวงอก", title_en: "Cardiothoracic Surgery", desc_th: "ผ่าตัดหัวใจ ปอด และเส้นเลือดใหญ่", desc_en: "Operating on the heart and lungs.", next: 'CVT_END' },
-                { id: 'obgyn', emoji: '🤱', title_th: "สูตินรีเวชวิทยา", title_en: "Obstetrics & Gynecology", desc_th: "ดูแลการคลอดบุตรและระบบสตรี", desc_en: "Women's reproductive health & surgery.", next: 'OBGYN_END' },
-                { id: 'uro', emoji: '🧪', title_th: "ศัลยกรรมทางเดินปัสสาวะ", title_en: "Urology", desc_th: "ผ่าตัดระบบขับถ่ายและส่องกล้อง", desc_en: "Surgical care of the urinary tract.", next: 'URO_END' }
+                { id: 'uro', emoji: '🧪', title_th: "ศัลยกรรมทางเดินปัสสาวะ", title_en: "Urology", desc_th: "ผ่าตัดระบบขับถ่ายและส่องกล้อง", desc_en: "Surgical care of the urinary tract.", next: 'URO_END' },
+                { id: 'obgyn', emoji: '🤱', title_th: "สูตินรีเวชวิทยา", title_en: "Obstetrics & Gynecology", desc_th: "ผ่าตัดทำคลอดและระบบสตรี", desc_en: "Women's reproductive health & childbirth.", next: 'OBGYN_END' },
+                { id: 'pedsurg', emoji: '🧸', title_th: "กุมารศัลยศาสตร์", title_en: "Pediatric Surgery", desc_th: "ผ่าตัดรักษาความผิดปกติในเด็ก", desc_en: "Surgical care tailored for infants and children.", next: 'PEDSURG_END' }
             ]},
-            s_heavy_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+            p_heavy_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'ortho', emoji: '🔨', title_th: "ศัลยกรรมออร์โธปิดิกส์", title_en: "Orthopedic Surgery", desc_th: "ช่างไม้แห่งร่างกาย ซ่อมกระดูก", desc_en: "Surgeons of the musculoskeletal system.", next: 'ORTHO_END' },
                 { id: 'ns', emoji: '⚡', title_th: "ศัลยกรรมประสาท", title_en: "Neurosurgery", desc_th: "ผ่าตัดสมองและไขสันหลัง", desc_en: "Precision surgery on the brain & spine.", next: 'NS_END' }
             ]},
-            s_micro_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+            p_micro_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'plastic', emoji: '🎨', title_th: "ศัลยกรรมตกแต่ง", title_en: "Plastic Surgery", desc_th: "การบูรณะเนื้อเยื่อและความงาม", desc_en: "Reconstruction and aesthetic surgery.", next: 'PLASTIC_END' },
                 { id: 'ent', emoji: '👂', title_th: "หู คอ จมูก", title_en: "Otolaryngology", desc_th: "งานผ่าตัดศีรษะและลำคอ", desc_en: "Surgical care for the head and neck.", next: 'ENT_END' },
                 { id: 'ophtha', emoji: '👁️', title_th: "จักษุวิทยา", title_en: "Ophthalmology", desc_th: "ผ่าตัดรักษาดวงตาระดับไมโคร", desc_en: "Medical and surgical eye care.", next: 'OPHTHA_END' }
             ]},
 
-            // --- THE DETECTIVE (MEDICAL) ---
-            medical_vibe: { title_th: "Investigative Focus", title_en: "Investigative Focus", options: [
-                { id: 'm_vital', emoji: '💓', title_th: "เจาะลึกอวัยวะหลัก (Vital Systems)", title_en: "Vital Systems", desc_th: "วิเคราะห์กลไกเฉพาะทาง เช่น หัวใจ ปอด ไต หรือทางเดินอาหาร", desc_en: "Focusing on core systems like Cardiology, Pulmonology, and GI.", next: 'm_vital_sub' },
-                { id: 'm_complex', emoji: '🧩', title_th: "ระบบซับซ้อน (Complex Systems)", title_en: "Complex Systems", desc_th: "ไขปริศนาระบบประสาท ภูมิคุ้มกัน ต่อมไร้ท่อ โรคติดเชื้อ หรือมะเร็ง", desc_en: "Solving mysteries in Neurology, Rheumatology, ID, or Oncology.", next: 'm_complex_sub' },
-                { id: 'm_icu', emoji: '🫀', title_th: "เวชบำบัดวิกฤต (Critical Care)", title_en: "Critical Care", desc_th: "ดูแลผู้ป่วยอายุรกรรมที่อาการหนักที่สุดใน ICU ด้วยเครื่องมือขั้นสุด", desc_en: "Managing the sickest medical patients in the intensive care unit.", next: 'm_icu_sub' }
+            // --- 2. COGNITIVE / MEDICAL (The Detective) ---
+            cognitive_vibe: { title_th: "Investigative Focus", title_en: "Investigative Focus", options: [
+                { id: 'c_vital', emoji: '💓', title_th: "ระบบอวัยวะหลักของผู้ใหญ่", title_en: "Adult Vital Systems", desc_th: "เจาะลึกระบบที่ส่งผลชัดเจน เช่น หัวใจ ปอด ไต หรือทางเดินอาหาร", desc_en: "Focusing on core internal systems like Cardiology, Pulmonology, and GI.", next: 'c_vital_sub' },
+                { id: 'c_complex', emoji: '🧩', title_th: "ระบบซับซ้อนและภูมิคุ้มกัน", title_en: "Complex & Immune Systems", desc_th: "ไขปริศนาฮอร์โมน ภูมิคุ้มกัน โรคติดเชื้อ หรือโรคมะเร็ง", desc_en: "Solving systemic mysteries in Endocrinology, Rheumatology, ID, or Oncology.", next: 'c_complex_sub' },
+                { id: 'c_child', emoji: '👶', title_th: "กุมารเวชศาสตร์ (เด็ก)", title_en: "Pediatrics & Neonates", desc_th: "ดูแลผู้ป่วยเด็ก ทารกแรกเกิด และโรคเฉพาะทางในเด็ก", desc_en: "Specializing in the care of infants, children, and adolescents.", next: 'c_child_sub' },
+                { id: 'c_mind', emoji: '🧠', title_th: "สมอง จิตใจ และผิวหนัง", title_en: "Brain, Mind, & Skin", desc_th: "วิเคราะห์การทำงานของระบบประสาท สุขภาพจิต หรือโรคผิวหนัง", desc_en: "Focusing on Neurology, Psychiatry, or Dermatology.", next: 'c_mind_sub' }
             ]},
-            m_vital_sub: { title_th: "Specialty", title_en: "Specialty", options: [
-                { id: 'cardio', emoji: '❤️', title_th: "โรคหัวใจ", title_en: "Cardiology", desc_th: "ดูแลจังหวะและเส้นเลือดหัวใจ", desc_en: "Specialists of the heart.", next: 'CARDIO_END' },
-                { id: 'pulmo', emoji: '🫁', title_th: "โรคระบบการหายใจ", title_en: "Pulmonology", desc_th: "เชี่ยวชาญปอดและระบบหายใจ", desc_en: "Specialists of the lungs.", next: 'PULMO_END' },
-                { id: 'gi', emoji: '🍔', title_th: "โรคทางเดินอาหาร", title_en: "Gastroenterology", desc_th: "ผู้เชี่ยวชาญระบบย่อยอาหาร", desc_en: "Experts in the digestive system.", next: 'GI_END' },
-                { id: 'nephro', emoji: '💧', title_th: "โรคไต", title_en: "Nephrology", desc_th: "ดูแลระบบกรองของเสียร่างกาย", desc_en: "Specialists of kidney function.", next: 'NEPHRO_END' }
+            c_vital_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'cardio', emoji: '❤️', title_th: "อายุรศาสตร์โรคหัวใจ", title_en: "Cardiology", desc_th: "ดูแลจังหวะและเส้นเลือดหัวใจ", desc_en: "Specialists of the heart and cardiovascular system.", next: 'CARDIO_END' },
+                { id: 'pulmo', emoji: '🫁', title_th: "อายุรศาสตร์โรคปอด", title_en: "Pulmonology", desc_th: "เชี่ยวชาญปอดและระบบหายใจ", desc_en: "Specialists of the lungs and respiratory tract.", next: 'PULMO_END' },
+                { id: 'gi', emoji: '🍔', title_th: "อายุรศาสตร์ทางเดินอาหาร", title_en: "Gastroenterology", desc_th: "ผู้เชี่ยวชาญระบบย่อยอาหารและตับ", desc_en: "Experts in the digestive system and liver.", next: 'GI_END' },
+                { id: 'nephro', emoji: '💧', title_th: "อายุรศาสตร์โรคไต", title_en: "Nephrology", desc_th: "ดูแลระบบกรองของเสียร่างกาย", desc_en: "Specialists of kidney function and diseases.", next: 'NEPHRO_END' }
             ]},
-            m_complex_sub: { title_th: "Specialty", title_en: "Specialty", options: [
-                { id: 'neuro', emoji: '🧠', title_th: "ประสาทวิทยา", title_en: "Neurology", desc_th: "นักสืบความผิดปกติทางสมอง", desc_en: "Experts in the nervous system.", next: 'NEURO_END' },
-                { id: 'endo', emoji: '⚖️', title_th: "ต่อมไร้ท่อและเมแทบอลิซึม", title_en: "Endocrinology", desc_th: "ควบคุมฮอร์โมนและเบาหวาน", desc_en: "Specialists in hormones.", next: 'ENDO_END' },
-                { id: 'rheum', emoji: '🦴', title_th: "โรคข้อและรูมาติซั่ม", title_en: "Rheumatology", desc_th: "ดูแลโรคภูมิคุ้มกันทำลายตัวเอง", desc_en: "Experts in autoimmune diseases.", next: 'RHEUM_END' },
-                { id: 'onc', emoji: '🎗️', title_th: "มะเร็งวิทยา", title_en: "Oncology", desc_th: "วางแผนสู้มะเร็งด้วยยา/เคมี", desc_en: "Specialists in cancer treatment.", next: 'ONC_END' },
-                { id: 'id', emoji: '🦠', title_th: "โรคติดเชื้อ", title_en: "Infectious Disease", desc_th: "ตามล่าหาจุลชีพและเชื้อแบคทีเรีย", desc_en: "Experts in complex infections.", next: 'ID_END' },
-                { id: 'allergy', emoji: '🤧', title_th: "โรคภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergy & Immunology", desc_th: "จัดการปฏิกิริยาภูมิแพ้ของร่างกาย", desc_en: "Managing severe allergic reactions.", next: 'ALLERGY_END' }
+            c_complex_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'endo', emoji: '⚖️', title_th: "ต่อมไร้ท่อและเมแทบอลิซึม", title_en: "Endocrinology", desc_th: "ควบคุมฮอร์โมนและเบาหวาน", desc_en: "Specialists in hormones, diabetes, and metabolism.", next: 'ENDO_END' },
+                { id: 'rheum', emoji: '🦴', title_th: "โรคข้อและรูมาติซั่ม", title_en: "Rheumatology", desc_th: "ดูแลโรคภูมิคุ้มกันทำลายตัวเอง", desc_en: "Experts in autoimmune diseases and joints.", next: 'RHEUM_END' },
+                { id: 'onc', emoji: '🎗️', title_th: "มะเร็งวิทยาและโลหิตวิทยา", title_en: "Hematology & Oncology", desc_th: "วางแผนรักษามะเร็งและโรคเลือด", desc_en: "Specialists in blood disorders and cancer treatment.", next: 'ONC_END' },
+                { id: 'id', emoji: '🦠', title_th: "โรคติดเชื้อ", title_en: "Infectious Disease", desc_th: "ตามล่าหาจุลชีพและดื้อยา", desc_en: "Experts in complex bacterial and viral infections.", next: 'ID_END' },
+                { id: 'allergy', emoji: '🤧', title_th: "โรคภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergy & Immunology", desc_th: "จัดการภูมิแพ้และหอบหืดรุนแรง", desc_en: "Managing severe allergic reactions and immune disorders.", next: 'ALLERGY_END' }
             ]},
-            m_icu_sub: { title_th: "Specialty", title_en: "Specialty", options: [
-                { id: 'icu', emoji: '🫀', title_th: "เวชบำบัดวิกฤต", title_en: "Critical Care Medicine", desc_th: "พยุงชีวิตคนไข้ด้วยเครื่องมือสูงสุด", desc_en: "Life support in the ICU.", next: 'ICU_END' }
+            c_child_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'peds_gen', emoji: '🧸', title_th: "กุมารเวชศาสตร์ทั่วไป", title_en: "General Pediatrics", desc_th: "ดูแลพัฒนาการและสุขภาพเด็ก", desc_en: "Overall child health and primary pediatric care.", next: 'PEDS_END' },
+                { id: 'nicu', emoji: '🍼', title_th: "ทารกแรกเกิดปริกำเนิด", title_en: "Neonatology", desc_th: "ดูแลทารกคลอดก่อนกำหนดใน NICU", desc_en: "Intensive care for newborn and premature infants.", next: 'NICU_END' },
+                { id: 'peds_sub', emoji: '🧩', title_th: "กุมารเวชศาสตร์เฉพาะทาง", title_en: "Pediatric Subspecialties", desc_th: "หมอเด็กเฉพาะทาง (หัวใจ, ปอด, ประสาท ฯลฯ)", desc_en: "Specialized care (Peds Cardio, Peds Neuro, etc.).", next: 'PEDSSUB_END' }
+            ]},
+            c_mind_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'neuro', emoji: '🧠', title_th: "ประสาทวิทยา", title_en: "Neurology", desc_th: "นักสืบสัญญาณไฟฟ้าสมอง", desc_en: "Experts in the brain and nervous system disorders.", next: 'NEURO_END' },
+                { id: 'psych', emoji: '🧘', title_th: "จิตเวชศาสตร์", title_en: "Psychiatry", desc_th: "เยียวยาใจและสมดุลเคมีสมอง", desc_en: "Specialists in mental health and illnesses.", next: 'PSYCH_END' },
+                { id: 'child_psych', emoji: '🧩', title: "จิตเวชศาสตร์เด็กและวัยรุ่น", title_en: "Child & Adolescent Psychiatry", desc_th: "ดูแลพฤติกรรมและอารมณ์เด็ก", desc_en: "Mental health care for children and teens.", next: 'CHILDPSYCH_END' },
+                { id: 'derm', emoji: '✨', title_th: "ตจวิทยา (ผิวหนัง)", title_en: "Dermatology", desc_th: "เชี่ยวชาญโรคผิวหนังและเลเซอร์", desc_en: "Experts in skin, hair, and nail conditions.", next: 'DERM_END' }
             ]},
 
-            // --- THE OBSERVER (SUPPORT & HOLISTIC) ---
-            support_vibe: { title_th: "Perspective", title_en: "Perspective", options: [
-                { id: 'su_holistic', emoji: '🤝', title_th: "การดูแลองค์รวม (Holistic & Life)", title_en: "Holistic & QoL", desc_th: "ดูแลคนไข้เป็นศูนย์กลาง เช่น เด็ก, จิตเวช, ครอบครัว หรือเวชศาสตร์ฟื้นฟู", desc_en: "Focusing on overall quality of life: Peds, Psych, Family Med, or Rehab.", next: 'su_holistic_sub' },
-                { id: 'su_back', emoji: '🔬', title_th: "ผู้ไขรหัสหลังบ้าน (Diagnostics)", title_en: "Diagnostic Masterminds", desc_th: "อยู่เบื้องหลังการวินิจฉัยผ่านภาพถ่ายรังสี หรือส่องกล้องชิ้นเนื้อ", desc_en: "Solving cases purely through imaging, tissue pathology, or genetics.", next: 'su_back_sub' },
-                { id: 'su_pop', emoji: '🌍', title_th: "ระดับประชากร (Public Health)", title_en: "Public Health", desc_th: "ไม่มองแค่ระดับบุคคล แต่มองระดับระบาดวิทยาเพื่อป้องกันโรค", desc_en: "Focusing on population health and disease prevention.", next: 'su_pop_sub' }
+            // --- 3. OBSERVER / SYSTEM (The Architect) ---
+            support_vibe: { title_th: "System Perspective", title_en: "System Perspective", options: [
+                { id: 's_diag', emoji: '🔬', title_th: "ผู้ไขรหัสลับการวินิจฉัย", title_en: "Diagnostic Masterminds", desc_th: "ไขปริศนาอยู่เบื้องหลังผ่านภาพถ่ายรังสี ชิ้นเนื้อ หรือพันธุกรรม", desc_en: "Solving cases purely through imaging, tissue pathology, or DNA.", next: 's_diag_sub' },
+                { id: 's_pop', emoji: '🌍', title_th: "ระดับประชากรและป้องกัน", title_en: "Population & Prevention", desc_th: "ระบาดวิทยา เวชศาสตร์การบิน อาชีวเวชศาสตร์ หรือการจราจร", desc_en: "Focusing on public health, aerospace, occupational, or traffic medicine.", next: 's_pop_sub' },
+                { id: 's_rehab', emoji: '🏃', title_th: "คุณภาพชีวิตและการฟื้นฟู", title_en: "Quality of Life & Rehab", desc_th: "ดูแลแบบองค์รวม เวชศาสตร์ฟื้นฟู หรือเวชศาสตร์ครอบครัว", desc_en: "Focusing on PM&R, Family Medicine, and long-term quality of life.", next: 's_rehab_sub' }
             ]},
-            su_holistic_sub: { title_th: "Specialty", title_en: "Specialty", options: [
-                { id: 'peds', emoji: '🧸', title_th: "กุมารเวชศาสตร์", title_en: "Pediatrics", desc_th: "ดูแลสุขภาพเด็กตั้งแต่แรกเกิด", desc_en: "Child health and development.", next: 'PEDS_END' },
-                { id: 'psych', emoji: '🧘', title_th: "จิตเวชศาสตร์", title_en: "Psychiatry", desc_th: "เยียวยาใจและสมดุลเคมีสมอง", desc_en: "Mental health and illnesses.", next: 'PSYCH_END' },
-                { id: 'fm', emoji: '🏡', title_th: "เวชศาสตร์ครอบครัว", title_en: "Family Medicine", desc_th: "ดูแลสุขภาพองค์รวมทั้งครอบครัว", desc_en: "Comprehensive health care.", next: 'FM_END' },
-                { id: 'pmr', emoji: '🏃', title_th: "เวชศาสตร์ฟื้นฟู", title_en: "PM&R", desc_th: "คืนศักยภาพการเคลื่อนไหว", desc_en: "Enhancing functional ability.", next: 'PMR_END' }
-            ]},
-            su_back_sub: { title_th: "Specialty", title_en: "Specialty", options: [
-                { id: 'radio', emoji: '☢️', title_th: "รังสีวิทยา", title_en: "Radiology", desc_th: "อ่านรหัสโรคจากภาพทางการแพทย์", desc_en: "Diagnosing via medical imaging.", next: 'RADIO_END' },
+            s_diag_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'radio', emoji: '☢️', title_th: "รังสีวิทยา", title_en: "Radiology", desc_th: "วินิจฉัยโรคจากภาพถ่ายทางการแพทย์", desc_en: "Diagnosing via medical imaging.", next: 'RADIO_END' },
                 { id: 'patho', emoji: '🧪', title_th: "พยาธิวิทยา", title_en: "Pathology", desc_th: "ตัดสินความจริงผ่านกล้องจุลทรรศน์", desc_en: "Diagnosis through tissue analysis.", next: 'PATHO_END' },
-                { id: 'genetics', emoji: '🧬', title_th: "เวชพันธุศาสตร์", title_en: "Medical Genetics", desc_th: "อ่านรหัสชีวิตจาก DNA", desc_en: "Managing hereditary disorders.", next: 'GENE_END' }
+                { id: 'forensic', emoji: '🕵️', title_th: "นิติเวชศาสตร์", title_en: "Forensic Medicine", desc_th: "ค้นหาความจริงทางการแพทย์ตามกฎหมาย", desc_en: "Investigating causes of death and legal medicine.", next: 'FORENSIC_END' },
+                { id: 'genetics', emoji: '🧬', title_th: "เวชพันธุศาสตร์", title_en: "Medical Genetics", desc_th: "อ่านรหัสชีวิตจาก DNA", desc_en: "Managing hereditary and genomic disorders.", next: 'GENE_END' }
             ]},
-            su_pop_sub: { title_th: "Specialty", title_en: "Specialty", options: [
-                { id: 'prev', emoji: '🛡️', title_th: "เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "ระบาดวิทยาและเวชศาสตร์ชุมชน", desc_en: "Epidemiology and public health.", next: 'PREV_END' }
+            s_pop_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'prev', emoji: '🛡️', title_th: "เวชศาสตร์ป้องกัน", title_en: "Public Health & Preventive Med", desc_th: "ระบาดวิทยาและสาธารณสุข", desc_en: "Promoting health and preventing disease in communities.", next: 'PREV_END' },
+                { id: 'occmed', emoji: '🏭', title_th: "อาชีวเวชศาสตร์", title_en: "Occupational Medicine", desc_th: "ดูแลสุขภาพและความปลอดภัยคนทำงาน", desc_en: "Health and safety in the workplace.", next: 'OCCMED_END' },
+                { id: 'aero', emoji: '✈️', title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", desc_th: "ดูแลสุขภาพนักบินและนักบินอวกาศ", desc_en: "Health of pilots, aircrews, and astronauts.", next: 'AERO_END' },
+                { id: 'traffic', emoji: '🚗', title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", desc_th: "ความปลอดภัยและอุบัติเหตุทางถนน", desc_en: "Focusing on road safety and injury prevention.", next: 'TRAFFIC_END' }
+            ]},
+            s_rehab_sub: { title_th: "Specialty", title_en: "Specialty", options: [
+                { id: 'pmr', emoji: '🏃', title_th: "เวชศาสตร์ฟื้นฟู", title_en: "Physical Med & Rehabilitation (PM&R)", desc_th: "คืนศักยภาพการเคลื่อนไหว", desc_en: "Enhancing and restoring functional ability.", next: 'PMR_END' },
+                { id: 'fm', emoji: '🏡', title_th: "เวชศาสตร์ครอบครัว", title_en: "Family Medicine", desc_th: "ดูแลสุขภาพองค์รวมทั้งครอบครัว", desc_en: "Comprehensive primary health care.", next: 'FM_END' },
+                { id: 'pall', emoji: '🕊️', title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", desc_th: "ดูแลคุณภาพชีวิตระยะสุดท้าย", desc_en: "Relieving suffering and improving quality of life.", next: 'PALL_END' }
             ]}
         };
 
         const results = {
-            GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", desc_th: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาอวัยวะช่องท้องและอุบัติเหตุรุนแรง", desc_en: "The pillar of the OR, specializing in abdominal organs and severe trauma.", slug: "general-surgery" },
+            // --- PROCEDURAL ENDS ---
+            ER_END: { title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Physician", desc_th: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อชิงชีวิตคนไข้จากมัจจุราช", desc_en: "Frontline heroes making split-second life-saving decisions.", slug: "emergency-medicine" },
+            ANES_END: { title_th: "วิสัญญีแพทย์", title_en: "Anesthesiologist", desc_th: "ผู้กุมความลับของความเจ็บปวด และควบคุมสัญญาณชีพขณะผ่าตัด", desc_en: "Masters of pain control and vital signs during surgery.", slug: "anesthesiology" },
+            TRAUMA_END: { title_th: "ศัลยแพทย์อุบัติเหตุ", title_en: "Trauma Surgeon", desc_th: "ผู้กอบกู้ความเสียหายของร่างกายจากอุบัติเหตุรุนแรงฉุกเฉิน", desc_en: "Surgical intervention for acute, life-threatening injuries.", slug: "general-surgery" },
+            GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", desc_th: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาอวัยวะช่องท้องและอุบัติเหตุ", desc_en: "The pillar of the OR, specializing in abdominal organs.", slug: "general-surgery" },
             CVT_END: { title_th: "ศัลยแพทย์ทรวงอก", title_en: "Thoracic Surgeon", desc_th: "ศิลปินผู้ดูแลเครื่องยนต์หลักของร่างกาย ทั้งหัวใจและปอด", desc_en: "Operating on the main engines of the body: the heart and lungs.", slug: "thoracic-surgery" },
             VASC_END: { title_th: "ศัลยแพทย์หลอดเลือด", title_en: "Vascular Surgeon", desc_th: "ช่างประปาแห่งร่างกาย ผู้ซ่อมแซมเส้นทางลำเลียงเลือดทั่วร่าง", desc_en: "The body's plumber, repairing the vascular pathways.", slug: "vascular-surgery" },
+            URO_END: { title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", desc_th: "ผู้เชี่ยวชาญระบบขับถ่ายที่ผสานทักษะผ่าตัดกับเทคโนโลยีส่องกล้อง", desc_en: "Experts in the urinary tract combining surgery with endoscopy.", slug: "urology" },
+            OBGYN_END: { title_th: "สูตินรีแพทย์", title_en: "OB/GYN", desc_th: "ผู้ดูแลสุขภาพสตรีและผู้นำทางพิทักษ์วินาทีแห่งการให้กำเนิดชีวิต", desc_en: "Caring for women's health and the miracles of childbirth.", slug: "obstetrics-and-gynecology" },
+            PEDSURG_END: { title_th: "กุมารศัลยแพทย์", title_en: "Pediatric Surgeon", desc_th: "ผู้เชี่ยวชาญการผ่าตัดร่างกายที่เล็กและเปราะบางของเด็ก", desc_en: "Highly specialized surgery for infants and children.", slug: "pediatric-surgery" },
             ORTHO_END: { title_th: "ศัลยแพทย์ออร์โธปิดิกส์", title_en: "Orthopedic Surgeon", desc_th: "วิศวกรโครงสร้างมนุษย์ ผู้ประกอบและซ่อมแซมกระดูก ข้อต่อ", desc_en: "The human structural engineer, repairing bones and joints.", slug: "orthopedic-surgery" },
             NS_END: { title_th: "ศัลยแพทย์ประสาท", title_en: "Neurosurgeon", desc_th: "ผู้ทำงานด้วยสมาธิสูงสุดบนระบบประมวลผลที่ซับซ้อนที่สุดในจักรวาล", desc_en: "Operating with extreme precision on the complex nervous system.", slug: "neurosurgery" },
             PLASTIC_END: { title_th: "ศัลยแพทย์ตกแต่ง", title_en: "Plastic Surgeon", desc_th: "สถาปนิกแห่งความงามและการบูรณะเนื้อเยื่อเพื่อฟื้นฟูคุณภาพชีวิต", desc_en: "Architects of aesthetics and tissue restoration.", slug: "plastic-surgery" },
             ENT_END: { title_th: "หมอหู คอ จมูก", title_en: "Otolaryngologist", desc_th: "ผู้เชี่ยวชาญประสาทสัมผัสและโครงสร้างทางเดินหายใจส่วนบน", desc_en: "Specialists of the upper respiratory tract and senses.", slug: "otolaryngology" },
             OPHTHA_END: { title_th: "จักษุแพทย์", title_en: "Ophthalmologist", desc_th: "ผู้พิทักษ์ดวงตา ทำงานกับอวัยวะขนาดเล็กด้วยความแม่นยำระดับไมโคร", desc_en: "Guardians of vision, operating with micro-precision.", slug: "ophthalmology" },
-            URO_END: { title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", desc_th: "ผู้เชี่ยวชาญระบบขับถ่ายที่ผสานทักษะผ่าตัดกับเทคโนโลยีส่องกล้อง", desc_en: "Experts in the urinary tract combining surgery with endoscopy.", slug: "urology" },
-            OBGYN_END: { title_th: "สูตินรีแพทย์", title_en: "OB/GYN", desc_th: "ผู้ดูแลสุขภาพสตรีและผู้นำทางพิทักษ์วินาทีแห่งการให้กำเนิดชีวิต", desc_en: "Caring for women's health and the miracles of childbirth.", slug: "obstetrics-and-gynecology" },
-            
-            ER_END: { title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Physician", desc_th: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อชิงชีวิตคนไข้จากมัจจุราช", desc_en: "Frontline heroes making split-second life-saving decisions.", slug: "emergency-medicine" },
-            ANES_END: { title_th: "วิสัญญีแพทย์", title_en: "Anesthesiologist", desc_th: "ผู้กุมความลับของความเจ็บปวด และควบคุมสัญญาณชีพขณะผ่าตัด", desc_en: "Masters of pain control and vital signs during surgery.", slug: "anesthesiology" },
-            ICU_END: { title_th: "เวชบำบัดวิกฤต", title_en: "Critical Care Intensivist", desc_th: "ผู้พยุงชีวิตคนไข้ที่อ่อนแอที่สุดในโรงพยาบาลด้วยเครื่องมือขั้นสุดยอด", desc_en: "Supporting the most vulnerable patients in the hospital.", slug: "critical-care-medicine" },
-            
+
+            // --- COGNITIVE ENDS ---
             CARDIO_END: { title_th: "อายุรแพทย์โรคหัวใจ", title_en: "Cardiologist", desc_th: "นักสืบผู้ถอดรหัสจังหวะชีวิต และรักษาหัวใจด้วยเทคโนโลยีขั้นสูง", desc_en: "Detectives of the pulse, treating the heart with advanced tech.", slug: "internal-medicine-cardiovascular-disease" },
-            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", desc_th: "ผู้เชี่ยวชาญระบบหายใจ ท่ออากาศ และหอบหืด", desc_en: "Specialists of the airways and respiratory challenges.", slug: "pulmonary-disease" },
+            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", desc_th: "ผู้เชี่ยวชาญระบบหายใจ ท่ออากาศ และความท้าทายในห้อง ICU", desc_en: "Specialists of the airways and respiratory challenges.", slug: "pulmonary-disease" },
             GI_END: { title_th: "หมอทางเดินอาหาร", title_en: "Gastroenterologist", desc_th: "นักสำรวจระบบย่อยอาหาร ผู้เชี่ยวชาญการใช้กล้อง Endoscope", desc_en: "Explorers of the digestive system and endoscopy experts.", slug: "internal-medicine-gastroenterology" },
             NEPHRO_END: { title_th: "อายุรแพทย์โรคไต", title_en: "Nephrologist", desc_th: "ผู้ควบคุมสมดุลน้ำและจัดการโรงงานกรองของเสียของร่างกาย", desc_en: "Managers of fluid balance and the body's filtration system.", slug: "internal-medicine-nephrology" },
             NEURO_END: { title_th: "อายุรแพทย์ประสาทวิทยา", title_en: "Neurologist", desc_th: "ผู้ไขปริศนาความผิดปกติของสัญญาณไฟฟ้าและพฤติกรรมสมอง", desc_en: "Solving the mysteries of brain signals and behaviors.", slug: "neurology" },
             ENDO_END: { title_th: "แพทย์ต่อมไร้ท่อ", title_en: "Endocrinologist", desc_th: "ผู้ควบคุมสมดุลฮอร์โมนและกระบวนการเผาผลาญ (Metabolism) ทั้งหมด", desc_en: "Controllers of hormonal balance and metabolism.", slug: "endocrinology-diabetes-and-metabolism" },
             RHEUM_END: { title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", desc_th: "ผู้ถอดรหัสความผิดปกติของภูมิคุ้มกันและโรคข้ออักเสบ", desc_en: "Decoding autoimmune diseases and arthritis.", slug: "rheumatology" },
-            ONC_END: { title_th: "อายุรแพทย์โรคมะเร็ง", title_en: "Oncologist", desc_th: "นักวางกลยุทธ์ต่อสู้กับโรคมะเร็งด้วยความรู้เคมีและพันธุกรรม", desc_en: "Strategists fighting cancer with chemistry and genetics.", slug: "hematology-and-medical-oncology" },
+            ONC_END: { title_th: "อายุรแพทย์โลหิตวิทยาและมะเร็ง", title_en: "Hematologist / Oncologist", desc_th: "นักวางกลยุทธ์ต่อสู้กับโรคมะเร็งด้วยความรู้เคมีและพันธุกรรม", desc_en: "Strategists fighting cancer with chemistry and genetics.", slug: "hematology-and-medical-oncology" },
             ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease Specialist", desc_th: "นักสืบผู้ตามล่าหาจุลชีพก่อโรค และวางแผนยาปฏิชีวนะแบบเฉียบขาด", desc_en: "Hunters of pathogens and masters of antibiotics.", slug: "infectious-disease" },
             ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist / Immunologist", desc_th: "ผู้จัดการปฏิกิริยาต่อต้านของร่างกายและเสริมสร้างภูมิคุ้มกัน", desc_en: "Managing severe allergic reactions and immune deficiencies.", slug: "allergy-and-immunology" },
-            
-            PEDS_END: { title_th: "กุมารแพทย์", title_en: "Pediatrician", desc_th: "หมอเด็กผู้พิทักษ์อนาคต เน้นการเจริญเติบโตตั้งแต่วัยทารก", desc_en: "Guardians of the future, focusing on child growth.", slug: "pediatrics" },
+            PEDS_END: { title_th: "กุมารแพทย์ทั่วไป", title_en: "General Pediatrician", desc_th: "หมอเด็กผู้พิทักษ์อนาคต เน้นการเจริญเติบโตตั้งแต่วัยทารก", desc_en: "Guardians of the future, focusing on child growth.", slug: "pediatrics" },
+            NICU_END: { title_th: "แพทย์ทารกแรกเกิด", title_en: "Neonatologist", desc_th: "ผู้ดูแลทารกคลอดก่อนกำหนดหรือป่วยหนักในตู้อบ", desc_en: "Intensive care for the most fragile newborns.", slug: "neonatal-perinatal-medicine" },
+            PEDSSUB_END: { title_th: "กุมารแพทย์เฉพาะทาง", title_en: "Pediatric Subspecialist", desc_th: "ผู้เชี่ยวชาญโรคเฉพาะระบบในเด็ก (เช่น หัวใจเด็ก, ภูมิแพ้เด็ก)", desc_en: "Highly specialized medical care for children's specific systems.", slug: "pediatrics" },
             PSYCH_END: { title_th: "จิตแพทย์", title_en: "Psychiatrist", desc_th: "ผู้เยียวยาบาดแผลทางใจและปรับสมดุลสารเคมีแห่งอารมณ์", desc_en: "Healers of the mind and chemical emotional balance.", slug: "psychiatry" },
-            FM_END: { title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", desc_th: "ผู้ดูแลสุขภาพแบบองค์รวม ผูกพันกับคนไข้ตั้งแต่วัยรุ่นจนถึงวัยชรา", desc_en: "Holistic care, bonding with patients across their lifespan.", slug: "family-medicine" },
-            PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", desc_th: "ผู้ออกแบบการคืนศักยภาพและการเคลื่อนไหว เพื่อคุณภาพชีวิตที่ดีที่สุด", desc_en: "Designing rehabilitation for the best quality of life.", slug: "physical-medicine-and-rehabilitation" },
-
+            CHILDPSYCH_END: { title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child Psychiatrist", desc_th: "ดูแลพัฒนาการทางพฤติกรรมและอารมณ์ของคนรุ่นใหม่", desc_en: "Mental health and behavioral care for developing minds.", slug: "child-and-adolescent-psychiatry" },
+            DERM_END: { title_th: "แพทย์ผิวหนัง", title_en: "Dermatologist", desc_th: "ผู้เชี่ยวชาญโรคผิวหนัง เส้นผม เล็บ และหัตถการเลเซอร์", desc_en: "Experts in skin conditions, aesthetics, and cutaneous biology.", slug: "dermatology" },
+            
+            // --- SUPPORT/OBSERVER ENDS ---
             RADIO_END: { title_th: "รังสีแพทย์", title_en: "Radiologist", desc_th: "ดวงตาของโรงพยาบาล ที่มองทะลุร่างกายผ่านภาพถ่ายทางการแพทย์", desc_en: "The eyes of the hospital, seeing through medical imaging.", slug: "radiology-diagnostic" },
             PATHO_END: { title_th: "พยาธิแพทย์", title_en: "Pathologist", desc_th: "ผู้พิพากษาสูงสุดของโรค จากการมองหลักฐานผ่านกล้องจุลทรรศน์", desc_en: "The ultimate judge of disease via microscopy.", slug: "pathology-anatomic-and-clinical" },
+            FORENSIC_END: { title_th: "แพทย์นิติเวช", title_en: "Forensic Pathologist", desc_th: "ผู้ใช้ความรู้ทางการแพทย์ในการสืบสวนสาเหตุการเสียชีวิตตามกฎหมาย", desc_en: "Investigating causes of death to serve justice.", slug: "forensic-pathology" },
             GENE_END: { title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", desc_th: "ผู้อ่านรหัสชีวิตและวางแผนรับมือกับโรคที่แฝงมาใน DNA", desc_en: "Reading the code of life and managing DNA-based diseases.", slug: "medical-genetics" },
-            PREV_END: { title_th: "เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "นักระบาดวิทยา ผู้เน้นการป้องกันระดับประชากรเพื่อไม่ให้คนต้องป่วย", desc_en: "Epidemiologists focusing on population-level prevention.", slug: "preventive-medicine" }
+            PREV_END: { title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "นักระบาดวิทยา ผู้เน้นการป้องกันระดับประชากรเพื่อไม่ให้คนต้องป่วย", desc_en: "Epidemiologists focusing on population-level prevention.", slug: "preventive-medicine" },
+            OCCMED_END: { title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", desc_th: "ดูแลสุขภาพ ความปลอดภัย และสิ่งแวดล้อมของคนทำงาน", desc_en: "Keeping workers safe and healthy in their environments.", slug: "occupational-and-environmental-medicine" },
+            AERO_END: { title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", desc_th: "ดูแลข้อจำกัดทางสรีรวิทยาของนักบินและมนุษย์อวกาศ", desc_en: "Managing the physiological challenges of flight and space.", slug: "aerospace-medicine" },
+            TRAFFIC_END: { title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", desc_th: "วิเคราะห์และป้องกันอุบัติเหตุบนท้องถนนเชิงระบบสาธารณสุข", desc_en: "Focusing on road safety, injury prevention, and transport health.", slug: "preventive-medicine" },
+            PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", desc_th: "ผู้ออกแบบการคืนศักยภาพและการเคลื่อนไหว เพื่อคุณภาพชีวิตที่ดีที่สุด", desc_en: "Designing rehabilitation for the best quality of life.", slug: "physical-medicine-and-rehabilitation" },
+            FM_END: { title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", desc_th: "ผู้ดูแลสุขภาพแบบองค์รวม ผูกพันกับคนไข้ตั้งแต่วัยรุ่นจนถึงวัยชรา", desc_en: "Holistic care, bonding with patients across their lifespan.", slug: "family-medicine" },
+            PALL_END: { title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", desc_th: "แพทย์ผู้ช่วยบรรเทาความทุกข์ทรมาน และดูแลคุณภาพชีวิตระยะสุดท้าย", desc_en: "Relieving suffering and providing comfort in serious illnesses.", slug: "hospice-and-palliative-medicine" }
         };
 
         let currentLang = 'th';
@@ -273,7 +329,7 @@
                 el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en'); 
             }); 
             document.body.className = `lang-${lang}`; 
-            drawLines();
+            drawLines(); // Re-render text inside dynamic boxes if they exist
         }
 
         function unlockRoadmap() { 
@@ -292,17 +348,10 @@
                 const col = document.getElementById(`col-${i}`); 
                 if (col) { 
                     col.style.display = 'none'; 
-                    // To prevent flashing, only add the animate class to the NEWEST lines
-                    col.innerHTML = `<div class="branch-line animate-draw" id="line-${i}"></div>`; 
+                    col.innerHTML = ''; 
                     delete stateSelections[i];
                 } 
             } 
-            
-            // Remove animation class from OLD lines so they stay solid when a user clicks a new branch further down
-            for (let i = 1; i <= colIndex; i++) {
-                const line = document.getElementById(`line-${i}`);
-                if (line) line.classList.remove('animate-draw');
-            }
 
             const nextCol = document.getElementById(`col-${colIndex + 1}`); 
             if (!nextCol) { drawLines(); return; }
@@ -323,13 +372,15 @@
                         <span class="node-tag">${currentLang === 'th' ? data.title_th : data.title_en}</span>
                         <p class="node-title">${currentLang === 'th' ? opt.title_th : opt.title_en}</p>
                         <p class="node-desc">${currentLang === 'th' ? opt.desc_th : opt.desc_en}</p>`; 
+                    // Set custom marker to know this needs animation
+                    box.setAttribute('data-new', 'true');
                     nextCol.appendChild(box); 
                 }); 
             } else if (results[key]) { 
                 const res = results[key]; 
                 nextCol.style.display = 'flex'; 
                 nextCol.innerHTML = `
-                    <div class="node-box specialty-result" id="box-${colIndex + 1}-1">
+                    <div class="node-box specialty-result" id="box-${colIndex + 1}-1" data-new="true">
                         <span class="node-tag" style="color:var(--accent-gold); letter-spacing:2px;">✨ ${currentLang === 'th' ? 'ปลายทางของคุณ' : 'Your Ultimate Calling'}</span>
                         <p class="node-title">${currentLang === 'th' ? res.title_th : res.title_en}</p>
                         <p class="node-desc" style="margin-top:10px; opacity:0.9;">${currentLang === 'th' ? res.desc_th : res.desc_en}</p>
@@ -337,6 +388,7 @@
                     </div>`; 
             } 
 
+            // Allow DOM to render, then draw lines
             setTimeout(() => { 
                 drawLines();
                 document.getElementById('roadmap-container').scrollBy({ left: 450, behavior: 'smooth' }); 
@@ -348,9 +400,12 @@
             const wrapper = document.getElementById('content-wrapper');
             if(!svg || !wrapper) return;
 
+            // Track which paths currently exist in the DOM
+            const existingPathIds = new Set(Array.from(svg.children).map(child => child.id));
+            const neededPathIds = new Set();
+
             svg.setAttribute('width', wrapper.scrollWidth);
             svg.setAttribute('height', wrapper.scrollHeight);
-            svg.innerHTML = ''; 
 
             const wrapperRect = wrapper.getBoundingClientRect();
 
@@ -368,7 +423,7 @@
 
                     const targetBoxes = nextCol.querySelectorAll('.node-box');
                     
-                    targetBoxes.forEach(targetBox => {
+                    targetBoxes.forEach((targetBox, index) => {
                         const targetRect = targetBox.getBoundingClientRect();
                         const endX = (targetRect.left - wrapperRect.left);
                         const endY = (targetRect.top - wrapperRect.top) + (targetRect.height / 2);
@@ -376,20 +431,34 @@
                         const curveFactor = 80;
                         const pathString = `M ${startX} ${startY} C ${startX + curveFactor} ${startY}, ${endX - curveFactor} ${endY}, ${endX} ${endY}`;
                         
-                        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        path.setAttribute('d', pathString);
-                        // Apply animation ONLY if this column's line div has the animate-draw class
-                        const lineDiv = document.getElementById(`line-${i+1}`);
-                        if(lineDiv && lineDiv.classList.contains('animate-draw')) {
-                            path.setAttribute('class', 'connection-line animate-draw');
+                        const pathId = `path-${i}-${index}`;
+                        neededPathIds.add(pathId);
+                        
+                        let path = document.getElementById(pathId);
+                        if (!path) {
+                            // If path doesn't exist, create it. Add animation ONLY if the target box is marked 'new'.
+                            path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                            path.setAttribute('id', pathId);
+                            if (targetBox.getAttribute('data-new') === 'true') {
+                                path.setAttribute('class', 'connection-line animate-draw');
+                                targetBox.removeAttribute('data-new'); // Remove flag after first animation
+                            } else {
+                                path.setAttribute('class', 'connection-line');
+                            }
+                            svg.appendChild(path);
                         } else {
+                            // If it exists, update coordinates but remove animation class so it doesn't replay
                             path.setAttribute('class', 'connection-line');
                         }
-                        
-                        svg.appendChild(path);
+                        path.setAttribute('d', pathString);
                     });
                 }
             }
+            
+            // Cleanup old paths
+            Array.from(svg.children).forEach(child => {
+                if (!neededPathIds.has(child.id)) svg.removeChild(child);
+            });
         }
 
         window.addEventListener('resize', drawLines);
