@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
-    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
-    
     <style>
         :root { 
             /* --- EARTH TONE THEME --- */
@@ -149,9 +147,16 @@
         body.lang-th .hero-btn, body.lang-th .aesthetic-heading, body.lang-th .cloud-word, body.lang-th .video-tag, body.lang-th .footer-links a { letter-spacing: normal !important; }
 
         @media (min-width: 1024px) { .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; } .col-left, .col-right { display: flex; flex-direction: column; gap: 50px; } }
+        
+        /* --- MOBILE RESPONSIVE FIX --- */
         @media (max-width: 1023px) { 
-            .hero { height: 75vh; padding-bottom: 50px; } 
-            .hero-banner-img { object-position: center 30%; }
+            .hero { 
+                height: 85vh; /* ขยายกรอบให้สูงขึ้นเพื่อเว้นที่ว่างตรงกลาง */
+                padding-bottom: 30px; /* กดข้อความให้ลงต่ำเพื่อหลีกทางให้โลโก้บนภาพ */
+            } 
+            .hero-banner-img { 
+                object-position: center 15%; /* ดันภาพแบนเนอร์ขึ้นไปด้านบน */
+            }
             .hero-btns { gap: 10px; }
             .hero-btn { padding: 14px 24px; font-size: 0.85rem; width: 100%; max-width: 300px; justify-content: center; }
             .main-layout { display: flex; flex-direction: column; gap: 40px; } 
