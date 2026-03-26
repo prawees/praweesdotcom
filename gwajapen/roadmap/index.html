@@ -10,12 +10,13 @@
         :root { 
             /* --- EARTH TONE THEME --- */
             --bg-color: #FDF8F2; 
-            --surface-color: rgba(255, 255, 255, 0.95);
+            --surface-color: #FFFFFF;
             --text-main: #4A3F35; 
             --text-muted: #8C7A6B; 
             --border-color: rgba(140, 122, 107, 0.2); 
             --accent-primary: #A67B5B; 
             --accent-gold: #D4AF37;
+            --line-color: rgba(166, 123, 91, 0.3);
             --category-surg: #B2533E;
             --category-med: #576F72;
             --category-supp: #7D8F69;
@@ -24,17 +25,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', sans-serif; overflow: hidden; height: 100vh; }
         
-        /* --- BACKGROUND --- */
         #bg-canvas { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #FDF8F2 0%, #F5E8DD 100%); transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* --- HEADER BANNER (THICKER) --- */
-        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 160px; overflow: hidden; z-index: 100; border-bottom: 2px solid var(--border-color); background: white; }
-        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+        /* --- HEADER BANNER --- */
+        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 160px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.9; }
         
-        .back-nav { position: fixed; top: 55px; left: 6vw; z-index: 110; text-decoration: none; color: var(--text-main); font-weight: 700; background: rgba(255,255,255,0.9); padding: 12px 24px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border: 1px solid var(--border-color); }
-        .back-nav:hover { transform: translateY(-2px); background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .back-nav { position: fixed; top: 55px; left: 6vw; z-index: 210; text-decoration: none; color: var(--text-main); font-weight: 700; background: rgba(255,255,255,0.9); padding: 12px 25px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border: 1px solid var(--border-color); }
+        .back-nav:hover { transform: translateY(-2px); background: white; box-shadow: 0 10px 20px rgba(166, 123, 91, 0.1); }
 
-        /* --- ENTRANCE OVERLAY --- */
+        /* --- ENTRANCE --- */
         #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
         .calling-grid { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; padding: 40px; }
         .calling-card { background: white; border: 1.5px solid var(--border-color); padding: 50px 30px; border-radius: 40px; cursor: pointer; transition: 0.4s; width: 280px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
@@ -47,48 +47,46 @@
             display: none; 
             height: calc(100vh - 160px); 
             margin-top: 160px;
-            overflow-x: auto; overflow-y: hidden; 
-            padding: 40px 8vw;
-            white-space: nowrap; align-items: flex-start; scroll-behavior: smooth; 
+            overflow: auto; /* ALLOWS X AND Y SCROLLING FOR WHOLE CONTAINER */
+            padding: 50px 8vw;
+            align-items: flex-start; scroll-behavior: smooth; 
         }
 
-        /* --- VERTICAL SCROLLABLE COLUMNS --- */
+        .flex-wrapper { display: flex; gap: 150px; min-width: max-content; padding-bottom: 100px; }
+
         .node-column { 
-            display: inline-flex; flex-direction: column; 
-            gap: 30px; margin-right: 220px; position: relative;
-            height: 100%; 
-            overflow-y: auto; /* ENABLE VERTICAL SCROLL */
-            padding-right: 15px;
-            vertical-align: top;
+            display: flex; flex-direction: column; 
+            gap: 30px; position: relative;
         }
-        .node-column::-webkit-scrollbar { width: 4px; }
-        .node-column::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.1); border-radius: 10px; }
-        
-        .node-column::after { content: ''; position: absolute; right: -110px; top: 100px; width: 110px; height: 1.5px; background: var(--accent-primary); opacity: 0.15; z-index: -1; }
+
+        /* Connecting Branch Lines */
+        .node-column::after {
+            content: ''; position: absolute; right: -150px; top: 100px;
+            width: 150px; height: 1.5px; background: var(--line-color); z-index: -1;
+        }
         .node-column:last-child::after { display: none; }
 
         .node-box { 
-            background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 30px; 
-            width: 340px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0;
-            position: relative;
+            background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 25px; 
+            width: 350px; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 10;
         }
-        .node-box:hover { border-color: var(--accent-primary); transform: scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.04); }
-        .node-box.selected { border-color: var(--accent-primary); background: #FAF6F2; }
+        .node-box:hover { border-color: var(--accent-primary); transform: translateX(10px); box-shadow: 0 10px 25px rgba(166, 123, 91, 0.1); }
+        .node-box.selected { border-color: var(--accent-primary); background: #FAF6F2; border-width: 2px; }
         
-        .node-emoji { font-size: 2rem; margin-bottom: 12px; display: block; }
-        .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1.5px; color: var(--accent-primary); opacity: 0.8; }
-        .node-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
+        .node-emoji { font-size: 2.2rem; margin-bottom: 15px; display: block; }
+        .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1.5px; color: var(--accent-primary); opacity: 0.9; }
+        .node-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px; }
         .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        /* Glamorous Result Card */
+        /* Glamorous Specialty Result */
         .specialty-result { 
-            background: linear-gradient(135deg, #3D352E 0%, #211C18 100%);
-            border: 2px solid var(--accent-gold); color: white; padding: 45px; width: 420px;
+            background: linear-gradient(135deg, #4A3F35 0%, #211C18 100%);
+            border: 2px solid var(--accent-gold); color: white; padding: 40px; width: 420px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.25);
         }
         .specialty-result * { color: white !important; }
-        .specialty-result .node-tag { color: var(--accent-gold) !important; opacity: 1; }
+        .specialty-result .node-tag { color: var(--accent-gold) !important; }
         
         .aamc-btn { 
             display: inline-block; margin-top: 25px; padding: 14px 30px; 
@@ -96,24 +94,25 @@
             text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
             transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
         }
-        .aamc-btn:hover { transform: translateY(-3px); background: #E5C35D; box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3); }
+        .aamc-btn:hover { transform: translateY(-3px); background: #E5C35D; }
 
-        ::-webkit-scrollbar { height: 6px; }
-        ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-corner { background: transparent; }
     </style>
 </head>
 <body>
     <div class="header-banner"><img src="../banner.jpg" alt="Banner"></div>
     <div id="bg-canvas"></div>
-    <a href="../" class="back-nav">❮ ย้อนกลับหน้าหลัก</a>
+    <a href="../" class="back-nav">❮ กลับหน้าหลัก</a>
     
     <div id="entrance-overlay">
-        <h1 style="font-size: 2.8rem; margin-bottom:50px; color: var(--text-main); letter-spacing: -1.5px;">Choose Your Calling</h1>
+        <h1 style="font-size: 2.8rem; margin-bottom:40px; color: var(--text-main); letter-spacing: -1px;">Choose Your Calling</h1>
         <div class="calling-grid">
             <div class="calling-card active" onclick="unlockRoadmap()">
                 <span style="font-size: 3.5rem;">🩺</span>
                 <h3>Medicine</h3>
-                <p style="color: var(--text-muted); margin-top:10px;">ศาสตร์แห่งการรักษาและชีวิต</p>
+                <p style="color: var(--text-muted); margin-top:10px;">ศาสตร์แห่งการเยียวยา</p>
             </div>
             <div class="calling-card locked">
                 <span style="font-size: 3.5rem;">⚙️</span>
@@ -129,113 +128,147 @@
     </div>
     
     <main id="roadmap-container">
-        <div class="node-column" id="col-1">
-            <div class="node-box" onclick="branch(1, 'surgical', this)" style="border-left: 8px solid var(--category-surg)">
-                <span class="node-emoji">⚔️</span>
-                <span class="node-tag">The Performer</span>
-                <p class="node-title">สายหัตถการ (Surgical)</p>
-                <p class="node-desc">เน้นการลงมือทำ การผ่าตัด และการใช้ทักษะมือแก้ปัญหาเชิงโครงสร้าง</p>
+        <div class="flex-wrapper">
+            <div class="node-column" id="col-1">
+                <div class="node-box" onclick="branch(1, 'surgical_vibe', this)" style="border-left: 8px solid var(--category-surg)">
+                    <span class="node-emoji">⚔️</span>
+                    <span class="node-tag">The Performer</span>
+                    <p class="node-title">เน้นหัตถการ (Surgical & Procedural)</p>
+                    <p class="node-desc">ชอบการลงมือทำด้วยมือ เห็นผลลัพธ์ที่จับต้องได้ทันที เน้นความแม่นยำและการแก้ปัญหาเชิงโครงสร้าง</p>
+                </div>
+                <div class="node-box" onclick="branch(1, 'medical_vibe', this)" style="border-left: 8px solid var(--category-med)">
+                    <span class="node-emoji">🔍</span>
+                    <span class="node-tag">The Detective</span>
+                    <p class="node-title">เน้นการวินิจฉัย (Medical & Cognitive)</p>
+                    <p class="node-desc">ชอบสืบสวนโรค คิดวิเคราะห์พยาธิสรีรวิทยา วางแผนการรักษาด้วยยา และสานสัมพันธ์คนไข้ระยะยาว</p>
+                </div>
+                <div class="node-box" onclick="branch(1, 'support_vibe', this)" style="border-left: 8px solid var(--category-supp)">
+                    <span class="node-emoji">🛡️</span>
+                    <span class="node-tag">Vanguard & Oracle</span>
+                    <p class="node-title">เน้นภาวะวิกฤตและสืบค้น (Acute & Diagnostics)</p>
+                    <p class="node-desc">ชอบความท้าทายระดับนาทีชีวิต หรือชอบอยู่เบื้องหลังการไขรหัสโรคด้วยเทคโนโลยีขั้นสูง</p>
+                </div>
             </div>
-            <div class="node-box" onclick="branch(1, 'medical', this)" style="border-left: 8px solid var(--category-med)">
-                <span class="node-emoji">🔍</span>
-                <span class="node-tag">The Detective</span>
-                <p class="node-title">สายวินิจฉัย (Medical)</p>
-                <p class="node-desc">เน้นการคิดวิเคราะห์กลไกของโรค พยาธิสรีรวิทยา และการวางแผนรักษาด้วยยา</p>
-            </div>
-            <div class="node-box" onclick="branch(1, 'support', this)" style="border-left: 8px solid var(--category-supp)">
-                <span class="node-emoji">🛡️</span>
-                <span class="node-tag">The Architect</span>
-                <p class="node-title">สายสนับสนุน (Support)</p>
-                <p class="node-desc">เน้นการทำงานหลังบ้าน การใช้เทคโนโลยีสืบค้น หรือการดูแลสภาวะวิกฤต</p>
-            </div>
+            <div class="node-column" id="col-2" style="display:none;"></div>
+            <div class="node-column" id="col-3" style="display:none;"></div>
+            <div class="node-column" id="col-4" style="display:none;"></div>
         </div>
-        <div class="node-column" id="col-2" style="display:none;"></div>
-        <div class="node-column" id="col-3" style="display:none;"></div>
-        <div class="node-column" id="col-4" style="display:none;"></div>
-        <div class="node-column" id="col-5" style="display:none;"></div>
     </main>
     
     <script>
         const treeData = {
             // --- SURGICAL BRANCH ---
-            surgical: { title: "Surgery Area", options: [
-                { id: 's_organ', emoji: '🫀', title: "อวัยวะภายใน & ช่องโพรง", desc: "ผ่าตัดในช่องท้อง ทรวงอก หรือทางเดินปัสสาวะ", next: 's_organ_sub' },
-                { id: 's_heavy', emoji: '🔩', title: "โครงสร้างหลัก & ระบบประสาท", desc: "เน้นกระดูก ข้อต่อ หรือระบบประสาทส่วนกลาง", next: 's_heavy_sub' },
-                { id: 's_micro', emoji: '🔬', title: "งานละเอียดส่วนหัว & ความงาม", desc: "หู คอ จมูก ตา หรือการศัลยกรรมตกแต่ง", next: 's_micro_sub' }
+            surgical_vibe: { title: "Operative Environment", options: [
+                { id: 's_major', emoji: '🫀', title: "งานกู้ชีพและอวัยวะหลัก", desc: "รับมือกับความท้าทายในช่องท้อง ทรวงอก เส้นเลือด หรือการผ่าตัดฉุกเฉิน", next: 's_major_sub' },
+                { id: 's_structure', emoji: '🔩', title: "งานวิศวกรรมร่างกาย", desc: "ซ่อมแซมโครงสร้างหนักอย่างกระดูก กล้ามเนื้อ หรือระบบประมวลผล (สมอง)", next: 's_structure_sub' },
+                { id: 's_delicate', emoji: '✨', title: "งานศิลปะและเฉพาะส่วน", desc: "เน้นงานฝีมือประณีตระดับไมโคร หู คอ จมูก ตา หรือศัลยกรรมตกแต่ง", next: 's_delicate_sub' },
+                { id: 's_women', emoji: '🤰', title: "สุขภาพสตรีและการกำเนิด", desc: "ดูแลระบบสืบพันธุ์สตรีและวินาทีแห่งการให้กำเนิดชีวิต", next: 's_women_sub' }
             ]},
-            s_organ_sub: { title: "Specialization", options: [
-                { id: 'gs', emoji: '🏥', title: "ศัลยกรรมทั่วไป", desc: "General Surgery", next: 'GS_END' },
+            s_major_sub: { title: "Specialty", options: [
+                { id: 'gs', emoji: '🩹', title: "ศัลยกรรมทั่วไป", desc: "General Surgery", next: 'GS_END' },
                 { id: 'cvt', emoji: '🫁', title: "ศัลยกรรมทรวงอก", desc: "Cardiothoracic Surgery", next: 'CVT_END' },
-                { id: 'urology', emoji: '🧪', title: "ศัลยกรรมทางเดินปัสสาวะ", desc: "Urology", next: 'URO_END' }
+                { id: 'vasc', emoji: '🩸', title: "ศัลยกรรมหลอดเลือด", desc: "Vascular Surgery", next: 'VASC_END' }
             ]},
-            s_heavy_sub: { title: "Specialization", options: [
+            s_structure_sub: { title: "Specialty", options: [
                 { id: 'ortho', emoji: '🔨', title: "ศัลยกรรมออร์โธปิดิกส์", desc: "Orthopedic Surgery", next: 'ORTHO_END' },
                 { id: 'ns', emoji: '⚡', title: "ศัลยกรรมประสาท", desc: "Neurosurgery", next: 'NS_END' }
             ]},
-            s_micro_sub: { title: "Specialization", options: [
+            s_delicate_sub: { title: "Specialty", options: [
+                { id: 'plastic', emoji: '🎨', title: "ศัลยกรรมตกแต่ง", desc: "Plastic Surgery", next: 'PLASTIC_END' },
                 { id: 'ent', emoji: '👂', title: "หู คอ จมูก", desc: "Otolaryngology", next: 'ENT_END' },
-                { id: 'plastic', emoji: '✨', title: "ศัลยกรรมตกแต่ง", desc: "Plastic Surgery", next: 'PLASTIC_END' },
-                { id: 'ophtha', emoji: '👁️', title: "จักษุวิทยา", desc: "Ophthalmology", next: 'OPHTHA_END' }
+                { id: 'ophtha', emoji: '👁️', title: "จักษุวิทยา", desc: "Ophthalmology", next: 'OPHTHA_END' },
+                { id: 'uro', emoji: '🧪', title: "ศัลยกรรมทางเดินปัสสาวะ", desc: "Urology", next: 'URO_END' }
+            ]},
+            s_women_sub: { title: "Specialty", options: [
+                { id: 'obgyn', emoji: '🤱', title: "สูตินรีเวชวิทยา", desc: "Obstetrics and Gynecology", next: 'OBGYN_END' }
             ]},
 
             // --- MEDICAL BRANCH ---
-            medical: { title: "Clinical Focus", options: [
-                { id: 'm_systems', emoji: '🩸', title: "เจาะลึกระบบภายใน", desc: "เน้นการจัดการโรคเฉพาะระบบอวัยวะ", next: 'm_systems_sub' },
-                { id: 'm_holistic', emoji: '🤝', title: "การดูแลตามช่วงวัย/จิตใจ", desc: "เน้นภาพรวมคนไข้ เด็ก ผู้ใหญ่ หรือสุขภาพจิต", next: 'm_holistic_sub' }
+            medical_vibe: { title: "Diagnostic Focus", options: [
+                { id: 'm_vital', emoji: '💓', title: "นักสืบระบบอวัยวะหลัก", desc: "เจาะลึกระบบที่ส่งผลรุนแรง เช่น หัวใจ ปอด ไต หรือทางเดินอาหาร", next: 'm_vital_sub' },
+                { id: 'm_complex', emoji: '🧩', title: "นักสืบระบบซับซ้อนและภูมิคุ้มกัน", desc: "ไขปริศนาฮอร์โมน ระบบประสาท ภูมิคุ้มกัน หรือโรคมะเร็ง", next: 'm_complex_sub' },
+                { id: 'm_holistic', emoji: '🤝', title: "การดูแลองค์รวมและคุณภาพชีวิต", desc: "ดูแลคนไข้แบบองค์รวมตามวัย ฟื้นฟูสมรรถภาพ หรือเยียวยาสุขภาพจิต", next: 'm_holistic_sub' }
             ]},
-            m_systems_sub: { title: "Specialty", options: [
-                { id: 'cardio', emoji: '❤️', title: "โรคหัวใจ", desc: "Cardiology", next: 'CARDIO_END' },
-                { id: 'gi', emoji: '🧪', title: "โรคทางเดินอาหาร", desc: "Gastroenterology", next: 'GI_END' },
-                { id: 'neuro_m', emoji: '🧠', title: "ประสาทวิทยา", desc: "Neurology", next: 'NEURO_M_END' },
+            m_vital_sub: { title: "Specialty", options: [
+                { id: 'cardio', emoji: '❤️', title: "โรคหัวใจ", desc: "Cardiovascular Disease", next: 'CARDIO_END' },
+                { id: 'pulmo', emoji: '🫁', title: "โรคระบบการหายใจ", desc: "Pulmonary Disease", next: 'PULMO_END' },
+                { id: 'gi', emoji: '🍔', title: "โรคทางเดินอาหาร", desc: "Gastroenterology", next: 'GI_END' },
                 { id: 'nephro', emoji: '💧', title: "โรคไต", desc: "Nephrology", next: 'NEPHRO_END' }
+            ]},
+            m_complex_sub: { title: "Specialty", options: [
+                { id: 'neuro', emoji: '🧠', title: "ประสาทวิทยา", desc: "Neurology", next: 'NEURO_END' },
+                { id: 'endo', emoji: '⚖️', title: "ต่อมไร้ท่อและเมแทบอลิซึม", desc: "Endocrinology", next: 'ENDO_END' },
+                { id: 'rheum', emoji: '🦴', title: "โรคข้อและรูมาติซั่ม", desc: "Rheumatology", next: 'RHEUM_END' },
+                { id: 'onc', emoji: '🎗️', title: "มะเร็งวิทยา", desc: "Medical Oncology", next: 'ONC_END' },
+                { id: 'id', emoji: '🦠', title: "โรคติดเชื้อ", desc: "Infectious Disease", next: 'ID_END' }
             ]},
             m_holistic_sub: { title: "Specialty", options: [
                 { id: 'peds', emoji: '🧸', title: "กุมารเวชศาสตร์", desc: "Pediatrics", next: 'PEDS_END' },
-                { id: 'psych', emoji: '🧠', title: "จิตเวชศาสตร์", desc: "Psychiatry", next: 'PSYCH_END' },
-                { id: 'internal', emoji: '🧥', title: "อายุรศาสตร์ทั่วไป", desc: "Internal Medicine", next: 'IM_END' }
+                { id: 'psych', emoji: '🧘', title: "จิตเวชศาสตร์", desc: "Psychiatry", next: 'PSYCH_END' },
+                { id: 'fm', emoji: '🏡', title: "เวชศาสตร์ครอบครัว", desc: "Family Medicine", next: 'FM_END' },
+                { id: 'pmr', emoji: '🏃', title: "เวชศาสตร์ฟื้นฟู", desc: "PM&R", next: 'PMR_END' }
             ]},
 
-            // --- SUPPORT BRANCH ---
-            support: { title: "Workflow", options: [
-                { id: 'su_front', emoji: '🚨', title: "ด่านหน้า & วิกฤต", desc: "ดูแลภาวะฉุกเฉินหรือระงับความเจ็บปวด", next: 'su_front_sub' },
-                { id: 'su_back', emoji: '🖥️', title: "วิจัย & วินิจฉัยเบื้องหลัง", desc: "รังสีวิทยา พยาธิวิทยา หรือเวชศาสตร์ฟื้นฟู", next: 'su_back_sub' }
+            // --- SUPPORT/ACUTE BRANCH ---
+            support_vibe: { title: "Operational Role", options: [
+                { id: 'su_front', emoji: '🚨', title: "ด่านหน้าและภาวะวิกฤต", desc: "รับมือกับความเป็นความตายฉุกเฉิน หรือควบคุมสัญญาณชีพในห้องผ่าตัด", next: 'su_front_sub' },
+                { id: 'su_back', emoji: '🔬', title: "ผู้ไขรหัสลับเบื้องหลัง", desc: "ใช้เทคโนโลยีสแกนภาพ อ่านชิ้นเนื้อ หรือถอดรหัสพันธุกรรม", next: 'su_back_sub' },
+                { id: 'su_pop', emoji: '🌍', title: "ระดับประชากรและป้องกัน", desc: "ดูแลภาพรวมสาธารณสุขและเวชศาสตร์ป้องกัน", next: 'su_pop_sub' }
             ]},
             su_front_sub: { title: "Specialty", options: [
                 { id: 'er', emoji: '🚑', title: "เวชศาสตร์ฉุกเฉิน", desc: "Emergency Medicine", next: 'ER_END' },
-                { id: 'anes', emoji: '😴', title: "วิสัญญีวิทยา", desc: "Anesthesiology", next: 'ANES_END' }
+                { id: 'anes', emoji: '😴', title: "วิสัญญีวิทยา", desc: "Anesthesiology", next: 'ANES_END' },
+                { id: 'icu', emoji: '🫀', title: "เวชบำบัดวิกฤต", desc: "Critical Care Medicine", next: 'ICU_END' }
             ]},
             su_back_sub: { title: "Specialty", options: [
-                { id: 'radio', emoji: '☢️', title: "รังสีวิทยา", desc: "Radiology", next: 'RADIO_END' },
-                { id: 'patho', emoji: '🔬', title: "พยาธิวิทยา", desc: "Pathology", next: 'PATHO_END' },
-                { id: 'pmr', emoji: '🏃', title: "เวชศาสตร์ฟื้นฟู", desc: "Physical Medicine & Rehab", next: 'PMR_END' }
+                { id: 'radio', emoji: '☢️', title: "รังสีวิทยา", desc: "Diagnostic Radiology", next: 'RADIO_END' },
+                { id: 'patho', emoji: '🧪', title: "พยาธิวิทยา", desc: "Pathology", next: 'PATHO_END' },
+                { id: 'genetics', emoji: '🧬', title: "เวชพันธุศาสตร์", desc: "Medical Genetics", next: 'GENE_END' }
+            ]},
+            su_pop_sub: { title: "Specialty", options: [
+                { id: 'prev', emoji: '🛡️', title: "เวชศาสตร์ป้องกัน", desc: "Preventive Medicine", next: 'PREV_END' }
             ]}
         };
 
         const results = {
-            GS_END: { title: "ศัลยแพทย์ทั่วไป", desc: "เสาหลักของห้องผ่าตัด ผู้เชี่ยวชาญการรักษาอวัยวะภายในและอุบัติเหตุ", slug: "general-surgery" },
-            CVT_END: { title: "ศัลยแพทย์หัวใจและทรวงอก", desc: "ศิลปินผู้ดูแลเครื่องยนต์ของร่างกายมนุษย์ที่มีความแม่นยำสูงสุด", slug: "thoracic-surgery" },
-            URO_END: { title: "ศัลยแพทย์ทางเดินปัสสาวะ", desc: "ผู้เชี่ยวชาญด้านระบบขับถ่ายและการผ่าตัดด้วยเทคโนโลยีส่องกล้อง", slug: "urology" },
-            ORTHO_END: { title: "ศัลยแพทย์ออร์โธปิดิกส์", desc: "วิศวกรโครงสร้างมนุษย์ ผู้ซ่อมแซมกระดูก ข้อต่อ และการเคลื่อนไหว", slug: "orthopedic-surgery" },
-            NS_END: { title: "ศัลยแพทย์ประสาท", desc: "ผู้กุมความลับของระบบประมวลผลที่ซับซ้อนที่สุดในจักรวาล", slug: "neurosurgery" },
-            ENT_END: { title: "หมอหู คอ จมูก", desc: "ผู้เชี่ยวชาญอวัยวะรับสัมผัสและการผ่าตัดเฉพาะส่วนที่ละเอียดอ่อน", slug: "otolaryngology" },
-            PLASTIC_END: { title: "ศัลยแพทย์ตกแต่ง", desc: "สถาปนิกแห่งความสวยงามและการฟื้นฟูเนื้อเยื่อเพื่อคุณภาพชีวิต", slug: "plastic-surgery" },
-            OPHTHA_END: { title: "จักษุแพทย์", desc: "ผู้พิทักษ์ดวงตาและการมองเห็นด้วยความแม่นยำระดับไมโคร", slug: "ophthalmology" },
-            CARDIO_END: { title: "อายุรแพทย์โรคหัวใจ", desc: "นักสืบระบบไหลเวียนโลหิต ผู้ถอดรหัสจังหวะไฟฟ้าของหัวใจ", slug: "internal-medicine-cardiovascular-disease" },
-            GI_END: { title: "หมอทางเดินอาหาร", desc: "ผู้เชี่ยวชาญห้องแล็บเคมีของร่างกายและการใช้กล้องวินิจฉัย", slug: "internal-medicine-gastroenterology" },
-            NEURO_M_END: { title: "อายุรแพทย์ระบบประสาท", desc: "ผู้ถอดรหัสสัญญาณไฟฟ้าและอาการผิดปกติของสมอง", slug: "neurology" },
-            NEPHRO_END: { title: "อายุรแพทย์โรคไต", desc: "ผู้ควบคุมสมดุลน้ำและกรองสารพิษออกจากระบบร่างกาย", slug: "internal-medicine-nephrology" },
-            PEDS_END: { title: "กุมารแพทย์", desc: "หมอเด็กผู้พิทักษ์อนาคต ตั้งแต่วัยทารกจนถึงวัยรุ่น", slug: "pediatrics" },
-            PSYCH_END: { title: "จิตแพทย์", desc: "ผู้เยียวยาบาดแผลทางใจและปรับสมดุลเคมีแห่งอารมณ์", slug: "psychiatry" },
-            IM_END: { title: "อายุรแพทย์ทั่วไป", desc: "ผู้เชี่ยวชาญภาพรวมของระบบร่างกายและการวินิจฉัยที่ครอบคลุม", slug: "internal-medicine" },
-            ER_END: { title: "หมอเวชศาสตร์ฉุกเฉิน", desc: "ฮีโร่ด่านหน้าผู้ตัดสินใจในวินาทีวิกฤตเพื่อรักษาชีวิต", slug: "emergency-medicine" },
-            ANES_END: { title: "วิสัญญีแพทย์", desc: "ผู้กุมชีวิตและสัญญาณชีพในห้วงหลับใหลขณะผ่าตัด", slug: "anesthesiology" },
-            RADIO_END: { title: "รังสีแพทย์", desc: "ดวงตาที่มองทะลุร่างกายผ่านภาพถ่ายทางการแพทย์ขั้นสูง", slug: "radiology-diagnostic" },
-            PATHO_END: { title: "พยาธิแพทย์", desc: "ผู้พิพากษาผลลัพธ์สุดท้ายของโรคผ่านกล้องจุลทรรศน์", slug: "pathology-anatomic-and-clinical" },
-            PMR_END: { title: "หมอเวชศาสตร์ฟื้นฟู", desc: "ผู้ออกแบบการคืนชีวิตและศักยภาพการเคลื่อนไหวให้ผู้ป่วย", slug: "physical-medicine-and-rehabilitation" }
+            // Surgical Ends
+            GS_END: { title: "ศัลยแพทย์ทั่วไป", desc: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาอวัยวะช่องท้องและอุบัติเหตุรุนแรง", slug: "general-surgery" },
+            CVT_END: { title: "ศัลยแพทย์ทรวงอก", desc: "ศิลปินผู้ดูแลเครื่องยนต์หลักของร่างกาย ทั้งหัวใจและปอด", slug: "thoracic-surgery" },
+            VASC_END: { title: "ศัลยแพทย์หลอดเลือด", desc: "ช่างประปาแห่งร่างกาย ผู้ซ่อมแซมเส้นทางลำเลียงเลือดทั่วร่าง", slug: "vascular-surgery" },
+            ORTHO_END: { title: "ศัลยแพทย์ออร์โธปิดิกส์", desc: "วิศวกรโครงสร้างมนุษย์ ผู้ประกอบและซ่อมแซมกระดูก ข้อต่อ", slug: "orthopedic-surgery" },
+            NS_END: { title: "ศัลยแพทย์ประสาท", desc: "ผู้ทำงานด้วยสมาธิสูงสุดบนระบบประมวลผลที่ซับซ้อนที่สุดในจักรวาล", slug: "neurosurgery" },
+            PLASTIC_END: { title: "ศัลยแพทย์ตกแต่ง", desc: "สถาปนิกแห่งความงามและการบูรณะเนื้อเยื่อเพื่อฟื้นฟูคุณภาพชีวิต", slug: "plastic-surgery" },
+            ENT_END: { title: "หมอหู คอ จมูก", desc: "ผู้เชี่ยวชาญประสาทสัมผัสและโครงสร้างทางเดินหายใจส่วนบน", slug: "otolaryngology" },
+            OPHTHA_END: { title: "จักษุแพทย์", desc: "ผู้พิทักษ์ดวงตา ทำงานกับอวัยวะขนาดเล็กด้วยความแม่นยำระดับไมโคร", slug: "ophthalmology" },
+            URO_END: { title: "ศัลยแพทย์ทางเดินปัสสาวะ", desc: "ผู้เชี่ยวชาญระบบขับถ่ายที่ผสานทักษะผ่าตัดกับเทคโนโลยีส่องกล้อง", slug: "urology" },
+            OBGYN_END: { title: "สูตินรีแพทย์", desc: "ผู้ดูแลสุขภาพสตรีและผู้นำทางพิทักษ์วินาทีแห่งการให้กำเนิดชีวิต", slug: "obstetrics-and-gynecology" },
+            
+            // Medical Ends
+            CARDIO_END: { title: "อายุรแพทย์โรคหัวใจ", desc: "นักสืบผู้ถอดรหัสจังหวะชีวิต และรักษาหัวใจด้วยเทคโนโลยีขั้นสูง", slug: "internal-medicine-cardiovascular-disease" },
+            PULMO_END: { title: "อายุรแพทย์โรคปอด", desc: "ผู้เชี่ยวชาญระบบหายใจ ท่ออากาศ และความท้าทายในห้อง ICU", slug: "pulmonary-disease" },
+            GI_END: { title: "หมอทางเดินอาหาร", desc: "นักสำรวจระบบย่อยอาหาร ผู้เชี่ยวชาญการใช้กล้อง Endoscope", slug: "internal-medicine-gastroenterology" },
+            NEPHRO_END: { title: "อายุรแพทย์โรคไต", desc: "ผู้ควบคุมสมดุลน้ำและจัดการโรงงานกรองของเสียของร่างกาย", slug: "internal-medicine-nephrology" },
+            NEURO_END: { title: "อายุรแพทย์ประสาทวิทยา", desc: "ผู้ไขปริศนาความผิดปกติของสัญญาณไฟฟ้าและพฤติกรรมสมอง", slug: "neurology" },
+            ENDO_END: { title: "แพทย์ต่อมไร้ท่อ", desc: "ผู้ควบคุมสมดุลฮอร์โมนและกระบวนการเผาผลาญ (Metabolism) ทั้งหมด", slug: "endocrinology-diabetes-and-metabolism" },
+            RHEUM_END: { title: "รูมาโตโลจิสต์", desc: "ผู้ถอดรหัสความผิดปกติของภูมิคุ้มกันและโรคข้ออักเสบ", slug: "rheumatology" },
+            ONC_END: { title: "อายุรแพทย์โรคมะเร็ง", desc: "นักวางกลยุทธ์ต่อสู้กับโรคมะเร็งด้วยความรู้เคมีและพันธุกรรม", slug: "hematology-and-medical-oncology" },
+            ID_END: { title: "แพทย์โรคติดเชื้อ", desc: "นักสืบผู้ตามล่าหาจุลชีพก่อโรค และวางแผนยาปฏิชีวนะแบบเฉียบขาด", slug: "infectious-disease" },
+            PEDS_END: { title: "กุมารแพทย์", desc: "หมอเด็กผู้พิทักษ์อนาคต เน้นการเจริญเติบโตตั้งแต่วัยทารก", slug: "pediatrics" },
+            PSYCH_END: { title: "จิตแพทย์", desc: "ผู้เยียวยาบาดแผลทางใจและปรับสมดุลสารเคมีแห่งอารมณ์", slug: "psychiatry" },
+            FM_END: { title: "แพทย์เวชศาสตร์ครอบครัว", desc: "ผู้ดูแลสุขภาพแบบองค์รวม ผูกพันกับคนไข้ตั้งแต่วัยรุ่นจนถึงวัยชรา", slug: "family-medicine" },
+            PMR_END: { title: "หมอเวชศาสตร์ฟื้นฟู", desc: "ผู้ออกแบบการคืนศักยภาพและการเคลื่อนไหว เพื่อคุณภาพชีวิตที่ดีที่สุด", slug: "physical-medicine-and-rehabilitation" },
+
+            // Support/Acute Ends
+            ER_END: { title: "หมอเวชศาสตร์ฉุกเฉิน", desc: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อชิงชีวิตคนไข้จากมัจจุราช", slug: "emergency-medicine" },
+            ANES_END: { title: "วิสัญญีแพทย์", desc: "ผู้กุมความลับของความเจ็บปวด และควบคุมสัญญาณชีพขณะผ่าตัด", slug: "anesthesiology" },
+            ICU_END: { title: "เวชบำบัดวิกฤต", desc: "ผู้พยุงชีวิตคนไข้ที่อ่อนแอที่สุดในโรงพยาบาลด้วยเครื่องมือขั้นสุดยอด", slug: "critical-care-medicine" },
+            RADIO_END: { title: "รังสีแพทย์", desc: "ดวงตาของโรงพยาบาล ที่มองทะลุร่างกายผ่านภาพถ่ายทางการแพทย์", slug: "radiology-diagnostic" },
+            PATHO_END: { title: "พยาธิแพทย์", desc: "ผู้พิพากษาสูงสุดของโรค จากการมองหลักฐานผ่านกล้องจุลทรรศน์", slug: "pathology-anatomic-and-clinical" },
+            GENE_END: { title: "แพทย์เวชพันธุศาสตร์", desc: "ผู้อ่านรหัสชีวิตและวางแผนรับมือกับโรคที่แฝงมาใน DNA", slug: "medical-genetics" },
+            PREV_END: { title: "เวชศาสตร์ป้องกัน", desc: "นักระบาดวิทยา ผู้เน้นการป้องกันระดับประชากรเพื่อไม่ให้คนต้องป่วย", slug: "preventive-medicine" }
         };
 
-        let lastDepth = 1;
-        let moveX = 0;
+        let moveX = 0; let lastDepth = 1;
 
         function unlockRoadmap() { 
             document.getElementById('entrance-overlay').style.opacity = '0'; 
@@ -247,11 +280,7 @@
             parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected')); 
             element.classList.add('selected'); 
 
-            if (colIndex >= lastDepth) {
-                moveX -= 250;
-                document.getElementById('bg-canvas').style.transform = `translateX(${moveX}px)`; 
-                lastDepth = colIndex + 1;
-            }
+            if (colIndex >= lastDepth) { moveX -= 150; document.getElementById('bg-canvas').style.transform = `translateX(${moveX}px)`; lastDepth = colIndex + 1; }
 
             for (let i = colIndex + 1; i <= 5; i++) { 
                 const col = document.getElementById(`col-${i}`); 
@@ -263,31 +292,29 @@
 
             if (treeData[key]) { 
                 const data = treeData[key]; 
-                nextCol.style.display = 'inline-flex'; 
-                nextCol.style.animation = 'fadeInRight 0.8s ease forwards'; 
+                nextCol.style.display = 'flex'; 
+                nextCol.style.animation = 'fadeInRight 0.6s ease forwards'; 
                 data.options.forEach(opt => { 
-                    const box = document.createElement('div'); 
-                    box.className = 'node-box'; 
-                    box.onclick = () => branch(colIndex + 1, opt.next, box); 
+                    const box = document.createElement('div'); box.className = 'node-box'; box.onclick = () => branch(colIndex + 1, opt.next, box); 
                     box.innerHTML = `<span class="node-emoji">${opt.emoji}</span><span class="node-tag">${data.title}</span><p class="node-title">${opt.title}</p><p class="node-desc">${opt.desc}</p>`; 
                     nextCol.appendChild(box); 
                 }); 
             } else if (results[key]) { 
                 const res = results[key]; 
-                nextCol.style.display = 'inline-flex'; 
+                nextCol.style.display = 'flex'; 
                 nextCol.innerHTML = `
                     <div class="node-box specialty-result">
-                        <span class="node-tag">✨ Final Destination</span>
+                        <span class="node-tag" style="color:var(--accent-gold); letter-spacing:2px;">✨ Your Ultimate Calling</span>
                         <p class="node-title">${res.title}</p>
                         <p class="node-desc">${res.desc}</p>
-                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">Learn More at AAMC ↗</a>
+                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">Explore Full Profile at AAMC ↗</a>
                     </div>`; 
             } 
-            setTimeout(() => { document.getElementById('roadmap-container').scrollLeft += 500; }, 100); 
+            setTimeout(() => { document.getElementById('roadmap-container').scrollBy({ left: 450, behavior: 'smooth' }); }, 50); 
         }
     </script>
     <style>
-        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </body>
 </html>
