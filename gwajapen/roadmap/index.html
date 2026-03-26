@@ -10,13 +10,13 @@
     
     <style>
         :root { 
-            --bg-color: #FAFAFA; 
-            --surface-color: #FFFFFF;
-            --text-main: #1A1A1A; 
-            --text-muted: #666666; 
-            --border-color: #EAEAEA; 
+            --bg-color: #0A0A0A; 
+            --surface-color: #161616;
+            --text-main: #FFFFFF; 
+            --text-muted: #A0A0A0; 
+            --border-color: #2A2A2A; 
             --accent-blue: #0066CC;
-            --accent-green: #2ECC71;
+            --accent-purple: #9B51E0;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,175 +24,214 @@
             background-color: var(--bg-color); 
             color: var(--text-main); 
             font-family: 'Anuphan', sans-serif; 
-            line-height: 1.6;
-            overflow-x: hidden;
+            overflow: hidden; /* ล็อกหน้าจอให้เลื่อนแนวนอนเท่านั้น */
         }
 
-        /* --- NAVIGATION --- */
-        nav.top-bar {
-            padding: 20px 6vw; display: flex; justify-content: space-between; align-items: center;
-            background: white; border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 100;
+        /* --- ENTRANCE OVERLAY --- */
+        #entrance-overlay {
+            position: fixed; inset: 0; z-index: 1000;
+            background: var(--bg-color);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
-        .back-btn { 
-            text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        .entrance-content { text-align: center; max-width: 600px; padding: 20px; }
+        .calling-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 40px; letter-spacing: -1px; }
+        .calling-grid { display: flex; gap: 20px; justify-content: center; }
+        .calling-card {
+            background: var(--surface-color); border: 1px solid var(--border-color);
+            padding: 30px; border-radius: 20px; cursor: pointer; transition: 0.4s; width: 250px;
         }
-        .back-btn:hover { opacity: 0.6; transform: translateX(-5px); }
+        .calling-card.active:hover { border-color: var(--accent-blue); transform: scale(1.05); }
+        .calling-card.locked { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
+        .calling-card h3 { margin-bottom: 10px; }
+        .calling-card p { font-size: 0.85rem; color: var(--text-muted); }
 
-        /* --- HEADER --- */
-        .roadmap-header { padding: 60px 6vw 40px; text-align: center; max-width: 900px; margin: 0 auto; }
-        .roadmap-header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; letter-spacing: -1px; }
-        .roadmap-header p { color: var(--text-muted); font-size: 1.1rem; }
+        /* --- ROADMAP VIEWPORT --- */
+        #roadmap-container {
+            display: none; height: 100vh; overflow-x: auto; overflow-y: hidden;
+            padding: 50px 10vw; white-space: nowrap; align-items: center;
+            scroll-behavior: smooth;
+        }
 
-        /* --- LOGIC TREE CONTAINER --- */
-        .tree-container { max-width: 1000px; margin: 0 auto; padding: 0 6vw 100px; }
+        /* --- BRANCHING SYSTEM --- */
+        .node-column {
+            display: inline-flex; flex-direction: column; justify-content: center;
+            gap: 40px; vertical-align: middle; margin-right: 120px; position: relative;
+        }
         
-        .question-card {
-            background: white; border: 1px solid var(--border-color); border-radius: 24px;
-            padding: 40px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-            margin-bottom: 30px; transition: all 0.5s ease;
+        /* เส้นเชื่อม */
+        .node-column::after {
+            content: ''; position: absolute; right: -80px; top: 50%;
+            width: 80px; height: 1px; background: var(--border-color); z-index: -1;
         }
+        .node-column:last-child::after { display: none; }
 
-        .question-text { font-size: 1.4rem; font-weight: 600; margin-bottom: 30px; color: var(--text-main); }
-        
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        .opt-btn {
-            background: var(--bg-color); border: 1px solid var(--border-color);
-            padding: 25px; border-radius: 16px; cursor: pointer; transition: 0.3s;
-            text-align: left; position: relative; overflow: hidden;
+        .node-box {
+            background: var(--surface-color); border: 1px solid var(--border-color);
+            padding: 24px; border-radius: 16px; width: 300px; white-space: normal;
+            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
+            position: relative;
         }
-        .opt-btn:hover { border-color: var(--accent-blue); background: white; transform: translateY(-3px); }
-        .opt-title { display: block; font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; }
-        .opt-desc { display: block; font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
+        .node-box:hover { border-color: var(--accent-blue); background: #1C1C1C; transform: translateX(10px); }
+        .node-box.selected { border-color: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 102, 204, 0.2); }
+        
+        .node-tag { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .node-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .node-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
 
-        /* --- RESULT SECTION --- */
-        #result-area { display: none; margin-top: 40px; animation: fadeInUp 0.8s ease forwards; }
-        .result-card {
+        /* --- FINAL SPECIALTY CARD --- */
+        .specialty-result {
             background: linear-gradient(135deg, #0066CC 0%, #003366 100%);
-            color: white; padding: 50px; border-radius: 32px; text-align: center;
+            border: none; color: white;
         }
-        .result-card h2 { font-size: 2rem; margin-bottom: 15px; }
-        .reset-btn {
-            margin-top: 25px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
-            color: white; padding: 12px 30px; border-radius: 30px; cursor: pointer; backdrop-filter: blur(10px);
-        }
-        .reset-btn:hover { background: white; color: black; }
+        .specialty-result .node-desc { color: rgba(255,255,255,0.8); }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* --- UI ELEMENTS --- */
+        .back-nav { position: fixed; top: 30px; left: 6vw; z-index: 500; text-decoration: none; color: white; font-weight: 600; font-size: 0.9rem; opacity: 0.7; transition: 0.3s; }
+        .back-nav:hover { opacity: 1; }
 
-        @media (max-width: 768px) {
-            .options-grid { grid-template-columns: 1fr; }
-            .roadmap-header h1 { font-size: 1.8rem; }
-            .question-card { padding: 30px 20px; }
-        }
+        ::-webkit-scrollbar { height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+
     </style>
 </head>
 <body>
 
-    <nav class="top-bar">
-        <a href="../" class="back-btn">❮ ย้อนกลับ</a>
-        <div style="font-weight: 700; letter-spacing: 1px; font-size: 0.8rem; opacity: 0.5;">DECISION TREE V1.0</div>
-    </nav>
+    <a href="../" class="back-nav">❮ BACK TO MAIN</a>
 
-    <header class="roadmap-header">
-        <h1>ค้นหาเส้นทางที่ใช่ในสายการแพทย์</h1>
-        <p>เพราะ "หมอ" ไม่ได้มีแค่ตรวจคนไข้ ลองตอบคำถาม 3 ข้อนี้เพื่อดูว่าตัวตนของคุณเหมาะกับงานสไตล์ไหน</p>
-    </header>
+    <div id="entrance-overlay">
+        <div class="entrance-content">
+            <h1 class="calling-title">Choose Your Calling</h1>
+            <div class="calling-grid">
+                <div class="calling-card active" onclick="unlockRoadmap('medicine')">
+                    <h3>🩺 Medicine</h3>
+                    <p>Science, Patient Care, and the Mystery of Life.</p>
+                </div>
+                <div class="calling-card locked">
+                    <h3>💻 Engineering</h3>
+                    <p>Coming Soon: Systems, Logic, and Creation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <main class="tree-container">
+    <main id="roadmap-container">
         
-        <div id="step-1" class="question-card">
-            <p class="question-text">1. คุณสนุกกับการทำงานรูปแบบไหนมากที่สุด?</p>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="nextStep(2, 'clinical')">
-                    <span class="opt-title">สายคลินิก (Clinical)</span>
-                    <span class="opt-desc">ชอบพูดคุย ซักประวัติ และวินิจฉัยโรคจากคนไข้โดยตรง</span>
-                </button>
-                <button class="opt-btn" onclick="nextStep(2, 'non-clinical')">
-                    <span class="opt-title">สายสนับสนุน (Non-Clinical)</span>
-                    <span class="opt-desc">ชอบแก้ปัญหาเชิงระบบ วิจัย หรือทำงานกับเทคโนโลยีในห้อง Lab</span>
-                </button>
+        <div class="node-column" id="col-1">
+            <div class="node-box" onclick="branch(1, 'surgical', this)">
+                <span class="node-tag">Focus</span>
+                <p class="node-title">Procedure-Oriented</p>
+                <p class="node-desc">เน้นการลงมือทำ หัตถการ และการแก้ไขปัญหาด้วยมือ (Anatomy-driven)</p>
+            </div>
+            <div class="node-box" onclick="branch(1, 'medical', this)">
+                <span class="node-tag">Focus</span>
+                <p class="node-title">Reasoning-Oriented</p>
+                <p class="node-desc">เน้นการคิดวิเคราะห์ วินิจฉัยโรค และความสัมพันธ์ระยะยาว (Clinical Reasoning)</p>
             </div>
         </div>
 
-        <div id="step-2" class="question-card" style="display:none;">
-            <p id="q2-text" class="question-text"></p>
-            <div id="q2-options" class="options-grid"></div>
-        </div>
+        <div class="node-column" id="col-2" style="display:none;"></div>
 
-        <div id="result-area">
-            <div class="result-card">
-                <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 10px; opacity: 0.8;">Your Potential Path is</p>
-                <h2 id="result-title"></h2>
-                <p id="result-desc" style="max-width: 600px; margin: 0 auto; opacity: 0.9;"></p>
-                <button class="reset-btn" onclick="resetTree()">ลองเลือกใหม่</button>
-            </div>
-        </div>
+        <div class="node-column" id="col-3" style="display:none;"></div>
+
+        <div class="node-column" id="col-4" style="display:none;"></div>
 
     </main>
 
     <script>
-        let choices = {};
+        const treeData = {
+            surgical: {
+                title: "Interaction Type",
+                options: [
+                    { id: 'surg_direct', title: "High Procedure + Direct Contact", desc: "ผ่าตัดและดูแลคนไข้ตั้งแต่ต้นจนจบ", next: 'surg_res' },
+                    { id: 'surg_brief', title: "High Procedure + Brief Contact", desc: "เน้นหัตถการเฉพาะจุด ปฏิสัมพันธ์สั้นแต่มีประสิทธิภาพ", next: 'tech_res' }
+                ]
+            },
+            medical: {
+                title: "Patient Continuity",
+                options: [
+                    { id: 'med_long', title: "Long-term Relationship", desc: "ดูแลต่อเนื่อง ติดตามอาการ รักษาความสัมพันธ์", next: 'med_res' },
+                    { id: 'med_acute', title: "Acute / Shift Work", desc: "ดูแลรายครั้ง แก้ปัญหาเฉพาะหน้า ไม่เน้นติดตามยาว", next: 'shift_res' }
+                ]
+            }
+        };
 
-        function nextStep(step, value) {
-            choices[`step${step-1}`] = value;
-            
-            // ซ่อนปัจจุบัน
-            document.querySelectorAll('.question-card').forEach(card => card.style.display = 'none');
+        const results = {
+            surg_res: { title: "Surgical Specialties", desc: "Orthopedics, Plastics, Neurosurgery, OB/Gyn", tag: "The Surgeon" },
+            tech_res: { title: "Procedure-Based Tech", desc: "Anesthesia, Radiology, Ophthalmology", tag: "The Interventionist" },
+            med_res: { title: "Internal Medicine", desc: "Cardiology, Neurology, Pediatrics, Family Med", tag: "The Diagnostician" },
+            shift_res: { title: "Shift-Based Medicine", desc: "Emergency Medicine, Critical Care, Pathology", tag: "The Responder" }
+        };
 
-            if (step === 2) {
-                const q2 = document.getElementById('step-2');
-                const q2Text = document.getElementById('q2-text');
-                const q2Options = document.getElementById('q2-options');
-                
-                q2.style.display = 'block';
-                q2.style.animation = 'fadeInUp 0.5s ease';
+        function unlockRoadmap(type) {
+            document.getElementById('entrance-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('entrance-overlay').style.display = 'none';
+                const container = document.getElementById('roadmap-container');
+                container.style.display = 'flex';
+            }, 800);
+        }
 
-                if (value === 'clinical') {
-                    q2Text.innerText = "2. เวลาเจอวิชาที่ยาก คุณชอบแก้ปัญหายังไง?";
-                    q2Options.innerHTML = `
-                        <button class="opt-btn" onclick="showResult('หมอศัลยกรรม / หัตถการ', 'คุณชอบใช้ทักษะฝีมือ ความแม่นยำ และการตัดสินใจที่เฉียบขาดในสถานการณ์จริง')">
-                            <span class="opt-title">ลงมือทำทันที</span>
-                            <span class="opt-desc">เน้นแก้ปัญหาที่เห็นตรงหน้าด้วยความแม่นยำ</span>
-                        </button>
-                        <button class="opt-btn" onclick="showResult('อายุรแพทย์ / จิตแพทย์', 'คุณชอบการสืบค้น วิเคราะห์ข้อมูลที่ซับซ้อน และการสื่อสารเพื่อทำความเข้าใจมนุษย์')">
-                            <span class="opt-title">หาข้อมูลและวิเคราะห์</span>
-                            <span class="opt-desc">เน้นการเชื่อมโยงเหตุผลและฟังเรื่องราวอย่างใจเย็น</span>
-                        </button>
-                    `;
-                } else {
-                    q2Text.innerText = "2. คุณสนใจจุดตัดของเทคโนโลยีในด้านไหน?";
-                    q2Options.innerHTML = `
-                        <button class="opt-btn" onclick="showResult('นักนวัตกรรม / วิศวกรชีวการแพทย์', 'คุณเหมาะกับโลก Med-Tech การสร้างอุปกรณ์หรือ AI เพื่อช่วยหมอรักษาคนได้ทีละล้านคน')">
-                            <span class="opt-title">การสร้างและประดิษฐ์</span>
-                            <span class="opt-desc">อยากสร้างเครื่องมือหรือ Software ใหม่ๆ มาแก้ปัญหา</span>
-                        </button>
-                        <button class="opt-btn" onclick="showResult('นักวิจัย / ผู้เชี่ยวชาญด้านพันธุศาสตร์', 'คุณเหมาะกับการค้นหาความลับของชีวิตในระดับโมเลกุลหรือข้อมูลขนาดใหญ่')">
-                            <span class="opt-title">การค้นพบความลับใหม่ๆ</span>
-                            <span class="opt-desc">ชอบอยู่ใน Lab หรือทำงานกับ Data เพื่อหาคำตอบที่โลกยังไม่รู้</span>
-                        </button>
-                    `;
+        function branch(colIndex, key, element) {
+            // เคลียร์คลาส Selected ในคอลัมน์เดิม
+            const parent = element.parentElement;
+            parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // ซ่อนคอลัมน์ที่อยู่ถัดไปทั้งหมดเพื่อเริ่มกิ่งใหม่
+            for (let i = colIndex + 1; i <= 4; i++) {
+                const col = document.getElementById(`col-${i}`);
+                if (col) {
+                    col.style.display = 'none';
+                    col.innerHTML = '';
                 }
             }
-        }
 
-        function showResult(title, desc) {
-            document.getElementById('step-2').style.display = 'none';
-            document.getElementById('result-area').style.display = 'block';
-            document.getElementById('result-title').innerText = title;
-            document.getElementById('result-desc').innerText = desc;
-        }
+            const nextCol = document.getElementById(`col-${colIndex + 1}`);
+            if (!nextCol) return;
 
-        function resetTree() {
-            choices = {};
-            document.getElementById('result-area').style.display = 'none';
-            document.getElementById('step-1').style.display = 'block';
+            if (treeData[key]) {
+                const data = treeData[key];
+                nextCol.style.display = 'flex';
+                nextCol.style.animation = 'fadeInRight 0.5s ease forwards';
+                
+                data.options.forEach(opt => {
+                    const box = document.createElement('div');
+                    box.className = 'node-box';
+                    box.onclick = () => branch(colIndex + 1, opt.next, box);
+                    box.innerHTML = `
+                        <span class="node-tag">${data.title}</span>
+                        <p class="node-title">${opt.title}</p>
+                        <p class="node-desc">${opt.desc}</p>
+                    `;
+                    nextCol.appendChild(box);
+                });
+            } else if (results[key]) {
+                // แสดงผลลัพธ์สุดท้าย
+                const res = results[key];
+                nextCol.style.display = 'flex';
+                nextCol.innerHTML = `
+                    <div class="node-box specialty-result">
+                        <span class="node-tag" style="color: white; opacity: 0.7;">Result</span>
+                        <p class="node-title">${res.title}</p>
+                        <p class="node-desc">${res.desc}</p>
+                        <p style="margin-top: 15px; font-weight: 700;">${res.tag}</p>
+                    </div>
+                `;
+                // เลื่อนไปทางขวาสุดเพื่อดูผลลัพธ์
+                setTimeout(() => {
+                    document.getElementById('roadmap-container').scrollLeft += 500;
+                }, 100);
+            }
         }
     </script>
+
+    <style>
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
 </body>
 </html>
