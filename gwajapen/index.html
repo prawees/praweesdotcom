@@ -16,8 +16,27 @@
         .lang-switcher button { background: transparent; border: none; font-size: 0.8rem; font-weight: 600; color: inherit; cursor: pointer; opacity: 0.6; transition: 0.3s; }
         .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
         
-        .hero { position: relative; width: 100%; height: 70vh; min-height: 550px; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; padding-bottom: 60px; }
-        .hero-banner-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+        /* --- HERO SECTION REPOSITIONED --- */
+        .hero { 
+            position: relative; 
+            width: 100%; 
+            height: 80vh; /* เพิ่มความสูงเพื่อให้มีพื้นที่ว่างตรงกลางภาพมากขึ้น */
+            min-height: 600px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 
+            overflow: hidden; 
+            padding-bottom: 80px; /* เพิ่มระยะห่างจากขอบล่าง */
+        }
+        .hero-banner-img { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center 35%; /* เลื่อนภาพขึ้นเพื่อให้ตัวหนังสือบนภาพพ้นจากปุ่ม */
+            z-index: -1; 
+        }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%); z-index: 0; }
         .hero-content { position: relative; z-index: 1; text-align: center; color: white; max-width: 850px; padding: 0 24px; }
         .hero-socials { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
@@ -55,7 +74,17 @@
         body.lang-th .aesthetic-heading, body.lang-th .cloud-word, body.lang-th .video-tag, body.lang-th .hero-socials a, body.lang-th .footer-links a, body.lang-th .roadmap-btn { letter-spacing: normal !important; }
 
         @media (min-width: 1024px) { .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; } .col-left, .col-right { display: flex; flex-direction: column; gap: 40px; } }
-        @media (max-width: 1023px) { .hero { height: 65vh; padding-bottom: 40px; } .main-layout { display: flex; flex-direction: column; gap: 40px; } .col-left, .col-right { display: contents; } .wordcloud-section { order: 1; } .database-section { order: 2; } .video-section { order: 3; } .suggestion-section { order: 4; } .aesthetic-heading { white-space: normal; } }
+        @media (max-width: 1023px) { 
+            .hero { height: 75vh; padding-bottom: 50px; } 
+            .hero-banner-img { object-position: center 30%; } /* มือถือเลื่อนขึ้นอีกนิด */
+            .main-layout { display: flex; flex-direction: column; gap: 40px; } 
+            .col-left, .col-right { display: contents; } 
+            .wordcloud-section { order: 1; } 
+            .database-section { order: 2; } 
+            .video-section { order: 3; } 
+            .suggestion-section { order: 4; } 
+            .aesthetic-heading { white-space: normal; } 
+        }
     </style>
 </head>
 <body class="lang-th">
