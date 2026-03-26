@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
+            /* --- EARTH TONE THEME --- */
             --bg-color: #FDF8F2; 
             --surface-color: #FFFFFF;
             --text-main: #4A3F35; 
@@ -22,11 +23,23 @@
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; overflow: hidden; height: 100vh; position: relative; }
         
-        #bg-canvas { position: fixed; inset: -50%; z-index: -10; background: radial-gradient(ellipse at center, #FFFFFF 0%, #FDF8F2 40%, #EFE1D1 100%); background-size: 200% 200%; animation: calmBreath 20s ease-in-out infinite alternate; }
+        body { 
+            background-color: var(--bg-color); color: var(--text-main); 
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            overflow: hidden; height: 100vh; position: relative;
+        }
+        
+        /* --- CALMING CONTINUOUS BACKGROUND --- */
+        #bg-canvas { 
+            position: fixed; inset: -50%; z-index: -10; 
+            background: radial-gradient(ellipse at center, #FFFFFF 0%, #FDF8F2 40%, #EFE1D1 100%);
+            background-size: 200% 200%;
+            animation: calmBreath 20s ease-in-out infinite alternate;
+        }
         @keyframes calmBreath { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
+        /* --- HEADER & TOP CONTROLS --- */
         .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.85; }
         
@@ -41,29 +54,35 @@
         .lang-switcher button { background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
         .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 3px; }
 
+        /* --- ENTRANCE --- */
         #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
         .calling-grid { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; padding: 40px; }
         .calling-card { background: white; border: 1.5px solid var(--border-color); padding: 50px 30px; border-radius: 40px; cursor: pointer; transition: 0.4s; width: 280px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
         .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.1); }
         .calling-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
-        /* --- SVG CANVAS --- */
+        /* --- SVG CANVAS FOR CONNECTING LINES --- */
         #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         .connection-line { fill: none; stroke: var(--line-color); stroke-width: 2.5px; }
-        .animate-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        /* The animation class */
+        .animate-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes drawLine { to { stroke-dashoffset: 0; } }
 
+        /* --- ROADMAP VIEWPORT --- */
         #roadmap-container { 
             display: none; height: calc(100vh - 140px); margin-top: 140px;
-            overflow: auto; padding: 50px 8vw 100px; align-items: flex-start; scroll-behavior: smooth; position: relative; z-index: 10;
+            overflow: auto; padding: 50px 8vw 100px;
+            align-items: flex-start; scroll-behavior: smooth; 
+            position: relative; z-index: 10;
         }
         
         .flex-wrapper { display: flex; gap: 150px; min-width: max-content; padding-bottom: 50px; position: relative; }
+
         .node-column { display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 10; padding: 10px 0; }
         
         .node-box { 
             background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 25px; 
-            width: 350px; white-space: normal; transition: 0.3s ease; cursor: pointer; 
+            width: 350px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 20;
         }
         .node-box:hover { border-color: var(--accent-primary); transform: translateX(5px); box-shadow: 0 10px 25px rgba(166, 123, 91, 0.1); }
@@ -74,14 +93,26 @@
         .node-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px; line-height: 1.3; }
         .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        .specialty-result { background: linear-gradient(135deg, #4A3F35 0%, #2B231D 100%); border: 2px solid var(--accent-gold); color: white; padding: 40px; width: 420px; box-shadow: 0 30px 60px rgba(0,0,0,0.25); }
+        /* Glamorous Specialty Result */
+        .specialty-result { 
+            background: linear-gradient(135deg, #4A3F35 0%, #2B231D 100%);
+            border: 2px solid var(--accent-gold); color: white; padding: 40px; width: 420px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+        }
         .specialty-result * { color: white !important; }
         .specialty-result .node-tag { color: var(--accent-gold) !important; }
-        .aamc-btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 25px; padding: 14px 30px; background: var(--accent-gold); color: #000 !important; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+        
+        .aamc-btn { 
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 25px; padding: 14px 30px; 
+            background: var(--accent-gold); color: #000 !important; 
+            text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
         .aamc-btn:hover { transform: translateY(-3px); background: #E5C35D; }
 
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-corner { background: transparent; }
         
         body.lang-th .node-title, body.lang-th .node-desc, body.lang-th .roadmap-title-badge { letter-spacing: normal !important; }
     </style>
@@ -122,7 +153,7 @@
         </div>
     </div>
     
-    <main id="roadmap-container">
+    <main id="roadmap-container" onscroll="drawLines()">
         <div class="flex-wrapper" id="content-wrapper">
             <svg id="svg-canvas"></svg> 
             
@@ -204,7 +235,7 @@
             c_child_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'peds_gen', emoji: '👶', title_th: "กุมารเวชศาสตร์ทั่วไป", title_en: "General Pediatrics", desc_th: "ดูแลพัฒนาการและสุขภาพเด็ก", desc_en: "Overall child health and primary pediatric care.", next: 'PEDS_END' },
                 { id: 'nicu', emoji: '🍼', title_th: "ทารกแรกเกิดปริกำเนิด", title_en: "Neonatology", desc_th: "ดูแลทารกคลอดก่อนกำหนดใน NICU", desc_en: "Intensive care for newborn and premature infants.", next: 'NICU_END' },
-                { id: 'peds_sub', emoji: '🧩', title_th: "กุมารเวชศาสตร์เฉพาะทาง", title_en: "Pediatric Subspecialties", desc_th: "โรคเฉพาะระบบในเด็ก (หัวใจ, ปอด ฯลฯ)", desc_en: "Specialized care (Peds Cardio, Peds Neuro, etc.).", next: 'PEDSSUB_END' }
+                { id: 'peds_sub', emoji: '🧩', title_th: "กุมารเวชศาสตร์เฉพาะทาง", title_en: "Pediatric Subspecialties", desc_th: "โรคเฉพาะระบบในเด็ก (หัวใจเด็ก, ภูมิแพ้เด็ก ฯลฯ)", desc_en: "Highly specialized medical care for children's specific systems.", next: 'PEDSSUB_END' }
             ]},
             c_mind_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'neuro', emoji: '🧠', title_th: "ประสาทวิทยา", title_en: "Neurology", desc_th: "นักสืบสัญญาณไฟฟ้าสมอง", desc_en: "Experts in the brain and nervous system disorders.", next: 'NEURO_END' },
@@ -231,7 +262,8 @@
             su_pop_sub: { title_th: "Specialty", title_en: "Specialty", options: [
                 { id: 'prev', emoji: '🛡️', title_th: "เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "ระบาดวิทยาและสาธารณสุข", desc_en: "Promoting health and preventing disease.", next: 'PREV_END' },
                 { id: 'occmed', emoji: '🏭', title_th: "อาชีวเวชศาสตร์", title_en: "Occupational Medicine", desc_th: "ดูแลสุขภาพความปลอดภัยคนทำงาน", desc_en: "Health and safety in the workplace.", next: 'OCCMED_END' },
-                { id: 'aero', emoji: '✈️', title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", desc_th: "ดูแลสุขภาพนักบินและนักบินอวกาศ", desc_en: "Health of pilots, aircrews, and astronauts.", next: 'AERO_END' }
+                { id: 'aero', emoji: '✈️', title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", desc_th: "ดูแลสุขภาพนักบินและนักบินอวกาศ", desc_en: "Health of pilots, aircrews, and astronauts.", next: 'AERO_END' },
+                { id: 'traffic', emoji: '🚗', title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", desc_th: "วิเคราะห์และป้องกันอุบัติเหตุบนท้องถนนเชิงระบบสาธารณสุข", desc_en: "Focusing on road safety, injury prevention, and transport health.", next: 'TRAFFIC_END' }
             ]}
         };
 
@@ -243,8 +275,10 @@
             TRAUMA_END: { title_th: "ศัลยแพทย์อุบัติเหตุ", title_en: "Trauma Surgeon", desc_th: "ผู้กอบกู้ความเสียหายของร่างกายจากอุบัติเหตุรุนแรงฉุกเฉิน", desc_en: "Surgical intervention for acute, life-threatening injuries.", slug: "general-surgery" },
             GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", desc_th: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาอวัยวะช่องท้อง", desc_en: "The pillar of the OR, specializing in abdominal organs.", slug: "general-surgery" },
             CVT_END: { title_th: "ศัลยแพทย์ทรวงอก", title_en: "Thoracic Surgeon", desc_th: "ศิลปินผู้ดูแลเครื่องยนต์หลักของร่างกาย ทั้งหัวใจและปอด", desc_en: "Operating on the main engines of the body: the heart and lungs.", slug: "thoracic-surgery" },
+            VASC_END: { title_th: "ศัลยแพทย์หลอดเลือด", title_en: "Vascular Surgeon", desc_th: "ช่างประปาแห่งร่างกาย ผู้ซ่อมแซมเส้นทางลำเลียงเลือดทั่วร่าง", desc_en: "The body's plumber, repairing the vascular pathways.", slug: "vascular-surgery" },
             URO_END: { title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", desc_th: "ผู้เชี่ยวชาญระบบขับถ่ายที่ผสานทักษะผ่าตัดกับเทคโนโลยีส่องกล้อง", desc_en: "Experts in the urinary tract combining surgery with endoscopy.", slug: "urology" },
             OBGYN_END: { title_th: "สูตินรีแพทย์", title_en: "OB/GYN", desc_th: "ผู้ดูแลสุขภาพสตรีและผู้นำทางพิทักษ์วินาทีแห่งการให้กำเนิดชีวิต", desc_en: "Caring for women's health and the miracles of childbirth.", slug: "obstetrics-and-gynecology" },
+            PEDSURG_END: { title_th: "กุมารศัลยแพทย์", title_en: "Pediatric Surgeon", desc_th: "ผู้เชี่ยวชาญการผ่าตัดร่างกายที่เล็กและเปราะบางของเด็ก", desc_en: "Highly specialized surgery for infants and children.", slug: "pediatric-surgery" },
             ORTHO_END: { title_th: "ศัลยแพทย์ออร์โธปิดิกส์", title_en: "Orthopedic Surgeon", desc_th: "วิศวกรโครงสร้างมนุษย์ ผู้ประกอบและซ่อมแซมกระดูก ข้อต่อ", desc_en: "The human structural engineer, repairing bones and joints.", slug: "orthopedic-surgery" },
             NS_END: { title_th: "ศัลยแพทย์ประสาท", title_en: "Neurosurgeon", desc_th: "ผู้ทำงานด้วยสมาธิสูงสุดบนระบบประมวลผลที่ซับซ้อนที่สุดในจักรวาล", desc_en: "Operating with extreme precision on the complex nervous system.", slug: "neurosurgery" },
             PLASTIC_END: { title_th: "ศัลยแพทย์ตกแต่ง", title_en: "Plastic Surgeon", desc_th: "สถาปนิกแห่งความงามและการบูรณะเนื้อเยื่อเพื่อฟื้นฟูคุณภาพชีวิต", desc_en: "Architects of aesthetics and tissue restoration.", slug: "plastic-surgery" },
@@ -253,13 +287,13 @@
 
             // --- COGNITIVE ENDS ---
             CARDIO_END: { title_th: "อายุรแพทย์โรคหัวใจ", title_en: "Cardiologist", desc_th: "นักสืบผู้ถอดรหัสจังหวะชีวิต และรักษาหัวใจด้วยเทคโนโลยีขั้นสูง", desc_en: "Detectives of the pulse, treating the heart with advanced tech.", slug: "internal-medicine-cardiovascular-disease" },
-            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", desc_th: "ผู้เชี่ยวชาญระบบหายใจ ท่ออากาศ และการดูแลใน ICU", desc_en: "Specialists of the airways and respiratory challenges.", slug: "pulmonary-disease" },
+            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", desc_th: "ผู้เชี่ยวชาญระบบหายใจ ท่ออากาศ และความท้าทายในห้อง ICU", desc_en: "Specialists of the airways and respiratory challenges.", slug: "pulmonary-disease" },
             GI_END: { title_th: "หมอทางเดินอาหาร", title_en: "Gastroenterologist", desc_th: "นักสำรวจระบบย่อยอาหาร ผู้เชี่ยวชาญการใช้กล้อง Endoscope", desc_en: "Explorers of the digestive system and endoscopy experts.", slug: "internal-medicine-gastroenterology" },
             NEPHRO_END: { title_th: "อายุรแพทย์โรคไต", title_en: "Nephrologist", desc_th: "ผู้ควบคุมสมดุลน้ำและจัดการโรงงานกรองของเสียของร่างกาย", desc_en: "Managers of fluid balance and the body's filtration system.", slug: "internal-medicine-nephrology" },
             NEURO_END: { title_th: "อายุรแพทย์ประสาทวิทยา", title_en: "Neurologist", desc_th: "ผู้ไขปริศนาความผิดปกติของสัญญาณไฟฟ้าและพฤติกรรมสมอง", desc_en: "Solving the mysteries of brain signals and behaviors.", slug: "neurology" },
             ENDO_END: { title_th: "แพทย์ต่อมไร้ท่อ", title_en: "Endocrinologist", desc_th: "ผู้ควบคุมสมดุลฮอร์โมนและกระบวนการเผาผลาญ (Metabolism) ทั้งหมด", desc_en: "Controllers of hormonal balance and metabolism.", slug: "endocrinology-diabetes-and-metabolism" },
             RHEUM_END: { title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", desc_th: "ผู้ถอดรหัสความผิดปกติของภูมิคุ้มกันและโรคข้ออักเสบ", desc_en: "Decoding autoimmune diseases and arthritis.", slug: "rheumatology" },
-            ONC_END: { title_th: "อายุรแพทย์โลหิตวิทยาและมะเร็ง", title_en: "Hematologist / Oncologist", desc_th: "นักวางกลยุทธ์ต่อสู้กับโรคมะเร็งด้วยความรู้เคมีและเซลล์", desc_en: "Strategists fighting cancer with chemistry and genetics.", slug: "hematology-and-medical-oncology" },
+            ONC_END: { title_th: "อายุรแพทย์โลหิตวิทยาและมะเร็ง", title_en: "Hematologist / Oncologist", desc_th: "นักวางกลยุทธ์ต่อสู้กับโรคมะเร็งด้วยความรู้เคมีและพันธุกรรม", desc_en: "Strategists fighting cancer with chemistry and genetics.", slug: "hematology-and-medical-oncology" },
             ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease Specialist", desc_th: "นักสืบผู้ตามล่าหาจุลชีพก่อโรค และวางแผนยาปฏิชีวนะแบบเฉียบขาด", desc_en: "Hunters of pathogens and masters of antibiotics.", slug: "infectious-disease" },
             ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist / Immunologist", desc_th: "ผู้จัดการปฏิกิริยาต่อต้านของร่างกายและเสริมสร้างภูมิคุ้มกัน", desc_en: "Managing severe allergic reactions and immune deficiencies.", slug: "allergy-and-immunology" },
             GENE_END: { title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", desc_th: "ผู้อ่านรหัสชีวิตและวางแผนรับมือกับโรคที่แฝงมาใน DNA", desc_en: "Reading the code of life and managing DNA-based diseases.", slug: "medical-genetics" },
@@ -276,6 +310,7 @@
             PREV_END: { title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "นักระบาดวิทยา ผู้เน้นการป้องกันระดับประชากรเพื่อไม่ให้คนป่วย", desc_en: "Epidemiologists focusing on population-level prevention.", slug: "preventive-medicine" },
             OCCMED_END: { title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", desc_th: "ดูแลสุขภาพ ความปลอดภัย และสิ่งแวดล้อมของคนทำงานโรงงาน/บริษัท", desc_en: "Keeping workers safe and healthy in their environments.", slug: "occupational-and-environmental-medicine" },
             AERO_END: { title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", desc_th: "ดูแลข้อจำกัดทางสรีรวิทยาของนักบินและมนุษย์อวกาศ", desc_en: "Managing the physiological challenges of flight and space.", slug: "aerospace-medicine" },
+            TRAFFIC_END: { title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", desc_th: "วิเคราะห์และป้องกันอุบัติเหตุบนท้องถนนเชิงระบบสาธารณสุข", desc_en: "Focusing on road safety, injury prevention, and transport health.", slug: "preventive-medicine" },
             PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", desc_th: "ผู้ออกแบบการคืนศักยภาพและการเคลื่อนไหว เพื่อคุณภาพชีวิตที่ดีที่สุด", desc_en: "Designing rehabilitation for the best quality of life.", slug: "physical-medicine-and-rehabilitation" },
             FM_END: { title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", desc_th: "ผู้ดูแลสุขภาพแบบองค์รวม ผูกพันกับคนไข้ตั้งแต่วัยรุ่นจนถึงวัยชรา", desc_en: "Holistic care, bonding with patients across their lifespan.", slug: "family-medicine" },
             PALL_END: { title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", desc_th: "แพทย์ผู้ช่วยบรรเทาความทุกข์ทรมาน และดูแลคุณภาพชีวิตระยะสุดท้าย", desc_en: "Relieving suffering and providing comfort in serious illnesses.", slug: "hospice-and-palliative-medicine" }
@@ -312,9 +347,14 @@
             element.classList.add('selected'); 
             stateSelections[colIndex] = element.id;
 
+            // Hide and clear subsequent columns
             for (let i = colIndex + 1; i <= 5; i++) { 
                 const col = document.getElementById(`col-${i}`); 
-                if (col) { col.style.display = 'none'; col.innerHTML = ''; delete stateSelections[i]; } 
+                if (col) { 
+                    col.style.display = 'none'; 
+                    col.innerHTML = ''; 
+                    delete stateSelections[i];
+                } 
             } 
 
             const nextCol = document.getElementById(`col-${colIndex + 1}`); 
@@ -336,7 +376,7 @@
                         <span class="node-tag">${currentLang === 'th' ? data.title_th : data.title_en}</span>
                         <p class="node-title">${currentLang === 'th' ? opt.title_th : opt.title_en}</p>
                         <p class="node-desc">${currentLang === 'th' ? opt.desc_th : opt.desc_en}</p>`; 
-                    // Mark this column as needing line animation
+                    // Set custom marker to know this needs animation
                     box.setAttribute('data-new', 'true');
                     nextCol.appendChild(box); 
                 }); 
@@ -352,6 +392,7 @@
                     </div>`; 
             } 
 
+            // Allow DOM to render, then draw lines
             setTimeout(() => { 
                 drawLines();
                 document.getElementById('roadmap-container').scrollBy({ left: 450, behavior: 'smooth' }); 
