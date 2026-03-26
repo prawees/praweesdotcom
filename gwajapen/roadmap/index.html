@@ -9,12 +9,12 @@
     <style>
         :root { 
             /* --- EARTH TONE THEME --- */
-            --bg-color: #FDF8F2; /* Creamy beige */
-            --surface-color: rgba(255, 255, 255, 0.9);
-            --text-main: #4A3F35; /* Deep brown */
+            --bg-color: #FDF8F2; 
+            --surface-color: rgba(255, 255, 255, 0.95);
+            --text-main: #4A3F35; 
             --text-muted: #8C7A6B; 
             --border-color: rgba(140, 122, 107, 0.2); 
-            --accent-primary: #A67B5B; /* Terracotta brown */
+            --accent-primary: #A67B5B; 
             --accent-gold: #D4AF37;
             --category-surg: #B2533E;
             --category-med: #576F72;
@@ -24,119 +24,129 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', sans-serif; overflow: hidden; height: 100vh; }
         
-        /* --- AESTHETIC BACKGROUND --- */
+        /* --- BACKGROUND --- */
         #bg-canvas { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #FDF8F2 0%, #F5E8DD 100%); transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* --- BANNER --- */
-        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 100; border-bottom: 1px solid var(--border-color); background: white; }
-        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.9; }
+        /* --- HEADER BANNER (THICKER) --- */
+        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 160px; overflow: hidden; z-index: 100; border-bottom: 2px solid var(--border-color); background: white; }
+        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
         
-        .back-nav { position: fixed; top: 45px; left: 6vw; z-index: 110; text-decoration: none; color: var(--text-main); font-weight: 700; background: rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; border: 1px solid var(--border-color); }
-        .back-nav:hover { transform: translateY(-2px); background: white; }
+        .back-nav { position: fixed; top: 55px; left: 6vw; z-index: 110; text-decoration: none; color: var(--text-main); font-weight: 700; background: rgba(255,255,255,0.9); padding: 12px 24px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border: 1px solid var(--border-color); }
+        .back-nav:hover { transform: translateY(-2px); background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
-        /* --- ENTRANCE --- */
+        /* --- ENTRANCE OVERLAY --- */
         #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
-        .calling-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; padding: 20px; }
-        .calling-card { background: white; border: 1px solid var(--border-color); padding: 40px; border-radius: 35px; cursor: pointer; transition: 0.4s; width: 280px; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.03); }
-        .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px); }
-        .calling-card.locked { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
-        .calling-card h3 { font-size: 1.5rem; color: var(--accent-primary); }
+        .calling-grid { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; padding: 40px; }
+        .calling-card { background: white; border: 1.5px solid var(--border-color); padding: 50px 30px; border-radius: 40px; cursor: pointer; transition: 0.4s; width: 280px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.1); }
+        .calling-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+        .calling-card h3 { font-size: 1.6rem; color: var(--text-main); margin-top: 15px; }
 
         /* --- ROADMAP VIEWPORT --- */
         #roadmap-container { 
-            display: none; height: 100vh; overflow-x: auto; overflow-y: hidden; 
-            padding: 160px 10vw 60px; /* Space for 140px banner */
-            white-space: nowrap; align-items: stretch; scroll-behavior: smooth; 
+            display: none; 
+            height: calc(100vh - 160px); 
+            margin-top: 160px;
+            overflow-x: auto; overflow-y: hidden; 
+            padding: 40px 8vw;
+            white-space: nowrap; align-items: flex-start; scroll-behavior: smooth; 
         }
 
+        /* --- VERTICAL SCROLLABLE COLUMNS --- */
         .node-column { 
             display: inline-flex; flex-direction: column; 
-            gap: 40px; margin-right: 220px; position: relative;
-            height: 100%; overflow-y: auto; /* ALLOW VERTICAL SCROLL WITHIN COLUMNS */
-            padding-right: 20px; scrollbar-width: none;
+            gap: 30px; margin-right: 220px; position: relative;
+            height: 100%; 
+            overflow-y: auto; /* ENABLE VERTICAL SCROLL */
+            padding-right: 15px;
+            vertical-align: top;
         }
-        .node-column::-webkit-scrollbar { display: none; }
+        .node-column::-webkit-scrollbar { width: 4px; }
+        .node-column::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.1); border-radius: 10px; }
         
-        .node-column::after { content: ''; position: absolute; right: -130px; top: 50%; width: 130px; height: 2px; background: var(--accent-primary); opacity: 0.1; z-index: -1; }
+        .node-column::after { content: ''; position: absolute; right: -110px; top: 100px; width: 110px; height: 1.5px; background: var(--accent-primary); opacity: 0.15; z-index: -1; }
         .node-column:last-child::after { display: none; }
 
         .node-box { 
-            background: white; border: 1.5px solid var(--border-color); padding: 25px; border-radius: 25px; 
-            width: 320px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
+            background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 30px; 
+            width: 340px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0;
+            position: relative;
         }
-        .node-box:hover { border-color: var(--accent-primary); transform: scale(1.02); }
-        .node-box.selected { border-color: var(--accent-primary); background: #FAF3EC; box-shadow: 0 10px 25px rgba(166, 123, 91, 0.1); }
+        .node-box:hover { border-color: var(--accent-primary); transform: scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.04); }
+        .node-box.selected { border-color: var(--accent-primary); background: #FAF6F2; }
         
-        .node-emoji { font-size: 1.8rem; margin-bottom: 12px; display: block; }
-        .node-tag { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; color: var(--accent-primary); }
-        .node-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
-        .node-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        .node-emoji { font-size: 2rem; margin-bottom: 12px; display: block; }
+        .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1.5px; color: var(--accent-primary); opacity: 0.8; }
+        .node-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
+        .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        /* Glamorous Specialty Result */
+        /* Glamorous Result Card */
         .specialty-result { 
-            background: linear-gradient(135deg, #4A3F35 0%, #2B231D 100%);
-            border: none; color: white; padding: 40px; width: 400px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #3D352E 0%, #211C18 100%);
+            border: 2px solid var(--accent-gold); color: white; padding: 45px; width: 420px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
         }
         .specialty-result * { color: white !important; }
-        .aamc-link { 
-            display: inline-block; margin-top: 20px; padding: 12px 25px; 
+        .specialty-result .node-tag { color: var(--accent-gold) !important; opacity: 1; }
+        
+        .aamc-btn { 
+            display: inline-block; margin-top: 25px; padding: 14px 30px; 
             background: var(--accent-gold); color: #000 !important; 
-            text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.85rem;
-            transition: 0.3s;
+            text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
         }
-        .aamc-link:hover { transform: scale(1.05); background: white; }
+        .aamc-btn:hover { transform: translateY(-3px); background: #E5C35D; box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3); }
 
         ::-webkit-scrollbar { height: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 10px; opacity: 0.2; }
+        ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.2); border-radius: 10px; }
     </style>
 </head>
 <body>
     <div class="header-banner"><img src="../banner.jpg" alt="Banner"></div>
     <div id="bg-canvas"></div>
-    <a href="../" class="back-nav">❮ กลับหน้าหลัก</a>
+    <a href="../" class="back-nav">❮ ย้อนกลับหน้าหลัก</a>
     
     <div id="entrance-overlay">
-        <h1 style="font-size: 2.5rem; margin-bottom:40px; color: var(--text-main);">Choose Your Calling</h1>
+        <h1 style="font-size: 2.8rem; margin-bottom:50px; color: var(--text-main); letter-spacing: -1.5px;">Choose Your Calling</h1>
         <div class="calling-grid">
-            <div class="calling-card active" onclick="unlockRoadmap('medicine')">
-                <span style="font-size: 3rem;">🩺</span>
-                <h3 style="margin-top:15px;">Medicine</h3>
-                <p style="color: #8C7A6B; font-size: 0.9rem; margin-top:5px;">ศาสตร์แห่งการรักษา</p>
+            <div class="calling-card active" onclick="unlockRoadmap()">
+                <span style="font-size: 3.5rem;">🩺</span>
+                <h3>Medicine</h3>
+                <p style="color: var(--text-muted); margin-top:10px;">ศาสตร์แห่งการรักษาและชีวิต</p>
             </div>
             <div class="calling-card locked">
-                <span style="font-size: 3rem;">⚙️</span>
-                <h3 style="margin-top:15px;">Engineering</h3>
-                <p style="color: #8C7A6B; font-size: 0.9rem; margin-top:5px;">เร็วๆ นี้</p>
+                <span style="font-size: 3.5rem;">⚙️</span>
+                <h3>Engineering</h3>
+                <p style="color: var(--text-muted); margin-top:10px;">เร็วๆ นี้</p>
             </div>
             <div class="calling-card locked">
-                <span style="font-size: 3rem;">💻</span>
-                <h3 style="margin-top:15px;">Computer Sci</h3>
-                <p style="color: #8C7A6B; font-size: 0.9rem; margin-top:5px;">เร็วๆ นี้</p>
+                <span style="font-size: 3.5rem;">💻</span>
+                <h3>Computer Sci</h3>
+                <p style="color: var(--text-muted); margin-top:10px;">เร็วๆ นี้</p>
             </div>
         </div>
     </div>
     
     <main id="roadmap-container">
         <div class="node-column" id="col-1">
-            <div class="node-box" onclick="branch(1, 'surgical_path', this)" style="border-left: 6px solid var(--category-surg)">
-                <span class="node-emoji">🔪</span>
-                <span class="node-tag">Surgical Focus</span>
-                <p class="node-title">เน้นหัตถการ (Surgical)</p>
-                <p class="node-desc">เน้นการลงมือทำ การผ่าตัด และการแก้ปัญหาเชิงโครงสร้าง</p>
+            <div class="node-box" onclick="branch(1, 'surgical', this)" style="border-left: 8px solid var(--category-surg)">
+                <span class="node-emoji">⚔️</span>
+                <span class="node-tag">The Performer</span>
+                <p class="node-title">สายหัตถการ (Surgical)</p>
+                <p class="node-desc">เน้นการลงมือทำ การผ่าตัด และการใช้ทักษะมือแก้ปัญหาเชิงโครงสร้าง</p>
             </div>
-            <div class="node-box" onclick="branch(1, 'medical_path', this)" style="border-left: 6px solid var(--category-med)">
-                <span class="node-emoji">🧠</span>
-                <span class="node-tag">Medical Focus</span>
-                <p class="node-title">เน้นการวินิจฉัย (Medical)</p>
-                <p class="node-desc">เน้นการคิดวิเคราะห์ พยาธิสรีรวิทยา และการใช้ยา</p>
+            <div class="node-box" onclick="branch(1, 'medical', this)" style="border-left: 8px solid var(--category-med)">
+                <span class="node-emoji">🔍</span>
+                <span class="node-tag">The Detective</span>
+                <p class="node-title">สายวินิจฉัย (Medical)</p>
+                <p class="node-desc">เน้นการคิดวิเคราะห์กลไกของโรค พยาธิสรีรวิทยา และการวางแผนรักษาด้วยยา</p>
             </div>
-            <div class="node-box" onclick="branch(1, 'support_path', this)" style="border-left: 6px solid var(--category-supp)">
-                <span class="node-emoji">🚨</span>
-                <span class="node-tag">Support Focus</span>
-                <p class="node-title">เน้นการสนับสนุน (Support)</p>
-                <p class="node-desc">ทำงานร่วมกับเทคโนโลยี หรือสถานการณ์วิกฤตหน้างาน</p>
+            <div class="node-box" onclick="branch(1, 'support', this)" style="border-left: 8px solid var(--category-supp)">
+                <span class="node-emoji">🛡️</span>
+                <span class="node-tag">The Architect</span>
+                <p class="node-title">สายสนับสนุน (Support)</p>
+                <p class="node-desc">เน้นการทำงานหลังบ้าน การใช้เทคโนโลยีสืบค้น หรือการดูแลสภาวะวิกฤต</p>
             </div>
         </div>
         <div class="node-column" id="col-2" style="display:none;"></div>
@@ -147,82 +157,89 @@
     
     <script>
         const treeData = {
-            // SURGICAL BRANCH
-            surgical_path: { title: "Specialization", options: [
-                { id: 's_major', emoji: '🏥', title: "ศัลยกรรมอวัยวะหลัก", desc: "ผ่าตัดในช่องท้อง ทรวงอก หรือภาพรวม", next: 's_major_sub' },
-                { id: 's_heavy', emoji: '🦴', title: "ศัลยกรรมโครงสร้างหนัก", desc: "เน้นกระดูก หรือ ระบบประสาทส่วนกลาง", next: 's_heavy_sub' },
-                { id: 's_micro', emoji: '👁️', title: "ศัลยกรรมเฉพาะส่วนละเอียด", desc: "เน้นความงาม หรือ อวัยวะขนาดเล็ก", next: 's_micro_sub' }
+            // --- SURGICAL BRANCH ---
+            surgical: { title: "Surgery Area", options: [
+                { id: 's_organ', emoji: '🫀', title: "อวัยวะภายใน & ช่องโพรง", desc: "ผ่าตัดในช่องท้อง ทรวงอก หรือทางเดินปัสสาวะ", next: 's_organ_sub' },
+                { id: 's_heavy', emoji: '🔩', title: "โครงสร้างหลัก & ระบบประสาท", desc: "เน้นกระดูก ข้อต่อ หรือระบบประสาทส่วนกลาง", next: 's_heavy_sub' },
+                { id: 's_micro', emoji: '🔬', title: "งานละเอียดส่วนหัว & ความงาม", desc: "หู คอ จมูก ตา หรือการศัลยกรรมตกแต่ง", next: 's_micro_sub' }
             ]},
-            s_major_sub: { title: "Field", options: [
-                { id: 'gs', emoji: '🩹', title: "ศัลยกรรมทั่วไป", desc: "General Surgery", next: 'GS_END' },
-                { id: 'cvt', emoji: '🫁', title: "ศัลยกรรมทรวงอก", desc: "Cardiothoracic Surgery", next: 'CVT_END' }
+            s_organ_sub: { title: "Specialization", options: [
+                { id: 'gs', emoji: '🏥', title: "ศัลยกรรมทั่วไป", desc: "General Surgery", next: 'GS_END' },
+                { id: 'cvt', emoji: '🫁', title: "ศัลยกรรมทรวงอก", desc: "Cardiothoracic Surgery", next: 'CVT_END' },
+                { id: 'urology', emoji: '🧪', title: "ศัลยกรรมทางเดินปัสสาวะ", desc: "Urology", next: 'URO_END' }
             ]},
-            s_heavy_sub: { title: "Field", options: [
+            s_heavy_sub: { title: "Specialization", options: [
                 { id: 'ortho', emoji: '🔨', title: "ศัลยกรรมออร์โธปิดิกส์", desc: "Orthopedic Surgery", next: 'ORTHO_END' },
                 { id: 'ns', emoji: '⚡', title: "ศัลยกรรมประสาท", desc: "Neurosurgery", next: 'NS_END' }
             ]},
-            s_micro_sub: { title: "Field", options: [
-                { id: 'plastic', emoji: '🎨', title: "ศัลยกรรมตกแต่ง", desc: "Plastic Surgery", next: 'PLASTIC_END' },
+            s_micro_sub: { title: "Specialization", options: [
+                { id: 'ent', emoji: '👂', title: "หู คอ จมูก", desc: "Otolaryngology", next: 'ENT_END' },
+                { id: 'plastic', emoji: '✨', title: "ศัลยกรรมตกแต่ง", desc: "Plastic Surgery", next: 'PLASTIC_END' },
                 { id: 'ophtha', emoji: '👁️', title: "จักษุวิทยา", desc: "Ophthalmology", next: 'OPHTHA_END' }
             ]},
 
-            // MEDICAL BRANCH
-            medical_path: { title: "Approach", options: [
-                { id: 'm_systems', emoji: '💓', title: "เจาะลึกระบบภายใน", desc: "เน้นโรคเฉพาะระบบอวัยวะ", next: 'm_systems_sub' },
-                { id: 'm_holistic', emoji: '🧸', title: "การดูแลตามช่วงวัย", desc: "เน้นภาพรวมตามอายุหรือพฤติกรรม", next: 'm_holistic_sub' }
+            // --- MEDICAL BRANCH ---
+            medical: { title: "Clinical Focus", options: [
+                { id: 'm_systems', emoji: '🩸', title: "เจาะลึกระบบภายใน", desc: "เน้นการจัดการโรคเฉพาะระบบอวัยวะ", next: 'm_systems_sub' },
+                { id: 'm_holistic', emoji: '🤝', title: "การดูแลตามช่วงวัย/จิตใจ", desc: "เน้นภาพรวมคนไข้ เด็ก ผู้ใหญ่ หรือสุขภาพจิต", next: 'm_holistic_sub' }
             ]},
             m_systems_sub: { title: "Specialty", options: [
                 { id: 'cardio', emoji: '❤️', title: "โรคหัวใจ", desc: "Cardiology", next: 'CARDIO_END' },
-                { id: 'gastro', emoji: '🧪', title: "โรคทางเดินอาหาร", desc: "Gastroenterology", next: 'GASTRO_END' },
+                { id: 'gi', emoji: '🧪', title: "โรคทางเดินอาหาร", desc: "Gastroenterology", next: 'GI_END' },
+                { id: 'neuro_m', emoji: '🧠', title: "ประสาทวิทยา", desc: "Neurology", next: 'NEURO_M_END' },
                 { id: 'nephro', emoji: '💧', title: "โรคไต", desc: "Nephrology", next: 'NEPHRO_END' }
             ]},
             m_holistic_sub: { title: "Specialty", options: [
-                { id: 'peds', emoji: '👶', title: "กุมารเวชศาสตร์", desc: "Pediatrics", next: 'PEDS_END' },
-                { id: 'psych', emoji: '🧘', title: "จิตเวชศาสตร์", desc: "Psychiatry", next: 'PSYCH_END' }
+                { id: 'peds', emoji: '🧸', title: "กุมารเวชศาสตร์", desc: "Pediatrics", next: 'PEDS_END' },
+                { id: 'psych', emoji: '🧠', title: "จิตเวชศาสตร์", desc: "Psychiatry", next: 'PSYCH_END' },
+                { id: 'internal', emoji: '🧥', title: "อายุรศาสตร์ทั่วไป", desc: "Internal Medicine", next: 'IM_END' }
             ]},
 
-            // SUPPORT BRANCH
-            support_path: { title: "Function", options: [
-                { id: 'su_acute', emoji: '🚑', title: "การดูแลระยะวิกฤต", desc: "หน้างานฉุกเฉินและระงับปวด", next: 'su_acute_sub' },
-                { id: 'su_diag', emoji: '🔬', title: "พยาธิวิทยาสืบค้น", desc: "เน้นการวิเคราะห์แล็บและภาพถ่าย", next: 'su_diag_sub' }
+            // --- SUPPORT BRANCH ---
+            support: { title: "Workflow", options: [
+                { id: 'su_front', emoji: '🚨', title: "ด่านหน้า & วิกฤต", desc: "ดูแลภาวะฉุกเฉินหรือระงับความเจ็บปวด", next: 'su_front_sub' },
+                { id: 'su_back', emoji: '🖥️', title: "วิจัย & วินิจฉัยเบื้องหลัง", desc: "รังสีวิทยา พยาธิวิทยา หรือเวชศาสตร์ฟื้นฟู", next: 'su_back_sub' }
             ]},
-            su_acute_sub: { title: "Field", options: [
-                { id: 'er', emoji: '⚡', title: "เวชศาสตร์ฉุกเฉิน", desc: "Emergency Medicine", next: 'ER_END' },
+            su_front_sub: { title: "Specialty", options: [
+                { id: 'er', emoji: '🚑', title: "เวชศาสตร์ฉุกเฉิน", desc: "Emergency Medicine", next: 'ER_END' },
                 { id: 'anes', emoji: '😴', title: "วิสัญญีวิทยา", desc: "Anesthesiology", next: 'ANES_END' }
             ]},
-            su_diag_sub: { title: "Field", options: [
-                { id: 'radio', emoji: '📸', title: "รังสีวิทยา", desc: "Radiology", next: 'RADIO_END' },
-                { id: 'patho', emoji: '🧪', title: "พยาธิวิทยา", desc: "Pathology", next: 'PATHO_END' }
+            su_back_sub: { title: "Specialty", options: [
+                { id: 'radio', emoji: '☢️', title: "รังสีวิทยา", desc: "Radiology", next: 'RADIO_END' },
+                { id: 'patho', emoji: '🔬', title: "พยาธิวิทยา", desc: "Pathology", next: 'PATHO_END' },
+                { id: 'pmr', emoji: '🏃', title: "เวชศาสตร์ฟื้นฟู", desc: "Physical Medicine & Rehab", next: 'PMR_END' }
             ]}
         };
 
         const results = {
-            GS_END: { title: "ศัลยแพทย์ทั่วไป", desc: "The pillar of the operating room.", slug: "general-surgery" },
-            CVT_END: { title: "ศัลยแพทย์หัวใจและทรวงอก", desc: "Operating on the engine of life.", slug: "thoracic-surgery" },
-            ORTHO_END: { title: "ศัลยแพทย์ออร์โธปิดิกส์", desc: "The biomechanical engineer of the body.", slug: "orthopedic-surgery" },
-            NS_END: { title: "ศัลยแพทย์ประสาท", desc: "Mastering the human supercomputer.", slug: "neurosurgery" },
-            PLASTIC_END: { title: "ศัลยแพทย์ตกแต่ง", desc: "The architect of aesthetics and restoration.", slug: "plastic-surgery" },
-            OPHTHA_END: { title: "จักษุแพทย์", desc: "The guardian of human vision.", slug: "ophthalmology" },
-            CARDIO_END: { title: "อายุรแพทย์โรคหัวใจ", desc: "Understanding the rhythm of life.", slug: "internal-medicine-cardiovascular-disease" },
-            GASTRO_END: { title: "อายุรแพทย์โรคทางเดินอาหาร", desc: "Exploring the chemical lab of the body.", slug: "internal-medicine-gastroenterology" },
-            NEPHRO_END: { title: "อายุรแพทย์โรคไต", desc: "Managing the body's filtration system.", slug: "internal-medicine-nephrology" },
-            PEDS_END: { title: "กุมารแพทย์", desc: "Caring for the future generations.", slug: "pediatrics" },
-            PSYCH_END: { title: "จิตแพทย์", desc: "Healing the unseen wounds of the mind.", slug: "psychiatry" },
-            ER_END: { title: "แพทย์เวชศาสตร์ฉุกเฉิน", desc: "The first line of defense in crisis.", slug: "emergency-medicine" },
-            ANES_END: { title: "วิสัญญีแพทย์", desc: "The master of balance and consciousness.", slug: "anesthesiology" },
-            RADIO_END: { title: "รังสีแพทย์", desc: "Seeing through the mystery of disease.", slug: "radiology-diagnostic" },
-            PATHO_END: { title: "พยาธิแพทย์", desc: "The final judge of diagnosis.", slug: "pathology-anatomic-and-clinical" }
+            GS_END: { title: "ศัลยแพทย์ทั่วไป", desc: "เสาหลักของห้องผ่าตัด ผู้เชี่ยวชาญการรักษาอวัยวะภายในและอุบัติเหตุ", slug: "general-surgery" },
+            CVT_END: { title: "ศัลยแพทย์หัวใจและทรวงอก", desc: "ศิลปินผู้ดูแลเครื่องยนต์ของร่างกายมนุษย์ที่มีความแม่นยำสูงสุด", slug: "thoracic-surgery" },
+            URO_END: { title: "ศัลยแพทย์ทางเดินปัสสาวะ", desc: "ผู้เชี่ยวชาญด้านระบบขับถ่ายและการผ่าตัดด้วยเทคโนโลยีส่องกล้อง", slug: "urology" },
+            ORTHO_END: { title: "ศัลยแพทย์ออร์โธปิดิกส์", desc: "วิศวกรโครงสร้างมนุษย์ ผู้ซ่อมแซมกระดูก ข้อต่อ และการเคลื่อนไหว", slug: "orthopedic-surgery" },
+            NS_END: { title: "ศัลยแพทย์ประสาท", desc: "ผู้กุมความลับของระบบประมวลผลที่ซับซ้อนที่สุดในจักรวาล", slug: "neurosurgery" },
+            ENT_END: { title: "หมอหู คอ จมูก", desc: "ผู้เชี่ยวชาญอวัยวะรับสัมผัสและการผ่าตัดเฉพาะส่วนที่ละเอียดอ่อน", slug: "otolaryngology" },
+            PLASTIC_END: { title: "ศัลยแพทย์ตกแต่ง", desc: "สถาปนิกแห่งความสวยงามและการฟื้นฟูเนื้อเยื่อเพื่อคุณภาพชีวิต", slug: "plastic-surgery" },
+            OPHTHA_END: { title: "จักษุแพทย์", desc: "ผู้พิทักษ์ดวงตาและการมองเห็นด้วยความแม่นยำระดับไมโคร", slug: "ophthalmology" },
+            CARDIO_END: { title: "อายุรแพทย์โรคหัวใจ", desc: "นักสืบระบบไหลเวียนโลหิต ผู้ถอดรหัสจังหวะไฟฟ้าของหัวใจ", slug: "internal-medicine-cardiovascular-disease" },
+            GI_END: { title: "หมอทางเดินอาหาร", desc: "ผู้เชี่ยวชาญห้องแล็บเคมีของร่างกายและการใช้กล้องวินิจฉัย", slug: "internal-medicine-gastroenterology" },
+            NEURO_M_END: { title: "อายุรแพทย์ระบบประสาท", desc: "ผู้ถอดรหัสสัญญาณไฟฟ้าและอาการผิดปกติของสมอง", slug: "neurology" },
+            NEPHRO_END: { title: "อายุรแพทย์โรคไต", desc: "ผู้ควบคุมสมดุลน้ำและกรองสารพิษออกจากระบบร่างกาย", slug: "internal-medicine-nephrology" },
+            PEDS_END: { title: "กุมารแพทย์", desc: "หมอเด็กผู้พิทักษ์อนาคต ตั้งแต่วัยทารกจนถึงวัยรุ่น", slug: "pediatrics" },
+            PSYCH_END: { title: "จิตแพทย์", desc: "ผู้เยียวยาบาดแผลทางใจและปรับสมดุลเคมีแห่งอารมณ์", slug: "psychiatry" },
+            IM_END: { title: "อายุรแพทย์ทั่วไป", desc: "ผู้เชี่ยวชาญภาพรวมของระบบร่างกายและการวินิจฉัยที่ครอบคลุม", slug: "internal-medicine" },
+            ER_END: { title: "หมอเวชศาสตร์ฉุกเฉิน", desc: "ฮีโร่ด่านหน้าผู้ตัดสินใจในวินาทีวิกฤตเพื่อรักษาชีวิต", slug: "emergency-medicine" },
+            ANES_END: { title: "วิสัญญีแพทย์", desc: "ผู้กุมชีวิตและสัญญาณชีพในห้วงหลับใหลขณะผ่าตัด", slug: "anesthesiology" },
+            RADIO_END: { title: "รังสีแพทย์", desc: "ดวงตาที่มองทะลุร่างกายผ่านภาพถ่ายทางการแพทย์ขั้นสูง", slug: "radiology-diagnostic" },
+            PATHO_END: { title: "พยาธิแพทย์", desc: "ผู้พิพากษาผลลัพธ์สุดท้ายของโรคผ่านกล้องจุลทรรศน์", slug: "pathology-anatomic-and-clinical" },
+            PMR_END: { title: "หมอเวชศาสตร์ฟื้นฟู", desc: "ผู้ออกแบบการคืนชีวิตและศักยภาพการเคลื่อนไหวให้ผู้ป่วย", slug: "physical-medicine-and-rehabilitation" }
         };
 
-        let lastLevel = 1;
+        let lastDepth = 1;
         let moveX = 0;
 
         function unlockRoadmap() { 
             document.getElementById('entrance-overlay').style.opacity = '0'; 
-            setTimeout(() => { 
-                document.getElementById('entrance-overlay').style.display = 'none'; 
-                document.getElementById('roadmap-container').style.display = 'flex'; 
-            }, 800); 
+            setTimeout(() => { document.getElementById('entrance-overlay').style.display = 'none'; document.getElementById('roadmap-container').style.display = 'flex'; }, 800); 
         }
 
         function branch(colIndex, key, element) { 
@@ -230,10 +247,10 @@
             parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected')); 
             element.classList.add('selected'); 
 
-            if (colIndex >= lastLevel) {
+            if (colIndex >= lastDepth) {
                 moveX -= 250;
                 document.getElementById('bg-canvas').style.transform = `translateX(${moveX}px)`; 
-                lastLevel = colIndex + 1;
+                lastDepth = colIndex + 1;
             }
 
             for (let i = colIndex + 1; i <= 5; i++) { 
@@ -246,7 +263,7 @@
 
             if (treeData[key]) { 
                 const data = treeData[key]; 
-                nextCol.style.display = 'flex'; 
+                nextCol.style.display = 'inline-flex'; 
                 nextCol.style.animation = 'fadeInRight 0.8s ease forwards'; 
                 data.options.forEach(opt => { 
                     const box = document.createElement('div'); 
@@ -257,13 +274,13 @@
                 }); 
             } else if (results[key]) { 
                 const res = results[key]; 
-                nextCol.style.display = 'flex'; 
+                nextCol.style.display = 'inline-flex'; 
                 nextCol.innerHTML = `
                     <div class="node-box specialty-result">
-                        <span class="node-tag">✨ Your Ultimate Path</span>
+                        <span class="node-tag">✨ Final Destination</span>
                         <p class="node-title">${res.title}</p>
                         <p class="node-desc">${res.desc}</p>
-                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-link">Learn More at AAMC ↗</a>
+                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">Learn More at AAMC ↗</a>
                     </div>`; 
             } 
             setTimeout(() => { document.getElementById('roadmap-container').scrollLeft += 500; }, 100); 
