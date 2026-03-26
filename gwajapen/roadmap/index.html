@@ -4,258 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Roadmap | กว่า-จะ-เป็น</title>
-    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --bg-color: #050505; 
-            --surface-color: rgba(22, 22, 22, 0.8);
-            --text-main: #FFFFFF; 
-            --text-muted: #A0A0A0; 
-            --border-color: rgba(255, 255, 255, 0.1); 
-            --accent-blue: #0066CC;
-        }
-        
+        :root { --bg-color: #050505; --surface-color: rgba(22, 22, 22, 0.8); --text-main: #FFFFFF; --text-muted: #A0A0A0; --border-color: rgba(255, 255, 255, 0.1); --accent-blue: #0066CC; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            font-family: 'Anuphan', sans-serif; 
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* --- BACKGROUND MOUNTAIN ANIMATION --- */
-        #bg-canvas {
-            position: fixed; inset: 0; z-index: -1;
-            background: linear-gradient(to bottom, #050505, #1a1a1a);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        /* จำลองเงาภูเขา */
-        .mountain-layer {
-            position: absolute; bottom: 0; left: 0; width: 300%; height: 60%;
-            background: url('https://www.transparenttextures.com/patterns/black-paper.png');
-            clip-path: polygon(0% 100%, 5% 80%, 15% 90%, 25% 70%, 35% 85%, 50% 60%, 65% 80%, 80% 65%, 90% 85%, 100% 70%, 100% 100%);
-            opacity: 0.1; background-color: #ffffff;
-            transition: transform 1.5s ease-out;
-        }
-
-        /* --- TOP THIN BANNER --- */
-        .thin-banner {
-            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
-            overflow: hidden; z-index: 90; opacity: 0.4; pointer-events: none;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .thin-banner img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5) brightness(0.7); }
-
-        /* --- NAVIGATION --- */
-        .back-nav { position: fixed; top: 25px; left: 6vw; z-index: 500; text-decoration: none; color: white; font-weight: 600; font-size: 0.85rem; opacity: 0.6; transition: 0.3s; letter-spacing: 1px; }
-        .back-nav:hover { opacity: 1; transform: translateX(-5px); }
-
-        /* --- ENTRANCE --- */
-        #entrance-overlay {
-            position: fixed; inset: 0; z-index: 1000; background: var(--bg-color);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1s ease;
-        }
-        .calling-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 40px; letter-spacing: -1px; text-align: center; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', sans-serif; overflow: hidden; height: 100vh; }
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; background: linear-gradient(to bottom, #050505, #1a1a1a); transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mountain-layer { position: absolute; bottom: 0; left: 0; width: 300%; height: 60%; background: rgba(255,255,255,0.05); clip-path: polygon(0% 100%, 5% 80%, 15% 90%, 25% 70%, 35% 85%, 50% 60%, 65% 80%, 80% 65%, 90% 85%, 100% 70%, 100% 100%); transition: transform 1.5s ease-out; }
+        .thin-banner { position: fixed; top: 0; left: 0; width: 100%; height: 80px; overflow: hidden; z-index: 90; opacity: 0.4; border-bottom: 1px solid var(--border-color); }
+        .thin-banner img { width: 100%; height: 100%; object-fit: cover; }
+        .back-nav { position: fixed; top: 25px; left: 6vw; z-index: 500; text-decoration: none; color: white; font-weight: 600; font-size: 0.85rem; opacity: 0.6; }
+        #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease; }
         .calling-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .calling-card {
-            background: var(--surface-color); border: 1px solid var(--border-color);
-            padding: 40px 30px; border-radius: 24px; cursor: pointer; transition: 0.4s; width: 280px; text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        .calling-card.active:hover { border-color: var(--accent-blue); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .calling-card { background: var(--surface-color); border: 1px solid var(--border-color); padding: 40px 30px; border-radius: 24px; cursor: pointer; transition: 0.4s; width: 280px; text-align: center; backdrop-filter: blur(10px); }
+        .calling-card.active:hover { border-color: var(--accent-blue); transform: translateY(-10px); }
         .calling-card.locked { opacity: 0.2; cursor: not-allowed; }
-        .calling-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .calling-card p { font-size: 0.9rem; color: var(--text-muted); }
-
-        /* --- ROADMAP VIEWPORT --- */
-        #roadmap-container {
-            display: none; height: 100vh; overflow-x: auto; overflow-y: hidden;
-            padding: 120px 10vw 50px; white-space: nowrap; align-items: center;
-            scroll-behavior: smooth; position: relative;
-        }
-
-        /* --- BRANCHING SYSTEM --- */
-        .node-column {
-            display: inline-flex; flex-direction: column; justify-content: center;
-            gap: 60px; vertical-align: middle; margin-right: 150px; position: relative;
-        }
-        
-        /* เส้นทางเชื่อมต่อแบบกิ่งไม้ */
-        .node-column::after {
-            content: ''; position: absolute; right: -100px; top: 50%;
-            width: 100px; height: 1px; background: linear-gradient(to right, var(--border-color), transparent); z-index: -1;
-        }
+        #roadmap-container { display: none; height: 100vh; overflow-x: auto; overflow-y: hidden; padding: 120px 10vw 50px; white-space: nowrap; align-items: center; scroll-behavior: smooth; }
+        .node-column { display: inline-flex; flex-direction: column; justify-content: center; gap: 60px; vertical-align: middle; margin-right: 150px; position: relative; }
+        .node-column::after { content: ''; position: absolute; right: -100px; top: 50%; width: 100px; height: 1px; background: linear-gradient(to right, var(--border-color), transparent); z-index: -1; }
         .node-column:last-child::after { display: none; }
-
-        .node-box {
-            background: var(--surface-color); border: 1px solid var(--border-color);
-            padding: 28px; border-radius: 20px; width: 320px; white-space: normal;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-        }
-        .node-box:hover { border-color: var(--accent-blue); transform: translateX(10px) scale(1.02); background: rgba(255,255,255,0.03); }
+        .node-box { background: var(--surface-color); border: 1px solid var(--border-color); padding: 28px; border-radius: 20px; width: 320px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; backdrop-filter: blur(15px); }
+        .node-box:hover { border-color: var(--accent-blue); transform: translateX(10px); }
         .node-box.selected { border-color: var(--accent-blue); background: rgba(0, 102, 204, 0.1); }
-        
-        .node-tag { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 2px; }
-        .node-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
-        .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-
-        .specialty-result {
-            background: linear-gradient(135deg, #0066CC 0%, #003366 100%);
-            border: none; color: white; padding: 40px;
-        }
-        .specialty-result .node-desc { color: rgba(255,255,255,0.8); }
-
-        ::-webkit-scrollbar { height: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        .node-tag { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .specialty-result { background: linear-gradient(135deg, #0066CC 0%, #003366 100%); border: none; color: white; }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
-
-    <div class="thin-banner">
-        <img src="../banner.jpg" alt="Gwa-Ja-Pen Banner">
-    </div>
-
-    <div id="bg-canvas">
-        <div class="mountain-layer" id="mount-1"></div>
-    </div>
-
+    <div class="thin-banner"><img src="../banner.jpg" alt="Banner"></div>
+    <div id="bg-canvas"><div class="mountain-layer" id="mount-1"></div></div>
     <a href="../" class="back-nav">❮ ย้อนกลับหน้าหลัก</a>
-
     <div id="entrance-overlay">
-        <div class="entrance-content">
-            <h1 class="calling-title">เลือกเส้นทางของคุณ</h1>
-            <div class="calling-grid">
-                <div class="calling-card active" onclick="unlockRoadmap('medicine')">
-                    <h3>🩺 สายการแพทย์</h3>
-                    <p>วิทยาศาสตร์ การดูแลคนไข้ และปริศนาของชีวิต</p>
-                </div>
-                <div class="calling-card locked">
-                    <h3>💻 วิศวกรรม & เทคโนโลยี</h3>
-                    <p>เร็วๆ นี้: ระบบ ตรรกะ และการสร้างสรรค์</p>
-                </div>
-            </div>
+        <h1 style="margin-bottom:40px;">เลือกเส้นทางของคุณ</h1>
+        <div class="calling-grid">
+            <div class="calling-card active" onclick="unlockRoadmap('medicine')"><h3>🩺 สายการแพทย์</h3><p>วิทยาศาสตร์ การดูแลคนไข้ และปริศนาของชีวิต</p></div>
+            <div class="calling-card locked"><h3>💻 วิศวกรรม & เทคโนโลยี</h3><p>เร็วๆ นี้: ระบบ ตรรกะ และการสร้างสรรค์</p></div>
         </div>
     </div>
-
     <main id="roadmap-container">
-        
         <div class="node-column" id="col-1">
-            <div class="node-box" onclick="branch(1, 'surgical', this)">
-                <span class="node-tag">จุดเน้นหลัก</span>
-                <p class="node-title">หัตถการและปฏิบัติ (Surgical)</p>
-                <p class="node-desc">เน้นการลงมือทำ แก้ปัญหาด้วยมือและความแม่นยำ (Procedural-oriented)</p>
-            </div>
-            <div class="node-box" onclick="branch(1, 'medical', this)">
-                <span class="node-tag">จุดเน้นหลัก</span>
-                <p class="node-title">การวินิจฉัยและวิเคราะห์ (Medical)</p>
-                <p class="node-desc">เน้นการสืบค้นข้อมูล วิเคราะห์สาเหตุของโรค และการใช้ยา (Reasoning-oriented)</p>
-            </div>
+            <div class="node-box" onclick="branch(1, 'surgical', this)"><span class="node-tag">จุดเน้นหลัก</span><p style="font-size:1.2rem; font-weight:600;">หัตถการและปฏิบัติ (Surgical)</p><p style="color:var(--text-muted); font-size:0.9rem;">เน้นการลงมือทำ แก้ปัญหาด้วยมือและความแม่นยำ</p></div>
+            <div class="node-box" onclick="branch(1, 'medical', this)"><span class="node-tag">จุดเน้นหลัก</span><p style="font-size:1.2rem; font-weight:600;">การวินิจฉัยและวิเคราะห์ (Medical)</p><p style="color:var(--text-muted); font-size:0.9rem;">เน้นการสืบค้นข้อมูล วิเคราะห์สาเหตุของโรค และการใช้ยา</p></div>
         </div>
-
         <div class="node-column" id="col-2" style="display:none;"></div>
         <div class="node-column" id="col-3" style="display:none;"></div>
         <div class="node-column" id="col-4" style="display:none;"></div>
-
     </main>
-
     <script>
-        const treeData = {
-            surgical: {
-                title: "ลักษณะการทำงาน",
-                options: [
-                    { id: 'surg_direct', title: "หัตถการสูง + ดูแลคนไข้ต่อเนื่อง", desc: "ผ่าตัดและติดตามอาการใกล้ชิด เช่น ศัลยกรรมกระดูก, สูตินรีเวช", next: 'surg_res' },
-                    { id: 'surg_brief', title: "หัตถการสูง + ปฏิสัมพันธ์สั้น", desc: "เน้นงานฝีมือที่จบในครั้งเดียว เช่น วิสัญญี, รังสีร่วมรักษา", next: 'tech_res' }
-                ]
-            },
-            medical: {
-                title: "ความสัมพันธ์กับคนไข้",
-                options: [
-                    { id: 'med_long', title: "ดูแลระยะยาว", desc: "รักษาโรคเรื้อรัง สร้างความสัมพันธ์ลึกซึ้ง เช่น อายุรกรรม, กุมารแพทย์", next: 'med_res' },
-                    { id: 'med_acute', title: "ดูแลวิกฤต/ฉุกเฉิน", desc: "จบเคสไว ตัดสินใจเร็ว ไม่เน้นติดตามยาว เช่น เวชศาสตร์ฉุกเฉิน, พยาธิวิทยา", next: 'shift_res' }
-                ]
-            }
-        };
-
-        const results = {
-            surg_res: { title: "กลุ่มศัลยศาสตร์เฉพาะทาง", desc: "Orthopedics, Neurosurgery, Plastics, OB/Gyn", tag: "The Master Craftsman" },
-            tech_res: { title: "กลุ่มวิทยากรและหัตถการพิเศษ", desc: "Anesthesia, Radiology, Ophthalmology", tag: "The Precision Expert" },
-            med_res: { title: "กลุ่มอายุรศาสตร์และดูแลทั่วไป", desc: "Cardiology, Neurology, Pediatrics, Family Medicine", tag: "The Clinical Thinker" },
-            shift_res: { title: "กลุ่มเวชศาสตร์ฉุกเฉินและสนับสนุน", desc: "Emergency Medicine, Critical Care, Pathology", tag: "The First Responder" }
-        };
-
+        const treeData = { surgical: { title: "ลักษณะการทำงาน", options: [ { id: 'surg_direct', title: "หัตถการสูง + ดูแลคนไข้ต่อเนื่อง", desc: "ผ่าตัดและติดตามอาการใกล้ชิด", next: 'surg_res' }, { id: 'surg_brief', title: "หัตถการสูง + ปฏิสัมพันธ์สั้น", desc: "เน้นงานฝีมือที่จบในครั้งเดียว", next: 'tech_res' } ] }, medical: { title: "ความสัมพันธ์กับคนไข้", options: [ { id: 'med_long', title: "ดูแลระยะยาว", desc: "รักษาโรคเรื้อรัง สร้างความสัมพันธ์ลึกซึ้ง", next: 'med_res' }, { id: 'med_acute', title: "ดูแลวิกฤต/ฉุกเฉิน", desc: "จบเคสไว ตัดสินใจเร็ว ไม่เน้นติดตามยาว", next: 'shift_res' } ] } };
+        const results = { surg_res: { title: "กลุ่มศัลยศาสตร์เฉพาะทาง", desc: "Orthopedics, Neurosurgery, Plastics, OB/Gyn", tag: "The Master Craftsman" }, tech_res: { title: "กลุ่มวิทยากรและหัตถการพิเศษ", desc: "Anesthesia, Radiology, Ophthalmology", tag: "The Precision Expert" }, med_res: { title: "กลุ่มอายุรศาสตร์และดูแลทั่วไป", desc: "Cardiology, Neurology, Pediatrics, Family Medicine", tag: "The Clinical Thinker" }, shift_res: { title: "กลุ่มเวชศาสตร์ฉุกเฉินและสนับสนุน", desc: "Emergency Medicine, Critical Care, Pathology", tag: "The First Responder" } };
         let moveProgress = 0;
-
-        function unlockRoadmap(type) {
-            document.getElementById('entrance-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('entrance-overlay').style.display = 'none';
-                document.getElementById('roadmap-container').style.display = 'flex';
-            }, 1000);
-        }
-
-        function branch(colIndex, key, element) {
-            const parent = element.parentElement;
-            parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected'));
-            element.classList.add('selected');
-
-            // เลื่อนพื้นหลังไปทางซ้าย (ทำให้รู้สึกว่าเราเดินไปทางขวา)
-            moveProgress -= 150;
-            document.getElementById('bg-canvas').style.transform = `translateX(${moveProgress}px)`;
-            document.getElementById('mount-1').style.transform = `translateX(${moveProgress * 0.5}px)`;
-
-            for (let i = colIndex + 1; i <= 4; i++) {
-                const col = document.getElementById(`col-${i}`);
-                if (col) { col.style.display = 'none'; col.innerHTML = ''; }
-            }
-
-            const nextCol = document.getElementById(`col-${colIndex + 1}`);
-            if (!nextCol) return;
-
-            if (treeData[key]) {
-                const data = treeData[key];
-                nextCol.style.display = 'flex';
-                nextCol.style.animation = 'fadeInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-                
-                data.options.forEach(opt => {
-                    const box = document.createElement('div');
-                    box.className = 'node-box';
-                    box.onclick = () => branch(colIndex + 1, opt.next, box);
-                    box.innerHTML = `
-                        <span class="node-tag">${data.title}</span>
-                        <p class="node-title">${opt.title}</p>
-                        <p class="node-desc">${opt.desc}</p>
-                    `;
-                    nextCol.appendChild(box);
-                });
-            } else if (results[key]) {
-                const res = results[key];
-                nextCol.style.display = 'flex';
-                nextCol.innerHTML = `
-                    <div class="node-box specialty-result">
-                        <span class="node-tag" style="color: white; opacity: 0.7;">ผลลัพธ์การค้นหา</span>
-                        <p class="node-title">${res.title}</p>
-                        <p class="node-desc">${res.desc}</p>
-                        <p style="margin-top: 20px; font-weight: 700; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">${res.tag}</p>
-                    </div>
-                `;
-            }
-
-            // เลื่อนหน้าจออัตโนมัติไปทางขวา
-            setTimeout(() => {
-                document.getElementById('roadmap-container').scrollLeft += 450;
-            }, 100);
-        }
+        function unlockRoadmap(type) { document.getElementById('entrance-overlay').style.opacity = '0'; setTimeout(() => { document.getElementById('entrance-overlay').style.display = 'none'; document.getElementById('roadmap-container').style.display = 'flex'; }, 1000); }
+        function branch(colIndex, key, element) { const parent = element.parentElement; parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected')); element.classList.add('selected'); moveProgress -= 150; document.getElementById('bg-canvas').style.transform = `translateX(${moveProgress}px)`; document.getElementById('mount-1').style.transform = `translateX(${moveProgress * 0.5}px)`; for (let i = colIndex + 1; i <= 4; i++) { const col = document.getElementById(`col-${i}`); if (col) { col.style.display = 'none'; col.innerHTML = ''; } } const nextCol = document.getElementById(`col-${colIndex + 1}`); if (!nextCol) return; if (treeData[key]) { const data = treeData[key]; nextCol.style.display = 'flex'; nextCol.style.animation = 'fadeInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'; data.options.forEach(opt => { const box = document.createElement('div'); box.className = 'node-box'; box.onclick = () => branch(colIndex + 1, opt.next, box); box.innerHTML = `<span class="node-tag">${data.title}</span><p style="font-size:1.2rem; font-weight:600;">${opt.title}</p><p style="color:var(--text-muted); font-size:0.9rem;">${opt.desc}</p>`; nextCol.appendChild(box); }); } else if (results[key]) { const res = results[key]; nextCol.style.display = 'flex'; nextCol.innerHTML = `<div class="node-box specialty-result"><span class="node-tag" style="color:white; opacity:0.7;">ผลลัพธ์การค้นหา</span><p style="font-size:1.2rem; font-weight:600;">${res.title}</p><p style="opacity:0.8; font-size:0.9rem;">${res.desc}</p><p style="margin-top:20px; font-weight:700; border-top:1px solid rgba(255,255,255,0.2); padding-top:15px;">${res.tag}</p></div>`; } setTimeout(() => { document.getElementById('roadmap-container').scrollLeft += 450; }, 100); }
     </script>
 </body>
 </html>
