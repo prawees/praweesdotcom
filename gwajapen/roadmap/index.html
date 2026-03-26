@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
+            /* --- EARTH TONE THEME --- */
             --bg-color: #FDF8F2; 
             --surface-color: #FFFFFF;
             --text-main: #4A3F35; 
@@ -15,29 +16,41 @@
             --border-color: rgba(140, 122, 107, 0.2); 
             --accent-primary: #A67B5B; 
             --accent-gold: #D4AF37;
-            --line-color: rgba(166, 123, 91, 0.3);
+            --line-color: rgba(166, 123, 91, 0.4);
             --category-surg: #B2533E;
             --category-med: #576F72;
             --category-supp: #7D8F69;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; overflow: hidden; height: 100vh; }
         
-        #bg-canvas { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #FDF8F2 0%, #F5E8DD 100%); transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1); }
+        body { 
+            background-color: var(--bg-color); color: var(--text-main); 
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            overflow: hidden; height: 100vh; position: relative;
+        }
+        
+        /* --- CALMING CONTINUOUS BACKGROUND --- */
+        #bg-canvas { 
+            position: fixed; inset: -50%; z-index: -10; 
+            background: radial-gradient(ellipse at center, #FFFFFF 0%, #FDF8F2 40%, #EFE1D1 100%);
+            background-size: 200% 200%;
+            animation: calmBreath 20s ease-in-out infinite alternate;
+        }
+        @keyframes calmBreath { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        /* --- HEADER --- */
-        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 160px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.9; }
+        /* --- HEADER & TOP CONTROLS --- */
+        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.85; }
         
-        .top-nav-bar { position: fixed; top: 40px; left: 0; width: 100%; padding: 0 6vw; display: flex; justify-content: space-between; align-items: flex-start; z-index: 210; pointer-events: none; }
+        .top-nav-bar { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 6vw; display: flex; justify-content: space-between; align-items: flex-start; z-index: 210; pointer-events: none; }
         
         .back-nav { pointer-events: auto; text-decoration: none; color: var(--text-main); font-weight: 700; background: rgba(255,255,255,0.9); padding: 12px 25px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .back-nav:hover { transform: translateY(-2px); background: white; box-shadow: 0 10px 20px rgba(166, 123, 91, 0.1); }
 
         .top-right-controls { pointer-events: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-        .roadmap-title-badge { background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: var(--accent-primary); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .lang-switcher { background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 15px; border-radius: 30px; display: flex; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .roadmap-title-badge { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: var(--accent-primary); box-shadow: 0 4px 10px rgba(0,0,0,0.03); text-transform: uppercase; }
+        .lang-switcher { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 15px; border-radius: 30px; display: flex; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .lang-switcher button { background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
         .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -48,27 +61,30 @@
         .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.1); }
         .calling-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
+        /* --- SVG CANVAS FOR CONNECTING LINES --- */
+        #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .connection-line { fill: none; stroke: var(--line-color); stroke-width: 2px; stroke-dasharray: 500; stroke-dashoffset: 500; animation: drawLine 0.6s ease forwards; }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+
         /* --- ROADMAP VIEWPORT --- */
         #roadmap-container { 
-            display: none; height: calc(100vh - 160px); margin-top: 160px;
-            overflow: auto; padding: 50px 8vw 100px;
+            display: none; height: calc(100vh - 140px); margin-top: 140px;
+            overflow: auto; padding: 60px 8vw 100px;
             align-items: flex-start; scroll-behavior: smooth; 
+            position: relative; z-index: 10;
         }
-        .flex-wrapper { display: flex; gap: 150px; min-width: max-content; padding-bottom: 50px; }
-
-        .node-column { display: flex; flex-direction: column; gap: 30px; position: relative; }
         
-        /* Dynamic Line Connection */
-        .branch-line { position: absolute; right: -150px; width: 150px; height: 1.5px; background: var(--line-color); z-index: -1; transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s; opacity: 0; }
-        .node-column.active-branch .branch-line { opacity: 1; }
+        .flex-wrapper { display: flex; gap: 150px; min-width: max-content; padding-bottom: 50px; position: relative; }
 
+        .node-column { display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 10; }
+        
         .node-box { 
             background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 25px; 
             width: 350px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 20;
         }
-        .node-box:hover { border-color: var(--accent-primary); transform: translateX(10px); box-shadow: 0 10px 25px rgba(166, 123, 91, 0.1); }
-        .node-box.selected { border-color: var(--accent-primary); background: #FAF6F2; border-width: 2px; }
+        .node-box:hover { border-color: var(--accent-primary); transform: translateX(5px); box-shadow: 0 10px 25px rgba(166, 123, 91, 0.1); }
+        .node-box.selected { border-color: var(--accent-primary); background: #FAF6F2; border-width: 2px; transform: translateX(5px); }
         
         .node-emoji { font-size: 2.2rem; margin-bottom: 12px; display: block; }
         .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1.5px; color: var(--accent-primary); opacity: 0.9; }
@@ -96,7 +112,7 @@
         ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.3); border-radius: 10px; }
         ::-webkit-scrollbar-corner { background: transparent; }
         
-        body.lang-th .node-title, body.lang-th .node-desc { letter-spacing: normal !important; }
+        body.lang-th .node-title, body.lang-th .node-desc, body.lang-th .roadmap-title-badge { letter-spacing: normal !important; }
     </style>
 </head>
 <body class="lang-th">
@@ -106,7 +122,7 @@
     <div class="top-nav-bar">
         <a href="../" class="back-nav"><span data-th="❮ กลับหน้าหลัก" data-en="❮ BACK TO MAIN">❮ กลับหน้าหลัก</span></a>
         <div class="top-right-controls">
-            <div class="roadmap-title-badge">DECISION TREE V2.0 | กว่า-จะ-เป็น ROADMAP</div>
+            <div class="roadmap-title-badge" data-th="กว่า-จะ-เป็น ROADMAP" data-en="DECISION TREE V2.0">กว่า-จะ-เป็น ROADMAP</div>
             <div class="lang-switcher">
                 <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
                 <button onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -135,28 +151,27 @@
         </div>
     </div>
     
-    <main id="roadmap-container">
-        <div class="flex-wrapper">
-            <div class="node-column" id="col-1">
-                <div class="branch-line" id="line-1"></div>
-                <div class="node-box" onclick="branch(1, 'surgical_vibe', this)" style="border-left: 8px solid var(--category-surg)">
+    <main id="roadmap-container" onscroll="drawLines()">
+        <div class="flex-wrapper" id="content-wrapper">
+            <svg id="svg-canvas"></svg> <div class="node-column" id="col-1">
+                <div class="node-box" id="box-1-1" onclick="branch(1, 'surgical_vibe', this)" style="border-left: 8px solid var(--category-surg)">
                     <span class="node-emoji">⚔️</span><span class="node-tag" data-th="The Performer" data-en="The Performer">The Performer</span>
                     <p class="node-title" data-th="เน้นหัตถการ (Surgical & Procedural)" data-en="Procedure-Oriented (Surgical)">เน้นหัตถการ (Surgical & Procedural)</p>
                     <p class="node-desc" data-th="ชอบการลงมือทำด้วยมือ เห็นผลลัพธ์จับต้องได้ทันที เน้นการแก้ปัญหาเชิงโครงสร้าง" data-en="Prefers hands-on procedures, immediate results, and anatomical problem-solving.">ชอบการลงมือทำด้วยมือ เห็นผลลัพธ์จับต้องได้ทันที เน้นการแก้ปัญหาเชิงโครงสร้าง</p>
                 </div>
-                <div class="node-box" onclick="branch(1, 'medical_vibe', this)" style="border-left: 8px solid var(--category-med)">
+                <div class="node-box" id="box-1-2" onclick="branch(1, 'medical_vibe', this)" style="border-left: 8px solid var(--category-med)">
                     <span class="node-emoji">🔍</span><span class="node-tag" data-th="The Detective" data-en="The Detective">The Detective</span>
                     <p class="node-title" data-th="เน้นการวินิจฉัย (Medical & Cognitive)" data-en="Reasoning-Oriented (Medical)">เน้นการวินิจฉัย (Medical & Cognitive)</p>
                     <p class="node-desc" data-th="ชอบสืบสวนโรค คิดวิเคราะห์พยาธิสภาพ วางแผนรักษาด้วยยา และสานสัมพันธ์ระยะยาว" data-en="Enjoys clinical reasoning, pathophysiology, medical management, and long-term relationships.">ชอบสืบสวนโรค คิดวิเคราะห์พยาธิสภาพ วางแผนรักษาด้วยยา และสานสัมพันธ์ระยะยาว</p>
                 </div>
-                <div class="node-box" onclick="branch(1, 'support_vibe', this)" style="border-left: 8px solid var(--category-supp)">
+                <div class="node-box" id="box-1-3" onclick="branch(1, 'support_vibe', this)" style="border-left: 8px solid var(--category-supp)">
                     <span class="node-emoji">🛡️</span><span class="node-tag" data-th="Vanguard & Oracle" data-en="Vanguard & Oracle">Vanguard & Oracle</span>
                     <p class="node-title" data-th="เน้นภาวะวิกฤตและสืบค้น (Acute & Diagnostics)" data-en="System & Crisis-Oriented (Support)">เน้นภาวะวิกฤตและสืบค้น (Acute & Diagnostics)</p>
                     <p class="node-desc" data-th="ชอบความท้าทายระดับนาทีชีวิต หรืออยู่เบื้องหลังการไขรหัสโรคด้วยเทคโนโลยี" data-en="Thrives in acute crises or prefers behind-the-scenes diagnostic investigations.">ชอบความท้าทายระดับนาทีชีวิต หรืออยู่เบื้องหลังการไขรหัสโรคด้วยเทคโนโลยี</p>
                 </div>
             </div>
-            <div class="node-column" id="col-2" style="display:none;"><div class="branch-line" id="line-2"></div></div>
-            <div class="node-column" id="col-3" style="display:none;"><div class="branch-line" id="line-3"></div></div>
+            <div class="node-column" id="col-2" style="display:none;"></div>
+            <div class="node-column" id="col-3" style="display:none;"></div>
             <div class="node-column" id="col-4" style="display:none;"></div>
         </div>
     </main>
@@ -268,8 +283,8 @@
             PREV_END: { title_th: "เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "นักระบาดวิทยา ผู้เน้นการป้องกันระดับประชากรเพื่อไม่ให้คนต้องป่วย", desc_en: "Epidemiologists focusing on population-level prevention.", slug: "preventive-medicine" }
         };
 
-        let moveX = 0; let lastDepth = 1;
         let currentLang = 'th';
+        let stateSelections = {}; // To track active boxes in each column
 
         function setLanguage(lang) { 
             currentLang = lang;
@@ -279,54 +294,57 @@
                 el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en'); 
             }); 
             document.body.className = `lang-${lang}`; 
+            
+            // Re-render text inside dynamic boxes if they exist
+            drawLines();
         }
 
         function unlockRoadmap() { 
             document.getElementById('entrance-overlay').style.opacity = '0'; 
-            setTimeout(() => { document.getElementById('entrance-overlay').style.display = 'none'; document.getElementById('roadmap-container').style.display = 'flex'; }, 800); 
+            setTimeout(() => { 
+                document.getElementById('entrance-overlay').style.display = 'none'; 
+                document.getElementById('roadmap-container').style.display = 'flex'; 
+                drawLines();
+            }, 800); 
         }
 
         function branch(colIndex, key, element) { 
             const parent = element.parentElement; 
+            
+            // Clear selections in current column
             parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected')); 
             element.classList.add('selected'); 
+            
+            // Store selected box ID for this column
+            stateSelections[colIndex] = element.id;
 
-            // Logic to move the connection line to the selected box
-            const line = document.getElementById(`line-${colIndex}`);
-            if (line) {
-                const boxRect = element.getBoundingClientRect();
-                const parentRect = parent.getBoundingClientRect();
-                // Calculate position relative to the scrollable container
-                const relativeTop = (boxRect.top - parentRect.top) + (boxRect.height / 2);
-                line.style.top = `${relativeTop}px`;
-                parent.classList.add('active-branch');
-            }
-
-            // Smoother Background Parallax
-            if (colIndex >= lastDepth) { 
-                moveX -= 150; document.getElementById('bg-canvas').style.transform = `translateX(${moveX}px)`; 
-                lastDepth = colIndex + 1; 
-            }
-
+            // Hide and clear subsequent columns
             for (let i = colIndex + 1; i <= 5; i++) { 
                 const col = document.getElementById(`col-${i}`); 
                 if (col) { 
                     col.style.display = 'none'; 
-                    // Keep the line div, clear everything else
-                    col.innerHTML = `<div class="branch-line" id="line-${i}"></div>`; 
-                    col.classList.remove('active-branch');
+                    col.innerHTML = ''; 
+                    delete stateSelections[i];
                 } 
             } 
 
             const nextCol = document.getElementById(`col-${colIndex + 1}`); 
-            if (!nextCol) return; 
+            if (!nextCol) {
+                drawLines();
+                return;
+            }
 
             if (treeData[key]) { 
                 const data = treeData[key]; 
                 nextCol.style.display = 'flex'; 
                 nextCol.style.animation = 'fadeInRight 0.6s ease forwards'; 
+                
+                let boxCounter = 1;
                 data.options.forEach(opt => { 
-                    const box = document.createElement('div'); box.className = 'node-box'; box.onclick = () => branch(colIndex + 1, opt.next, box); 
+                    const box = document.createElement('div'); 
+                    box.className = 'node-box'; 
+                    box.id = `box-${colIndex + 1}-${boxCounter++}`;
+                    box.onclick = () => branch(colIndex + 1, opt.next, box); 
                     box.innerHTML = `
                         <span class="node-emoji">${opt.emoji}</span>
                         <span class="node-tag">${currentLang === 'th' ? data.title_th : data.title_en}</span>
@@ -338,21 +356,77 @@
                 const res = results[key]; 
                 nextCol.style.display = 'flex'; 
                 nextCol.innerHTML = `
-                    <div class="node-box specialty-result">
+                    <div class="node-box specialty-result" id="box-${colIndex + 1}-1">
                         <span class="node-tag" style="color:var(--accent-gold); letter-spacing:2px;">✨ ${currentLang === 'th' ? 'ปลายทางของคุณ' : 'Your Ultimate Calling'}</span>
                         <p class="node-title">${currentLang === 'th' ? res.title_th : res.title_en}</p>
                         <p class="node-desc" style="margin-top:10px; opacity:0.9;">${currentLang === 'th' ? res.desc_th : res.desc_en}</p>
-                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">Explore Full Profile at AAMC ↗</a>
+                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">${currentLang === 'th' ? 'เจาะลึกสาขานี้ที่ AAMC ↗' : 'Explore Profile at AAMC ↗'}</a>
                     </div>`; 
             } 
-            setTimeout(() => { document.getElementById('roadmap-container').scrollBy({ left: 450, behavior: 'smooth' }); }, 50); 
+
+            // Wait a tick for DOM to render, then draw lines and scroll
+            setTimeout(() => { 
+                drawLines();
+                document.getElementById('roadmap-container').scrollBy({ left: 450, behavior: 'smooth' }); 
+            }, 50); 
         }
-        
+
+        // The Magic SVG Line Drawer
+        function drawLines() {
+            const svg = document.getElementById('svg-canvas');
+            const wrapper = document.getElementById('content-wrapper');
+            if(!svg || !wrapper) return;
+
+            // Set SVG size to match the scrollable wrapper
+            svg.setAttribute('width', wrapper.scrollWidth);
+            svg.setAttribute('height', wrapper.scrollHeight);
+            svg.innerHTML = ''; // Clear old lines
+
+            const wrapperRect = wrapper.getBoundingClientRect();
+
+            // Iterate through state selections to draw lines from selected box to all boxes in NEXT column
+            for (let i = 1; i < 5; i++) {
+                const selectedBoxId = stateSelections[i];
+                if (!selectedBoxId) continue;
+
+                const startBox = document.getElementById(selectedBoxId);
+                const nextCol = document.getElementById(`col-${i + 1}`);
+                
+                if (startBox && nextCol && nextCol.style.display !== 'none') {
+                    const startRect = startBox.getBoundingClientRect();
+                    
+                    // Coordinates relative to SVG Canvas
+                    const startX = (startRect.right - wrapperRect.left);
+                    const startY = (startRect.top - wrapperRect.top) + (startRect.height / 2);
+
+                    const targetBoxes = nextCol.querySelectorAll('.node-box');
+                    
+                    targetBoxes.forEach(targetBox => {
+                        const targetRect = targetBox.getBoundingClientRect();
+                        const endX = (targetRect.left - wrapperRect.left);
+                        const endY = (targetRect.top - wrapperRect.top) + (targetRect.height / 2);
+
+                        // Draw Bezier Curve (Cubic)
+                        const curveFactor = 80;
+                        const pathString = `M ${startX} ${startY} C ${startX + curveFactor} ${startY}, ${endX - curveFactor} ${endY}, ${endX} ${endY}`;
+                        
+                        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path.setAttribute('d', pathString);
+                        path.setAttribute('class', 'connection-line');
+                        svg.appendChild(path);
+                    });
+                }
+            }
+        }
+
+        // Redraw lines if window resizes or scrolls vertically within columns
+        window.addEventListener('resize', drawLines);
+        document.querySelectorAll('.node-column').forEach(col => {
+            col.addEventListener('scroll', drawLines);
+        });
+
         // Initialize Language
         setLanguage('th');
     </script>
-    <style>
-        @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-    </style>
 </body>
 </html>
