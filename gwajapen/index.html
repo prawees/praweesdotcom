@@ -3,236 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Medical Career Roadmap | กว่า-จะ-เป็น</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg-color: #F0F9FF; 
-            --surface-color: #FFFFFF;
-            --text-main: #1A1A1A; 
-            --text-muted: #666666; 
-            --border-color: rgba(0, 102, 204, 0.1); 
-            --accent-gold: #D4AF37;
-            --accent-blue: #0077EE;
+            --bg-sky: linear-gradient(180deg, #BAE6FD 0%, #FFFFFF 100%);
+            --surface-color: rgba(255, 255, 255, 0.85);
+            --text-main: #0F172A; 
+            --text-muted: #475569; 
+            --border-color: rgba(14, 165, 233, 0.15); 
+            --accent-blue: #0284C7;
+            /* Category Colors */
+            --surgical-c: #EF4444;
+            --medical-c: #6366F1;
+            --support-c: #10B981;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg-sky); color: var(--text-main); font-family: 'Anuphan', sans-serif; overflow: hidden; height: 100vh; }
         
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
-            line-height: 1.5; 
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+        /* --- AESTHETIC SKY --- */
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .cloud { position: absolute; background: white; border-radius: 100px; opacity: 0.6; filter: blur(50px); animation: drift 25s infinite linear; }
+        @keyframes drift { from { transform: translateX(-200px); } to { transform: translateX(120vw); } }
 
-        /* --- NAVIGATION --- */
-        nav.top-bar {
-            position: fixed; top: 0; left: 0; width: 100%;
-            padding: 15px 6vw; display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; color: white;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
-        }
-        .back-link { display: flex; align-items: center; transition: 0.3s; }
-        .site-logo { height: 24px; width: auto; filter: brightness(2); }
+        /* --- THICKER BANNER --- */
+        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 90; border-bottom: 3px solid white; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
         
-        .lang-switcher button { 
-            background: transparent; border: none; font-size: 0.8rem; 
-            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.7; transition: 0.3s;
-        }
-        .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+        .back-nav { position: fixed; top: 45px; left: 6vw; z-index: 500; text-decoration: none; color: var(--accent-blue); font-weight: 700; background: white; padding: 12px 25px; border-radius: 50px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .back-nav:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            position: relative; width: 100%; height: 80vh; min-height: 600px;
-            display: flex; justify-content: center; align-items: flex-end;
-            overflow: hidden; padding-bottom: 80px;
+        /* --- ENTRANCE --- */
+        #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: var(--bg-sky); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
+        .calling-card { background: white; border: 3px solid transparent; padding: 50px; border-radius: 40px; cursor: pointer; transition: 0.4s; width: 360px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); }
+        .calling-card:hover { border-color: var(--accent-blue); transform: scale(1.02); }
+
+        /* --- ROADMAP VIEWPORT --- */
+        #roadmap-container { 
+            display: none; height: 100vh; overflow-x: auto; overflow-y: hidden; 
+            padding: 200px 12vw 100px; /* Clear 140px banner + breathing room */
+            white-space: nowrap; align-items: center; scroll-behavior: smooth; 
         }
-        .hero-banner-img { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; object-position: center 35%; z-index: -1; 
+
+        .node-column { display: inline-flex; flex-direction: column; justify-content: center; gap: 60px; margin-right: 280px; position: relative; }
+        .node-column::after { content: ''; position: absolute; right: -200px; top: 50%; width: 200px; height: 2px; background: linear-gradient(to right, var(--accent-blue), transparent); z-index: -1; opacity: 0.3; }
+        .node-column:last-child::after { display: none; }
+
+        .node-box { 
+            background: var(--surface-color); border: 2px solid white; padding: 30px; border-radius: 30px; 
+            width: 360px; white-space: normal; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; 
+            backdrop-filter: blur(15px); box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            position: relative;
         }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8) 100%); z-index: 0;
-        }
-        .hero-content { position: relative; z-index: 1; text-align: center; color: white; max-width: 900px; padding: 0 20px; }
+        .node-box:hover { transform: translateX(15px) scale(1.03); background: white; border-color: var(--accent-blue); }
+        .node-box.selected { border-color: var(--accent-blue); background: white; box-shadow: 0 20px 40px rgba(2, 132, 199, 0.15); }
         
-        .hero-subtitle { font-size: 1.2rem; font-weight: 300; line-height: 1.7; text-shadow: 0 2px 10px rgba(0,0,0,0.5); margin-bottom: 35px; }
+        .node-emoji { font-size: 2.2rem; margin-bottom: 15px; display: block; }
+        .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 2px; opacity: 0.6; }
+        .node-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: #0F172A; }
+        .node-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.6; }
 
-        /* HERO BUTTONS GROUP */
-        .hero-btns { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        
-        .hero-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white; text-decoration: none;
-            padding: 16px 32px; border-radius: 50px;
-            font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .hero-btn:hover {
-            background: white; color: #1A1A1A;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255,255,255,0.2);
-        }
-        .hero-btn.primary { background: var(--accent-blue); border-color: var(--accent-blue); }
-        .hero-btn.primary:hover { background: white; color: var(--accent-blue); }
+        /* Final Specialties Style */
+        .specialty-result { border: none; color: white; padding: 45px; }
+        .surgical-res { background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%); }
+        .medical-res { background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%); }
+        .support-res { background: linear-gradient(135deg, #10B981 0%, #047857 100%); }
+        .specialty-result * { color: white !important; }
 
-        /* --- LAYOUT WRAPPER --- */
-        .section-container { max-width: 1300px; margin: 0 auto; padding: 80px 6vw; }
-
-        .aesthetic-heading {
-            font-size: 0.85rem; font-weight: 700; color: var(--accent-blue);
-            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px;
-            display: flex; align-items: center; gap: 15px; white-space: nowrap;
-        }
-        .aesthetic-heading::after { content: ''; height: 1px; background: var(--border-color); flex: 1; }
-
-        /* --- WORD CLOUD --- */
-        .wordcloud-container {
-            display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);    
-            width: 100%; height: 130px; gap: 5px; align-items: center; justify-items: center; margin-bottom: 30px; overflow: hidden;
-        }
-        .cloud-word {
-            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; text-transform: uppercase;
-            transition: opacity 1s, color 0.4s, transform 0.4s; opacity: 0; cursor: default;
-        }
-
-        /* --- VIDEO SECTION --- */
-        .video-header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .carousel-btn {
-            background: white; border: 1px solid var(--border-color); width: 40px; height: 40px; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .carousel-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
-
-        .video-grid-container { width: 100%; overflow: hidden; margin: 0 auto; max-width: 480px; }
-        .video-grid {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-            gap: 20px; padding-bottom: 20px; scrollbar-width: none;
-        }
-        .video-grid::-webkit-scrollbar { display: none; }
-        
-        .video-card {
-            background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;
-            border: 1px solid var(--border-color); min-width: 100%; scroll-snap-align: center;
-            box-shadow: 0 10px 30px rgba(0, 119, 238, 0.05);
-        }
-        .video-info-top { padding: 25px; border-bottom: 1px solid var(--border-color); }
-        .video-tag { font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px; }
-        .video-title { font-size: 1.25rem; font-weight: 700; margin: 8px 0; }
-        .video-desc { font-size: 0.95rem; color: var(--text-muted); }
-
-        /* --- EMBEDS --- */
-        .notion-container { width: 100%; height: 600px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); background: white; position: relative; box-shadow: 0 10px 30px rgba(0, 119, 238, 0.05); }
-        .form-container { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); background: white; height: 450px; box-shadow: 0 10px 30px rgba(0, 119, 238, 0.05); }
-
-        /* --- FOOTER --- */
-        .footer-contact { text-align: center; padding: 80px 20px 40px; border-top: 1px solid var(--border-color); background: white; }
-        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
-        .footer-links a { background-color: var(--text-main); color: white; text-decoration: none; font-size: 0.8rem; font-weight: 700; padding: 12px 30px; border-radius: 30px; transition: 0.3s; }
-        .footer-links a:hover { background: var(--accent-blue); transform: translateY(-3px); }
-
-        body.lang-th .hero-btn, body.lang-th .aesthetic-heading, body.lang-th .cloud-word, body.lang-th .video-tag, body.lang-th .footer-links a { letter-spacing: normal !important; }
-
-        @media (min-width: 1024px) { .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; } .col-left, .col-right { display: flex; flex-direction: column; gap: 50px; } }
-        @media (max-width: 1023px) { 
-            .hero { height: 75vh; padding-bottom: 50px; } 
-            .hero-btns { gap: 10px; }
-            .hero-btn { padding: 14px 24px; font-size: 0.85rem; width: 100%; max-width: 280px; justify-content: center; }
-            .main-layout { display: flex; flex-direction: column; gap: 40px; } 
-            .col-left, .col-right { display: contents; } 
-            .wordcloud-section { order: 1; } 
-            .database-section { order: 2; } 
-            .video-section { order: 3; } 
-            .suggestion-section { order: 4; } 
-            .aesthetic-heading { white-space: normal; line-height: 1.4; } 
-        }
+        ::-webkit-scrollbar { height: 8px; }
+        ::-webkit-scrollbar-thumb { background: rgba(2, 132, 199, 0.2); border-radius: 10px; }
     </style>
 </head>
-<body class="lang-th">
-    <nav class="top-bar">
-        <a href="https://prawees.com" class="back-link"><img src="../logo.png" alt="Logo" class="site-logo"></a>
-        <div class="lang-switcher">
-            <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
-            <button onclick="setLanguage('en')" id="btn-en">EN</button>
-        </div>
-    </nav>
+<body>
+    <div class="header-banner"><img src="../banner.jpg" alt="Banner"></div>
+    
+    <div id="bg-canvas">
+        <div class="cloud" style="width:350px; height:120px; top:15%; left:5%;"></div>
+        <div class="cloud" style="width:500px; height:150px; top:45%; left:55%; animation-delay: -7s;"></div>
+        <div class="cloud" style="width:280px; height:100px; top:75%; left:25%; animation-delay: -12s;"></div>
+    </div>
 
-    <section class="hero">
-        <img src="banner.jpg" alt="Banner" class="hero-banner-img">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <p class="hero-subtitle" data-th="เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ" data-en="Seniors' untold stories, hidden challenges, and unfiltered inspirations.">เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ</p>
-            
-            <div class="hero-btns">
-                <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank" class="hero-btn">
-                    <span>TikTok</span>
-                </a>
-                <a href="https://www.instagram.com/gwa.ja.pen" target="_blank" class="hero-btn">
-                    <span>Instagram</span>
-                </a>
-                <a href="roadmap" class="hero-btn primary">
-                    <span class="icon">🌳</span>
-                    <span data-th="เปิดแผนที่เส้นทางอาชีพของคุณ" data-en="Open Career Roadmap">เปิดแผนที่เส้นทางอาชีพของคุณ</span>
-                </a>
+    <a href="../" class="back-nav"><span>❮</span> ย้อนกลับหน้าหลัก</a>
+    
+    <div id="entrance-overlay">
+        <h1 style="font-size: 3rem; margin-bottom:40px; letter-spacing: -2px;">Choose Your Calling</h1>
+        <div class="calling-card active" onclick="unlockRoadmap('medicine')">
+            <span style="font-size: 4rem;">🩺</span>
+            <h3 style="font-size: 2.2rem; color: #0284C7; margin-top: 15px;">Medicine</h3>
+            <p style="color: #64748b; font-size: 1.15rem; margin-top:10px;">ก้าวสู่เส้นทางแห่งการเยียวยาเพื่อนมนุษย์</p>
+        </div>
+    </div>
+    
+    <main id="roadmap-container">
+        <div class="node-column" id="col-1">
+            <div class="node-box" onclick="branch(1, 'surgical_path', this)" style="border-left: 8px solid var(--surgical-c)">
+                <span class="node-emoji">🔪</span>
+                <span class="node-tag" style="color: var(--surgical-c)">Action-Oriented</span>
+                <p class="node-title">เน้นหัตถการ (Surgical)</p>
+                <p class="node-desc">เน้นความแม่นยำของมือ การผ่าตัด และการแก้ปัญหาที่เห็นผลชัดเจนทันที</p>
+            </div>
+            <div class="node-box" onclick="branch(1, 'medical_path', this)" style="border-left: 8px solid var(--medical-c)">
+                <span class="node-emoji">🧠</span>
+                <span class="node-tag" style="color: var(--medical-c)">Logic-Oriented</span>
+                <p class="node-title">เน้นการวินิจฉัย (Medical)</p>
+                <p class="node-desc">เน้นการคิดวิเคราะห์กลไกของโรค ความซับซ้อนของระบบร่างกาย และการใช้ยา</p>
+            </div>
+            <div class="node-box" onclick="branch(1, 'support_path', this)" style="border-left: 8px solid var(--support-c)">
+                <span class="node-emoji">🔬</span>
+                <span class="node-tag" style="color: var(--support-c)">System-Oriented</span>
+                <p class="node-title">เน้นการสนับสนุน (Support)</p>
+                <p class="node-desc">ทำงานร่วมกับเทคโนโลยี การวิจัย หรือการดูแลผู้ป่วยในสภาวะวิกฤต/ฉุกเฉิน</p>
             </div>
         </div>
-    </section>
-
-    <section class="section-container">
-        <div class="main-layout">
-            <div class="col-left">
-                <div class="wordcloud-section"><div class="wordcloud-container" id="wordcloud"></div></div>
-                <div class="video-section">
-                    <div class="video-header-controls">
-                        <div class="aesthetic-heading" data-th="คลิปสัมภาษณ์ (ปัดซ้าย-ขวาเพื่อชมคลิปอื่น)" data-en="Video Series">คลิปสัมภาษณ์ (ปัดซ้าย-ขวาเพื่อชมคลิปอื่น)</div>
-                        <div class="carousel-controls"><button class="carousel-btn" onclick="scrollSlider(-1)">❮</button><button class="carousel-btn" onclick="scrollSlider(1)">❯</button></div>
-                    </div>
-                    <div class="video-grid-container"><div class="video-grid" id="video-container"></div></div>
-                </div>
-            </div>
-            <div class="col-right">
-                <div class="database-section">
-                    <div class="aesthetic-heading" data-th="คลังความรู้ (หากขึ้นจอขาว กดรีเฟรชเว็บ 1 ครั้งเพื่อแก้ไข)" data-en="Resources">คลังความรู้ (หากขึ้นจอขาว กดรีเฟรชเว็บ 1 ครั้งเพื่อแก้ไข)</div>
-                    <div class="notion-container"><iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" style="width:100%; height:100%; border:0;" allowfullscreen></iframe></div>
-                </div>
-                <div class="suggestion-section">
-                    <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
-                    <div class="form-container"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" style="width:100%; height:100%; border:0;" allowfullscreen>Loading…</iframe></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer-contact">
-        <div class="footer-links">
-            <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TIKTOK</a>
-            <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">INSTAGRAM</a>
-            <a href="mailto:prawee.sin@gmail.com">CONTACT</a>
-        </div>
-        <div class="footer-copyright" style="font-size: 0.7rem; color: #999; letter-spacing: 2px;">© 2026 PRAWEES</div>
-    </footer>
-
+        <div class="node-column" id="col-2" style="display:none;"></div>
+        <div class="node-column" id="col-3" style="display:none;"></div>
+        <div class="node-column" id="col-4" style="display:none;"></div>
+    </main>
+    
     <script>
-        const medicalWords = ["Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", "Radiologist", "Educator", "Oncologist", "Leader", "Dermatologist", "Visionary", "Ophthalmologist", "Advocate", "Anesthesiologist", "Developer", "Pathologist", "Creator", "Practitioner", "Data Analyst", "Policy Maker", "Orthopedist", "Gynecologist", "Urologist", "Endocrinologist", "Gastroenterologist", "Nephrologist", "Pulmonologist", "Rheumatologist", "Hematologist", "Immunologist", "Allergist", "Geriatrician", "Sports Med", "Medical Illustrator", "Health Economist", "Clinical Trial", "Bioinformatician", "Medical Writer", "Epidemiologist", "Public Health", "Telemedicine", "Genomic Counselor", "Medical Device", "Health IT", "Global Health", "Nutritionist", "Rehabilitation", "Pharmacist", "Geneticist", "Toxicologist", "Audiologist", "Occupational Therapist", "Physical Therapist", "Healthcare Admin", "Ethicist"];
-        const colors = ['#0077EE', '#1A1A1A', '#666666', '#D4AF37', '#2ECC71', '#9B51E0'];
-        function initWordCloud() { const container = document.getElementById('wordcloud'); const shuffled = medicalWords.sort(() => 0.5 - Math.random()); for(let i=0; i<9; i++) { const span = document.createElement('span'); span.className = 'cloud-word'; span.style.fontSize = `clamp(0.6rem, 1.8vw, 1rem)`; span.style.color = colors[Math.floor(Math.random() * colors.length)]; span.innerText = shuffled[i]; container.appendChild(span); setTimeout(() => { span.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2); }, i * 150); setTimeout(() => { setInterval(() => { swapWord(span); }, 3500 + Math.random() * 4000); }, Math.random() * 2500); } }
-        function swapWord(element) { element.style.opacity = 0; setTimeout(() => { element.innerText = medicalWords[Math.floor(Math.random() * medicalWords.length)]; element.style.color = colors[Math.floor(Math.random() * colors.length)]; element.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2); }, 1000); }
-        const database = { videos: [ { episode: "04", title_th: "แพทย์นักวิจัยระบบสุขภาพ", title_en: "Health Systems Researcher", desc_th: "กับ ศ.เกียรติคุณ นพ.ไพบูลย์ สุริยะวงศ์ไพศาล", desc_en: "with Prof.Paibul Suriyawongpaisal, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7615096735899192594" data-video-id="7615096735899192594" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` }, { episode: "03", title_th: "อาจารย์แพทย์นิวโรเมด", title_en: "Neurology Attending", desc_th: "กับ อ.พญ.วันนิษา วงษ์พิพัฒน์พงษ์", desc_en: "with Wannisa Wongpipathpong, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7606275644078607634" data-video-id="7606275644078607634" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` }, { episode: "02", title_th: "Resident กุมารฯ", title_en: "Pediatrics Resident", desc_th: "กับ พญ.จุฑามาศ วัฒน์ชัยพนา", desc_en: "with Juthamard Watchaipana, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605593446358764808" data-video-id="7605593446358764808" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` }, { episode: "01", title_th: "Resident ประสาทศัลยศาสตร์", title_en: "Neurosurgery Resident", desc_th: "กับ พญ.ธนพร เจริญงามเสมอ", desc_en: "with Tanaporn Jaroenngarmsamer, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="width: 100%; max-width: 605px; min-width: 280px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` } ]};
-        function renderVideos() { const container = document.getElementById('video-container'); container.innerHTML = database.videos.map((v) => ` <div class="video-card"> <div class="video-info-top"> <span class="video-tag">EPISODE ${v.episode}</span> <h3 class="video-title" data-th="${v.title_th}" data-en="${v.title_en}">${v.title_th}</h3> <p class="video-desc" data-th="${v.desc_th}" data-en="${v.desc_en}">${v.desc_th}</p> </div> <div class="video-embed-wrapper">${v.embed_code}</div> </div> `).join(''); const ttScript = document.createElement('script'); ttScript.src = 'https://www.tiktok.com/embed.js'; ttScript.async = true; document.body.appendChild(ttScript); }
-        function scrollSlider(direction) { const container = document.getElementById('video-container'); const cardWidth = container.querySelector('.video-card').offsetWidth + 20; container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' }); }
-        function setLanguage(lang) { document.getElementById('btn-th').classList.toggle('active', lang === 'th'); document.getElementById('btn-en').classList.toggle('active', lang === 'en'); document.querySelectorAll('[data-th]').forEach(el => { el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en'); }); document.body.className = `lang-${lang}`; }
-        window.onload = () => { initWordCloud(); renderVideos(); setLanguage('th'); };
+        const treeData = {
+            // SURGICAL BRANCH
+            surgical_path: { title: "Surgery Focus", options: [
+                { id: 's_major', emoji: '🫀', title: "อวัยวะภายในหลัก", desc: "ผ่าตัดช่องท้อง หัวใจ หรือทรวงอก", next: 's_major_sub' },
+                { id: 's_spec', emoji: '🦴', title: "โครงสร้างเฉพาะทาง", desc: "เน้นกระดูก เส้นประสาท หรือความงาม", next: 's_spec_sub' }
+            ]},
+            s_major_sub: { title: "Major Specialty", options: [
+                { id: 'gs', emoji: '🏥', title: "ศัลยกรรมทั่วไป", desc: "เชี่ยวชาญการผ่าตัดอวัยวะในช่องท้อง", next: 'GS_RES' },
+                { id: 'cvt', emoji: '🫁', title: "ศัลยกรรมทรวงอก", desc: "เชี่ยวชาญหัวใจ ปอด และเส้นเลือดใหญ่", next: 'CVT_RES' }
+            ]},
+            s_spec_sub: { title: "Fine Specialty", options: [
+                { id: 'ortho', emoji: '🧗', title: "ศัลยกรรมออร์โธปิดิกส์", desc: "เน้นกระดูก ข้อต่อ และการเคลื่อนไหว", next: 'ORTHO_RES' },
+                { id: 'ns', emoji: '⚡', title: "ศัลยกรรมประสาท", desc: "งานละเอียดอ่อนระดับไมโครในสมอง", next: 'NS_RES' }
+            ]},
+
+            // MEDICAL BRANCH
+            medical_path: { title: "Medical System", options: [
+                { id: 'm_internal', emoji: '🫀', title: "ระบบอวัยวะภายใน", desc: "เจาะลึกระบบเลือด หัวใจ หรือไต", next: 'm_internal_sub' },
+                { id: 'm_life', emoji: '👶', title: "ช่วงวัยและพฤติกรรม", desc: "เน้นการดูแลตามอายุหรือสุขภาพจิต", next: 'm_life_sub' }
+            ]},
+            m_internal_sub: { title: "Internal Sub", options: [
+                { id: 'cardio', emoji: '💓', title: "อายุรศาสตร์โรคหัวใจ", desc: "ผู้เชี่ยวชาญกลไกไฟฟ้าและกล้ามเนื้อหัวใจ", next: 'CARDIO_RES' },
+                { id: 'neuro_m', emoji: '🧠', title: "อายุรศาสตร์ระบบประสาท", desc: "ผู้ไขปริศนาสมองและเส้นประสาท", next: 'NEURO_M_RES' }
+            ]},
+            m_life_sub: { title: "Lifecycle", options: [
+                { id: 'peds', emoji: '🧸', title: "กุมารเวชศาสตร์", desc: "การดูแลสุขภาพและพัฒนาการของเด็ก", next: 'PEDS_RES' },
+                { id: 'psych', emoji: '🧘', title: "จิตเวชศาสตร์", desc: "ทำความเข้าใจและเยียวยาสุขภาพจิต", next: 'PSYCH_RES' }
+            ]},
+
+            // SUPPORT BRANCH
+            support_path: { title: "Support Field", options: [
+                { id: 'su_diag', emoji: '📸', title: "การวินิจฉัยพิเศษ", desc: "เน้นภาพถ่ายรังสีหรือการตรวจชิ้นเนื้อ", next: 'su_diag_sub' },
+                { id: 'su_acute', emoji: '🚨', title: "ภาวะวิกฤตและระงับปวด", desc: "ดูแลหน้างานฉุกเฉินหรือในห้องผ่าตัด", next: 'su_acute_sub' }
+            ]},
+            su_diag_sub: { title: "Diagnostics", options: [
+                { id: 'radio', emoji: '🦴', title: "รังสีวิทยา", desc: "วินิจฉัยโรคผ่านภาพ X-ray, MRI, CT", next: 'RADIO_RES' },
+                { id: 'patho', emoji: '🔬', title: "พยาธิวิทยา", desc: "ยืนยันโรคผ่านการตรวจเซลล์และเนื้อเยื่อ", next: 'PATHO_RES' }
+            ]},
+            su_acute_sub: { title: "Acute Care", options: [
+                { id: 'er', emoji: '🚑', title: "เวชศาสตร์ฉุกเฉิน", desc: "ผู้ตัดสินใจในวินาทีวิกฤตของชีวิต", next: 'ER_RES' },
+                { id: 'anes', emoji: '😴', title: "วิสัญญีวิทยา", desc: "ผู้ดูแลสัญญาณชีพและความหลับใหล", next: 'ANES_RES' }
+            ]}
+        };
+
+        const results = {
+            GS_RES: { type: 'surgical', title: "ศัลยแพทย์ทั่วไป", desc: "ผู้เชี่ยวชาญการผ่าตัดรักษาโรคในช่องท้องและอุบัติเหตุขั้นสูง", tag: "General Surgeon" },
+            CVT_RES: { type: 'surgical', title: "ศัลยแพทย์หัวใจและทรวงอก", desc: "สุดยอดความแม่นยำในการรักษาอวัยวะที่เป็นเครื่องยนต์ของชีวิต", tag: "Cardiothoracic Surgeon" },
+            ORTHO_RES: { type: 'surgical', title: "ศัลยแพทย์ออร์โธปิดิกส์", desc: "วิศวกรแห่งร่างกายมนุษย์ ผู้ซ่อมแซมกระดูกและข้อต่อ", tag: "Orthopedic Surgeon" },
+            NS_RES: { type: 'surgical', title: "ศัลยแพทย์ประสาท", desc: "ศิลปินบนเนื้อสมองที่ผสานเทคโนโลยีและสมาธิขั้นสูงสุด", tag: "Neurosurgeon" },
+            CARDIO_RES: { type: 'medical', title: "อายุรแพทย์โรคหัวใจ", desc: "นักสืบระบบไหลเวียนโลหิต ผู้ใช้เทคโนโลยีรักษาหัวใจโดยไม่ใช้มีดผ่า", tag: "Cardiologist" },
+            NEURO_M_RES: { type: 'medical', title: "อายุรแพทย์ระบบประสาท", desc: "ผู้เชี่ยวชาญการถอดรหัสอาการผิดปกติของสมองและเส้นประสาท", tag: "Neurologist" },
+            PEDS_RES: { type: 'medical', title: "กุมารแพทย์", desc: "ผู้พิทักษ์สุขภาพของคนรุ่นใหม่ ตั้งแต่ทารกจนถึงวัยรุ่น", tag: "Pediatrician" },
+            PSYCH_RES: { type: 'medical', title: "จิตแพทย์", desc: "ผู้เยียวยาบาดแผลทางใจและปรับสมดุลของสารเคมีในสมอง", tag: "Psychiatrist" },
+            RADIO_RES: { type: 'support', title: "รังสีแพทย์", desc: "ผู้อ่านรหัสลับจากภาพถ่ายทางการแพทย์เพื่อค้นหาจุดกำเนิดโรค", tag: "Radiologist" },
+            PATHO_RES: { type: 'support', title: "พยาธิแพทย์", desc: "ผู้พิพากษาผลลัพธ์สุดท้ายของโรคผ่านกล้องจุลทรรศน์", tag: "Pathologist" },
+            ER_RES: { type: 'support', title: "แพทย์เวชศาสตร์ฉุกเฉิน", desc: "ฮีโร่ด่านหน้าที่รับมือกับทุกสถานการณ์ไม่คาดฝันเพื่อรักษาชีวิต", tag: "ER Physician" },
+            ANES_RES: { type: 'support', title: "วิสัญญีแพทย์", desc: "ผู้กุมชีวิตและสัญญาณชีพของคนไข้ขณะทำการผ่าตัด", tag: "Anesthesiologist" }
+        };
+
+        let moveProgress = 0;
+        let lastLevel = 1;
+
+        function unlockRoadmap(type) { 
+            document.getElementById('entrance-overlay').style.opacity = '0'; 
+            setTimeout(() => { 
+                document.getElementById('entrance-overlay').style.display = 'none'; 
+                document.getElementById('roadmap-container').style.display = 'flex'; 
+            }, 800); 
+        }
+
+        function branch(colIndex, key, element) { 
+            const parent = element.parentElement; 
+            parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected')); 
+            element.classList.add('selected'); 
+
+            if (colIndex >= lastLevel) {
+                moveProgress -= 250;
+                document.getElementById('bg-canvas').style.transform = `translateX(${moveProgress}px)`; 
+                lastLevel = colIndex + 1;
+            }
+
+            for (let i = colIndex + 1; i <= 4; i++) { 
+                const col = document.getElementById(`col-${i}`); 
+                if (col) { col.style.display = 'none'; col.innerHTML = ''; } 
+            } 
+
+            const nextCol = document.getElementById(`col-${colIndex + 1}`); 
+            if (!nextCol) return; 
+
+            if (treeData[key]) { 
+                const data = treeData[key]; 
+                nextCol.style.display = 'flex'; 
+                nextCol.style.animation = 'fadeInRight 0.8s ease forwards'; 
+                data.options.forEach(opt => { 
+                    const box = document.createElement('div'); 
+                    box.className = 'node-box'; 
+                    box.onclick = () => branch(colIndex + 1, opt.next, box); 
+                    box.innerHTML = `<span class="node-emoji">${opt.emoji}</span><span class="node-tag">${data.title}</span><p class="node-title">${opt.title}</p><p class="node-desc">${opt.desc}</p>`; 
+                    nextCol.appendChild(box); 
+                }); 
+            } else if (results[key]) { 
+                const res = results[key]; 
+                nextCol.style.display = 'flex'; 
+                nextCol.innerHTML = `<div class="node-box specialty-result ${res.type}-res"><span class="node-tag">Final Result</span><p class="node-title">${res.title}</p><p class="node-desc">${res.desc}</p><p style="margin-top:25px; font-weight:700; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.3); padding-top:15px;">— ${res.tag}</p></div>`; 
+            } 
+            
+            setTimeout(() => { document.getElementById('roadmap-container').scrollLeft += 500; }, 100); 
+        }
     </script>
+    <style>
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+    </style>
 </body>
 </html>
