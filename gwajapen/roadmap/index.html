@@ -3,235 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Roadmap | กว่า-จะ-เป็น</title>
+    <title>กว่า-จะ-เป็น | Gwa-Ja-Pen Series</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700&family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --bg-color: #0A0A0A; 
-            --surface-color: #161616;
-            --text-main: #FFFFFF; 
-            --text-muted: #A0A0A0; 
-            --border-color: #2A2A2A; 
+            --bg-color: #FAFAFA; 
+            --surface-color: #FFFFFF;
+            --text-main: #1A1A1A; 
+            --text-muted: #666666; 
+            --border-color: #EAEAEA; 
+            --accent-gold: #D4AF37;
             --accent-blue: #0066CC;
-            --accent-purple: #9B51E0;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
-            font-family: 'Anuphan', sans-serif; 
-            overflow: hidden; /* ล็อกหน้าจอให้เลื่อนแนวนอนเท่านั้น */
+            font-family: 'Anuphan', 'Plus Jakarta Sans', sans-serif; 
+            line-height: 1.5; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- ENTRANCE OVERLAY --- */
-        #entrance-overlay {
-            position: fixed; inset: 0; z-index: 1000;
-            background: var(--bg-color);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
+        /* --- NAVIGATION --- */
+        nav.top-bar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 15px 6vw; display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; color: white;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
         }
-        .entrance-content { text-align: center; max-width: 600px; padding: 20px; }
-        .calling-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 40px; letter-spacing: -1px; }
-        .calling-grid { display: flex; gap: 20px; justify-content: center; }
-        .calling-card {
-            background: var(--surface-color); border: 1px solid var(--border-color);
-            padding: 30px; border-radius: 20px; cursor: pointer; transition: 0.4s; width: 250px;
-        }
-        .calling-card.active:hover { border-color: var(--accent-blue); transform: scale(1.05); }
-        .calling-card.locked { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
-        .calling-card h3 { margin-bottom: 10px; }
-        .calling-card p { font-size: 0.85rem; color: var(--text-muted); }
-
-        /* --- ROADMAP VIEWPORT --- */
-        #roadmap-container {
-            display: none; height: 100vh; overflow-x: auto; overflow-y: hidden;
-            padding: 50px 10vw; white-space: nowrap; align-items: center;
-            scroll-behavior: smooth;
-        }
-
-        /* --- BRANCHING SYSTEM --- */
-        .node-column {
-            display: inline-flex; flex-direction: column; justify-content: center;
-            gap: 40px; vertical-align: middle; margin-right: 120px; position: relative;
-        }
+        .back-link { display: flex; align-items: center; transition: opacity 0.3s; opacity: 0.9; }
+        .back-link:hover { opacity: 1; transform: scale(0.95); }
+        .site-logo { height: 24px; width: auto; filter: invert(1) brightness(2); }
         
-        /* เส้นเชื่อม */
-        .node-column::after {
-            content: ''; position: absolute; right: -80px; top: 50%;
-            width: 80px; height: 1px; background: var(--border-color); z-index: -1;
+        .lang-switcher button { 
+            background: transparent; border: none; font-size: 0.8rem; 
+            font-weight: 600; color: inherit; cursor: pointer; opacity: 0.6; transition: 0.3s;
         }
-        .node-column:last-child::after { display: none; }
+        .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
-        .node-box {
-            background: var(--surface-color); border: 1px solid var(--border-color);
-            padding: 24px; border-radius: 16px; width: 300px; white-space: normal;
-            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
-            position: relative;
+        /* --- HERO SECTION (UPDATED) --- */
+        .hero {
+            position: relative; width: 100%; height: 70vh; min-height: 550px;
+            display: flex; justify-content: center; 
+            align-items: flex-end; /* CONTENT TO BOTTOM */
+            overflow: hidden; 
+            padding-bottom: 60px; /* EXTRA BREATHING SPACE */
         }
-        .node-box:hover { border-color: var(--accent-blue); background: #1C1C1C; transform: translateX(10px); }
-        .node-box.selected { border-color: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 102, 204, 0.2); }
+        .hero-banner-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* GRADIENT STARTS AT 20% TO SHOWCASE BANNER TOP */
+            background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%); 
+            z-index: 0;
+        }
+        .hero-content { position: relative; z-index: 1; text-align: center; color: white; max-width: 850px; padding: 0 24px; }
         
-        .node-tag { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block; }
-        .node-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-        .node-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
-
-        /* --- FINAL SPECIALTY CARD --- */
-        .specialty-result {
-            background: linear-gradient(135deg, #0066CC 0%, #003366 100%);
-            border: none; color: white;
+        .hero-socials { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .hero-socials a {
+            text-decoration: none; font-size: 0.75rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 2px;
+            padding: 8px 20px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 30px; transition: all 0.3s ease; backdrop-filter: blur(5px);
         }
-        .specialty-result .node-desc { color: rgba(255,255,255,0.8); }
+        .hero-socials a:hover { background: white; color: black; }
+        .hero-subtitle { font-size: 1.15rem; font-weight: 300; line-height: 1.7; text-shadow: 0 2px 10px rgba(0,0,0,0.5); margin-bottom: 35px; }
 
-        /* --- UI ELEMENTS --- */
-        .back-nav { position: fixed; top: 30px; left: 6vw; z-index: 500; text-decoration: none; color: white; font-weight: 600; font-size: 0.9rem; opacity: 0.7; transition: 0.3s; }
-        .back-nav:hover { opacity: 1; }
+        /* AESTHETIC ROADMAP BUTTON */
+        .roadmap-btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white; text-decoration: none;
+            padding: 16px 36px; border-radius: 50px;
+            font-weight: 600; font-size: 0.95rem; letter-spacing: 1px;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .roadmap-btn:hover {
+            background: white; color: var(--text-main);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.2);
+        }
+        .roadmap-btn .icon { font-size: 1.2rem; }
 
-        ::-webkit-scrollbar { height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        /* --- LAYOUT WRAPPER --- */
+        .section-container { max-width: 1300px; margin: 0 auto; padding: 60px 6vw; }
 
+        .aesthetic-heading {
+            font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 15px; white-space: nowrap;
+        }
+        .aesthetic-heading::after { content: ''; height: 1px; background: var(--border-color); flex: 1; }
+
+        /* --- WORD CLOUD --- */
+        .wordcloud-section { width: 100%; }
+        .wordcloud-container {
+            display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);    
+            width: 100%; height: 130px; gap: 5px; align-items: center; justify-items: center; margin-bottom: 25px; overflow: hidden;
+        }
+        .cloud-word {
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            cursor: default; display: inline-block; transition: opacity 1s ease-in-out, color 0.4s, transform 0.4s;
+            opacity: 0; white-space: nowrap;
+        }
+        .cloud-word:hover { color: var(--accent-blue) !important; transform: scale(1.1) !important; z-index: 10; }
+        .cloud-word.fade-out { opacity: 0 !important; }
+
+        /* --- VIDEO SECTION --- */
+        .video-section { width: 100%; }
+        .video-header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .carousel-controls { display: flex; gap: 10px; }
+        .carousel-btn {
+            background: var(--surface-color); border: 1px solid var(--border-color); width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; color: var(--text-main); transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .carousel-btn:hover { background: var(--border-color); transform: scale(1.05); }
+
+        .video-grid-container { width: 100%; overflow: hidden; margin: 0 auto; max-width: 480px; }
+        .video-grid {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+            gap: 20px; padding-bottom: 15px; scrollbar-width: none;
+        }
+        .video-grid::-webkit-scrollbar { display: none; }
+        
+        .video-card {
+            background: var(--surface-color); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: flex; flex-direction: column;
+            border: 1px solid var(--border-color); min-width: 100%; flex: 0 0 100%; max-width: 100%; scroll-snap-align: center;
+        }
+        .video-info-top { padding: 20px; border-bottom: 1px solid var(--border-color); }
+        .video-tag { font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1.5px; }
+        .video-title { font-size: 1.15rem; font-weight: 600; margin: 5px 0; line-height: 1.3; }
+        .video-desc { font-size: 0.9rem; color: var(--text-muted); }
+        .video-embed-wrapper { width: 100%; background-color: #000; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .tiktok-embed { margin: 0 !important; width: 100% !important; max-width: 100% !important; min-width: 100% !important; }
+
+        /* --- NOTION EMBED --- */
+        .database-section { width: 100%; }
+        .notion-container {
+            width: 100%; height: 600px; border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: var(--surface-color); position: relative;
+        }
+        .notion-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* --- GOOGLE FORM --- */
+        .suggestion-section { width: 100%; }
+        .form-container {
+            width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid var(--border-color);
+            background: var(--surface-color); position: relative; height: 400px; 
+        }
+        .form-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* --- FOOTER BUTTONS --- */
+        .footer-contact { text-align: center; padding: 60px 20px 40px 20px; border-top: 1px solid var(--border-color); }
+        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-links a {
+            background-color: var(--text-main); color: #FFFFFF; text-decoration: none; font-size: 0.75rem; font-weight: 700; 
+            font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 1px; padding: 12px 28px; border-radius: 30px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; display: inline-flex; align-items: center;
+        }
+        .footer-links a:hover { background-color: var(--accent-blue); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 102, 204, 0.2); }
+        .footer-copyright { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 2px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; margin-top: 25px; }
+
+        /* --- THAI TYPOGRAPHY FIX --- */
+        body.lang-th .aesthetic-heading,
+        body.lang-th .cloud-word,
+        body.lang-th .video-tag,
+        body.lang-th .hero-socials a,
+        body.lang-th .footer-links a,
+        body.lang-th .footer-copyright,
+        body.lang-th .roadmap-btn {
+            letter-spacing: normal !important;
+        }
+
+        /* --- RESPONSIVE DESKTOP --- */
+        @media (min-width: 1024px) {
+            .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; }
+            .col-left, .col-right { display: flex; flex-direction: column; gap: 40px; }
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 1023px) {
+            .hero { height: 65vh; min-height: 480px; padding-bottom: 40px; }
+            .hero-subtitle { font-size: 1rem; }
+            .roadmap-btn { padding: 14px 28px; font-size: 0.85rem; }
+            
+            .main-layout { display: flex; flex-direction: column; gap: 40px; }
+            .col-left, .col-right { display: contents; }
+            
+            .wordcloud-section { order: 1; }
+            .database-section { order: 2; }
+            .video-section { order: 3; }
+            .suggestion-section { order: 4; }
+            
+            .notion-container { height: 500px; }
+            .wordcloud-container { height: 130px; }
+            .aesthetic-heading { white-space: normal; line-height: 1.4; }
+        }
     </style>
 </head>
-<body>
+<body class="lang-th">
 
-    <a href="../" class="back-nav">❮ BACK TO MAIN</a>
+    <nav class="top-bar">
+        <a href="https://prawees.com" class="back-link">
+            <img src="../logo.png" alt="Prawees Logo" class="site-logo">
+        </a>
+        <div class="lang-switcher">
+            <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
+            <button onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
+    </nav>
 
-    <div id="entrance-overlay">
-        <div class="entrance-content">
-            <h1 class="calling-title">Choose Your Calling</h1>
-            <div class="calling-grid">
-                <div class="calling-card active" onclick="unlockRoadmap('medicine')">
-                    <h3>🩺 Medicine</h3>
-                    <p>Science, Patient Care, and the Mystery of Life.</p>
+    <section class="hero">
+        <img src="banner.jpg" alt="Banner" class="hero-banner-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-socials">
+                <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TikTok</a>
+                <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">Instagram</a>
+            </div>
+            <p class="hero-subtitle" data-th="เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ" 
+               data-en="Seniors' untold stories, hidden challenges, and unfiltered inspirations.">
+                เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ
+            </p>
+            
+            <a href="roadmap" class="roadmap-btn">
+                <span class="icon">🌳</span>
+                <span data-th="เปิดแผนที่เส้นทางอาชีพของคุณ" data-en="Open Your Career Roadmap">เปิดแผนที่เส้นทางอาชีพของคุณ</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="section-container">
+        <div class="main-layout">
+            <div class="col-left">
+                <div class="wordcloud-section">
+                    <div class="wordcloud-container" id="wordcloud"></div>
                 </div>
-                <div class="calling-card locked">
-                    <h3>💻 Engineering</h3>
-                    <p>Coming Soon: Systems, Logic, and Creation.</p>
+                <div class="video-section">
+                    <div class="video-header-controls">
+                        <div class="aesthetic-heading" style="margin-bottom:0;" data-th="คลิปสัมภาษณ์ (ปัดซ้าย-ขวาเพื่อชมคลิปอื่น)" data-en="Video Series (swipe left/right to view more)">คลิปสัมภาษณ์ (ปัดซ้าย-ขวาเพื่อชมคลิปอื่น)</div>
+                        <div class="carousel-controls">
+                            <button class="carousel-btn" onclick="scrollSlider(-1)">❮</button>
+                            <button class="carousel-btn" onclick="scrollSlider(1)">❯</button>
+                        </div>
+                    </div>
+                    <div class="video-grid-container">
+                        <div class="video-grid" id="video-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <div class="database-section">
+                    <div class="aesthetic-heading" data-th="คลังความรู้ (หากขึ้นจอขาว กดรีเฟรชเว็บ 1 ครั้งเพื่อแก้ไข)" data-en="Resources (if nothing shows up, refresh once to fix)">คลังความรู้ (หากขึ้นจอขาว กดรีเฟรชเว็บ 1 ครั้งเพื่อแก้ไข)</div>
+                    <div class="notion-container">
+                        <iframe src="https://prawees.notion.site/ebd//322dc7f179b780088c0ecb2d72d4ca14?v=322dc7f179b78092858a000c56d39fe8" 
+                                style="width:100%; height:100%; border:0;" 
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="suggestion-section">
+                    <div class="aesthetic-heading" data-th="เสนอไอเดีย" data-en="Suggestions">เสนอไอเดีย</div>
+                    <div class="form-container">
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSezSz78qealQCFtfAmiVp32U7kuRzK06kTeqyzRe0d49jC6Gw/viewform?embedded=true" 
+                                style="width:100%; height:100%; border:0;" 
+                                allowfullscreen>Loading…</iframe>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <main id="roadmap-container">
-        
-        <div class="node-column" id="col-1">
-            <div class="node-box" onclick="branch(1, 'surgical', this)">
-                <span class="node-tag">Focus</span>
-                <p class="node-title">Procedure-Oriented</p>
-                <p class="node-desc">เน้นการลงมือทำ หัตถการ และการแก้ไขปัญหาด้วยมือ (Anatomy-driven)</p>
-            </div>
-            <div class="node-box" onclick="branch(1, 'medical', this)">
-                <span class="node-tag">Focus</span>
-                <p class="node-title">Reasoning-Oriented</p>
-                <p class="node-desc">เน้นการคิดวิเคราะห์ วินิจฉัยโรค และความสัมพันธ์ระยะยาว (Clinical Reasoning)</p>
-            </div>
+    <footer class="footer-contact">
+        <div class="footer-links">
+            <a href="https://www.tiktok.com/@gwa.ja.pen" target="_blank">TIKTOK: @GWA.JA.PEN</a>
+            <a href="https://www.instagram.com/gwa.ja.pen" target="_blank">IG: @GWA.JA.PEN</a>
+            <a href="mailto:prawee.sin@gmail.com">PRAWEE.SIN@GMAIL.COM</a>
         </div>
-
-        <div class="node-column" id="col-2" style="display:none;"></div>
-
-        <div class="node-column" id="col-3" style="display:none;"></div>
-
-        <div class="node-column" id="col-4" style="display:none;"></div>
-
-    </main>
+        <div class="footer-copyright">© 2026 PRAWEES</div>
+    </footer>
 
     <script>
-        const treeData = {
-            surgical: {
-                title: "Interaction Type",
-                options: [
-                    { id: 'surg_direct', title: "High Procedure + Direct Contact", desc: "ผ่าตัดและดูแลคนไข้ตั้งแต่ต้นจนจบ", next: 'surg_res' },
-                    { id: 'surg_brief', title: "High Procedure + Brief Contact", desc: "เน้นหัตถการเฉพาะจุด ปฏิสัมพันธ์สั้นแต่มีประสิทธิภาพ", next: 'tech_res' }
-                ]
-            },
-            medical: {
-                title: "Patient Continuity",
-                options: [
-                    { id: 'med_long', title: "Long-term Relationship", desc: "ดูแลต่อเนื่อง ติดตามอาการ รักษาความสัมพันธ์", next: 'med_res' },
-                    { id: 'med_acute', title: "Acute / Shift Work", desc: "ดูแลรายครั้ง แก้ปัญหาเฉพาะหน้า ไม่เน้นติดตามยาว", next: 'shift_res' }
-                ]
+        const medicalWords = ["Neurologist", "Innovator", "Cardiologist", "Entrepreneur", "Surgeon", "Scientist", "Psychiatrist", "Consultant", "Pediatrician", "Researcher", "Radiologist", "Educator", "Oncologist", "Leader", "Dermatologist", "Visionary", "Ophthalmologist", "Advocate", "Anesthesiologist", "Developer", "Pathologist", "Creator", "Practitioner", "Data Analyst", "Policy Maker", "Orthopedist", "Gynecologist", "Urologist", "Endocrinologist", "Gastroenterologist", "Nephrologist", "Pulmonologist", "Rheumatologist", "Hematologist", "Immunologist", "Allergist", "Geriatrician", "Sports Med", "Medical Illustrator", "Health Economist", "Clinical Trial", "Bioinformatician", "Medical Writer", "Epidemiologist", "Public Health", "Telemedicine", "Genomic Counselor", "Medical Device", "Health IT", "Global Health", "Nutritionist", "Rehabilitation", "Pharmacist", "Geneticist", "Toxicologist", "Audiologist", "Occupational Therapist", "Physical Therapist", "Healthcare Admin", "Ethicist"];
+        const colors = ['#1A1A1A', '#666666', '#999999', '#D4AF37', '#0066CC', '#2B7A78', '#588157', '#4A4A4A'];
+        
+        function initWordCloud() {
+            const container = document.getElementById('wordcloud');
+            const shuffled = medicalWords.sort(() => 0.5 - Math.random());
+            for(let i=0; i<9; i++) {
+                const span = document.createElement('span');
+                span.className = 'cloud-word';
+                const size = (Math.random() * 0.4 + 0.8).toFixed(2); 
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                span.style.fontSize = `clamp(0.6rem, 1.8vw, ${size}rem)`;
+                span.style.color = color;
+                span.innerText = shuffled[i];
+                container.appendChild(span);
+                setTimeout(() => { span.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2); }, i * 150);
+                setTimeout(() => { setInterval(() => { swapWord(span); }, 3500 + Math.random() * 4000); }, Math.random() * 2500); 
             }
-        };
-
-        const results = {
-            surg_res: { title: "Surgical Specialties", desc: "Orthopedics, Plastics, Neurosurgery, OB/Gyn", tag: "The Surgeon" },
-            tech_res: { title: "Procedure-Based Tech", desc: "Anesthesia, Radiology, Ophthalmology", tag: "The Interventionist" },
-            med_res: { title: "Internal Medicine", desc: "Cardiology, Neurology, Pediatrics, Family Med", tag: "The Diagnostician" },
-            shift_res: { title: "Shift-Based Medicine", desc: "Emergency Medicine, Critical Care, Pathology", tag: "The Responder" }
-        };
-
-        function unlockRoadmap(type) {
-            document.getElementById('entrance-overlay').style.opacity = '0';
+        }
+        function swapWord(element) {
+            element.classList.add('fade-out');
             setTimeout(() => {
-                document.getElementById('entrance-overlay').style.display = 'none';
-                const container = document.getElementById('roadmap-container');
-                container.style.display = 'flex';
-            }, 800);
+                element.innerText = medicalWords[Math.floor(Math.random() * medicalWords.length)];
+                element.style.color = colors[Math.floor(Math.random() * colors.length)];
+                element.classList.remove('fade-out');
+                element.style.opacity = (Math.random() * 0.4 + 0.6).toFixed(2);
+            }, 1000); 
         }
-
-        function branch(colIndex, key, element) {
-            // เคลียร์คลาส Selected ในคอลัมน์เดิม
-            const parent = element.parentElement;
-            parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected'));
-            element.classList.add('selected');
-
-            // ซ่อนคอลัมน์ที่อยู่ถัดไปทั้งหมดเพื่อเริ่มกิ่งใหม่
-            for (let i = colIndex + 1; i <= 4; i++) {
-                const col = document.getElementById(`col-${i}`);
-                if (col) {
-                    col.style.display = 'none';
-                    col.innerHTML = '';
-                }
-            }
-
-            const nextCol = document.getElementById(`col-${colIndex + 1}`);
-            if (!nextCol) return;
-
-            if (treeData[key]) {
-                const data = treeData[key];
-                nextCol.style.display = 'flex';
-                nextCol.style.animation = 'fadeInRight 0.5s ease forwards';
-                
-                data.options.forEach(opt => {
-                    const box = document.createElement('div');
-                    box.className = 'node-box';
-                    box.onclick = () => branch(colIndex + 1, opt.next, box);
-                    box.innerHTML = `
-                        <span class="node-tag">${data.title}</span>
-                        <p class="node-title">${opt.title}</p>
-                        <p class="node-desc">${opt.desc}</p>
-                    `;
-                    nextCol.appendChild(box);
-                });
-            } else if (results[key]) {
-                // แสดงผลลัพธ์สุดท้าย
-                const res = results[key];
-                nextCol.style.display = 'flex';
-                nextCol.innerHTML = `
-                    <div class="node-box specialty-result">
-                        <span class="node-tag" style="color: white; opacity: 0.7;">Result</span>
-                        <p class="node-title">${res.title}</p>
-                        <p class="node-desc">${res.desc}</p>
-                        <p style="margin-top: 15px; font-weight: 700;">${res.tag}</p>
+        const database = { videos: [
+            { episode: "04", title_th: "แพทย์นักวิจัยระบบสุขภาพ", title_en: "Health Systems Researcher", desc_th: "กับ ศ.เกียรติคุณ นพ.ไพบูลย์ สุริยะวงศ์ไพศาล", desc_en: "with Prof.Paibul Suriyawongpaisal, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7615096735899192594" data-video-id="7615096735899192594" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “แพทย์นักวิจัยระบบสุขภาพ” </section> </blockquote>` },
+            { episode: "03", title_th: "อาจารย์แพทย์นิวโรเมด", title_en: "Neurology Attending", desc_th: "กับ อ.พญ.วันนิษา วงษ์พิพัฒน์พงษ์", desc_en: "with Wannisa Wongpipathpong, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7606275644078607634" data-video-id="7606275644078607634" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “อาจารย์แพทย์นิวโรเมด” </section> </blockquote>` },
+            { episode: "02", title_th: "Resident กุมารฯ", title_en: "Pediatrics Resident", desc_th: "กับ พญ.จุฑามาศ วัฒน์ชัยพนา", desc_en: "with Juthamard Watchaipana, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605593446358764808" data-video-id="7605593446358764808" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident เด็ก” </section> </blockquote>` },
+            { episode: "01", title_th: "Resident ประสาทศัลยศาสตร์", title_en: "Neurosurgery Resident", desc_th: "กับ พญ.ธนพร เจริญงามเสมอ", desc_en: "with Tanaporn Jaroenngarmsamer, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="width: 100%; max-width: 605px; min-width: 280px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> กว่าจะเป็น “Resident นิวโรศัลย” </section> </blockquote>` }
+        ]};
+        function renderVideos() {
+            const container = document.getElementById('video-container');
+            container.innerHTML = database.videos.map((v) => `
+                <div class="video-card">
+                    <div class="video-info-top">
+                        <span class="video-tag">EPISODE ${v.episode}</span>
+                        <h3 class="video-title" data-th="${v.title_th}" data-en="${v.title_en}">${v.title_th}</h3>
+                        <p class="video-desc" data-th="${v.desc_th}" data-en="${v.desc_en}">${v.desc_th}</p>
                     </div>
-                `;
-                // เลื่อนไปทางขวาสุดเพื่อดูผลลัพธ์
-                setTimeout(() => {
-                    document.getElementById('roadmap-container').scrollLeft += 500;
-                }, 100);
-            }
+                    <div class="video-embed-wrapper">${v.embed_code}</div>
+                </div>
+            `).join('');
+            const ttScript = document.createElement('script');
+            ttScript.src = 'https://www.tiktok.com/embed.js';
+            ttScript.async = true;
+            document.body.appendChild(ttScript);
         }
+        function scrollSlider(direction) {
+            const container = document.getElementById('video-container');
+            const cardWidth = container.querySelector('.video-card').offsetWidth + 20; 
+            container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+        }
+        function setLanguage(lang) {
+            document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('[data-th]').forEach(el => {
+                el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
+            });
+            document.body.className = `lang-${lang}`;
+        }
+        window.onload = () => { initWordCloud(); renderVideos(); setLanguage('th'); };
     </script>
-
-    <style>
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-    </style>
 </body>
 </html>
