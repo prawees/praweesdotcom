@@ -8,169 +8,202 @@
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@200;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            /* --- BRIGHT & COLORFUL THEME --- */
-            --bg-color: #F0F9FF; /* สีฟ้าอ่อนพาสเทล */
-            --surface-color: rgba(255, 255, 255, 0.95); /* สีขาวเกือบโปร่งใส */
-            --text-main: #1A1A1A; /* สีเทาเข้มเกือบดำ */
-            --text-muted: #666666; /* สีเทากลาง */
-            --border-color: rgba(0, 102, 204, 0.15); /* สีฟ้าอ่อน */
-            --accent-blue: #0077EE; /* สีฟ้าสดใส */
-            --result-gradient: linear-gradient(135deg, #0077EE 0%, #FF66BB 100%); /* Gradient ฟ้า-ชมพูสดใส */
+            --bg-sky: linear-gradient(180deg, #A5D8FF 0%, #FFFFFF 100%);
+            --surface-color: rgba(255, 255, 255, 0.9);
+            --text-main: #1C1C1E; 
+            --text-muted: #636366; 
+            --border-color: rgba(0, 122, 255, 0.1); 
+            --accent-blue: #007AFF;
+            --result-gold: linear-gradient(135deg, #FFD60A 0%, #FF9F0A 100%);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Anuphan', sans-serif; overflow: hidden; height: 100vh; }
+        body { background: var(--bg-sky); color: var(--text-main); font-family: 'Anuphan', sans-serif; overflow: hidden; height: 100vh; }
         
-        /* --- BACKGROUND MOUNTAINS (LIGHT MODE) --- */
-        #bg-canvas { position: fixed; inset: 0; z-index: -1; background: linear-gradient(to bottom, #E0F2FE, #F0F9FF); transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .mountain-layer { position: absolute; bottom: 0; left: 0; width: 300%; height: 65%; background: rgba(0, 119, 238, 0.03); clip-path: polygon(0% 100%, 5% 80%, 15% 90%, 25% 70%, 35% 85%, 50% 60%, 65% 80%, 80% 65%, 90% 85%, 100% 70%, 100% 100%); transition: transform 1.5s ease-out; }
-        
-        /* --- THICKER & CLEARER BANNER --- */
-        .thin-banner { position: fixed; top: 0; left: 0; width: 100%; height: 120px; /* เพิ่มความสูง */ overflow: hidden; z-index: 90; opacity: 0.8; /* เพิ่มความเข้ม */ border-bottom: 2px solid rgba(0, 102, 204, 0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.05); pointer-events: none; }
-        .thin-banner img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05); }
-        
-        .back-nav { position: fixed; top: 40px; left: 6vw; z-index: 500; text-decoration: none; color: #0077EE; font-weight: 700; font-size: 0.9rem; background: white; padding: 10px 20px; border-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
-        .back-nav:hover { transform: translateX(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+        /* --- AESTHETIC SKY ELEMENTS --- */
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .cloud { position: absolute; background: white; border-radius: 100px; opacity: 0.5; filter: blur(40px); animation: drift 20s infinite linear; }
+        @keyframes drift { from { transform: translateX(-100px); } to { transform: translateX(100vw); } }
 
-        #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background-color: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease; }
+        /* --- BANNER (THICKER) --- */
+        .thin-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 90; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .thin-banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
         
-        .calling-grid { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; padding: 20px; }
-        .calling-card { background: var(--surface-color); border: 2px solid transparent; padding: 50px 40px; border-radius: 30px; cursor: pointer; transition: 0.4s; width: 320px; text-align: center; box-shadow: 0 10px 25px rgba(0, 119, 238, 0.05); backdrop-filter: blur(10px); }
-        .calling-card.active:hover { border-color: var(--accent-blue); transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0, 119, 238, 0.1); }
-        .calling-card.locked { opacity: 0.4; cursor: not-allowed; }
-        .calling-card h3 { font-size: 1.6rem; color: var(--accent-blue); margin-bottom: 15px; }
+        .back-nav { position: fixed; top: 45px; left: 6vw; z-index: 500; text-decoration: none; color: var(--accent-blue); font-weight: 700; background: white; padding: 12px 24px; border-radius: 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .back-nav:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
 
-        /* --- LONGER ROADMAP CONTAINER --- */
-        #roadmap-container { display: none; height: 100vh; overflow-x: auto; overflow-y: hidden; padding: 160px 10vw 80px; white-space: nowrap; align-items: center; scroll-behavior: smooth; }
-        
-        /* --- MORE SPACING BETWEEN COLUMNS & NODES --- */
-        .node-column { display: inline-flex; flex-direction: column; justify-content: center; gap: 100px; /* เพิ่มระยะห่างระหว่าง Node ในแนวตั้ง */ vertical-align: middle; margin-right: 200px; /* เพิ่มระยะห่างระหว่างคอลัมน์ในแนวนอน */ position: relative; }
-        
-        .node-column::after { content: ''; position: absolute; right: -150px; top: 50%; width: 150px; height: 3px; background: linear-gradient(to right, rgba(0, 119, 238, 0.2), transparent); z-index: -1; border-radius: 2px; }
+        #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
+        .calling-card { background: #F2F2F7; border: 2px solid transparent; padding: 60px 40px; border-radius: 35px; cursor: pointer; transition: 0.4s; width: 340px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
+        .calling-card.active:hover { border-color: var(--accent-blue); transform: scale(1.02); }
+
+        /* --- EXTENDED ROADMAP --- */
+        #roadmap-container { display: none; height: 100vh; overflow-x: auto; overflow-y: hidden; padding: 180px 10vw 100px; white-space: nowrap; align-items: center; scroll-behavior: smooth; }
+        .node-column { display: inline-flex; flex-direction: column; justify-content: center; gap: 80px; margin-right: 250px; position: relative; }
+        .node-column::after { content: ''; position: absolute; right: -180px; top: 50%; width: 180px; height: 2px; background: rgba(0,122,255,0.1); z-index: -1; }
         .node-column:last-child::after { display: none; }
-        
-        .node-box { background: var(--surface-color); border: 2px solid var(--border-color); padding: 32px; border-radius: 25px; width: 350px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; backdrop-filter: blur(15px); box-shadow: 0 6px 20px rgba(0,0,0,0.03); }
-        .node-box:hover { border-color: var(--accent-blue); transform: translateX(10px) translateY(-3px); box-shadow: 0 10px 30px rgba(0, 119, 238, 0.08); }
-        .node-box.selected { border-color: var(--accent-blue); background-color: rgba(0, 119, 238, 0.05); box-shadow: 0 0 25px rgba(0, 119, 238, 0.15); }
-        
-        .node-tag { font-size: 0.75rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-        
-        /* --- BRIGHTER RESULT NODE --- */
-        .specialty-result { background: var(--result-gradient); border: none; color: white; box-shadow: 0 15px 40px rgba(255, 102, 187, 0.25); }
-        .specialty-result .node-tag { color: white; opacity: 0.9; }
-        .specialty-result p { color: white !important; }
 
-        /* Scrollbar Style (Bright) */
-        ::-webkit-scrollbar { height: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.02); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: rgba(0, 119, 238, 0.2); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 238, 0.4); }
+        .node-box { background: var(--surface-color); border: 1.5px solid var(--border-color); padding: 35px; border-radius: 30px; width: 380px; white-space: normal; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .node-box:hover { border-color: var(--accent-blue); transform: translateX(10px); background: white; }
+        .node-box.selected { border-color: var(--accent-blue); background: #E5F1FF; box-shadow: 0 0 40px rgba(0,122,255,0.1); }
+        
+        .node-tag { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 2px; }
+        .node-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: #1C1C1E; }
+        .node-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
 
-        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        .specialty-result { background: var(--accent-blue); border: none; color: white; box-shadow: 0 20px 50px rgba(0,122,255,0.3); }
+        .specialty-result .node-tag { color: rgba(255,255,255,0.8); }
+        .specialty-result .node-title, .specialty-result .node-desc { color: white; }
+
+        ::-webkit-scrollbar { height: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,122,255,0.2); border-radius: 10px; }
     </style>
 </head>
 <body>
     <div class="thin-banner"><img src="../banner.jpg" alt="Banner"></div>
-    <div id="bg-canvas"><div class="mountain-layer" id="mount-1"></div></div>
+    
+    <div id="bg-canvas">
+        <div class="cloud" style="width:300px; height:100px; top:20%; left:10%;"></div>
+        <div class="cloud" style="width:400px; height:120px; top:50%; left:60%; animation-delay: -5s;"></div>
+        <div class="cloud" style="width:250px; height:80px; top:80%; left:30%; animation-delay: -10s;"></div>
+    </div>
+
     <a href="../" class="back-nav">❮ ย้อนกลับหน้าหลัก</a>
     
     <div id="entrance-overlay">
-        <h1 style="font-size: 2.8rem; color: #1A1A1A; margin-bottom:50px; letter-spacing: -1px;">เลือกเส้นทางของคุณ</h1>
+        <h1 style="font-size: 2.5rem; margin-bottom:50px; letter-spacing: -1px;">Choose Your Calling</h1>
         <div class="calling-grid">
             <div class="calling-card active" onclick="unlockRoadmap('medicine')">
-                <h3>🩺 สายการแพทย์</h3>
-                <p style="color: #666; font-size: 1rem;">วิทยาศาสตร์ การดูแลคนไข้ และปริศนาของชีวิต</p>
-            </div>
-            <div class="calling-card locked">
-                <h3>💻 วิศวกรรม & เทคโนโลยี</h3>
-                <p style="color: #666; font-size: 1rem;">เร็วๆ นี้: ระบบ ตรรกะ และการสร้างสรรค์</p>
+                <h3 style="font-size: 1.8rem; color: #007AFF;">🩺 Medicine</h3>
+                <p style="color: #666; margin-top:10px;">ก้าวสู่โลกแห่งการรักษาและวิทยาศาสตร์ชีวภาพ</p>
             </div>
         </div>
     </div>
     
     <main id="roadmap-container">
         <div class="node-column" id="col-1">
-            <div class="node-box" onclick="branch(1, 'surgical', this)">
-                <span class="node-tag">จุดเน้นหลัก</span>
-                <p style="font-size:1.3rem; font-weight:700; margin-bottom: 8px;">หัตถการและปฏิบัติ (Surgical)</p>
-                <p style="color:var(--text-muted); font-size:0.95rem;">เน้นการลงมือทำ แก้ปัญหาด้วยมือและความแม่นยำ</p>
+            <div class="node-box" onclick="branch(1, 'surgical_core', this)">
+                <span class="node-tag">Core Path</span>
+                <p class="node-title">เน้นหัตถการ (Surgical)</p>
+                <p class="node-desc">เน้นการลงมือทำ การผ่าตัด และการแก้ปัญหาเชิงโครงสร้างกายวิภาค</p>
             </div>
-            <div class="node-box" onclick="branch(1, 'medical', this)">
-                <span class="node-tag">จุดเน้นหลัก</span>
-                <p style="font-size:1.3rem; font-weight:700; margin-bottom: 8px;">การวินิจฉัยและวิเคราะห์ (Medical)</p>
-                <p style="color:var(--text-muted); font-size:0.95rem;">เน้นการสืบค้นข้อมูล วิเคราะห์สาเหตุของโรค และการใช้ยา</p>
+            <div class="node-box" onclick="branch(1, 'medical_core', this)">
+                <span class="node-tag">Core Path</span>
+                <p class="node-title">เน้นการวินิจฉัย (Medical)</p>
+                <p class="node-desc">เน้นการคิดวิเคราะห์ พยาธิสรีรวิทยา และการใช้ยาเพื่อรักษา</p>
+            </div>
+            <div class="node-box" onclick="branch(1, 'support_core', this)">
+                <span class="node-tag">Core Path</span>
+                <p class="node-title">เน้นการสนับสนุน (Support)</p>
+                <p class="node-desc">ทำงานร่วมกับเทคโนโลยี การวินิจฉัยทางห้องแล็บ หรือการดูแลวิกฤต</p>
             </div>
         </div>
         <div class="node-column" id="col-2" style="display:none;"></div>
         <div class="node-column" id="col-3" style="display:none;"></div>
         <div class="node-column" id="col-4" style="display:none;"></div>
+        <div class="node-column" id="col-5" style="display:none;"></div>
     </main>
     
     <script>
-        const treeData = { surgical: { title: "ลักษณะการทำงาน", options: [ { id: 'surg_direct', title: "หัตถการสูง + ดูแลคนไข้ต่อเนื่อง", desc: "ผ่าตัดและติดตามอาการใกล้ชิด", next: 'surg_res' }, { id: 'surg_brief', title: "หัตถการสูง + ปฏิสัมพันธ์สั้น", desc: "เน้นงานฝีมือที่จบในครั้งเดียว", next: 'tech_res' } ] }, medical: { title: "ความสัมพันธ์กับคนไข้", options: [ { id: 'med_long', title: "ดูแลระยะยาว", desc: "รักษาโรคเรื้อรัง สร้างความสัมพันธ์ลึกซึ้ง", next: 'med_res' }, { id: 'med_acute', title: "ดูแลวิกฤต/ฉุกเฉิน", desc: "จบเคสไว ตัดสินใจเร็ว ไม่เน้นติดตามยาว", next: 'shift_res' } ] } };
-        const results = { surg_res: { title: "กลุ่มศัลยศาสตร์เฉพาะทาง", desc: "Orthopedics, Neurosurgery, Plastics, OB/Gyn", tag: "The Master Craftsman" }, tech_res: { title: "กลุ่มวิทยากรและหัตถการพิเศษ", desc: "Anesthesia, Radiology, Ophthalmology", tag: "The Precision Expert" }, med_res: { title: "กลุ่มอายุรศาสตร์และดูแลทั่วไป", desc: "Cardiology, Neurology, Pediatrics, Family Medicine", tag: "The Clinical Thinker" }, shift_res: { title: "กลุ่มเวชศาสตร์ฉุกเฉินและสนับสนุน", desc: "Emergency Medicine, Critical Care, Pathology", tag: "The First Responder" } };
-        
+        const treeData = {
+            // --- LEVEL 1 ---
+            surgical_core: { title: "Surgical Type", options: [
+                { id: 'surg_major', title: "ศัลยกรรมระบบอวัยวะหลัก", desc: "เน้นการผ่าตัดช่องท้อง ทรวงอก หรือภาพรวม", next: 'surg_major_split' },
+                { id: 'surg_spec', title: "ศัลยกรรมเฉพาะทางส่วนบุคคล", desc: "เน้นระบบประสาท กระดูก หรือความงาม", next: 'surg_spec_split' }
+            ]},
+            medical_core: { title: "Medical Type", options: [
+                { id: 'med_internal', title: "อายุรศาสตร์ระบบอวัยวะ", desc: "เน้นความลึกซึ้งของโรคในแต่ละระบบ", next: 'med_system_split' },
+                { id: 'med_gen', title: "การดูแลทั่วไปและครอบครัว", desc: "เน้นภาพรวมคนไข้ทุกช่วงวัย", next: 'med_gen_split' }
+            ]},
+            support_core: { title: "Support Type", options: [
+                { id: 'supp_diag', title: "การวินิจฉัยและเทคโนโลยี", desc: "เน้นการอ่านผลจากภาพหรือชิ้นเนื้อ", next: 'diag_split' },
+                { id: 'supp_acute', title: "การดูแลวิกฤตและเหตุฉุกเฉิน", desc: "เน้นสถานการณ์หน้าสิ่วหน้าขวาน", next: 'acute_split' }
+            ]},
+
+            // --- LEVEL 2 SPLITS ---
+            surg_major_split: { title: "Specialization", options: [
+                { id: 'gs', title: "ศัลยกรรมทั่วไป (General Surgery)", desc: "เชี่ยวชาญการผ่าตัดอวัยวะในช่องท้อง", next: 'GS_END' },
+                { id: 'cvt', title: "ศัลยกรรมทรวงอก (Cardiothoracic)", desc: "เชี่ยวชาญหัวใจและปอด", next: 'CVT_END' }
+            ]},
+            surg_spec_split: { title: "Specialization", options: [
+                { id: 'ns', title: "ศัลยกรรมประสาท (Neurosurgery)", desc: "เชี่ยวชาญสมองและไขสันหลัง", next: 'NS_END' },
+                { id: 'ortho', title: "ศัลยกรรมกระดูก (Orthopedics)", desc: "เชี่ยวชาญโครงร่างและกล้ามเนื้อ", next: 'ORTHO_END' }
+            ]},
+            med_system_split: { title: "Specific System", options: [
+                { id: 'cardio', title: "อายุรศาสตร์โรคหัวใจ", desc: "เน้นระบบไหลเวียนโลหิต", next: 'CARDIO_END' },
+                { id: 'neuro', title: "อายุรศาสตร์ประสาทวิทยา", desc: "เน้นระบบประสาทและสมอง", next: 'NEURO_END' }
+            ]},
+            diag_split: { title: "Specific Field", options: [
+                { id: 'radio', title: "รังสีวิทยา (Radiology)", desc: "วินิจฉัยโรคจากภาพถ่ายทางการแพทย์", next: 'RADIO_END' },
+                { id: 'patho', title: "พยาธิวิทยา (Pathology)", desc: "วินิจฉัยโรคจากเซลล์และชิ้นเนื้อ", next: 'PATHO_END' }
+            ]},
+            acute_split: { title: "Environment", options: [
+                { id: 'er', title: "เวชศาสตร์ฉุกเฉิน (ER)", desc: "ดูแลผู้ป่วยอุบัติเหตุและฉุกเฉิน", next: 'ER_END' },
+                { id: 'anes', title: "วิสัญญีวิทยา (Anesthesia)", desc: "การระงับปวดและการดูแลขณะผ่าตัด", next: 'ANES_END' }
+            ]}
+        };
+
+        const results = {
+            GS_END: { title: "ศัลยแพทย์ทั่วไป", desc: "ผู้เชี่ยวชาญการรักษาด้วยการผ่าตัดอวัยวะหลักและความรู้อุบัติเหตุเชิงลึก", tag: "General Surgeon" },
+            CVT_END: { title: "ศัลยแพทย์หัวใจและทรวงอก", desc: "การทำงานที่มีความแม่นยำสูงกับอวัยวะที่สำคัญที่สุดของร่างกาย", tag: "Cardiothoracic Surgeon" },
+            NS_END: { title: "ศัลยแพทย์ประสาท", desc: "จุดสูงสุดของงานฝีมือที่ผสานกับความรู้ซับซ้อนของระบบประสาท", tag: "Neurosurgeon" },
+            ORTHO_END: { title: "ศัลยแพทย์ออร์โธปิดิกส์", desc: "เน้นการฟื้นฟูโครงสร้างและการเคลื่อนไหวของมนุษย์", tag: "Orthopedic Surgeon" },
+            CARDIO_END: { title: "อายุรแพทย์โรคหัวใจ", desc: "การวิเคราะห์ระบบไฟฟ้าและกลศาสตร์ของหัวใจอย่างละเอียด", tag: "Cardiologist" },
+            NEURO_END: { title: "อายุรแพทย์โรคระบบประสาท", desc: "ผู้ไขปริศนาอาการทางสมองและความผิดปกติของเส้นประสาท", tag: "Neurologist" },
+            RADIO_END: { title: "รังสีแพทย์", desc: "ดวงตาของโรงพยาบาลที่มองเห็นสิ่งที่คนอื่นมองไม่เห็นผ่านเทคโนโลยี", tag: "Radiologist" },
+            PATHO_END: { title: "พยาธิแพทย์", desc: "ผู้ยืนยันความถูกต้องของโรคผ่านการวิเคราะห์ระดับเซลล์", tag: "Pathologist" },
+            ER_END: { title: "แพทย์เวชศาสตร์ฉุกเฉิน", desc: "ด่านหน้าผู้ตัดสินใจในวินาทีวิกฤตเพื่อรักษาชีวิต", tag: "Emergency Physician" },
+            ANES_END: { title: "วิสัญญีแพทย์", desc: "ผู้ดูแลสมดุลของสัญญาณชีพและความปลอดภัยสูงสุดของผู้ป่วยในห้องผ่าตัด", tag: "Anesthesiologist" }
+        };
+
         let moveProgress = 0;
-        let currentLevel = 1; // Track the current deepest level reached
+        let currentDepth = 1;
 
         function unlockRoadmap(type) { 
             document.getElementById('entrance-overlay').style.opacity = '0'; 
             setTimeout(() => { 
                 document.getElementById('entrance-overlay').style.display = 'none'; 
                 document.getElementById('roadmap-container').style.display = 'flex'; 
-            }, 1000); 
+            }, 800); 
         }
-        
+
         function branch(colIndex, key, element) { 
             const parent = element.parentElement; 
-            const isAlreadySelected = element.classList.contains('selected');
-            
             parent.querySelectorAll('.node-box').forEach(b => b.classList.remove('selected')); 
             element.classList.add('selected'); 
 
-            // --- FIXED BACKGROUND LOGIC ---
-            // Only move background if advancing to a NEW, deeper level
-            if (colIndex >= currentLevel) {
-                moveProgress -= 200; // Increased move distance for longer spacing
+            // Move background only if advancing levels
+            if (colIndex >= currentDepth) {
+                moveProgress -= 250;
                 document.getElementById('bg-canvas').style.transform = `translateX(${moveProgress}px)`; 
-                document.getElementById('mount-1').style.transform = `translateX(${moveProgress * 0.5}px)`; 
-                currentLevel = colIndex + 1; // Update deepest level
+                currentDepth = colIndex + 1;
             }
-            // If clicking same level, background stays static.
-            
-            // Do nothing else if the deepest node on this branch was already selected
-            if (isAlreadySelected && !document.getElementById(`col-${colIndex + 1}`).style.display === 'none') return;
 
-            // Hide subsequent columns to start a new branch
-            for (let i = colIndex + 1; i <= 4; i++) { 
+            for (let i = colIndex + 1; i <= 5; i++) { 
                 const col = document.getElementById(`col-${i}`); 
                 if (col) { col.style.display = 'none'; col.innerHTML = ''; } 
             } 
-            
+
             const nextCol = document.getElementById(`col-${colIndex + 1}`); 
             if (!nextCol) return; 
-            
+
             if (treeData[key]) { 
                 const data = treeData[key]; 
                 nextCol.style.display = 'flex'; 
-                nextCol.style.animation = 'fadeInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards'; 
+                nextCol.style.animation = 'fadeInRight 0.8s ease forwards'; 
                 data.options.forEach(opt => { 
                     const box = document.createElement('div'); 
                     box.className = 'node-box'; 
                     box.onclick = () => branch(colIndex + 1, opt.next, box); 
-                    box.innerHTML = `<span class="node-tag">${data.title}</span><p style="font-size:1.25rem; font-weight:700; margin-bottom: 5px;">${opt.title}</p><p style="color:var(--text-muted); font-size:0.95rem;">${opt.desc}</p>`; 
+                    box.innerHTML = `<span class="node-tag">${data.title}</span><p class="node-title">${opt.title}</p><p class="node-desc">${opt.desc}</p>`; 
                     nextCol.appendChild(box); 
                 }); 
             } else if (results[key]) { 
                 const res = results[key]; 
                 nextCol.style.display = 'flex'; 
-                nextCol.innerHTML = `<div class="node-box specialty-result"><span class="node-tag">ผลลัพธ์การค้นหา</span><p style="font-size:1.4rem; font-weight:700; margin-bottom: 8px;">${res.title}</p><p style="font-size:1rem; opacity:0.9;">${res.desc}</p><p style="margin-top:25px; font-weight:700; font-size: 1.1rem; border-top:1px solid rgba(255,255,255,0.3); padding-top:18px;">${res.tag}</p></div>`; 
+                nextCol.innerHTML = `<div class="node-box specialty-result"><span class="node-tag">Final Destination</span><p class="node-title">${res.title}</p><p class="node-desc">${res.desc}</p><p style="margin-top:20px; font-weight:700;">— ${res.tag}</p></div>`; 
             } 
             
-            // Auto-scroll to view the new column
-            setTimeout(() => { 
-                document.getElementById('roadmap-container').scrollLeft += 550; 
-            }, 100); 
+            setTimeout(() => { document.getElementById('roadmap-container').scrollLeft += 600; }, 100); 
         }
     </script>
 </body>
