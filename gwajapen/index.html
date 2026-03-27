@@ -148,6 +148,13 @@
 
         @media (min-width: 1024px) { .main-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 60px; align-items: start; } .col-left, .col-right { display: flex; flex-direction: column; gap: 50px; } }
         
+        /* --- HALF DESKTOP RESPONSIVE FIX --- */
+        @media (max-width: 1200px) {
+            .hero { height: 70vh; min-height: 400px; }
+            .hero-subtitle { font-size: 1rem; margin-bottom: 25px; }
+            .hero-btn { padding: 12px 24px; font-size: 0.85rem; }
+        }
+        
         /* --- MOBILE RESPONSIVE FIX --- */
         @media (max-width: 1023px) { 
             .hero { 
