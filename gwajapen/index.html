@@ -247,7 +247,29 @@
         function renderVideos() { const container = document.getElementById('video-container'); container.innerHTML = database.videos.map((v) => ` <div class="video-card"> <div class="video-info-top"> <span class="video-tag">EPISODE ${v.episode}</span> <h3 class="video-title" data-th="${v.title_th}" data-en="${v.title_en}">${v.title_th}</h3> <p class="video-desc" data-th="${v.desc_th}" data-en="${v.desc_en}">${v.desc_th}</p> </div> <div class="video-embed-wrapper">${v.embed_code}</div> </div> `).join(''); const ttScript = document.createElement('script'); ttScript.src = 'https://www.tiktok.com/embed.js'; ttScript.async = true; document.body.appendChild(ttScript); }
         function scrollSlider(direction) { const container = document.getElementById('video-container'); const cardWidth = container.querySelector('.video-card').offsetWidth + 20; container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' }); }
         function setLanguage(lang) { document.body.className = `lang-${lang}`; document.getElementById('btn-th').classList.toggle('active', lang === 'th'); document.getElementById('btn-en').classList.toggle('active', lang === 'en'); document.querySelectorAll('[data-th]').forEach(el => { el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en'); }); }
-        window.onload = () => { initWordCloud(); renderVideos(); setLanguage('th'); };
+        window.onload = () => { 
+            initWordCloud(); 
+            renderVideos(); 
+            setLanguage('th'); 
+
+            // --- NEW: Auto-scroll to specific episode if linked from Roadmap ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetEp = urlParams.get('ep');
+            
+            if (targetEp) {
+                // We use a short timeout to let the page finish its vertical jump to the #hash first
+                setTimeout(() => {
+                    const container = document.getElementById('video-container');
+                    // Find the index of the requested episode
+                    const epIndex = database.videos.findIndex(v => v.episode === targetEp);
+                    
+                    if (epIndex !== -1) {
+                        const cardWidth = container.querySelector('.video-card').offsetWidth + 20; // Card width + gap
+                        container.scrollTo({ left: epIndex * cardWidth, behavior: 'smooth' });
+                    }
+                }, 500);
+            }
+        };
     </script>
 </body>
 </html>
