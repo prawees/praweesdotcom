@@ -151,11 +151,11 @@
         /* --- MOBILE RESPONSIVE FIX --- */
         @media (max-width: 1023px) { 
             .hero { 
-                height: 85vh; /* ขยายกรอบให้สูงขึ้นเพื่อเว้นที่ว่างตรงกลาง */
-                padding-bottom: 30px; /* กดข้อความให้ลงต่ำเพื่อหลีกทางให้โลโก้บนภาพ */
+                height: 85vh;
+                padding-bottom: 30px;
             } 
             .hero-banner-img { 
-                object-position: center 15%; /* ดันภาพแบนเนอร์ขึ้นไปด้านบน */
+                object-position: center 15%;
             }
             .hero-btns { gap: 10px; }
             .hero-btn { padding: 14px 24px; font-size: 0.85rem; width: 100%; max-width: 300px; justify-content: center; }
@@ -167,7 +167,7 @@
 </head>
 <body class="lang-th">
     <nav class="top-bar">
-        <a href="https://prawees.com" class="back-link"><img src="../logo.png" alt="Logo" class="site-logo"></a>
+        <a href="https://prawees.com" class="back-link"><img src="logo.png" alt="Logo" class="site-logo" onerror="this.src='../logo.png'"></a>
         <div class="lang-switcher">
             <button onclick="setLanguage('th')" id="btn-th" class="active">TH</button>
             <button onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -175,7 +175,7 @@
     </nav>
 
     <section class="hero">
-        <img src="banner.jpg" alt="Banner" class="hero-banner-img">
+        <img src="banner.jpg" alt="Banner" class="hero-banner-img" onerror="this.src='../banner.jpg'">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <p class="hero-subtitle" data-th="เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ" data-en="Seniors' untold stories, hidden challenges, and unfiltered inspirations.">เรื่องราวจากรุ่นพี่และอาจารย์ ทั้งความท้าทายและแรงบันดาลใจ เพื่อสำรวจเส้นทางอาชีพ</p>
@@ -187,7 +187,7 @@
                 <a href="https://www.instagram.com/gwa.ja.pen" target="_blank" class="hero-btn">
                     <span>Instagram</span>
                 </a>
-                <a href="roadmap" class="hero-btn primary">
+                <a href="roadmap/index.html" class="hero-btn primary">
                     <span class="icon">🌳</span>
                     <span data-th="เปิดแผนที่เส้นทางอาชีพของคุณ" data-en="Open Career Roadmap">เปิดแผนที่เส้นทางอาชีพของคุณ</span>
                 </a>
@@ -238,7 +238,7 @@
         const database = { videos: [ { episode: "04", title_th: "แพทย์นักวิจัยระบบสุขภาพ", title_en: "Health Systems Researcher", desc_th: "กับ ศ.เกียรติคุณ นพ.ไพบูลย์ สุริยะวงศ์ไพศาล", desc_en: "with Prof.Paibul Suriyawongpaisal, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7615096735899192594" data-video-id="7615096735899192594" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` }, { episode: "03", title_th: "อาจารย์แพทย์นิวโรเมด", title_en: "Neurology Attending", desc_th: "กับ อ.พญ.วันนิษา วงษ์พิพัฒน์พงษ์", desc_en: "with Wannisa Wongpipathpong, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7606275644078607634" data-video-id="7606275644078607634" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` }, { episode: "02", title_th: "Resident กุมารฯ", title_en: "Pediatrics Resident", desc_th: "กับ พญ.จุฑามาศ วัฒน์ชัยพนา", desc_en: "with Juthamard Watchaipana, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605593446358764808" data-video-id="7605593446358764808" style="width: 100%; max-width: 605px; min-width: 280px;" > <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` }, { episode: "01", title_th: "Resident ประสาทศัลยศาสตร์", title_en: "Neurosurgery Resident", desc_th: "กับ พญ.ธนพร เจริญงามเสมอ", desc_en: "with Tanaporn Jaroenngarmsamer, M.D.", embed_code: `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@gwa.ja.pen/video/7605159799625501959" data-video-id="7605159799625501959" style="width: 100%; max-width: 605px; min-width: 280px;"> <section> <a target="_blank" title="@gwa.ja.pen" href="https://www.tiktok.com/@gwa.ja.pen?refer=embed">@gwa.ja.pen</a> </section> </blockquote>` } ]};
         function renderVideos() { const container = document.getElementById('video-container'); container.innerHTML = database.videos.map((v) => ` <div class="video-card"> <div class="video-info-top"> <span class="video-tag">EPISODE ${v.episode}</span> <h3 class="video-title" data-th="${v.title_th}" data-en="${v.title_en}">${v.title_th}</h3> <p class="video-desc" data-th="${v.desc_th}" data-en="${v.desc_en}">${v.desc_th}</p> </div> <div class="video-embed-wrapper">${v.embed_code}</div> </div> `).join(''); const ttScript = document.createElement('script'); ttScript.src = 'https://www.tiktok.com/embed.js'; ttScript.async = true; document.body.appendChild(ttScript); }
         function scrollSlider(direction) { const container = document.getElementById('video-container'); const cardWidth = container.querySelector('.video-card').offsetWidth + 20; container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' }); }
-        function setLanguage(lang) { document.getElementById('btn-th').classList.toggle('active', lang === 'th'); document.getElementById('btn-en').classList.toggle('active', lang === 'en'); document.querySelectorAll('[data-th]').forEach(el => { el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en'); }); document.body.className = `lang-${lang}`; }
+        function setLanguage(lang) { document.body.className = `lang-${lang}`; document.getElementById('btn-th').classList.toggle('active', lang === 'th'); document.getElementById('btn-en').classList.toggle('active', lang === 'en'); document.querySelectorAll('[data-th]').forEach(el => { el.textContent = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en'); }); }
         window.onload = () => { initWordCloud(); renderVideos(); setLanguage('th'); };
     </script>
 </body>
