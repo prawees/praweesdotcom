@@ -654,12 +654,14 @@
 
                 let interviewBox = "";
                 if(res.interview) {
+                    // FIX: Changed background to dark translucent and text to white for universal contrast.
+                    // FIX: Updated href to jump straight to the interview section.
                     interviewBox = `
-                        <div style="margin-bottom: 25px; padding: 15px; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 15px; text-align: center;">
-                            <p style="font-size: 0.85rem; font-weight: 700; color: #f1c40f; margin-bottom: 10px;">
+                        <div style="margin-bottom: 25px; padding: 15px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; text-align: center;">
+                            <p style="font-size: 0.85rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
                                 <span class="show-th">🎙️ ดูบทสัมภาษณ์สาขานี้จากคุณหมอตัวจริง!</span><span class="show-en">🎙️ Watch real insights from a doctor!</span>
                             </p>
-                            <a href="../" class="aamc-btn" style="background: var(--accent-gold); color: #000 !important; width: 100%; text-align: center; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);">
+                            <a href="../index.html#interview-section" class="aamc-btn" style="background: var(--accent-gold); color: #000 !important; width: 100%; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);">
                                 <span class="show-th">ย้อนกลับไปดู EP.${res.interview} ↗</span><span class="show-en">Watch EP.${res.interview} ↗</span>
                             </a>
                         </div>
@@ -668,10 +670,10 @@
 
                 resultBox.innerHTML = `
                     <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 20px; margin-bottom: 20px;">
-                        <p class="node-title" style="font-size:2rem; margin-bottom:5px; color:#fff !important; line-height: 1.1;">
+                        <p class="node-title" style="font-size:2rem; margin-bottom:5px; color:#fff !important; line-height: 1.1; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
                             <span class="show-th">${res.title_th}</span><span class="show-en">${res.title_en}</span>
                         </p>
-                        <p style="font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1.5px; margin:0;">
+                        <p style="font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 1.5px; margin:0;">
                             <span class="show-th">${res.title_en}</span><span class="show-en">${res.title_th}</span>
                         </p>
                     </div>
@@ -682,7 +684,7 @@
                         ${kwHTML}
                     </div>
 
-                    <p class="node-desc" style="opacity:0.95; font-size: 1rem; line-height: 1.6; margin-bottom: 25px;">
+                    <p class="node-desc" style="color: #ffffff !important; text-shadow: 0 1px 4px rgba(0,0,0,0.5); font-size: 1rem; line-height: 1.6; margin-bottom: 25px;">
                         <span class="show-th">${res.desc_th}</span><span class="show-en">${res.desc_en}</span>
                     </p>
                     
