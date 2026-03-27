@@ -58,21 +58,35 @@
             overflow-x: auto; overflow-y: hidden; padding: 50px 8vw 100px; align-items: flex-start; scroll-behavior: smooth; position: relative; z-index: 10;
         }
         
-        .flex-wrapper { display: flex; gap: 120px; min-width: max-content; padding-bottom: 50px; position: relative; }
-        .node-column { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 10; padding: 10px 0; max-height: calc(100vh - 220px); overflow-y: auto; padding-right: 15px; }
-        .node-column::-webkit-scrollbar { width: 4px; }
-        .node-column::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        .flex-wrapper { display: flex; gap: 80px; min-width: max-content; padding-bottom: 50px; position: relative; }
+        
+        .node-column { 
+            display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 10; 
+            padding: 20px; border-radius: 35px; border: 1px solid rgba(255,255,255,0.6);
+            max-height: calc(100vh - 200px); overflow-y: auto; backdrop-filter: blur(8px);
+            -ms-overflow-style: none; scrollbar-width: none; box-shadow: 0 15px 35px rgba(0,0,0,0.02);
+        }
+        .node-column::-webkit-scrollbar { display: none; }
+
+        #col-1 { background: linear-gradient(180deg, rgba(166,123,91,0.1) 0%, rgba(255,255,255,0.4) 100%); }
+        #col-2 { background: linear-gradient(180deg, rgba(87,111,114,0.1) 0%, rgba(255,255,255,0.4) 100%); }
+        #col-3 { background: linear-gradient(180deg, rgba(125,143,105,0.1) 0%, rgba(255,255,255,0.4) 100%); }
+        #col-4 { background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(255,255,255,0.4) 100%); }
         
         @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 
         .col-header {
-            font-size: 1.05rem; font-weight: 700; color: var(--accent-primary);
-            padding-left: 10px; margin-bottom: 5px; letter-spacing: 0.5px;
+            position: sticky; top: 0; z-index: 100; align-self: center;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            font-size: 0.9rem; font-weight: 700; color: var(--accent-primary);
+            padding: 10px 25px; margin-bottom: 5px; letter-spacing: 0.5px;
+            border-radius: 30px; border: 1.5px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(166,123,91,0.1);
         }
 
         .node-box { 
             background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 25px; 
-            width: 340px; white-space: normal; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; 
+            width: 320px; white-space: normal; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 20;
         }
         .node-box:hover { border-color: var(--accent-primary); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(166, 123, 91, 0.08); }
@@ -84,33 +98,33 @@
         .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
         .specialty-result { 
-            background: linear-gradient(145deg, #4A3F35 0%, #2B231D 100%); border: 2px solid var(--accent-gold); 
-            color: white; padding: 40px; width: 440px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
-            transform: translateY(0); transition: 0.4s; cursor: default;
+            color: white; padding: 45px 35px; width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); 
+            transform: translateY(0); transition: 0.4s; cursor: default; border: 1px solid rgba(255,255,255,0.2);
         }
-        .specialty-result:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .specialty-result:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(0,0,0,0.35); }
         .specialty-result * { color: white !important; }
         
+        .keyword-pill {
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+            padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+            backdrop-filter: blur(5px); display: inline-block; white-space: nowrap;
+        }
+
         .advice-section { background: rgba(0,0,0,0.15); border-radius: 15px; padding: 20px; margin-top: 25px; border: 1px solid rgba(255,255,255,0.05); }
-        .advice-title { font-size: 0.85rem; font-weight: 700; color: var(--accent-gold) !important; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .advice-list { font-size: 0.85rem; color: rgba(255,255,255,0.9) !important; padding-left: 20px; line-height: 1.6; margin-bottom: 15px; }
+        .advice-title { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.95) !important; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .advice-list { font-size: 0.85rem; color: rgba(255,255,255,0.85) !important; padding-left: 20px; line-height: 1.6; margin-bottom: 15px; }
         .advice-list li { margin-bottom: 6px; }
         .advice-list li:last-child { margin-bottom: 0; }
         
-        .series-banner { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 10px; padding: 12px; text-align: center; margin-top: 15px; }
-        .series-banner p { font-size: 0.85rem; font-weight: 700; color: #E5C35D !important; margin: 0; }
+        .series-banner { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px; text-align: center; margin-top: 15px; }
+        .series-banner p { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.9) !important; margin: 0; }
 
-        .aamc-btn { display: flex; justify-content: center; align-items: center; gap: 8px; flex: 1; padding: 14px 10px; background: var(--accent-gold); color: #000 !important; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
-        .aamc-btn.btn-outline { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #FFF !important; box-shadow: none; }
-        .aamc-btn:hover { transform: translateY(-3px); background: #E5C35D; }
-        .aamc-btn.btn-outline:hover { background: rgba(255,255,255,0.15); border-color: #FFF; }
+        .aamc-btn { display: flex; justify-content: center; align-items: center; gap: 8px; flex: 1; padding: 14px 10px; background: rgba(255,255,255,0.9); color: #000 !important; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .aamc-btn.btn-outline { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4); color: #FFF !important; box-shadow: none; }
+        .aamc-btn:hover { transform: translateY(-3px); background: #FFF; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .aamc-btn.btn-outline:hover { background: rgba(0,0,0,0.4); border-color: #FFF; }
 
         .copyright { position: fixed; bottom: 15px; right: 25px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); opacity: 0.6; z-index: 1000; pointer-events: none; }
-
-        ::-webkit-scrollbar { height: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(166, 123, 91, 0.2); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(166, 123, 91, 0.4); }
     </style>
 </head>
 <body class="lang-th">
@@ -156,24 +170,24 @@
             <svg id="svg-canvas"></svg> 
             
             <div class="node-column" id="col-1">
-                <h4 class="col-header"><span class="show-th">1. สไตล์การทำงานหลัก</span><span class="show-en">1. Core Work Style</span></h4>
+                <div class="col-header"><span class="show-th">1. สไตล์การทำงานหลัก</span><span class="show-en">1. Core Work Style</span></div>
                 <div class="node-box" id="box-1-1" onclick="branch(1, 'procedural_vibe', this)" style="border-left: 8px solid var(--category-surg)">
-                    <span class="node-emoji">⚡</span>
+                    <span class="node-emoji">🔺</span>
                     <span class="node-tag">The Performer</span>
-                    <p class="node-title"><span class="show-th">สายหัตถการและกู้ชีพ</span><span class="show-en">Procedural & Hands-on</span></p>
-                    <p class="node-desc"><span class="show-th">ชอบการลงมือทำ หัตถการ ผ่าตัด หรือรับมือกับสภาวะวิกฤตหน้างานที่ต้องตัดสินใจในเสี้ยววินาที</span><span class="show-en">Thrives in the OR or ER. Prefers physical interventions, procedures, and acute life-saving measures.</span></p>
+                    <p class="node-title"><span class="show-th">สายลงมือทำและจัดการเหตุการณ์</span><span class="show-en">Procedural & Hands-on</span></p>
+                    <p class="node-desc"><span class="show-th">ชอบเผชิญหน้ากับสถานการณ์ที่จับต้องได้ เน้นใช้ทักษะทางกายภาพ เครื่องมือ และการตัดสินใจในเสี้ยววินาทีเพื่อเปลี่ยนผลลัพธ์หน้างาน</span><span class="show-en">Thrives on tangible interventions. Prefers physical skills, tools, and split-second decisions to alter outcomes directly.</span></p>
                 </div>
                 <div class="node-box" id="box-1-2" onclick="branch(1, 'cognitive_vibe', this)" style="border-left: 8px solid var(--category-med)">
-                    <span class="node-emoji">🔍</span>
+                    <span class="node-emoji">🔹</span>
                     <span class="node-tag">The Detective</span>
-                    <p class="node-title"><span class="show-th">สายสืบสวนและวินิจฉัย</span><span class="show-en">Cognitive & Diagnostic</span></p>
-                    <p class="node-desc"><span class="show-th">ชอบคิดวิเคราะห์ความซับซ้อนของร่างกาย วางแผนรักษาด้วยยา รักษากลุ่มทารก/เด็ก หรือวิเคราะห์ดีเอ็นเอ</span><span class="show-en">Enjoys deep clinical reasoning, pediatrics, internal medicine, or genetic investigations.</span></p>
+                    <p class="node-title"><span class="show-th">สายคิดวิเคราะห์และสืบสวน</span><span class="show-en">Cognitive & Diagnostic</span></p>
+                    <p class="node-desc"><span class="show-th">ชอบปะติดปะต่อเบาะแสจากข้อมูลที่ซับซ้อน ไขปริศนาของกลไกภายใน และวางกลยุทธ์แก้ปัญหาด้วยความรู้เชิงลึก</span><span class="show-en">Enjoys piecing together clues from complex data, solving internal mechanism puzzles, and strategizing solutions.</span></p>
                 </div>
                 <div class="node-box" id="box-1-3" onclick="branch(1, 'support_vibe', this)" style="border-left: 8px solid var(--category-supp)">
-                    <span class="node-emoji">🧭</span>
+                    <span class="node-emoji">🔸</span>
                     <span class="node-tag">The Architect</span>
-                    <p class="node-title"><span class="show-th">สายภาพรวมและเบื้องหลัง</span><span class="show-en">Systems & Public Health</span></p>
-                    <p class="node-desc"><span class="show-th">ชอบทำงานเบื้องหลังการวินิจฉัย ออกแบบคุณภาพชีวิต หรือดูแลสุขภาพในระดับประชากรและสิ่งแวดล้อม</span><span class="show-en">Prefers solving cases behind the scenes via imaging, holistic care, or population-level preventive health.</span></p>
+                    <p class="node-title"><span class="show-th">สายออกแบบระบบและภาพรวม</span><span class="show-en">Systems & Perspective</span></p>
+                    <p class="node-desc"><span class="show-th">ชอบเป็นผู้คุมเกมในมุมกว้าง จัดการโครงสร้างชีวิต สิ่งแวดล้อม และเป็นฟันเฟืองสำคัญที่ซ่อนอยู่เบื้องหลังความสำเร็จทั้งหมด</span><span class="show-en">Prefers mastering the big picture. Managing life structures, environments, and acting as the hidden gear behind successes.</span></p>
                 </div>
             </div>
             <div class="node-column" id="col-2" style="display:none;"></div>
@@ -188,133 +202,348 @@
     <script>
         const treeData = {
             procedural_vibe: { options: [
-                { id: 'p_crisis', emoji: '🚨', title_th: "กู้ชีพและภาวะฉุกเฉิน", title_en: "Heroics & Resuscitation", desc_th: "รับมือกับภาวะวิกฤตที่คุกคามชีวิต ตัดสินใจเฉียบขาด หรือคุมสัญญาณชีพในห้องผ่าตัด", desc_en: "Managing life-or-death crises, airway management, and acute trauma.", next: 'p_crisis_sub' },
-                { id: 'p_major', emoji: '🫀', title_th: "ผ่าตัดอวัยวะสำคัญ", title_en: "Major Cavities & Organs", desc_th: "รับมือกับการผ่าตัดใหญ่ในช่องท้อง ทรวงอก เส้นเลือด หรือสูตินรีเวช", desc_en: "High-stakes surgeries in the abdomen, chest, or reproductive tracts.", next: 'p_major_sub' },
-                { id: 'p_heavy', emoji: '🔩', title_th: "วิศวกรรมร่างกายและเส้นประสาท", title_en: "Structural & Neural Engineering", desc_th: "ซ่อมแซมโครงสร้างหนักอย่างกระดูก กล้ามเนื้อ หรือผ่าตัดความแม่นยำสูงในสมอง", desc_en: "Reconstructing the musculoskeletal system or the central nervous system.", next: 'p_heavy_sub' },
-                { id: 'p_micro', emoji: '✨', title_th: "งานละเอียดและเฉพาะส่วน", title_en: "Delicate & Micro-Surgeries", desc_th: "เน้นงานฝีมือประณีต หู คอ จมูก ดวงตา หรือการบูรณะศัลยกรรมตกแต่ง", desc_en: "Intricate procedures in ENT, ophthalmology, or reconstructive plastic surgery.", next: 'p_micro_sub' }
+                { id: 'p_crisis', emoji: '🌀', title_th: "แนวหน้ากู้สถานการณ์", title_en: "Frontline Stabilization", desc_th: "รับมือกับภาวะวิกฤตที่คุกคามชีวิต ตัดสินใจเฉียบขาด หรือควบคุมตัวแปรสำคัญในห้องปิดตายเพื่อความอยู่รอด", desc_en: "Handling life-threatening crises, making absolute decisions, or controlling vital variables in closed environments.", next: 'p_crisis_sub' },
+                { id: 'p_major', emoji: '🔲', title_th: "ปฏิบัติการโครงสร้างหลัก", title_en: "Major Cavity Operations", desc_th: "รับมือกับการเปลี่ยนแปลงกลไกอวัยวะแกนกลาง จัดการกับพื้นที่และระบบที่มีผลโดยตรงต่อการดำรงชีวิต", desc_en: "Managing alterations in core organ mechanics, dealing with areas directly dictating vital existence.", next: 'p_major_sub' },
+                { id: 'p_heavy', emoji: '⛓️', title_th: "สถาปัตยกรรมชีวภาพ", title_en: "Biological Architecture", desc_th: "ซ่อมแซมโครงสร้างพื้นฐานที่รับน้ำหนัก หรือจัดการกับศูนย์บัญชาการของร่างกายที่ต้องใช้ความแม่นยำสูง", desc_en: "Repairing load-bearing infrastructure or handling the body's command center requiring extreme precision.", next: 'p_heavy_sub' },
+                { id: 'p_micro', emoji: '💠', title_th: "งานละเอียดเฉพาะที่", title_en: "Precision Detailing", desc_th: "เน้นงานฝีมือประณีตในพื้นที่ขนาดเล็ก แก้ไขความซับซ้อนเฉพาะจุดเพื่อคืนฟังก์ชันการใช้งานและความสมบูรณ์", desc_en: "Focusing on meticulous craftsmanship in small areas, fixing localized complexities to restore function.", next: 'p_micro_sub' }
             ]},
             p_crisis_sub: { options: [
-                { id: 'er', emoji: '🚑', title_th: "ควบคุมความโกลาหล", title_en: "The Chaos Coordinator", desc_th: "คุณชอบรับมือกับเคสที่ไม่รู้ปูมหลัง ต้องตัดสินใจหน้างานทันทีเพื่อรักษาชีวิตคนไข้ในสภาพแวดล้อมที่คาดเดาไม่ได้", desc_en: "You thrive on adrenaline, stabilizing undiagnosed critical patients immediately in an unpredictable environment.", next: 'ER_END' },
-                { id: 'anes', emoji: '😴', title_th: "ผู้พิทักษ์หลังม่าน", title_en: "The Silent Guardian", desc_th: "คุณชอบควบคุมความเจ็บปวดและสัญญาณชีพอย่างแม่นยำในห้องที่คุมสภาพแวดล้อมได้ ขณะที่คนอื่นกำลังผ่าตัด", desc_en: "You prefer precision control over vitals and physiology in a controlled room while others operate.", next: 'ANES_END' },
-                { id: 'inter_rad', emoji: '🎯', title_th: "สายเทคผู้แม่นยำ", title_en: "The Targeted Operator", desc_th: "คุณชอบใช้ภาพสแกนนำทาง สอดสายยางเล็กๆ เข้าไปรักษาจุดที่เกิดเหตุได้โดยตรงโดยไม่ต้องผ่าเปิด", desc_en: "You like using advanced imaging to navigate catheters and treat issues directly without open surgery.", next: 'IR_END' }
+                { id: 'er', emoji: '⏱️', title_th: "ผู้จัดระเบียบความโกลาหล", title_en: "The Chaos Coordinator", desc_th: "คุณชอบความท้าทายของการไม่รู้ล่วงหน้า ต้องจัดลำดับความสำคัญและควบคุมสถานการณ์ที่ไร้ระเบียบให้กลับมามีสติอีกครั้ง", desc_en: "You love the challenge of the unknown, prioritizing and bringing order to chaotic, unorganized situations.", next: 'ER_END' },
+                { id: 'anes', emoji: '🎛️', title_th: "ผู้พิทักษ์หลังม่าน", title_en: "The Silent Guardian", desc_th: "คุณชอบการควบคุมทุกตัวแปรให้อยู่ในมืออย่างสมบูรณ์แบบ ทำงานอยู่เบื้องหลังความสำเร็จและเป็นผู้คุ้มครองความปลอดภัยสูงสุด", desc_en: "You love perfectly controlling all variables, working behind the success as the ultimate safety guardian.", next: 'ANES_END' },
+                { id: 'inter_rad', emoji: '🛰️', title_th: "สายปฏิบัติการแม่นยำสูง", title_en: "The Targeted Operator", desc_th: "คุณหลงใหลในเทคโนโลยีนำทางขั้นสูง เข้าถึงและจัดการเป้าหมายที่อยู่ลึกที่สุดด้วยการรุกล้ำที่น้อยที่สุด", desc_en: "Fascinated by advanced navigation tech, reaching and resolving deep targets with minimal physical intervention.", next: 'IR_END' }
             ]},
             p_major_sub: { options: [
-                { id: 'gs', emoji: '🩹', title_th: "เสาหลักรับจบ", title_en: "The Core Operator", desc_th: "คุณพร้อมรับมือกับทุกอย่างในช่องท้อง มีทักษะที่กว้างพอจะจัดการตั้งแต่ไส้ติ่งอักเสบไปจนถึงอุบัติเหตุรุนแรง", desc_en: "You want a broad surgical skill set, tackling everything from appendicitis to massive abdominal trauma.", next: 'GS_END' },
-                { id: 'cvt', emoji: '⚙️', title_th: "ช่างซ่อมเครื่องยนต์หลัก", title_en: "The High-Stakes Mechanic", desc_th: "คุณไม่กลัวความกดดันสูงสุด พร้อมทำงานกับอวัยวะที่ห้ามพลาด เช่น หยุดและกระตุ้นหัวใจ หรือผ่าตัดปอด", desc_en: "You aren't afraid of the highest stakes—stopping and restarting the heart or operating on the lungs.", next: 'CVT_END' },
-                { id: 'uro', emoji: '🧪', title_th: "วิศวกรระบบประปา", title_en: "The Plumbing Engineer", desc_th: "คุณชอบผสมผสานงานตรวจผู้ป่วยนอกเข้ากับเทคโนโลยีผ่าตัดผ่านกล้องและหุ่นยนต์ในระบบขับถ่าย", desc_en: "You enjoy a mix of clinic and highly technological endoscopic/robotic surgery in the urinary tract.", next: 'URO_END' },
-                { id: 'obgyn', emoji: '🤱', title_th: "ผู้นำทางชีวิตใหม่", title_en: "The Life Bringer", desc_th: "คุณอยากร่วมยินดีในวินาทีที่ชีวิตใหม่เกิดมา และพร้อมรับมือกับเหตุฉุกเฉินในห้องคลอดและการผ่าตัดสตรี", desc_en: "You want to share the intense joy of childbirth while handling surgical obstetrical emergencies.", next: 'OBGYN_END' },
-                { id: 'pedsurg', emoji: '🧸', title_th: "ช่างซ่อมฉบับมินิ", title_en: "The Tiny Anatomist", desc_th: "คุณชอบความท้าทายในการผ่าตัดแก้ไขความผิดปกติแต่กำเนิด ในโครงสร้างร่างกายที่เล็กและบอบบางมาก", desc_en: "You seek the extreme challenge of fixing congenital anomalies in tiny, delicate bodies.", next: 'PEDSURG_END' }
+                { id: 'gs', emoji: '🔶', title_th: "เสาหลักรับจบ", title_en: "The Core Operator", desc_th: "คุณชอบการแก้ปัญหาแบบตรงไปตรงมา มีทักษะรอบด้านที่รับมือได้ตั้งแต่ปัญหาพื้นฐานไปจนถึงความเสียหายระดับโครงสร้างหลัก", desc_en: "You like straightforward problem-solving, equipped with versatile skills to handle basics to core structural damage.", next: 'GS_END' },
+                { id: 'cvt', emoji: '⏳', title_th: "ช่างซ่อมเครื่องยนต์หลัก", title_en: "The High-Stakes Mechanic", desc_th: "คุณรับมือกับแรงกดดันมหาศาลได้ยอดเยี่ยม กล้าจัดการกับชิ้นส่วนที่ห้ามหยุดทำงานและมีเวลาให้แก้ไขเพียงจำกัด", desc_en: "Handling immense pressure brilliantly, daring to work on components that cannot stop and have limited time windows.", next: 'CVT_END' },
+                { id: 'uro', emoji: '〰️', title_th: "วิศวกรระบบไหลเวียน", title_en: "The Pipeline Engineer", desc_th: "คุณชอบงานที่ผสมผสานทั้งการวิเคราะห์หาสาเหตุและการใช้เครื่องมือไฮเทคเพื่อเคลียร์ระบบท่อทางเดินที่อุดตัน", desc_en: "You enjoy a mix of analyzing root causes and using high-tech tools to clear blocked internal pipelines.", next: 'URO_END' },
+                { id: 'obgyn', emoji: '⚕️', title_th: "ผู้นำทางเหตุการณ์พลิกผัน", title_en: "The Event Navigator", desc_th: "คุณพร้อมทำงานที่ต้องใช้พลังงานสูง ทั้งในช่วงเวลาแห่งความยินดีที่สุด และการรับมือกับเหตุการณ์พลิกผันที่เกิดขึ้นอย่างรวดเร็ว", desc_en: "Ready for high-energy work, navigating moments of greatest joy and rapidly unfolding sudden events.", next: 'OBGYN_END' },
+                { id: 'pedsurg', emoji: '🧩', title_th: "ผู้ประกอบชิ้นส่วนจิ๋ว", title_en: "The Tiny Assembler", desc_th: "คุณมองหาความท้าทายขั้นสูงสุดในการแก้ไขและประกอบโครงสร้างที่มีขนาดเล็กจิ๋วและซับซ้อนให้กลับมาสมบูรณ์", desc_en: "Seeking the ultimate challenge of fixing and assembling tiny, complex structures back to anatomical perfection.", next: 'PEDSURG_END' }
             ]},
             p_heavy_sub: { options: [
-                { id: 'ortho', emoji: '🔨', title_th: "วิศวกรการเคลื่อนไหว", title_en: "The Movement Engineer", desc_th: "คุณชอบเห็นผลลัพธ์ที่เป็นรูปธรรม ใช้สว่าน โลหะ และแรงกายเพื่อประกอบและคืนการเคลื่อนไหวให้ผู้ป่วย", desc_en: "You love tangible results, using hardware and physical force to reconstruct and restore movement.", next: 'ORTHO_END' },
-                { id: 'ns', emoji: '⚡', title_th: "สถาปนิกระบบประสาท", title_en: "The Neural Architect", desc_th: "คุณมีสมาธิสูงลิ่ว อดทนสำหรับการผ่าตัดระดับไมโครที่กินเวลานานบนเนื้อเยื่อสมองที่พลาดไม่ได้แม้แต่มิลลิเมตรเดียว", desc_en: "You have immense patience for microscopic, high-stakes surgery on the most unforgiving tissue.", next: 'NS_END' }
+                { id: 'ortho', emoji: '📐', title_th: "วิศวกรการเคลื่อนไหว", title_en: "The Movement Engineer", desc_th: "คุณชอบงานช่างที่เห็นผลลัพธ์ทันตา ใช้เครื่องมือกลศาสตร์และฟิสิกส์ในการคืนสมรรถภาพและการใช้งานที่หายไป", desc_en: "You like mechanical work with immediate results, using tools and physics to restore lost function and utility.", next: 'ORTHO_END' },
+                { id: 'ns', emoji: '🕸️', title_th: "สถาปนิกระบบประมวลผล", title_en: "The Command Architect", desc_th: "คุณมีสมาธิระดับผู้นำวิปัสสนา สามารถจดจ่อกับการปรับแก้โครงสร้างที่ประณีตที่สุดในพื้นที่จำกัดเป็นเวลานาน", desc_en: "Possessing monk-like focus, able to concentrate on the most delicate structural tweaks in confined spaces for hours.", next: 'NS_END' }
             ]},
             p_micro_sub: { options: [
-                { id: 'plastic', emoji: '🎨', title_th: "ประติมากรแห่งเนื้อเยื่อ", title_en: "The Tissue Sculptor", desc_th: "คุณให้ความสำคัญกับสัดส่วน ความงาม มีความคิดสร้างสรรค์ในการย้ายและสร้างเนื้อเยื่อขึ้นใหม่ให้ใช้งานได้จริง", desc_en: "You value aesthetics and creativity, restoring form and function from head to toe.", next: 'PLASTIC_END' },
-                { id: 'ent', emoji: '🕳️', title_th: "นักสำรวจช่องโพรง", title_en: "The Cavity Navigator", desc_th: "คุณชอบทำงานในพื้นที่แคบและซับซ้อนของศีรษะและลำคอ โดยใช้กล้องและเครื่องมือจิ๋วจัดการปัญหา", desc_en: "You want to master a highly complex, compact anatomical area using scopes and fine instruments.", next: 'ENT_END' },
-                { id: 'ophtha', emoji: '🔬', title_th: "ช่างนาฬิกาจุลทรรศน์", title_en: "The Micro-Jeweler", desc_th: "คุณชอบงานผ่าตัดแบบไม่ต้องนอนโรงพยาบาล ทำงานละเอียดระดับมิลลิเมตรใต้กล้องจุลทรรศน์เพื่อคืนการมองเห็น", desc_en: "You want mostly outpatient surgeries, working in millimeters to restore the most valued sense.", next: 'OPHTHA_END' }
+                { id: 'plastic', emoji: '🎭', title_th: "ประติมากรแห่งความจริง", title_en: "The Form Sculptor", desc_th: "คุณมีหัวใจของศิลปินที่ผสานเข้ากับหลักกายวิภาค ชอบการออกแบบและซ่อมสร้างเพื่อให้เกิดผลลัพธ์ที่สมบูรณ์และใช้งานได้จริง", desc_en: "An artist's heart combined with anatomy; you love designing and reconstructing for both aesthetic and practical results.", next: 'PLASTIC_END' },
+                { id: 'ent', emoji: '➰', title_th: "นักสำรวจช่องโพรง", title_en: "The Cavity Navigator", desc_th: "คุณชอบจัดการกับปัญหารบกวนใจในซอกหลืบที่ซับซ้อน คืนประสาทสัมผัสที่สำคัญให้ผู้คนกลับมาใช้ชีวิตได้ปกติ", desc_en: "You like solving bothersome issues in complex crevices, restoring vital senses so people can live normally.", next: 'ENT_END' },
+                { id: 'ophtha', emoji: '🧿', title_th: "ช่างนาฬิกาจุลทรรศน์", title_en: "The Micro-Jeweler", desc_th: "คุณหลงใหลในความแม่นยำระดับไมโครเมตร ทำงานในพื้นที่ที่เล็กที่สุดเพื่อปกป้องหนึ่งในหน้าต่างที่สำคัญที่สุดของร่างกาย", desc_en: "Fascinated by micrometer precision, working in the smallest areas to protect one of the body's most vital windows.", next: 'OPHTHA_END' }
             ]},
             cognitive_vibe: { options: [
-                { id: 'c_vital', emoji: '𐀪', title_th: "ระบบอวัยวะหลักของผู้ใหญ่", title_en: "Adult Vital Systems", desc_th: "เจาะลึกระบบที่ส่งผลชัดเจน เช่น หัวใจ ปอด ไต หรือทางเดินอาหาร", desc_en: "Focusing on core internal systems like Cardiology, Pulmonology, and GI.", next: 'c_vital_sub' },
-                { id: 'c_complex', emoji: '🧩', title_th: "ระบบซับซ้อน ผิวหนัง และภูมิคุ้มกัน", title_en: "Complex & Immune Systems", desc_th: "ไขปริศนาฮอร์โมน ภูมิคุ้มกัน ผิวหนัง โรคติดเชื้อ มะเร็ง หรือพันธุกรรม", desc_en: "Solving systemic mysteries in Endocrinology, Rheum, ID, Derm, or Genetics.", next: 'c_complex_sub' },
-                { id: 'c_brain', emoji: '🧠', title_th: "สมองและจิตใจ", title_en: "Brain & Mind", desc_th: "วิเคราะห์การทำงานของระบบประสาท สัญญาณไฟฟ้า และสุขภาพจิต", desc_en: "Focusing on Neurology and Psychiatry.", next: 'c_brain_sub' },
-                { id: 'c_child', emoji: '🧸', title_th: "กุมารเวชศาสตร์ (เด็ก)", title_en: "Pediatrics", desc_th: "ดูแลผู้ป่วยเด็ก ทารกแรกเกิด และโรคเฉพาะระบบในเด็ก", desc_en: "Specializing in the comprehensive care of infants and children.", next: 'c_child_sub' }
+                { id: 'c_vital', emoji: '🔴', title_th: "เจาะลึกระบบเครื่องยนต์หลัก", title_en: "Core Engine Focus", desc_th: "พุ่งเป้าไปที่ระบบที่มีผลทันทีต่อการอยู่รอด ไม่ว่าจะเป็นจังหวะสูบฉีด การแลกเปลี่ยนพลังงาน หรือการจัดการของเสีย", desc_en: "Focusing on systems with immediate survival impact: pumping rhythms, energy exchange, or waste management.", next: 'c_vital_sub' },
+                { id: 'c_complex', emoji: '⚛️', title_th: "ระบบเครือข่ายและรหัสลับ", title_en: "Network & Code Decoding", desc_th: "ไขปริศนาจากตัวแปรที่มองไม่เห็น ผู้บุกรุก สารเคมีสั่งการ หรือพิมพ์เขียวพื้นฐานที่ส่งผลกระทบทั่วทั้งร่าง", desc_en: "Solving mysteries from invisible variables, invaders, chemical messengers, or blueprints affecting the entire entity.", next: 'c_complex_sub' },
+                { id: 'c_brain', emoji: '🌌', title_th: "ระบบบัญชาการและพฤติกรรม", title_en: "Command & Behavior", desc_th: "วิเคราะห์การทำงานของแผงวงจรไฟฟ้าที่ซับซ้อนที่สุด ไปจนถึงนามธรรมอย่างความคิด อารมณ์ และพฤติกรรมมนุษย์", desc_en: "Analyzing complex circuitry to abstract concepts like human thought, emotion, and observable behavior.", next: 'c_brain_sub' },
+                { id: 'c_child', emoji: '🔰', title_th: "ระบบที่อยู่ระหว่างการเติบโต", title_en: "Developing Systems", desc_th: "จัดการกับบริบทที่ต้องคำนวณเผื่อสเกลที่กำลังขยายตัว ดูแลผู้ป่วยในช่วงวัยที่เปราะบางและท้าทายที่สุด", desc_en: "Managing contexts requiring anticipation of expanding scales, caring for subjects in their most delicate phases.", next: 'c_child_sub' }
             ]},
             c_vital_sub: { options: [
-                { id: 'cardio', emoji: '❤️', title_th: "จูนเนอร์จังหวะชีวิต", title_en: "The Flow Optimizer", desc_th: "คุณชอบอ่านกราฟไฟฟ้าหัวใจ จัดการภาวะหัวใจล้มเหลว หรือทะลวงเส้นเลือดที่ตีบตันเพื่อคืนชีวิต", desc_en: "You enjoy analyzing ECGs, managing heart failure, and intervening to clear blocked vessels.", next: 'CARDIO_END' },
-                { id: 'pulmo', emoji: '💨', title_th: "ผู้พิทักษ์ลมหายใจ", title_en: "The Breath Restorer", desc_th: "คุณชอบคุมเครื่องช่วยหายใจใน ICU และวิเคราะห์จัดการโรคเรื้อรังของระบบทางเดินหายใจ", desc_en: "You master ventilators in the ICU and manage complex, chronic airway diseases.", next: 'PULMO_END' },
-                { id: 'gi', emoji: '🥔', title_th: "นักสืบลำไส้", title_en: "The Tube Explorer", desc_th: "คุณชอบคิดวิเคราะห์โรคของอวัยวะภายใน สลับกับการลงมือส่องกล้องหาต้นเหตุเกิดโรคทางเดินอาหาร", desc_en: "You combine deep physiological reasoning with regular, hands-on endoscopic procedures.", next: 'GI_END' },
-                { id: 'nephro', emoji: '💧', title_th: "นักเล่นแร่แปรธาตุ", title_en: "The Fluid Balancer", desc_th: "คุณสนุกกับการคำนวณสมการเกลือแร่ กรดด่าง และการตั้งค่าการทำงานของเครื่องฟอกไต", desc_en: "You enjoy the complex math of electrolytes, acid-base balances, and dialysis management.", next: 'NEPHRO_END' }
+                { id: 'cardio', emoji: '〽️', title_th: "นักปรับจูนจังหวะกลไก", title_en: "The Rhythm Optimizer", desc_th: "วิเคราะห์การไหลเวียนและจังหวะของระบบกลไกในร่างกายแบบเรียลไทม์ ซ่อมแซมท่อทางเดินที่อุดตันเพื่อคืนสมดุลให้เครื่องยนต์หลัก", desc_en: "Analyzing flow and rhythm in real-time, repairing blocked pathways to restore the main biological engine.", next: 'CARDIO_END' },
+                { id: 'pulmo', emoji: '🔄', title_th: "ผู้ดูแลการแลกเปลี่ยนพลังงาน", title_en: "The Exchange Overseer", desc_th: "ดูแลระบบการนำเข้าและแลกเปลี่ยนก๊าซ ควบคุมเครื่องจักรช่วยชีวิตขั้นสูงในภาวะวิกฤตที่ท้าทายที่สุด", desc_en: "Managing gas intake and exchange, controlling advanced life-support machinery in the most critical states.", next: 'PULMO_END' },
+                { id: 'gi', emoji: '🔀', title_th: "นักสำรวจท่อส่งกำลัง", title_en: "The Pathway Explorer", desc_th: "วิเคราะห์อาการจากระบบท่อทางเดินภายใน ผสมผสานการคิดเชิงตรรกะเข้ากับการใช้เครื่องมือพิเศษเพื่อเข้าถึงต้นตอโดยตรง", desc_en: "Logical reasoning combined with specialized tools to directly access and analyze internal pathway anomalies.", next: 'GI_END' },
+                { id: 'nephro', emoji: '⚖️', title_th: "ผู้คุมสมการของเหลว", title_en: "The Equation Balancer", desc_th: "หลงใหลในตัวเลข สมการทางเคมี และการรักษาสมดุลของของเหลวและระดับแร่ธาตุที่ละเอียดอ่อนที่สุดในร่างกาย", desc_en: "Fascinated by numbers, chemical equations, and maintaining the most delicate fluid and mineral balances.", next: 'NEPHRO_END' }
             ]},
             c_complex_sub: { options: [
-                { id: 'endo', emoji: '⚖️', title_th: "ผู้คุมกฎฮอร์โมน", title_en: "The Hormone Hacker", desc_th: "คุณชอบไขปัญหาที่เกิดจากสารเคมีล่องหนที่ควบคุมระบบเผาผลาญของทั้งร่างกาย", desc_en: "You solve systemic issues by tweaking the body's invisible chemical messengers.", next: 'ENDO_END' },
-                { id: 'rheum', emoji: '🫧', title_th: "นักสืบภูมิคุ้มกัน", title_en: "The Immune Whisperer", desc_th: "คุณชอบตามรอยโรคแปลกๆ ที่ภูมิคุ้มกันโจมตีตัวเอง และใช้ยาชีววัตถุมุ่งเป้ารักษา", desc_en: "You track down multi-system autoimmune diseases with targeted biological therapies.", next: 'RHEUM_END' },
-                { id: 'hema', emoji: '🩸', title_th: "นักวิเคราะห์สายเลือด", title_en: "The Blood Detective", desc_th: "คุณชอบส่องเซลล์เม็ดเลือด ค้นหาความผิดปกติของการแข็งตัวของเลือดและไขกระดูก", desc_en: "You investigate cells under the microscope and manage complex bleeding/clotting disorders.", next: 'HEMA_END' },
-                { id: 'onc', emoji: '🎗️', title_th: "นักวางกลยุทธ์ต้านมะเร็ง", title_en: "The Cancer Strategist", desc_th: "คุณพร้อมเคียงข้างคนไข้ในเส้นทางที่ยากลำบาก วางแผนสู้มะเร็งด้วยยาสมัยใหม่และพันธุกรรม", desc_en: "You walk with patients through tough journeys, strategizing with targeted genetic therapies.", next: 'ONC_END' },
-                { id: 'id', emoji: '🦠', title_th: "นักล่าจุลชีพ", title_en: "The Microbe Hunter", desc_th: "คุณชอบปะติดปะต่อประวัติการเดินทางและผลเพาะเชื้อ เพื่อหายาปฏิชีวนะที่จัดการเชื้อดื้อยาได้ตรงจุด", desc_en: "You piece together history and lab cultures to hunt down evasive, resistant bugs.", next: 'ID_END' },
-                { id: 'allergy', emoji: '🤧', title_th: "ผู้ฝึกสอนภูมิคุ้มกัน", title_en: "The Reaction Tamer", desc_th: "คุณชอบหาสาเหตุอาการแพ้ที่ซ่อนอยู่ และค่อยๆ ปรับภูมิคุ้มกันให้ชินกับสิ่งแวดล้อม", desc_en: "You identify invisible triggers and desensitize hyperactive immune systems.", next: 'ALLERGY_END' },
-                { id: 'derm', emoji: '✨', title_th: "นักสืบสายตา", title_en: "The Visual Diagnostician", desc_th: "คุณสามารถวินิจฉัยโรคระบบภายในได้เพียงแค่มองรูปแบบผื่นบนผิวหนัง ผสมกับหัตถการคลินิก", desc_en: "You diagnose systemic diseases just by looking at the skin, enjoying outpatient procedures.", next: 'DERM_END' },
-                { id: 'genetics', emoji: '🧬', title_th: "ผู้อ่านรหัสพันธุกรรม", title_en: "The Code Reader", desc_th: "คุณชอบเจาะลึกไปถึงระดับ DNA เพื่อหาคำตอบของโรคหายากหรือกลุ่มอาการที่ถ่ายทอดทางครอบครัว", desc_en: "You dive deep into DNA to diagnose and map out rare, hereditary syndromes.", next: 'GENE_END' }
+                { id: 'endo', emoji: '📶', title_th: "ผู้คุมกฎกลไกส่งสัญญาณ", title_en: "The Signal Hacker", desc_th: "ไขปริศนาจากตัวแปรที่มองไม่เห็นซึ่งควบคุมระบบทั้งร่างกายผ่านเครือข่ายส่งสัญญาณทางเคมีที่ซับซ้อน", desc_en: "Solving mysteries from invisible variables controlling the body's complex chemical signaling network.", next: 'ENDO_END' },
+                { id: 'rheum', emoji: '🛡️', title_th: "นักเจรจาระบบป้องกัน", title_en: "The Defense Whisperer", desc_th: "ตามรอยความผิดปกติที่ระบบป้องกันตัวทำงานผิดพลาด และใช้การปรับแต่งระดับเซลล์เพื่อหยุดยั้งการทำลายล้าง", desc_en: "Tracking defense system malfunctions and using cellular-level tweaking to halt internal destruction.", next: 'RHEUM_END' },
+                { id: 'hema', emoji: '⭕', title_th: "นักวิเคราะห์ปัจจัยพื้นฐาน", title_en: "The Element Detective", desc_th: "วิเคราะห์องค์ประกอบของเหลวที่หล่อเลี้ยงทุกชีวิต ค้นหาความผิดปกติระดับเซลล์ที่ส่งผลกระทบอย่างรุนแรงแบบโดมิโน", desc_en: "Analyzing vital fluid components, finding cellular anomalies that cause severe domino effects.", next: 'HEMA_END' },
+                { id: 'onc', emoji: '♟️', title_th: "นักวางกลยุทธ์ระดับโมเลกุล", title_en: "The Long-term Strategist", desc_th: "นักวางกลยุทธ์ระยะยาว เคียงข้างผู้ป่วยในสมรภูมิที่ยากลำบากที่สุดด้วยอาวุธทางพันธุกรรมและยาที่ล้ำสมัย", desc_en: "A long-term strategist, standing with patients in the toughest battles using cutting-edge molecular weapons.", next: 'ONC_END' },
+                { id: 'id', emoji: '🔎', title_th: "นักล่าผู้บุกรุก", title_en: "The Invader Hunter", desc_th: "ปะติดปะต่อเบาะแสจากประวัติและสิ่งแวดล้อม เพื่อตามล่าและกำจัดผู้บุกรุกที่หลบซ่อนและพัฒนาตัวเองอยู่เสมอ", desc_en: "Piecing together clues from history and environment to hunt evasive and constantly evolving invaders.", next: 'ID_END' },
+                { id: 'allergy', emoji: '🪶', title_th: "ผู้เจรจาสงบศึก", title_en: "The Reaction Tamer", desc_th: "ค้นหาตัวกระตุ้นที่แฝงตัวอยู่ในชีวิตประจำวัน และฝึกฝนระบบการตอบสนองของร่างกายให้กลับมาสงบอีกครั้ง", desc_en: "Finding hidden everyday triggers and retraining the body's response system to stay calm.", next: 'ALLERGY_END' },
+                { id: 'derm', emoji: '👁️‍🗨️', title_th: "นักถอดรหัสแพทเทิร์น", title_en: "The Pattern Decoder", desc_th: "ถอดรหัสความผิดปกติของระบบภายในจากการสังเกตแพทเทิร์นที่ปรากฏให้เห็นภายนอกเพียงแวบเดียว", desc_en: "Decoding internal system anomalies from external visible patterns in just a glance.", next: 'DERM_END' },
+                { id: 'genetics', emoji: '📜', title_th: "ผู้อ่านพิมพ์เขียวชีวิต", title_en: "The Blueprint Reader", desc_th: "เจาะลึกลงไปถึงรหัสพื้นฐานของสิ่งมีชีวิต เพื่อทำนายและรับมือกับข้อผิดพลาดที่อาจส่งต่อข้ามเจเนอเรชัน", desc_en: "Diving into the fundamental codes of life to predict and handle multi-generational system errors.", next: 'GENE_END' }
             ]},
             c_brain_sub: { options: [
-                { id: 'neuro', emoji: '🧠', title_th: "ผู้ทดสอบวงจรประสาท", title_en: "The Circuit Tester", desc_th: "คุณชอบใช้การตรวจร่างกายอย่างละเอียด เพื่อระบุตำแหน่งเป๊ะๆ ที่วงจรสมองหรือเส้นประสาทเสียหาย", desc_en: "You localize the exact lesion based purely on a rigorous, logical physical exam.", next: 'NEURO_END' },
-                { id: 'psych', emoji: '🧘', title_th: "ผู้ไขกุญแจจิตใจ", title_en: "The Mind Therapist", desc_th: "คุณมองลึกกว่าร่างกาย รักษาบาดแผลทางใจและปรับสมดุลสารเคมีแห่งอารมณ์ผ่านการพูดคุยและยา", desc_en: "You treat the person, balancing neurotransmitters and unpacking emotional trauma.", next: 'PSYCH_END' },
-                { id: 'child_psych', emoji: '🧩', title_th: "ผู้นำทางวัยเยาว์", title_en: "The Developmental Guide", desc_th: "คุณอยากเข้าแทรกแซงตั้งแต่เนิ่นๆ เพื่อช่วยเด็กๆ และวัยรุ่น ก้าวผ่านปัญหาพฤติกรรมและพัฒนาการ", desc_en: "You intervene early to help youth navigate complex developmental and behavioral hurdles.", next: 'CHILDPSYCH_END' }
+                { id: 'neuro', emoji: '⚡', title_th: "ผู้ทดสอบวงจรลอจิก", title_en: "The Circuit Tester", desc_th: "ใช้ตรรกะและการทดสอบเชิงประจักษ์อย่างเป็นขั้นเป็นตอน เพื่อระบุตำแหน่งที่แน่นอนของสายไฟหรือแผงวงจรที่ขาดหายไป", desc_en: "Using pure logic and empirical testing to pinpoint the exact location of broken abstract circuits.", next: 'NEURO_END' },
+                { id: 'psych', emoji: '☯️', title_th: "นักปรับสมดุลนามธรรม", title_en: "The Abstract Balancer", desc_th: "มองทะลุกลไกทางกายภาพ เพื่อจัดการกับต้นตอทางความคิด พฤติกรรม และปรับสมดุลสารเคมีที่ส่งผลต่ออารมณ์ความรู้สึก", desc_en: "Looking beyond physics to tackle the roots of thought, behavior, and chemical balances affecting emotions.", next: 'PSYCH_END' },
+                { id: 'child_psych', emoji: '🧭', title_th: "ผู้นำทางรากฐานชีวิต", title_en: "The Foundation Guide", desc_th: "แทรกแซงและชี้แนะในช่วงเวลาที่วิกฤตที่สุดของการพัฒนา เพื่อป้องกันไม่ให้รอยร้าวของพฤติกรรมขยายตัวในอนาคต", desc_en: "Intervening during the most critical developmental phases to prevent cracks from widening in the future.", next: 'CHILDPSYCH_END' }
             ]},
             c_child_sub: { options: [
-                { id: 'peds_gen', emoji: '👶', title_th: "ผู้ดูแลต้นกล้า", title_en: "The Growth Guardian", desc_th: "คุณให้ความสำคัญกับการเติบโตตามวัย และชอบพูดคุยรับมือกับความกังวลของพ่อแม่ผู้ปกครอง", desc_en: "You focus on preventative care, developmental milestones, and reassuring anxious parents.", next: 'PEDS_END' },
-                { id: 'nicu', emoji: '🍼', title_th: "ผู้พิทักษ์ชีวิตจิ๋ว", title_en: "The Preemie Protector", desc_th: "คุณรับได้กับความบอบบางสูงสุด ดูแลทารกตัวจิ๋วที่คลอดก่อนกำหนดในสภาพแวดล้อมตู้อบไฮเทค", desc_en: "You manage extremely fragile physiology in a high-tech incubator environment.", next: 'NICU_END' },
-                { id: 'peds_sub', emoji: '🧩', title_th: "ผู้เชี่ยวชาญระบบเด็ก", title_en: "The Specialized Advocate", desc_th: "คุณอยากลงลึกในระบบเดียว (เช่น หัวใจ ปอด) แต่ประยุกต์ใช้ความรู้นั้นกับร่างกายที่กำลังพัฒนาเติบโต", desc_en: "You bring adult-level systemic expertise, tailored exclusively to developing physiology.", next: 'PEDSSUB_END' }
+                { id: 'peds_gen', emoji: '☀️', title_th: "ผู้ดูแลต้นอ่อน", title_en: "The Growth Guardian", desc_th: "เน้นการปกป้องและเฝ้าระวังพัฒนาการตั้งแต่วัยเริ่มต้น และเป็นที่ปรึกษาที่พึ่งพาได้สำหรับผู้ดูแล", desc_en: "Focusing on protecting and monitoring early-stage development, acting as a reliable consultant.", next: 'PEDS_END' },
+                { id: 'nicu', emoji: '💎', title_th: "ผู้พิทักษ์ความเปราะบาง", title_en: "The Fragility Protector", desc_th: "ทำงานกับความบอบบางขีดสุด จัดการกับตัวแปรที่ผิดพลาดไม่ได้เลยในสภาพแวดล้อมที่ควบคุมด้วยเทคโนโลยีขั้นสูง", descen: "Working with extreme fragility, managing zero-margin-of-error variables in a highly tech-controlled environment.", next: 'NICU_END' },
+                { id: 'peds_sub', emoji: '🔭', title_th: "ผู้เชี่ยวชาญสเกลจำเพาะ", title_en: "The Dynamic Specialist", desc_th: "เชี่ยวชาญเชิงลึกในกลไกเดียว แต่ประยุกต์ใช้กับโจทย์ที่ท้าทายเพราะสเกลร่างกายที่กำลังขยายและเปลี่ยนแปลงตลอดเวลา", desc_en: "Deep expertise in one mechanism, applied to the dynamic challenge of an ever-expanding biological scale.", next: 'PEDSSUB_END' }
             ]},
             support_vibe: { options: [
-                { id: 'su_back', emoji: '🔬', title_th: "ผู้ไขรหัสเบื้องหลัง", title_en: "Diagnostic Masterminds", desc_th: "อยู่เบื้องหลังการวินิจฉัยผ่านภาพถ่ายรังสี ส่องกล้องชิ้นเนื้อ หรือนิติเวช", desc_en: "Solving cases purely through imaging or tissue pathology.", next: 'su_back_sub' },
-                { id: 'su_holistic', emoji: '🤝', title_th: "คุณภาพชีวิต", title_en: "Holistic & QoL", desc_th: "ดูแลคุณภาพชีวิตผู้ป่วยแบบองค์รวม เวชศาสตร์ครอบครัว หรือการฟื้นฟู", desc_en: "Focusing on overall quality of life: Family Med, Rehab, or Palliative.", next: 'su_holistic_sub' },
-                { id: 'su_pop', emoji: '🌍', title_th: "ระดับประชากรและเฉพาะกลุ่ม", title_en: "Public Health & Niche", desc_th: "ระบาดวิทยา สิ่งแวดล้อม เวชศาสตร์การบิน ทะเล หรือการจราจร", desc_en: "Focusing on population health, occupational, aerospace, or marine medicine.", next: 'su_pop_sub' }
+                { id: 'su_back', emoji: '👁️', title_th: "ผู้ไขรหัสและผู้ชี้ขาด", title_en: "The Decoders & Judges", desc_th: "ผู้อยู่เบื้องหลังการระบุความจริงแท้ อาศัยหลักฐานทางภาพหรือชิ้นส่วนระดับเซลล์เพื่อนำทางแผนการทั้งหมด", desc_en: "The minds behind identifying ultimate truths, relying on visual or cellular evidence to guide all plans.", next: 'su_back_sub' },
+                { id: 'su_holistic', emoji: '♾️', title_th: "ผู้ออกแบบคุณภาพชีวิต", title_en: "Quality of Life Designers", desc_th: "ไม่ได้มองหาแค่การกำจัดจุดบกพร่อง แต่มองไปถึงบริบทแวดล้อม ศักดิ์ศรี และวิถีชีวิตในระยะยาวของผู้คน", desc_en: "Looking beyond eradicating flaws, focusing on long-term context, dignity, and sustainable living.", next: 'su_holistic_sub' },
+                { id: 'su_pop', emoji: '🌐', title_th: "สถาปนิกภาพรวมมหภาค", title_en: "Macro System Architects", desc_th: "ถอยออกมามองความสัมพันธ์ระหว่างระบบใหญ่กับสิ่งแวดล้อม ป้องกันความเสี่ยงก่อนที่จะเกิดเป็นปัญหาหน้างาน", desc_en: "Zooming out to view relationships between massive systems and environments, preventing risks preemptively.", next: 'su_pop_sub' }
             ]},
             su_back_sub: { options: [
-                { id: 'radio', emoji: '☢️', title_th: "ผู้อ่านเงาในความมืด", title_en: "The Shadow Reader", desc_th: "คุณชอบทำงานในห้องมืด วิเคราะห์ภาพสแกนเพื่อไขข้อสงสัยให้หมอคนอื่น ใช้ภาพถ่ายทางการแพทย์เพื่อไขปริศนาโรคและช่วยทีมรักษาตัดสินใจ", desc_en: "You sit in a dark room, answering clinical questions via images without touching the patient.", next: 'RADIO_END' },
-                { id: 'patho', emoji: '🧪', title_th: "ผู้ตัดสินชี้ขาด", title_en: "The Final Judge", desc_th: "คุณคือผู้ให้คำตอบสุดท้ายจากกล้องจุลทรรศน์ ซึ่งการตัดสินใจของคุณจะเป็นตัวกำหนดแผนการรักษาทั้งหมด", desc_en: "You provide the definitive microscopic diagnosis that dictates the entire treatment plan.", next: 'PATHO_END' },
-                { id: 'forensic', emoji: '🕵️', title_th: "พยานผู้ไร้เสียง", title_en: "The Silent Witness", desc_th: "คุณใช้ความรู้ทางการแพทย์เพื่อเป็นกระบอกเสียงให้ผู้ตาย ค้นหาความจริง และคืนความยุติธรรม", desc_en: "You speak for those who no longer can, solving the ultimate physiological mystery.", next: 'FORENSIC_END' }
+                { id: 'radio', emoji: '🌒', title_th: "นักแปลผลความมืด", title_en: "The Shadow Reader", desc_th: "คุณเป็นสายวิเคราะห์ข้อมูลเชิงภาพชั้นเซียน สังเกตเห็นจุดผิดปกติที่คนอื่นมองข้าม โดยเน้นการประมวลผลมากกว่าการลงมือ", desc_en: "A master visual data analyst, spotting anomalies others miss, focusing on processing over physical action.", next: 'RADIO_END' },
+                { id: 'patho', emoji: '⚕️', title_th: "ผู้ตัดสินความจริงสูงสุด", title_en: "The Final Judge", desc_th: "คุณคือผู้กุมความจริงขั้นสุดท้าย อาศัยหลักฐานระดับเซลล์ในการฟันธงทิศทางทั้งหมด โดยไม่ต้องเผชิญหน้ากับความโกลาหลภายนอก", desc_en: "The holder of ultimate truth, relying on cellular evidence to dictate directions without facing external chaos.", next: 'PATHO_END' },
+                { id: 'forensic', emoji: '🕰️', title_th: "พยานผู้ไร้เสียง", title_en: "The Silent Witness", desc_th: "คุณใช้วิทยาศาสตร์เพื่อไขปริศนาที่ไม่มีใครบอกเล่าได้ ทำงานอย่างละเอียดรอบคอบเพื่อตอบคำถามที่สำคัญต่อความยุติธรรม", desc_en: "Using science to solve untold mysteries, working meticulously to answer crucial societal and legal questions.", next: 'FORENSIC_END' }
             ]},
             su_holistic_sub: { options: [
-                { id: 'fm', emoji: '🏡', title_th: "ดูแลตั้งแต่เกิดจนแก่", title_en: "The Lifelong Companion", desc_th: "คุณชอบสร้างความผูกพันระยะยาว ดูแลสุขภาพคนไข้แบบองค์รวมตั้งแต่เกิดจนแก่ และรักษาโรคทั่วไปทั้งหมด", desc_en: "You treat the whole family across generations, focusing on deep trust and broad knowledge.", next: 'FM_END' },
-                { id: 'pmr', emoji: '🏃', title_th: "ผู้กอบกู้คุณภาพชีวิต", title_en: "The Function Restorer", desc_th: "คุณช่วยออกแบบการฟื้นฟู ให้คนไข้ปรับตัวเข้ากับชีวิตใหม่ หลังจากสูญเสียการเคลื่อนไหวจากโรคร้าย", desc_en: "You help patients adapt to a new normal after catastrophic functional or physical loss.", next: 'PMR_END' },
-                { id: 'pall', emoji: '🕊️', title_th: "ผู้มอบความสงบ", title_en: "The Comfort Provider", desc_th: "คุณเปลี่ยนเป้าหมายจาก 'การรักษาให้หาย' เป็น 'การดูแลไม่ให้ทรมาน' จัดการอาการในวาระสุดท้าย", desc_en: "You shift the focus from curing to caring, managing complex symptoms at the end of life.", next: 'PALL_END' },
-                { id: 'lifestyle', emoji: '🥗', title_th: "โค้ชปรับพฤติกรรม", title_en: "The Habit Coach", desc_th: "คุณเชื่อในการแก้ที่ต้นเหตุ จัดการโรคเรื้อรังด้วยการปรับเปลี่ยนอาหาร การนอนหลับ และการออกกำลังกาย", desc_en: "You tackle the root causes of chronic disease by coaching patients on diet and daily habits.", next: 'LIFESTYLE_END' }
+                { id: 'fm', emoji: '🤝', title_th: "เพื่อนร่วมทางระยะยาว", title_en: "The Lifelong Companion", desc_th: "คุณให้ความสำคัญกับความกว้างของความรู้และการสร้างความไว้วางใจระยะยาว มากกว่าการโฟกัสแค่รอยบกพร่องเพียงจุดเดียว", desc_en: "Valuing breadth of knowledge and long-term trust over hyper-focusing on a single isolated flaw.", next: 'FM_END' },
+                { id: 'pmr', emoji: '🧗', title_th: "ผู้กอบกู้ศักยภาพ", title_en: "The Potential Restorer", desc_th: "คุณไม่ได้มองแค่การทำให้รอดชีวิต แต่มองไกลไปถึงการออกแบบหนทางให้พวกเขากลับไปมีฟังก์ชันและศักดิ์ศรีที่สุด", desc_en: "Not just looking at survival, but designing pathways for subjects to return to living with maximum functionality and dignity.", next: 'PMR_END' },
+                { id: 'pall', emoji: '🕯️', title_th: "ผู้ออกแบบความสงบ", title_en: "The Comfort Provider", desc_th: "คุณเข้าใจข้อจำกัดของระบบ และเปลี่ยนเป้าหมายจากการต่อสู้เอาชนะ เป็นการประคับประคองและมอบความสงบอย่างลึกซึ้ง", desc_en: "Accepting systemic limits, shifting the goal from defeating to providing the deepest contextual peace and support.", next: 'PALL_END' },
+                { id: 'lifestyle', emoji: '🧱', title_th: "สถาปนิกพฤติกรรม", title_en: "The Foundation Architect", desc_th: "คุณเชื่อมั่นในการป้องกันและปรับรากฐานของพฤติกรรม มากกว่าการตามแก้ปัญหาที่ปลายเหตุด้วยสารเคมีหรือเครื่องมือ", desc_en: "Believing in prevention and fundamental behavioral shifts rather than chasing end-results with chemicals.", next: 'LIFESTYLE_END' }
             ]},
             su_pop_sub: { options: [
-                { id: 'prev', emoji: '🛡️', title_th: "นักวางแผนภาพรวม", title_en: "The Big Picture Thinker", desc_th: "คุณมองกว้างกว่าระดับบุคคล ใช้สถิติและนโยบายเพื่อป้องกันไม่ให้ประชากรหมู่มากป่วย", desc_en: "You zoom out to treat entire populations through public health policy and epidemiology.", next: 'PREV_END' },
-                { id: 'occmed', emoji: '🏭', title_th: "ผู้พิทักษ์คนทำงาน", title_en: "The Workplace Guardian", desc_th: "คุณสนใจความเสี่ยงในสภาพแวดล้อมการทำงาน และช่วยให้พนักงานบริษัท/โรงงานกลับไปลุยต่อได้อย่างปลอดภัย", desc_en: "You focus on occupational hazards, ergonomics, and getting injured workers safely back to work.", next: 'OCCMED_END' },
-                { id: 'aero', emoji: '✈️', title_th: "แพทย์เหนือเวหา", title_en: "The Extreme Physiologist", desc_th: "คุณรับมือกับความท้าทายของร่างกายเมื่อต้องเผชิญกับแรง G ความกดอากาศ หรือแม้แต่อวกาศ", desc_en: "You deal with the extreme effects of altitude, G-forces, and space on the human body.", next: 'AERO_END' },
-                { id: 'marine', emoji: '⚓', title_th: "แพทย์แห่งห้วงลึก", title_en: "The Depth Explorer", desc_th: "คุณจัดการกับโรคน้ำหนีบ และความท้าทายเฉพาะตัวของการทำงานในทะเลหรือใต้น้ำลึก", desc_en: "You manage decompression sickness and the unique health challenges of the sea.", next: 'MARINE_END' },
-                { id: 'traffic', emoji: '🚗', title_th: "นักวิเคราะห์ความปลอดภัย", title_en: "The System Improver", desc_th: "คุณมุ่งเน้นการลดอัตราการบาดเจ็บจากอุบัติเหตุจราจร ผ่านการวิเคราะห์ระบบและวิศวกรรมบนท้องถนน", desc_en: "You work on preventing crashes and mitigating trauma through systemic traffic changes.", next: 'TRAFFIC_END' }
+                { id: 'prev', emoji: '🔭', title_th: "นักคิดเชิงมหภาค", title_en: "The Macro Thinker", desc_th: "คุณมองปัญหาในสเกลระดับมหภาค ใช้ข้อมูลและนโยบายเป็นเครื่องมือในการสร้างการเปลี่ยนแปลงที่ส่งผลกระทบวงกว้าง", desc_en: "Looking at problems on a macro scale, using data and policy to effect change for tens of thousands at once.", next: 'PREV_END' },
+                { id: 'occmed', emoji: '🛡️', title_th: "ผู้ประเมินความเสี่ยงแฝง", title_en: "The Environmental Guardian", desc_th: "คุณสนใจความสัมพันธ์ระหว่างระบบกับสภาพแวดล้อมที่ใช้เวลาส่วนใหญ่ เพื่อปกป้องพวกเขาจากความเสี่ยงที่มองไม่เห็น", desc_en: "Interested in the relationship between systems and their primary environments, protecting them from hidden risks.", next: 'OCCMED_END' },
+                { id: 'aero', emoji: '🌌', title_th: "ผู้เชี่ยวชาญสภาวะสุดขั้ว (บนฟ้า)", title_en: "The Altitude Specialist", desc_th: "คุณรับมือกับความท้าทายเมื่อระบบต้องเผชิญกับแรงต้าน ความกดอากาศ หรือแม้แต่สภาวะไร้น้ำหนัก", desc_en: "Dealing with the extreme physiological challenges of altitude, resistance forces, and space constraints.", next: 'AERO_END' },
+                { id: 'marine', emoji: '🌊', title_th: "ผู้เชี่ยวชาญสภาวะสุดขั้ว (ใต้น้ำ)", title_en: "The Depth Specialist", desc_th: "คุณสนใจบริบทที่เกิดจากการเปลี่ยนแปลงความดันอย่างฉับพลัน และข้อจำกัดเมื่อถูกตัดขาดจากสิ่งแวดล้อมปกติ", desc_en: "Fascinated by contexts created by sudden pressure changes and the constraints of isolation from normal environments.", next: 'MARINE_END' },
+                { id: 'traffic', emoji: '🚦', title_th: "นักวิเคราะห์ระบบความปลอดภัย", title_en: "The System Safety Improver", desc_th: "คุณมุ่งเน้นการลดความเสียหายเชิงกายภาพผ่านการวิเคราะห์โครงสร้าง เครือข่าย และวิศวกรรมภาพรวม", desc_en: "Focusing on reducing physical trauma through macro-analysis of structures, networks, and overall engineering.", next: 'TRAFFIC_END' }
             ]}
         };
 
         const results = {
-            ER_END: { title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", desc_th: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อกู้ชีวิตคนไข้จากวิกฤต", desc_en: "Frontline heroes making split-second life-saving decisions.", slug: "emergency-medicine" },
-            ANES_END: { title_th: "วิสัญญีแพทย์", title_en: "Anesthesiology", desc_th: "ผู้กุมความลับของความเจ็บปวด และควบคุมสัญญาณชีพขณะผ่าตัด", desc_en: "Masters of pain control and vital signs during surgery.", slug: "anesthesiology" },
-            IR_END: { title_th: "รังสีแพทย์ร่วมรักษา", title_en: "Interventional Radiologist", desc_th: "แพทย์ผู้ทำหัตถการนำทางด้วยภาพสแกนแบบแผลเล็กที่สุด", desc_en: "Performing minimally invasive, image-guided procedures.", slug: "interventional-radiology" },
-            GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", desc_th: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาอวัยวะช่องท้อง", desc_en: "The pillar of the OR, specializing in abdominal organs.", slug: "general-surgery" },
-            CVT_END: { title_th: "ศัลยแพทย์ทรวงอก", title_en: "Thoracic Surgeon", desc_th: "ศิลปินผู้ดูแลเครื่องยนต์หลักของร่างกาย ทั้งหัวใจและปอด", desc_en: "Operating on the main engines of the body: the heart and lungs.", slug: "thoracic-surgery" },
-            URO_END: { title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", desc_th: "ผู้เชี่ยวชาญระบบขับถ่ายที่ผสานทักษะผ่าตัดกับเทคโนโลยีส่องกล้อง", desc_en: "Experts in the urinary tract combining surgery with endoscopy.", slug: "urology" },
-            OBGYN_END: { title_th: "สูตินรีแพทย์", title_en: "OB/GYN", desc_th: "ผู้ดูแลสุขภาพสตรีและผู้นำทางพิทักษ์วินาทีแห่งการให้กำเนิดชีวิต", desc_en: "Caring for women's health and the miracles of childbirth.", slug: "obstetrics-and-gynecology" },
-            PEDSURG_END: { title_th: "กุมารศัลยแพทย์", title_en: "Pediatric Surgeon", desc_th: "ผู้เชี่ยวชาญการผ่าตัดร่างกายที่เล็กและเปราะบางของเด็ก", desc_en: "Highly specialized surgery for infants and children.", slug: "pediatric-surgery" },
-            ORTHO_END: { title_th: "ศัลยแพทย์ออร์โธปิดิกส์", title_en: "Orthopedic Surgeon", desc_th: "วิศวกรโครงสร้างมนุษย์ ผู้ประกอบและซ่อมแซมกระดูก ข้อต่อ", desc_en: "The human structural engineer, repairing bones and joints.", slug: "orthopedic-surgery" },
-            NS_END: { title_th: "ศัลยแพทย์ประสาท", title_en: "Neurosurgeon", desc_th: "ผู้ทำงานด้วยสมาธิสูงสุดบนระบบประมวลผลที่ซับซ้อนที่สุดในจักรวาล", desc_en: "Operating with extreme precision on the complex nervous system.", slug: "neurosurgery" },
-            PLASTIC_END: { title_th: "ศัลยแพทย์ตกแต่ง", title_en: "Plastic Surgeon", desc_th: "สถาปนิกแห่งความงามและการบูรณะเนื้อเยื่อเพื่อฟื้นฟูคุณภาพชีวิต", desc_en: "Architects of aesthetics and tissue restoration.", slug: "plastic-surgery" },
-            ENT_END: { title_th: "หมอหู คอ จมูก", title_en: "Otolaryngologist", desc_th: "ผู้เชี่ยวชาญประสาทสัมผัสและโครงสร้างทางเดินหายใจส่วนบน", desc_en: "Specialists of the upper respiratory tract and senses.", slug: "otolaryngology" },
-            OPHTHA_END: { title_th: "จักษุแพทย์", title_en: "Ophthalmologist", desc_th: "ผู้พิทักษ์ดวงตา ทำงานกับอวัยวะขนาดเล็กด้วยความแม่นยำระดับไมโคร", desc_en: "Guardians of vision, operating with micro-precision.", slug: "ophthalmology" },
-            CARDIO_END: { title_th: "อายุรแพทย์โรคหัวใจ", title_en: "Cardiologist", desc_th: "นักสืบผู้ถอดรหัสจังหวะชีวิต และรักษาหัวใจด้วยเทคโนโลยีขั้นสูง", desc_en: "Detectives of the pulse, treating the heart with advanced tech.", slug: "internal-medicine-cardiovascular-disease" },
-            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", desc_th: "ผู้เชี่ยวชาญระบบหายใจ ท่ออากาศ และความท้าทายในห้อง ICU", desc_en: "Specialists of the airways and respiratory challenges.", slug: "pulmonary-disease" },
-            GI_END: { title_th: "หมอทางเดินอาหาร", title_en: "Gastroenterologist", desc_th: "นักสำรวจระบบย่อยอาหาร ผู้เชี่ยวชาญการใช้กล้อง Endoscope", desc_en: "Explorers of the digestive system and endoscopy experts.", slug: "internal-medicine-gastroenterology" },
-            NEPHRO_END: { title_th: "อายุรแพทย์โรคไต", title_en: "Nephrologist", desc_th: "ผู้ควบคุมสมดุลน้ำและจัดการโรงงานกรองของเสียของร่างกาย", desc_en: "Managers of fluid balance and the body's filtration system.", slug: "internal-medicine-nephrology" },
-            NEURO_END: { title_th: "อายุรแพทย์ประสาทวิทยา", title_en: "Neurologist", desc_th: "ผู้ไขปริศนาความผิดปกติของสัญญาณไฟฟ้าและพฤติกรรมสมอง", desc_en: "Solving the mysteries of brain signals and behaviors.", slug: "neurology" },
-            ENDO_END: { title_th: "แพทย์ต่อมไร้ท่อ", title_en: "Endocrinologist", desc_th: "ผู้ควบคุมสมดุลฮอร์โมนและกระบวนการเผาผลาญ ทั้งหมด", desc_en: "Controllers of hormonal balance and metabolism.", slug: "endocrinology-diabetes-and-metabolism" },
-            RHEUM_END: { title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", desc_th: "ผู้ถอดรหัสความผิดปกติของภูมิคุ้มกันและโรคข้ออักเสบ", desc_en: "Decoding autoimmune diseases and arthritis.", slug: "rheumatology" },
-            HEMA_END: { title_th: "อายุรแพทย์โลหิตวิทยา", title_en: "Hematologist", desc_th: "ผู้เชี่ยวชาญโรคเลือด ไขกระดูก และระบบการแข็งตัวของเลือด", desc_en: "Specialists in blood disorders and the bone marrow.", slug: "hematology-and-medical-oncology" },
-            ONC_END: { title_th: "อายุรแพทย์โรคมะเร็ง", title_en: "Medical Oncologist", desc_th: "นักวางกลยุทธ์ต่อสู้กับโรคมะเร็งด้วยยาและเคมีบำบัด", desc_en: "Strategists fighting cancer with systemic medical therapies.", slug: "hematology-and-medical-oncology" },
-            ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease Specialist", desc_th: "นักสืบผู้ตามล่าหาจุลชีพก่อโรค และวางแผนยาปฏิชีวนะแบบเฉียบขาด", desc_en: "Hunters of pathogens and masters of antibiotics.", slug: "infectious-disease" },
-            ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist / Immunologist", desc_th: "ผู้จัดการปฏิกิริยาต่อต้านของร่างกายและโรคหอบหืด", desc_en: "Managing severe allergic reactions and immune deficiencies.", slug: "allergy-and-immunology" },
-            GENE_END: { title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", desc_th: "ผู้อ่านรหัสชีวิตและวางแผนรับมือกับโรคที่แฝงมาใน DNA", desc_en: "Reading the code of life and managing DNA-based diseases.", slug: "medical-genetics" },
-            PEDS_END: { title_th: "กุมารแพทย์ทั่วไป", title_en: "General Pediatrician", desc_th: "หมอเด็กผู้พิทักษ์อนาคต เน้นการเจริญเติบโตตั้งแต่วัยทารก", desc_en: "Guardians of the future, focusing on child growth.", slug: "pediatrics" },
-            NICU_END: { title_th: "แพทย์ทารกแรกเกิด", title_en: "Neonatologist", desc_th: "ผู้ดูแลทารกคลอดก่อนกำหนดหรือป่วยหนักในตู้อบ", desc_en: "Intensive care for the most fragile newborns.", slug: "neonatal-perinatal-medicine" },
-            PEDSSUB_END: { title_th: "กุมารแพทย์เฉพาะทาง", title_en: "Pediatric Subspecialist", desc_th: "ผู้เชี่ยวชาญโรคเฉพาะระบบในเด็ก เช่น หมอหัวใจเด็ก, ภูมิแพ้เด็ก", desc_en: "Highly specialized medical care for children's specific systems.", slug: "pediatrics" },
-            PSYCH_END: { title_th: "จิตแพทย์", title_en: "Psychiatrist", desc_th: "ผู้เยียวยาบาดแผลทางใจและปรับสมดุลสารเคมีแห่งอารมณ์", desc_en: "Healers of the mind and chemical emotional balance.", slug: "psychiatry" },
-            CHILDPSYCH_END: { title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child & Adolescent Psychiatrist", desc_th: "ดูแลพัฒนาการทางพฤติกรรมและอารมณ์ของคนรุ่นใหม่", desc_en: "Mental health and behavioral care for developing minds.", slug: "child-and-adolescent-psychiatry" },
-            DERM_END: { title_th: "แพทย์ผิวหนัง", title_en: "Dermatologist", desc_th: "ผู้เชี่ยวชาญโรคผิวหนัง เส้นผม เล็บ และหัตถการเลเซอร์", desc_en: "Experts in skin conditions, aesthetics, and cutaneous biology.", slug: "dermatology" },
-            RADIO_END: { title_th: "รังสีแพทย์", title_en: "Radiologist", desc_th: "ดวงตาของโรงพยาบาล ที่มองทะลุร่างกายผ่านภาพถ่ายทางการแพทย์", desc_en: "The eyes of the hospital, seeing through medical imaging.", slug: "radiology-diagnostic" },
-            PATHO_END: { title_th: "พยาธิแพทย์", title_en: "Pathologist", desc_th: "ผู้พิพากษาสูงสุดของโรค จากการมองหลักฐานผ่านกล้องจุลทรรศน์", desc_en: "The ultimate judge of disease via microscopy.", slug: "pathology-anatomic-and-clinical" },
-            FORENSIC_END: { title_th: "แพทย์นิติเวช", title_en: "Forensic Pathologist", desc_th: "ผู้ใช้ความรู้ทางการแพทย์ในการสืบสวนสาเหตุการเสียชีวิตตามกฎหมาย", desc_en: "Investigating causes of death to serve justice.", slug: "forensic-pathology" },
-            PREV_END: { title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", desc_th: "นักระบาดวิทยา ผู้เน้นการป้องกันระดับประชากรเพื่อไม่ให้คนป่วย", desc_en: "Epidemiologists focusing on population-level prevention.", slug: "preventive-medicine" },
-            OCCMED_END: { title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", desc_th: "ดูแลสุขภาพ ความปลอดภัย และสิ่งแวดล้อมของคนทำงานโรงงาน/บริษัท", desc_en: "Keeping workers safe and healthy in their environments.", slug: "occupational-and-environmental-medicine" },
-            AERO_END: { title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", desc_th: "ดูแลข้อจำกัดทางสรีรวิทยาของนักบินและมนุษย์อวกาศ", desc_en: "Managing the physiological challenges of flight and space.", slug: "aerospace-medicine" },
-            MARINE_END: { title_th: "เวชศาสตร์ทางทะเล", title_en: "Maritime & Undersea Medicine", desc_th: "ดูแลความปลอดภัยและสุขภาพของผู้ที่ทำงานและใช้ชีวิตในทะเล", desc_en: "Managing health and safety in maritime and undersea environments.", slug: "preventive-medicine" },
-            TRAFFIC_END: { title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", desc_th: "วิเคราะห์และป้องกันอุบัติเหตุบนท้องถนนเชิงระบบสาธารณสุข", desc_en: "Focusing on road safety, injury prevention, and transport health.", slug: "preventive-medicine" },
-            PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", desc_th: "ผู้ออกแบบการคืนศักยภาพและการเคลื่อนไหว เพื่อคุณภาพชีวิตที่ดีที่สุด", desc_en: "Designing rehabilitation for the best quality of life.", slug: "physical-medicine-and-rehabilitation" },
-            FM_END: { title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", desc_th: "ผู้ดูแลสุขภาพแบบองค์รวม ผูกพันกับคนไข้ตั้งแต่วัยรุ่นจนถึงวัยชรา", desc_en: "Holistic care, bonding with patients across their lifespan.", slug: "family-medicine" },
-            PALL_END: { title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", desc_th: "แพทย์ผู้ช่วยบรรเทาความทุกข์ทรมาน และดูแลคุณภาพชีวิตระยะสุดท้าย", desc_en: "Relieving suffering and providing comfort in serious illnesses.", slug: "hospice-and-palliative-medicine" },
-            LIFESTYLE_END: { title_th: "แพทย์เวชศาสตร์วิถีชีวิต", title_en: "Lifestyle Medicine", desc_th: "เน้นปรับพฤติกรรม อาหาร การนอน และการออกกำลังกายเพื่อรักษาโรค", desc_en: "Treating root causes of disease by modifying daily habits.", slug: "preventive-medicine" }
+            ER_END: { 
+                title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", slug: "emergency-medicine",
+                desc_th: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อกู้ชีวิตคนไข้จากวิกฤตที่คาดเดาไม่ได้", desc_en: "Frontline heroes making split-second life-saving decisions in unpredictable chaos.",
+                color: ["#e74c3c", "#c0392b"], keywords_th: ["ด่านหน้า", "แก้ปัญหาฉับไว", "ทุกวินาทีมีค่า"], keywords_en: ["Frontline", "Rapid Response", "High Adrenaline"],
+                stats: [ { l_th: "หัตถการกู้ชีพ", l_en: "Critical Procedures", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 100 }, { l_th: "การคิดเชิงระบบ", l_en: "Systematic Analysis", v: 60 } ]
+            },
+            ANES_END: { 
+                title_th: "วิสัญญีแพทย์", title_en: "Anesthesiology", slug: "anesthesiology",
+                desc_th: "ผู้กุมความลับของความเจ็บปวด และผู้ควบคุมสัญญาณชีพเบื้องหลังความสำเร็จของห้องผ่าตัด", desc_en: "Masters of pain control and vital signs, the unseen guardians of the operating room.",
+                color: ["#8e44ad", "#5b2c6f"], keywords_th: ["ควบคุมความสมดุล", "ผู้อยู่เบื้องหลัง", "สมาธิขั้นสูง"], keywords_en: ["Physiology Control", "The Silent Guardian", "High Focus"],
+                stats: [ { l_th: "การควบคุมตัวแปร", l_en: "Variable Control", v: 95 }, { l_th: "หัตถการเฉพาะจุด", l_en: "Targeted Procedures", v: 80 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย", l_en: "Patient Interaction", v: 30 } ]
+            },
+            IR_END: { 
+                title_th: "รังสีแพทย์ร่วมรักษา", title_en: "Interventional Radiologist", slug: "interventional-radiology",
+                desc_th: "แพทย์ผู้ทำหัตถการนำทางด้วยภาพสแกน ลึกถึงต้นตอโดยแผลเล็กที่สุดและไม่ต้องผ่าตัดใหญ่", desc_en: "Targeted operators performing minimally invasive, image-guided procedures.",
+                color: ["#e67e22", "#d35400"], keywords_th: ["แม่นยำสูงสุด", "เทคโนโลยีนำทาง", "แผลเล็ก"], keywords_en: ["High Precision", "Image-Guided", "Minimally Invasive"],
+                stats: [ { l_th: "การใช้เทคโนโลยี", l_en: "Tech Utilization", v: 95 }, { l_th: "หัตถการระดับไมโคร", l_en: "Micro-Procedures", v: 90 }, { l_th: "การวินิจฉัยภาพ", l_en: "Visual Diagnosis", v: 85 } ]
+            },
+            GS_END: { 
+                title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", slug: "general-surgery",
+                desc_th: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาตั้งแต่ไส้ติ่งอักเสบไปจนถึงอุบัติเหตุรุนแรง", desc_en: "The versatile pillar of the OR, specializing in comprehensive abdominal and trauma surgery.",
+                color: ["#c0392b", "#922b21"], keywords_th: ["เสาหลัก", "ทักษะรอบด้าน", "เด็ดขาด"], keywords_en: ["The Core Pillar", "Versatile Skills", "Decisive Action"],
+                stats: [ { l_th: "ทักษะการผ่าตัด", l_en: "Surgical Skills", v: 95 }, { l_th: "ความทนทานต่อความเครียด", l_en: "Pressure Tolerance", v: 90 }, { l_th: "ขอบเขตเนื้อหางาน", l_en: "Scope of Work", v: 85 } ]
+            },
+            CVT_END: { 
+                title_th: "ศัลยแพทย์ทรวงอก", title_en: "Thoracic Surgeon", slug: "thoracic-surgery",
+                desc_th: "สถาปนิกผู้ดูแลเครื่องยนต์หลักของร่างกาย รับมือกับเดิมพันสูงสุดของหัวใจและปอด", desc_en: "High-stakes mechanics operating on the body's main engines: the heart and lungs.",
+                color: ["#e74c3c", "#922b21"], keywords_th: ["เดิมพันชีวิต", "ความกดดันสูงสุด", "เครื่องยนต์หลัก"], keywords_en: ["High Stakes", "Extreme Pressure", "Core Engines"],
+                stats: [ { l_th: "ทักษะการผ่าตัดขั้นสูง", l_en: "Advanced Surgery", v: 100 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 90 }, { l_th: "ชั่วโมงการทำงานยาวนาน", l_en: "Endurance", v: 95 } ]
+            },
+            URO_END: { 
+                title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", slug: "urology",
+                desc_th: "ผู้เชี่ยวชาญระบบขับถ่ายที่ผสานทักษะการผ่าตัดดั้งเดิมเข้ากับเทคโนโลยีส่องกล้องล้ำสมัย", desc_en: "Experts in the urinary tract combining traditional surgery with advanced endoscopy.",
+                color: ["#f39c12", "#d35400"], keywords_th: ["เทคโนโลยีล้ำสมัย", "คุณภาพชีวิต", "จบในตัวเอง"], keywords_en: ["High-Tech Med", "Quality of Life", "Self-Contained"],
+                stats: [ { l_th: "หัตถการส่องกล้อง/หุ่นยนต์", l_en: "Robotic/Endoscopic", v: 90 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 75 }, { l_th: "ดูแลผู้ป่วยนอก (OPD)", l_en: "Clinic Focus", v: 60 } ]
+            },
+            OBGYN_END: { 
+                title_th: "สูตินรีแพทย์", title_en: "OB/GYN", slug: "obstetrics-and-gynecology",
+                desc_th: "ผู้ดูแลสุขภาพสตรีและผู้นำทางผู้พิทักษ์วินาทีแห่งการให้กำเนิดชีวิต", desc_en: "Guardians of women's health and navigators of the miracles of childbirth.",
+                color: ["#d35400", "#a04000"], keywords_th: ["สองชีวิตในมือเดียว", "ผ่าตัด & ตรวจโรค", "คาดเดาไม่ได้"], keywords_en: ["Two Lives", "Clinic & OR", "Unpredictable"],
+                stats: [ { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 85 }, { l_th: "ทักษะการผ่าตัด", l_en: "Surgical Skills", v: 80 }, { l_th: "ความผูกพันกับผู้ป่วย", l_en: "Patient Bonding", v: 70 } ]
+            },
+            PEDSURG_END: { 
+                title_th: "กุมารศัลยแพทย์", title_en: "Pediatric Surgeon", slug: "pediatric-surgery",
+                desc_th: "ผู้เชี่ยวชาญที่หาตัวจับยากในการซ่อมแซมร่างกายที่เล็กและเปราะบางที่สุด", desc_en: "Rare specialists executing highly precise surgery for delicate infants and children.",
+                color: ["#e67e22", "#b9770e"], keywords_th: ["ละเอียดอ่อนขั้นสุด", "สเกลจิ๋ว", "คืนอนาคต"], keywords_en: ["Extreme Delicacy", "Micro Scale", "Restoring Futures"],
+                stats: [ { l_th: "ความประณีตในการผ่าตัด", l_en: "Surgical Finesse", v: 95 }, { l_th: "การทำงานกับครอบครัว", l_en: "Family Interaction", v: 80 }, { l_th: "เคสซับซ้อนหายาก", l_en: "Rare Anomalies", v: 85 } ]
+            },
+            ORTHO_END: { 
+                title_th: "ศัลยแพทย์ออร์โธปิดิกส์", title_en: "Orthopedic Surgeon", slug: "orthopedic-surgery",
+                desc_th: "วิศวกรโครงสร้างมนุษย์ ผู้ใช้หลักกลศาสตร์ประกอบและซ่อมแซมกระดูกให้กลับมาเคลื่อนไหว", desc_en: "Human structural engineers, repairing bones and joints to restore flawless movement.",
+                color: ["#c0392b", "#7b241c"], keywords_th: ["เห็นผลลัพธ์ชัดเจน", "กลศาสตร์", "คืนการเคลื่อนไหว"], keywords_en: ["Tangible Results", "Biomechanics", "Restoring Motion"],
+                stats: [ { l_th: "หัตถการเชิงโครงสร้าง", l_en: "Structural Procedures", v: 95 }, { l_th: "คุณภาพชีวิตผู้ป่วย", l_en: "Quality of Life Impact", v: 90 }, { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 40 } ]
+            },
+            NS_END: { 
+                title_th: "ศัลยแพทย์ประสาท", title_en: "Neurosurgeon", slug: "neurosurgery",
+                desc_th: "ผู้ทำงานด้วยสมาธิสูงสุดบนแผงวงจรประมวลผลที่เปราะบางและซับซ้อนที่สุดในจักรวาล", desc_en: "Commanding extreme precision on the most delicate and complex nervous system in existence.",
+                color: ["#5b2c6f", "#1a5276"], keywords_th: ["สมาธิระดับสูง", "พลาดไม่ได้", "ระบบซับซ้อน"], keywords_en: ["Ultimate Focus", "Zero Margin of Error", "Complex Systems"],
+                stats: [ { l_th: "ความประณีตระดับไมโคร", l_en: "Micro-Finesse", v: 100 }, { l_th: "ชั่วโมงการทำงานยาวนาน", l_en: "Endurance", v: 95 }, { l_th: "ความทนทานต่อความเครียด", l_en: "Pressure Tolerance", v: 95 } ]
+            },
+            PLASTIC_END: { 
+                title_th: "ศัลยแพทย์ตกแต่ง", title_en: "Plastic Surgeon", slug: "plastic-surgery",
+                desc_th: "ศิลปินนักปั้นแห่งโลกการแพทย์ ผสมผสานหลักกายวิภาคเพื่อบูรณะทั้งฟังก์ชันและความงาม", desc_en: "Artists of the medical world, reconstructing tissue for both profound aesthetic and practical results.",
+                color: ["#e67e22", "#d35400"], keywords_th: ["ศิลปะและกายวิภาค", "ความสมบูรณ์แบบ", "บูรณะโครงสร้าง"], keywords_en: ["Art & Anatomy", "Perfectionism", "Reconstruction"],
+                stats: [ { l_th: "ความประณีตและศิลปะ", l_en: "Artistic Finesse", v: 100 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 75 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 30 } ]
+            },
+            ENT_END: { 
+                title_th: "หมอหู คอ จมูก", title_en: "Otolaryngologist", slug: "otolaryngology",
+                desc_th: "นักสำรวจช่องโพรง ผู้เชี่ยวชาญประสาทสัมผัสและโครงสร้างที่ซับซ้อนของศีรษะและลำคอ", desc_en: "Cavity navigators and specialists of the upper respiratory tract and vital human senses.",
+                color: ["#f39c12", "#d68910"], keywords_th: ["พื้นที่ซับซ้อน", "คืนประสาทสัมผัส", "ทำงานผ่านกล้อง"], keywords_en: ["Complex Cavities", "Restoring Senses", "Endoscopic Skill"],
+                stats: [ { l_th: "หัตถการในพื้นที่แคบ", l_en: "Confined Space Surgery", v: 90 }, { l_th: "ดูแลผู้ป่วยนอก (OPD)", l_en: "Clinic Focus", v: 60 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 70 } ]
+            },
+            OPHTHA_END: { 
+                title_th: "จักษุแพทย์", title_en: "Ophthalmologist", slug: "ophthalmology",
+                desc_th: "ช่างศิลป์ผู้พิทักษ์ดวงตา ทำงานกับอวัยวะขนาดเล็กด้วยความแม่นยำระดับไมโครเมตร", desc_en: "Guardians of vision, operating with micrometer precision to restore the body's primary window.",
+                color: ["#f1c40f", "#d4ac0d"], keywords_th: ["ความแม่นยำสูงสุด", "เทคโนโลยีเลนส์", "งานระดับไมโคร"], keywords_en: ["Micrometer Precision", "Optical Tech", "Micro-Surgery"],
+                stats: [ { l_th: "หัตถการผ่านกล้องจุลทรรศน์", l_en: "Microscopic Surgery", v: 100 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 20 } ]
+            },
+            CARDIO_END: { 
+                title_th: "อายุรแพทย์โรคหัวใจ", title_en: "Cardiologist", slug: "internal-medicine-cardiovascular-disease",
+                desc_th: "ผู้ถอดรหัสจังหวะชีวิต และปรับจูนกลไกหัวใจด้วยการใช้เทคโนโลยีขั้นสูง", desc_en: "Decoders of the pulse, optimizing the heart's rhythm and mechanics with advanced interventions.",
+                color: ["#c0392b", "#7b241c"], keywords_th: ["วิเคราะห์ข้อมูลเร็ว", "หัตถการแผลเล็ก", "เครื่องยนต์หลัก"], keywords_en: ["Rapid Analysis", "Cath Lab", "Core Engine"],
+                stats: [ { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 90 }, { l_th: "หัตถการเฉพาะจุด", l_en: "Targeted Procedures", v: 75 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 85 } ]
+            },
+            PULMO_END: { 
+                title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", slug: "pulmonary-disease",
+                desc_th: "ผู้เชี่ยวชาญระบบหายใจ ผู้กุมบังเหียนเครื่องช่วยหายใจในสมรภูมิห้อง ICU", desc_en: "Masters of the respiratory system, leading the charge with life-support in the ICU battlefield.",
+                color: ["#16a085", "#0e6655"], keywords_th: ["ภาวะวิกฤต", "เครื่องช่วยหายใจ", "สรีรวิทยาขั้นสูง"], keywords_en: ["Critical Care", "Ventilators", "Advanced Physiology"],
+                stats: [ { l_th: "การควบคุมตัวแปร", l_en: "Variable Control", v: 90 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 85 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย", l_en: "Patient Interaction", v: 50 } ]
+            },
+            GI_END: { 
+                title_th: "หมอทางเดินอาหาร", title_en: "Gastroenterologist", slug: "internal-medicine-gastroenterology",
+                desc_th: "นักสืบลำไส้ ผู้เชี่ยวชาญการใช้กล้อง Endoscope ทะลวงหาความจริงในระบบย่อยอาหาร", desc_en: "Explorers of the digestive tract, wielding endoscopes to uncover the truths within.",
+                color: ["#d35400", "#873600"], keywords_th: ["ส่องกล้อง", "การคิดเชิงตรรกะ", "จบในตัวเอง"], keywords_en: ["Endoscopy", "Logical Reasoning", "Self-Contained"],
+                stats: [ { l_th: "หัตถการส่องกล้อง", l_en: "Endoscopic Procedures", v: 85 }, { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 80 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 65 } ]
+            },
+            NEPHRO_END: { 
+                title_th: "อายุรแพทย์โรคไต", title_en: "Nephrologist", slug: "internal-medicine-nephrology",
+                desc_th: "นักคณิตศาสตร์แห่งร่างกาย ผู้ควบคุมสมดุลน้ำและสมการกรองของเสียที่ละเอียดอ่อนที่สุด", desc_en: "The body's mathematicians, balancing complex fluid equations and managing vital filtration.",
+                color: ["#2980b9", "#154360"], keywords_th: ["สมการซับซ้อน", "วิเคราะห์ตัวเลข", "สมดุลของเหลว"], keywords_en: ["Complex Equations", "Number Crunching", "Fluid Balance"],
+                stats: [ { l_th: "การวิเคราะห์เชิงตรรกะ", l_en: "Logical Analysis", v: 95 }, { l_th: "การติดตามผู้ป่วยระยะยาว", l_en: "Long-term Care", v: 80 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 40 } ]
+            },
+            NEURO_END: { 
+                title_th: "อายุรแพทย์ประสาทวิทยา", title_en: "Neurologist", slug: "neurology",
+                desc_th: "นักสืบตรรกะ ผู้ไขปริศนาความผิดปกติของสัญญาณไฟฟ้าและวงจรประสาทจากการตรวจร่างกายอย่างแม่นยำ", desc_en: "Logical detectives solving the mysteries of faulty electrical signals and neural circuits purely through rigorous examination.",
+                color: ["#2e86c1", "#1b4f72"], keywords_th: ["ตรรกะขั้นสูง", "ไขปริศนาลึก", "ตรวจร่างกายละเอียด"], keywords_en: ["High Logic", "Deep Puzzle Solving", "Rigorous Physical Exam"],
+                stats: [ { l_th: "การวิเคราะห์เชิงตรรกะ", l_en: "Logical Analysis", v: 100 }, { l_th: "ทักษะการตรวจร่างกาย", l_en: "Physical Exam Skills", v: 95 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 20 } ]
+            },
+            ENDO_END: { 
+                title_th: "แพทย์ต่อมไร้ท่อ", title_en: "Endocrinologist", slug: "endocrinology-diabetes-and-metabolism",
+                desc_th: "ผู้ไขรหัสสารเคมีล่องหน ควบคุมฮอร์โมนและกระบวนการเผาผลาญของทั้งระบบร่างกาย", desc_en: "Hackers of invisible chemicals, controlling systemic hormonal balance and metabolism.",
+                color: ["#16a085", "#0b5345"], keywords_th: ["ควบคุมภาพรวม", "โรคเรื้อรัง", "สมดุลฮอร์โมน"], keywords_en: ["Systemic Control", "Chronic Care", "Hormonal Balance"],
+                stats: [ { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 90 }, { l_th: "การติดตามผู้ป่วยระยะยาว", l_en: "Long-term Care", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 15 } ]
+            },
+            RHEUM_END: { 
+                title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", slug: "rheumatology",
+                desc_th: "ผู้เจรจาสงบศึกระบบภูมิคุ้มกัน ตามรอยและหยุดยั้งความผิดปกติที่ร่างกายโจมตีตัวเอง", desc_en: "Immune system whisperers, decoding and halting complex autoimmune destruction.",
+                color: ["#1abc9c", "#117a65"], keywords_th: ["ภูมิคุ้มกันวิทยา", "โรคซับซ้อน", "นักสืบตัวจริง"], keywords_en: ["Immunology", "Complex Diseases", "True Detectives"],
+                stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systematic Thinking", v: 95 }, { l_th: "การติดตามผู้ป่วยระยะยาว", l_en: "Long-term Care", v: 80 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 10 } ]
+            },
+            HEMA_END: { 
+                title_th: "อายุรแพทย์โลหิตวิทยา", title_en: "Hematologist", slug: "hematology-and-medical-oncology",
+                desc_th: "นักสืบสายเลือด ผู้เชี่ยวชาญการถอดรหัสความผิดปกติจากไขกระดูกและเม็ดเลือด", desc_en: "Blood detectives, decoding severe systemic anomalies starting from the bone marrow.",
+                color: ["#c0392b", "#641e16"], keywords_th: ["มองผ่านกล้องจุลทรรศน์", "องค์ประกอบชีวิต", "วิเคราะห์ล้ำลึก"], keywords_en: ["Microscopy", "Elements of Life", "Deep Analysis"],
+                stats: [ { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 95 }, { l_th: "การตรวจทางห้องปฏิบัติการ", l_en: "Lab Integration", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 50 } ]
+            },
+            ONC_END: { 
+                title_th: "อายุรแพทย์โรคมะเร็ง", title_en: "Medical Oncologist", slug: "hematology-and-medical-oncology",
+                desc_th: "นักวางกลยุทธ์เคมีบำบัด ต่อสู้เคียงข้างผู้ป่วยในสมรภูมิที่ยากลำบากที่สุดด้วยพันธุกรรมล้ำสมัย", desc_en: "Strategic long-term allies, fighting complex battles with advanced medical and genetic therapies.",
+                color: ["#d35400", "#78281f"], keywords_th: ["นักวางกลยุทธ์", "เพื่อนร่วมทาง", "พันธุกรรมระดับโมเลกุล"], keywords_en: ["Strategists", "Long-term Allies", "Molecular Genetics"],
+                stats: [ { l_th: "ความผูกพันกับผู้ป่วย", l_en: "Patient Bonding", v: 90 }, { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 95 }, { l_th: "รับมือกับวาระสุดท้าย", l_en: "End-of-life Care", v: 85 } ]
+            },
+            ID_END: { 
+                title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease Specialist", slug: "infectious-disease",
+                desc_th: "นักล่าจุลชีพ ผู้ตามแกะรอยผู้บุกรุกและวางแผนใช้ยาปฏิชีวนะอย่างเฉียบขาด", desc_en: "Microbe hunters tracking down evasive pathogens and mastering targeted antibiotic strikes.",
+                color: ["#27ae60", "#145a32"], keywords_th: ["นักล่าจุลชีพ", "ไขคดีลึกลับ", "ผู้เชี่ยวชาญยา"], keywords_en: ["Microbe Hunters", "Solving Mysteries", "Pharmacology Experts"],
+                stats: [ { l_th: "การวิเคราะห์เชิงตรรกะ", l_en: "Logical Analysis", v: 95 }, { l_th: "การสืบสวนซักประวัติ", l_en: "History Taking", v: 90 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 5 } ]
+            },
+            ALLERGY_END: { 
+                title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist / Immunologist", slug: "allergy-and-immunology",
+                desc_th: "ผู้จัดการปฏิกิริยาต่อต้าน ค้นหาตัวกระตุ้นแฝงและฝึกฝนร่างกายให้กลับมาสงบ", desc_en: "Reaction tamers, finding hidden triggers and desensitizing hyperactive immune responses.",
+                color: ["#2980b9", "#154360"], keywords_th: ["ปรับสมดุล", "ค้นหาตัวกระตุ้น", "คุณภาพชีวิต"], keywords_en: ["Balancing", "Trigger Hunting", "Quality of Life"],
+                stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systematic Thinking", v: 80 }, { l_th: "การทดสอบวินิจฉัย (Test)", l_en: "Diagnostic Testing", v: 75 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 85 } ]
+            },
+            GENE_END: { 
+                title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", slug: "medical-genetics",
+                desc_th: "ผู้อ่านรหัสชีวิต วางแผนรับมือกับข้อผิดพลาดที่ส่งต่อมาทาง DNA ข้ามเจเนอเรชัน", desc_en: "Readers of the life code, managing complex errors passed down through DNA generations.",
+                color: ["#8e44ad", "#4a235a"], keywords_th: ["รหัสพันธุกรรม", "โรคหายาก", "วางแผนอนาคต"], keywords_en: ["Genetic Codes", "Rare Diseases", "Future Planning"],
+                stats: [ { l_th: "การวิเคราะห์ข้อมูลซับซ้อน", l_en: "Complex Data Analysis", v: 100 }, { l_th: "การให้คำปรึกษาครอบครัว", l_en: "Family Counseling", v: 90 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 10 } ]
+            },
+            PEDS_END: { 
+                title_th: "กุมารแพทย์ทั่วไป", title_en: "General Pediatrician", slug: "pediatrics",
+                desc_th: "ผู้ดูแลต้นอ่อน เน้นการเจริญเติบโตที่สมบูรณ์และเป็นที่ปรึกษาคนสำคัญของครอบครัว", desc_en: "Guardians of early growth, ensuring perfect development and guiding anxious parents.",
+                color: ["#f1c40f", "#b7950b"], keywords_th: ["ดูแลต้นอ่อน", "พัฒนาการเด็ก", "ครอบครัว"], keywords_en: ["Early Growth", "Child Development", "Family Centered"],
+                stats: [ { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 100 }, { l_th: "เวชศาสตร์ป้องกัน", l_en: "Preventive Care", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 40 } ]
+            },
+            NICU_END: { 
+                title_th: "แพทย์ทารกแรกเกิด", title_en: "Neonatologist", slug: "neonatal-perinatal-medicine",
+                desc_th: "ผู้พิทักษ์ความเปราะบาง จัดการทารกคลอดก่อนกำหนดในสภาพแวดล้อมตู้อบไฮเทค", desc_en: "Protectors of extreme fragility, managing high-tech care for the most vulnerable newborns.",
+                color: ["#1abc9c", "#0e6251"], keywords_th: ["เปราะบางสูงสุด", "วิกฤตวัยจิ๋ว", "เทคโนโลยีขั้นสูง"], keywords_en: ["Extreme Fragility", "Tiny Crisis", "High-Tech Care"],
+                stats: [ { l_th: "การควบคุมตัวแปร", l_en: "Variable Control", v: 100 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 85 }, { l_th: "หัตถการเฉพาะจุด", l_en: "Targeted Procedures", v: 70 } ]
+            },
+            PEDSSUB_END: { 
+                title_th: "กุมารแพทย์เฉพาะทาง", title_en: "Pediatric Subspecialist", slug: "pediatrics",
+                desc_th: "ผู้เชี่ยวชาญเฉพาะระบบที่ประยุกต์ความรู้ระดับลึกกับร่างกายที่กำลังขยายตัวและเปลี่ยนแปลงตลอดเวลา", desc_en: "Niche experts applying deep systemic knowledge to constantly changing, developing physiology.",
+                color: ["#3498db", "#154360"], keywords_th: ["เชี่ยวชาญเจาะลึก", "ร่างกายที่เติบโต", "โรคเฉพาะระบบ"], keywords_en: ["Deep Expertise", "Developing Bodies", "System Specific"],
+                stats: [ { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 95 }, { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 80 }, { l_th: "การวิจัยและวิชาการ", l_en: "Research & Academics", v: 70 } ]
+            },
+            PSYCH_END: { 
+                title_th: "จิตแพทย์", title_en: "Psychiatrist", slug: "psychiatry",
+                desc_th: "ผู้ไขกุญแจจิตใจ เยียวยาบาดแผลและปรับสมดุลสารเคมีแห่งอารมณ์ความรู้สึก", desc_en: "Healers of the mind, balancing abstract trauma and tangible neuro-chemical mechanisms.",
+                color: ["#9b59b6", "#512e5f"], keywords_th: ["เยียวยาจิตใจ", "สมดุลสารเคมี", "ผู้ฟังที่ดีเยี่ยม"], keywords_en: ["Healing Minds", "Chemical Balance", "Master Listeners"],
+                stats: [ { l_th: "การสื่อสารและการฟัง", l_en: "Communication & Listening", v: 100 }, { l_th: "การวิเคราะห์เชิงนามธรรม", l_en: "Abstract Analysis", v: 90 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 0 } ]
+            },
+            CHILDPSYCH_END: { 
+                title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child & Adolescent Psychiatrist", slug: "child-and-adolescent-psychiatry",
+                desc_th: "ผู้นำทางวัยเยาว์ เข้าแทรกแซงปัญหาพฤติกรรมเพื่อสร้างรากฐานอนาคตที่แข็งแกร่ง", desc_en: "Guides of youth, intervening early to resolve behavioral hurdles and build solid foundations.",
+                color: ["#8e44ad", "#4a235a"], keywords_th: ["รากฐานอนาคต", "ครอบครัวบำบัด", "พฤติกรรมศาสตร์"], keywords_en: ["Future Foundations", "Family Therapy", "Behavioral Science"],
+                stats: [ { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 100 }, { l_th: "การวิเคราะห์เชิงนามธรรม", l_en: "Abstract Analysis", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 80 } ]
+            },
+            DERM_END: { 
+                title_th: "แพทย์ผิวหนัง", title_en: "Dermatologist", slug: "dermatology",
+                desc_th: "นักสืบสายตา ผู้เชี่ยวชาญการถอดรหัสรอยโรคภายนอกและหัตถการเลเซอร์ล้ำสมัย", desc_en: "Visual decoders, translating external skin patterns into diagnoses and utilizing advanced lasers.",
+                color: ["#e67e22", "#873600"], keywords_th: ["ถอดรหัสด้วยสายตา", "คลินิก & เลเซอร์", "คุณภาพชีวิตดีเยี่ยม"], keywords_en: ["Visual Decoders", "Clinic & Lasers", "High Quality of Life"],
+                stats: [ { l_th: "การวินิจฉัยด้วยสายตา", l_en: "Visual Diagnosis", v: 100 }, { l_th: "หัตถการคลินิก/เลเซอร์", l_en: "Clinic Procedures", v: 80 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 95 } ]
+            },
+            RADIO_END: { 
+                title_th: "รังสีแพทย์", title_en: "Radiologist", slug: "radiology-diagnostic",
+                desc_th: "ผู้อ่านเงาในความมืด ดวงตาของโรงพยาบาลที่วิเคราะห์ความจริงจากภาพสแกนโดยไม่ต้องลงมือเอง", desc_en: "Shadow readers, acting as the definitive eyes of the hospital through diagnostic imaging.",
+                color: ["#34495e", "#17202a"], keywords_th: ["ดวงตาโรงพยาบาล", "ห้องมืด", "นักวิเคราะห์ภาพ"], keywords_en: ["Hospital Eyes", "The Dark Room", "Image Analysts"],
+                stats: [ { l_th: "การวินิจฉัยภาพ", l_en: "Visual Diagnosis", v: 100 }, { l_th: "การทำงานหน้าจอคอมฯ", l_en: "Screen Time", v: 95 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย", l_en: "Patient Interaction", v: 10 } ]
+            },
+            PATHO_END: { 
+                title_th: "พยาธิแพทย์", title_en: "Pathologist", slug: "pathology-anatomic-and-clinical",
+                desc_th: "ผู้ตัดสินความจริงสูงสุด ผู้ชี้ขาดคำตอบสุดท้ายของการรักษาจากกล้องจุลทรรศน์", desc_en: "The final judges, dictating crucial treatment plans purely from microscopic cellular truth.",
+                color: ["#2c3e50", "#1a252f"], keywords_th: ["คำตอบสุดท้าย", "กล้องจุลทรรศน์", "ผู้ตัดสิน"], keywords_en: ["The Final Answer", "Microscopy", "The Judge"],
+                stats: [ { l_th: "การวินิจฉัยระดับเซลล์", l_en: "Cellular Diagnosis", v: 100 }, { l_th: "ความเด็ดขาดแม่นยำ", l_en: "Definitive Accuracy", v: 95 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย", l_en: "Patient Interaction", v: 0 } ]
+            },
+            FORENSIC_END: { 
+                title_th: "แพทย์นิติเวช", title_en: "Forensic Pathologist", slug: "forensic-pathology",
+                desc_th: "พยานผู้ไร้เสียง ผู้ใช้วิทยาศาสตร์ไขปริศนาทางกฎหมายเพื่อคืนความยุติธรรมสู่สังคม", desc_en: "Silent witnesses, using rigorous science to solve mysteries and serve ultimate justice.",
+                color: ["#273746", "#11171a"], keywords_th: ["พยานผู้ไร้เสียง", "ไขคดี", "คืนความยุติธรรม"], keywords_en: ["Silent Witnesses", "Solving Cases", "Serving Justice"],
+                stats: [ { l_th: "การสืบสวนและวิเคราะห์", l_en: "Investigation", v: 95 }, { l_th: "ความเกี่ยวข้องทางกฎหมาย", l_en: "Legal Relevance", v: 100 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย (มีชีวิต)", l_en: "Live Patient Interaction", v: 0 } ]
+            },
+            PREV_END: { 
+                title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", slug: "preventive-medicine",
+                desc_th: "นักคิดเชิงมหภาค ใช้ระบาดวิทยาและนโยบายเพื่อปกป้องประชากรหลักหมื่นไม่ให้ล้มป่วย", desc_en: "Macro thinkers, employing epidemiology and policy to protect entire populations preemptively.",
+                color: ["#2980b9", "#154360"], keywords_th: ["ภาพรวมมหภาค", "ระบาดวิทยา", "ขับเคลื่อนนโยบาย"], keywords_en: ["Macro View", "Epidemiology", "Policy Driven"],
+                stats: [ { l_th: "การคิดเชิงระบบและข้อมูล", l_en: "Data & Systems Thinking", v: 95 }, { l_th: "ผลกระทบต่อประชากรหมู่มาก", l_en: "Population Impact", v: 100 }, { l_th: "การรักษาผู้ป่วยรายบุคคล", l_en: "Individual Treatment", v: 20 } ]
+            },
+            OCCMED_END: { 
+                title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", slug: "occupational-and-environmental-medicine",
+                desc_th: "ผู้พิทักษ์คนทำงาน ดูแลความสัมพันธ์ระหว่างสุขภาพและสภาพแวดล้อมความเสี่ยงในโรงงาน/องค์กร", desc_en: "Workplace guardians, protecting individuals from hidden hazards in their professional environments.",
+                color: ["#27ae60", "#145a32"], keywords_th: ["ความปลอดภัยองค์กร", "ประเมินความเสี่ยง", "สิ่งแวดล้อม"], keywords_en: ["Corporate Safety", "Risk Assessment", "Environment"],
+                stats: [ { l_th: "การประเมินความเสี่ยง", l_en: "Risk Assessment", v: 90 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 95 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 15 } ]
+            },
+            AERO_END: { 
+                title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", slug: "aerospace-medicine",
+                desc_th: "แพทย์เหนือเวหา ผู้เชี่ยวชาญข้อจำกัดทางสรีรวิทยาเมื่อร่างกายเผชิญสภาวะสุดขั้วและแรงจี", desc_en: "Altitude specialists, managing human physiology against the extremes of flight and space.",
+                color: ["#3498db", "#1a5276"], keywords_th: ["สภาวะสุดขั้ว", "เหนือน่านฟ้า", "คัดกรองบุคลากร"], keywords_en: ["Extreme Environments", "Above the Skies", "Personnel Screening"],
+                stats: [ { l_th: "สรีรวิทยาขั้นสูง", l_en: "Advanced Physiology", v: 90 }, { l_th: "การตรวจคัดกรองความพร้อม", l_en: "Fitness Screening", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 80 } ]
+            },
+            MARINE_END: { 
+                title_th: "เวชศาสตร์ทางทะเล", title_en: "Maritime & Undersea Medicine", slug: "preventive-medicine",
+                desc_th: "แพทย์แห่งห้วงลึก ผู้รับมือกับความท้าทายจากความดันใต้น้ำและการถูกตัดขาดจากโลกภายนอก", desc_en: "Depth specialists, handling extreme pressure shifts and health in isolated marine environments.",
+                color: ["#2980b9", "#154360"], keywords_th: ["ใต้น้ำลึก", "แรงดันมหาศาล", "โรคน้ำหนีบ"], keywords_en: ["Deep Seas", "Extreme Pressure", "Decompression"],
+                stats: [ { l_th: "สรีรวิทยาขั้นสูง", l_en: "Advanced Physiology", v: 90 }, { l_th: "เวชศาสตร์ฉุกเฉินเฉพาะทาง", l_en: "Niche Emergency", v: 75 }, { l_th: "การรักษาผู้ป่วยทั่วไป", l_en: "General Practice", v: 30 } ]
+            },
+            TRAFFIC_END: { 
+                title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", slug: "preventive-medicine",
+                desc_th: "นักวิเคราะห์ความปลอดภัย ลดอัตราการบาดเจ็บผ่านการมองระบบสาธารณสุขและวิศวกรรม", desc_en: "System improvers, analyzing transport engineering to reduce widespread physical trauma.",
+                color: ["#e67e22", "#873600"], keywords_th: ["ระบบจราจร", "วิศวกรรมความปลอดภัย", "ลดอุบัติเหตุ"], keywords_en: ["Traffic Systems", "Safety Engineering", "Accident Reduction"],
+                stats: [ { l_th: "การคิดเชิงระบบและข้อมูล", l_en: "Data & Systems Thinking", v: 95 }, { l_th: "ผลกระทบต่อสังคม", l_en: "Societal Impact", v: 85 }, { l_th: "การรักษาผู้ป่วยรายบุคคล", l_en: "Individual Treatment", v: 15 } ]
+            },
+            PMR_END: { 
+                title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", slug: "physical-medicine-and-rehabilitation",
+                desc_th: "ผู้ออกแบบคุณภาพชีวิต มุ่งเน้นการคืนศักยภาพและการเคลื่อนไหวอย่างมีศักดิ์ศรีหลังสูญเสียการทำงาน", desc_en: "Potential restorers, designing rehabilitation pathways to maximize functional living and dignity.",
+                color: ["#1abc9c", "#0e6251"], keywords_th: ["คืนศักยภาพ", "คุณภาพชีวิต", "ทำงานเป็นทีม"], keywords_en: ["Restoring Potential", "Quality of Life", "Team Based"],
+                stats: [ { l_th: "การออกแบบแผนฟื้นฟู", l_en: "Rehab Planning", v: 90 }, { l_th: "ปฏิสัมพันธ์ระยะยาว", l_en: "Long-term Interaction", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 90 } ]
+            },
+            FM_END: { 
+                title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", slug: "family-medicine",
+                desc_th: "เพื่อนร่วมทางชีวิต ผู้ดูแลสุขภาพแบบองค์รวมด้วยความผูกพันและรู้ใจตั้งแต่เกิดจนแก่", desc_en: "Lifelong companions, valuing long-term trust and comprehensive holistic care across generations.",
+                color: ["#27ae60", "#145a32"], keywords_th: ["ดูแลองค์รวม", "เพื่อนร่วมทาง", "ความกว้างของความรู้"], keywords_en: ["Holistic Care", "Lifelong Companion", "Breadth of Knowledge"],
+                stats: [ { l_th: "ความผูกพันกับผู้ป่วย", l_en: "Patient Bonding", v: 100 }, { l_th: "ขอบเขตความรู้แบบกว้าง", l_en: "Breadth of Knowledge", v: 95 }, { l_th: "หัตถการขั้นสูง", l_en: "Advanced Procedures", v: 20 } ]
+            },
+            PALL_END: { 
+                title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", slug: "hospice-and-palliative-medicine",
+                desc_th: "ผู้มอบความสงบ บรรเทาความทุกข์ทรมานและดูแลจิตใจผู้ป่วยในวาระสุดท้ายอย่างลึกซึ้ง", desc_en: "Comfort providers, shifting from curing to delivering profound peace in serious illnesses.",
+                color: ["#7f8c8d", "#4d5656"], keywords_th: ["มอบความสงบ", "เยียวยาความปวด", "วาระสุดท้าย"], keywords_en: ["Providing Peace", "Pain Relief", "End-of-life Care"],
+                stats: [ { l_th: "ความเห็นอกเห็นใจ (Empathy)", l_en: "Empathy & Support", v: 100 }, { l_th: "การจัดการอาการปวด", l_en: "Pain Management", v: 90 }, { l_th: "การรักษาเพื่อหายขาด", l_en: "Curative Focus", v: 0 } ]
+            },
+            LIFESTYLE_END: { 
+                title_th: "แพทย์เวชศาสตร์วิถีชีวิต", title_en: "Lifestyle Medicine", slug: "preventive-medicine",
+                desc_th: "สถาปนิกพฤติกรรม รักษาโรคเรื้อรังที่ต้นเหตุผ่านการออกแบบการกิน การนอน และการใช้ชีวิตใหม่", desc_en: "Behavioral architects, treating root causes of disease through fundamental lifestyle shifts.",
+                color: ["#f39c12", "#9c640c"], keywords_th: ["ปรับพฤติกรรม", "โค้ชสุขภาพ", "แก้ที่ต้นเหตุ"], keywords_en: ["Behavioral Shift", "Health Coaching", "Root Causes"],
+                stats: [ { l_th: "การให้คำปรึกษาเชิงลึก", l_en: "Deep Counseling", v: 90 }, { l_th: "เวชศาสตร์ป้องกัน", l_en: "Preventive Care", v: 95 }, { l_th: "การใช้ยาเคมีบำบัด", l_en: "Chemical Therapy", v: 20 } ]
+            }
         };
 
         let currentLang = 'th';
@@ -343,7 +572,6 @@
             element.classList.add('selected'); 
             stateSelections[colIndex] = element.id;
 
-            // Clear subsequent columns
             for (let i = colIndex + 1; i <= 5; i++) { 
                 const col = document.getElementById(`col-${i}`); 
                 if (col) { 
@@ -356,9 +584,8 @@
             const nextCol = document.getElementById(`col-${colIndex + 1}`); 
             if (!nextCol) { drawLines(); return; }
 
-            // Dynamic Column Headers
             let colHeaderTh = "", colHeaderEn = "";
-            if (colIndex === 1) { colHeaderTh = "2. ความสนใจเฉพาะด้าน"; colHeaderEn = "2. Focus Area"; } 
+            if (colIndex === 1) { colHeaderTh = "2. จุดโฟกัสของปัญหา"; colHeaderEn = "2. Problem Focus"; } 
             else if (colIndex === 2) { colHeaderTh = "3. สถานการณ์การทำงาน"; colHeaderEn = "3. Work Scenario"; }
 
             if (treeData[key]) { 
@@ -367,7 +594,7 @@
                 nextCol.style.animation = 'fadeInRight 0.6s ease forwards'; 
                 
                 if(colHeaderTh) {
-                    const header = document.createElement('h4');
+                    const header = document.createElement('div');
                     header.className = 'col-header';
                     header.innerHTML = `<span class="show-th">${colHeaderTh}</span><span class="show-en">${colHeaderEn}</span>`;
                     nextCol.appendChild(header);
@@ -392,7 +619,7 @@
                 nextCol.style.display = 'flex'; 
                 nextCol.style.animation = 'fadeInRight 0.6s ease forwards'; 
 
-                const header = document.createElement('h4');
+                const header = document.createElement('div');
                 header.className = 'col-header';
                 header.innerHTML = `<span class="show-th">🎉 ปลายทางของคุณ</span><span class="show-en">🎉 Your Calling</span>`;
                 nextCol.appendChild(header);
@@ -401,44 +628,77 @@
                 resultBox.className = 'node-box specialty-result';
                 resultBox.id = `box-${colIndex + 1}-1`;
                 resultBox.setAttribute('data-new', 'true');
+                resultBox.style.background = `linear-gradient(145deg, ${res.color[0]} 0%, ${res.color[1]} 100%)`;
+                resultBox.style.borderColor = res.color[0];
                 
                 const ytSearch = `day in the life ${res.title_en.replace(/\s+/g, '+').replace(/&/g, '%26')} doctor`;
 
+                let kwHTML = res.keywords_th.map((kw, i) => `
+                    <span class="keyword-pill"><span class="show-th">${kw}</span><span class="show-en">${res.keywords_en[i]}</span></span>
+                `).join('');
+
+                let statsHTML = res.stats.map(s => `
+                    <div style="margin-bottom: 12px;">
+                        <div style="display:flex; justify-content:space-between; font-size: 0.85rem; margin-bottom: 6px; color: #fff; font-weight: 600;">
+                            <span><span class="show-th">${s.l_th}</span><span class="show-en">${s.l_en}</span></span>
+                            <span>${s.v}%</span>
+                        </div>
+                        <div style="width:100%; background:rgba(255,255,255,0.15); border-radius:10px; height:8px; overflow:hidden;">
+                            <div style="width:${s.v}%; background:rgba(255,255,255,0.95); height:100%; border-radius:10px; box-shadow: 0 0 5px rgba(255,255,255,0.5);"></div>
+                        </div>
+                    </div>
+                `).join('');
+
                 resultBox.innerHTML = `
-                    <p class="node-title" style="font-size:1.6rem; margin-bottom:10px; color:var(--accent-gold) !important;">
-                        <span class="show-th">${res.title_th}</span><span class="show-en">${res.title_en}</span>
-                    </p>
-                    <p class="node-desc" style="opacity:0.9;">
+                    <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 20px; margin-bottom: 20px;">
+                        <p class="node-title" style="font-size:2rem; margin-bottom:5px; color:#fff !important; line-height: 1.1;">
+                            <span class="show-th">${res.title_th}</span><span class="show-en">${res.title_en}</span>
+                        </p>
+                        <p style="font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1.5px; margin:0;">
+                            <span class="show-th">${res.title_en}</span><span class="show-en">${res.title_th}</span>
+                        </p>
+                    </div>
+
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 20px;">
+                        ${kwHTML}
+                    </div>
+
+                    <p class="node-desc" style="opacity:0.95; font-size: 1rem; line-height: 1.6; margin-bottom: 25px;">
                         <span class="show-th">${res.desc_th}</span><span class="show-en">${res.desc_en}</span>
                     </p>
                     
-                    <div class="advice-section show-th">
+                    <div style="background: rgba(0,0,0,0.25); padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
+                        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); margin-bottom: 15px; font-weight: 700;">
+                            <span class="show-th">📊 วิเคราะห์สไตล์การทำงาน</span><span class="show-en">📊 Workstyle Analytics</span>
+                        </p>
+                        ${statsHTML}
+                    </div>
+                    
+                    <div class="advice-section show-th" style="margin-top:0;">
                         <p class="advice-title">💡 คำแนะนำสำหรับนักเรียน</p>
                         <ul class="advice-list">
                             <li>ขออนุญาตเข้าสังเกตการณ์การทำงาน (Shadowing) จากแพทย์ในแผนกที่สนใจ</li>
-                            <li>ศึกษาการทำงานประจำวันของแพทย์สาขานี้ผ่านสื่อวิดีโอ เพื่อความเข้าใจเบื้องต้น</li>
+                            <li>ศึกษาการทำงานประจำวันผ่านสื่อวิดีโอ เพื่อทำความเข้าใจเบื้องต้น</li>
                         </ul>
-                        
-                        <p class="advice-title" style="margin-top: 20px;">🎓 คำแนะนำสำหรับนักศึกษาแพทย์</p>
+                        <p class="advice-title" style="margin-top: 15px;">🎓 คำแนะนำสำหรับนักศึกษาแพทย์</p>
                         <ul class="advice-list">
-                            <li>สอบถามประสบการณ์ตรงและข้อเท็จจริงจากการทำงานของแพทย์ประจำบ้าน (Resident)</li>
-                            <li>ติดต่อขอเข้าสังเกตการณ์การทำงาน (Shadowing) เพื่อประเมินความชอบหน้างานจริง</li>
-                            <li>พิจารณาลงเรียนวิชาเลือก (Elective) หรือเข้าร่วมการประชุมวิชาการของสาขานี้</li>
+                            <li>สอบถามประสบการณ์ตรงจากแพทย์ประจำบ้าน (Resident)</li>
+                            <li>ติดต่อขอเข้าสังเกตการณ์การทำงาน (Shadowing) อย่างเป็นทางการ</li>
+                            <li>พิจารณาลงเรียนวิชาเลือก (Elective) ของสาขานี้</li>
                         </ul>
                     </div>
 
-                    <div class="advice-section show-en">
+                    <div class="advice-section show-en" style="margin-top:0;">
                         <p class="advice-title">💡 For High School Students</p>
                         <ul class="advice-list">
-                            <li>Request shadowing opportunities with attending physicians in this department.</li>
-                            <li>Watch educational daily routine vlogs to understand the basic workflow.</li>
+                            <li>Request shadowing opportunities with attending physicians.</li>
+                            <li>Watch educational daily routine vlogs to understand the workflow.</li>
                         </ul>
-                        
-                        <p class="advice-title" style="margin-top: 20px;">🎓 For Medical Students</p>
+                        <p class="advice-title" style="margin-top: 15px;">🎓 For Medical Students</p>
                         <ul class="advice-list">
-                            <li>Talk to current residents about their real-world experiences and challenges.</li>
+                            <li>Talk to current residents about their real-world experiences.</li>
                             <li>Arrange formal shadowing sessions within the department.</li>
-                            <li>Apply for electives and attend relevant medical conferences.</li>
+                            <li>Apply for electives and attend relevant conferences.</li>
                         </ul>
                     </div>
 
@@ -457,7 +717,6 @@
                 nextCol.appendChild(resultBox);
             } 
 
-            // Smart Auto-Scroll with Centering
             setTimeout(() => { 
                 drawLines();
                 nextCol.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -503,7 +762,23 @@
                         
                         let path = document.getElementById(pathId);
                         const isSelected = targetBox.classList.contains('selected') || targetBox.classList.contains('specialty-result');
-                        const lineClass = isSelected ? 'connection-line active-path' : 'connection-line';
+                        let lineClass = 'connection-line';
+                        
+                        if (isSelected) {
+                            if (targetBox.classList.contains('specialty-result')) {
+                                // Extract border color for final line match
+                                const resColor = targetBox.style.borderColor;
+                                lineClass = 'connection-line active-path';
+                                if (!path) path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                                path.style.stroke = resColor;
+                                path.style.filter = `drop-shadow(0 0 5px ${resColor})`;
+                            } else {
+                                lineClass = 'connection-line active-path';
+                                if (path) { path.style.stroke = ''; path.style.filter = ''; }
+                            }
+                        } else {
+                            if (path) { path.style.stroke = ''; path.style.filter = ''; }
+                        }
 
                         if (!path) {
                             path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
