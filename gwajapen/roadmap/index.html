@@ -188,7 +188,7 @@
     <script>
         const treeData = {
             procedural_vibe: { options: [
-                { id: 'p_crisis', emoji: '🚨', title_th: "กู้ชีพและภาวะฉุกเฉิน", title_en: "Frontline Heroics & Resuscitation", desc_th: "รับมือกับความเป็นความตาย ตัดสินใจเฉียบขาดใน ER หรือคุมสัญญาณชีพใน OR", desc_en: "Managing life-or-death crises, airway management, and acute trauma.", next: 'p_crisis_sub' },
+                { id: 'p_crisis', emoji: '🚨', title_th: "กู้ชีพและภาวะฉุกเฉิน", title_en: "Frontline Heroics & Resuscitation", desc_th: "รับมือกับภาวะวิกฤตที่คุกคามชีวิต ตัดสินใจเฉียบขาดใน ER หรือคุมสัญญาณชีพใน OR", desc_en: "Managing life-or-death crises, airway management, and acute trauma.", next: 'p_crisis_sub' },
                 { id: 'p_major', emoji: '🫀', title_th: "ผ่าตัดอวัยวะสำคัญ", title_en: "Major Cavities & Organs", desc_th: "รับมือกับการผ่าตัดใหญ่ในช่องท้อง ทรวงอก เส้นเลือด หรือสูตินรีเวช", desc_en: "High-stakes surgeries in the abdomen, chest, or reproductive tracts.", next: 'p_major_sub' },
                 { id: 'p_heavy', emoji: '🔩', title_th: "วิศวกรรมร่างกายและเส้นประสาท", title_en: "Structural & Neural Engineering", desc_th: "ซ่อมแซมโครงสร้างหนักอย่างกระดูก กล้ามเนื้อ หรือผ่าตัดความแม่นยำสูงในสมอง", desc_en: "Reconstructing the musculoskeletal system or the central nervous system.", next: 'p_heavy_sub' },
                 { id: 'p_micro', emoji: '✨', title_th: "งานละเอียดและเฉพาะส่วน", title_en: "Delicate & Micro-Surgeries", desc_th: "เน้นงานฝีมือประณีต หู คอ จมูก ดวงตา หรือการบูรณะศัลยกรรมตกแต่ง", desc_en: "Intricate procedures in ENT, ophthalmology, or reconstructive plastic surgery.", next: 'p_micro_sub' }
@@ -196,7 +196,7 @@
             p_crisis_sub: { options: [
                 { id: 'er', emoji: '🚑', title_th: "ควบคุมความโกลาหล", title_en: "The Chaos Coordinator", desc_th: "คุณชอบรับมือกับเคสที่ไม่รู้ปูมหลัง ต้องตัดสินใจหน้างานทันทีเพื่อรักษาชีวิตคนไข้ในสภาพแวดล้อมที่คาดเดาไม่ได้", desc_en: "You thrive on adrenaline, stabilizing undiagnosed critical patients immediately in an unpredictable environment.", next: 'ER_END' },
                 { id: 'anes', emoji: '😴', title_th: "ผู้พิทักษ์หลังม่าน", title_en: "The Silent Guardian", desc_th: "คุณชอบควบคุมความเจ็บปวดและสัญญาณชีพอย่างแม่นยำในห้องที่คุมสภาพแวดล้อมได้ ขณะที่คนอื่นกำลังผ่าตัด", desc_en: "You prefer precision control over vitals and physiology in a controlled room while others operate.", next: 'ANES_END' },
-                { id: 'inter_rad', emoji: '🎯', title_th: "สไนเปอร์สายเทค", title_en: "The Tech Sniper", desc_th: "คุณชอบใช้ภาพสแกนนำทาง สอดสายยางเล็กๆ เข้าไปรักษาจุดที่เกิดเหตุได้โดยตรงโดยไม่ต้องผ่าเปิด", desc_en: "You like using advanced imaging to navigate catheters and treat issues directly without open surgery.", next: 'IR_END' }
+                { id: 'inter_rad', emoji: '🎯', title_th: "สายเทคผู้แม่นยำ", title_en: "The Targeted Operator", desc_th: "คุณชอบใช้ภาพสแกนนำทาง สอดสายยางเล็กๆ เข้าไปรักษาจุดที่เกิดเหตุได้โดยตรงโดยไม่ต้องผ่าเปิด", desc_en: "You like using advanced imaging to navigate catheters and treat issues directly without open surgery.", next: 'IR_END' }
             ]},
             p_major_sub: { options: [
                 { id: 'gs', emoji: '🩹', title_th: "เสาหลักรับจบ", title_en: "The Core Operator", desc_th: "คุณพร้อมรับมือกับทุกอย่างในช่องท้อง มีทักษะที่กว้างพอจะจัดการตั้งแต่ไส้ติ่งอักเสบไปจนถึงอุบัติเหตุรุนแรง", desc_en: "You want a broad surgical skill set, tackling everything from appendicitis to massive abdominal trauma.", next: 'GS_END' },
@@ -206,8 +206,8 @@
                 { id: 'pedsurg', emoji: '🧸', title_th: "ช่างซ่อมฉบับมินิ", title_en: "The Tiny Anatomist", desc_th: "คุณชอบความท้าทายในการผ่าตัดแก้ไขความผิดปกติแต่กำเนิด ในโครงสร้างร่างกายที่เล็กและบอบบางมาก", desc_en: "You seek the extreme challenge of fixing congenital anomalies in tiny, delicate bodies.", next: 'PEDSURG_END' }
             ]},
             p_heavy_sub: { options: [
-                { id: 'ortho', emoji: '🔨', title_th: "ช่างไม้แห่งร่างกาย", title_en: "The Human Carpenter", desc_th: "คุณชอบเห็นผลลัพธ์ที่เป็นรูปธรรม ใช้สว่าน โลหะ และแรงกายเพื่อประกอบและคืนการเคลื่อนไหวให้ผู้ป่วย", desc_en: "You love tangible results, using hardware and physical force to reconstruct and restore movement.", next: 'ORTHO_END' },
-                { id: 'ns', emoji: '⚡', title_th: "แฮกเกอร์ระบบประสาท", title_en: "The Neural Hacker", desc_th: "คุณมีสมาธิสูงลิ่ว อดทนสำหรับการผ่าตัดระดับไมโครที่กินเวลานานบนเนื้อเยื่อสมองที่พลาดไม่ได้แม้แต่มิลลิเมตรเดียว", desc_en: "You have immense patience for microscopic, high-stakes surgery on the most unforgiving tissue.", next: 'NS_END' }
+                { id: 'ortho', emoji: '🔨', title_th: "วิศวกรการเคลื่อนไหว", title_en: "The Movement Engineer", desc_th: "คุณชอบเห็นผลลัพธ์ที่เป็นรูปธรรม ใช้สว่าน โลหะ และแรงกายเพื่อประกอบและคืนการเคลื่อนไหวให้ผู้ป่วย", desc_en: "You love tangible results, using hardware and physical force to reconstruct and restore movement.", next: 'ORTHO_END' },
+                { id: 'ns', emoji: '⚡', title_th: "สถาปนิกระบบประสาท", title_en: "The Neural Architect", desc_th: "คุณมีสมาธิสูงลิ่ว อดทนสำหรับการผ่าตัดระดับไมโครที่กินเวลานานบนเนื้อเยื่อสมองที่พลาดไม่ได้แม้แต่มิลลิเมตรเดียว", desc_en: "You have immense patience for microscopic, high-stakes surgery on the most unforgiving tissue.", next: 'NS_END' }
             ]},
             p_micro_sub: { options: [
                 { id: 'plastic', emoji: '🎨', title_th: "ประติมากรแห่งเนื้อเยื่อ", title_en: "The Tissue Sculptor", desc_th: "คุณให้ความสำคัญกับสัดส่วน ความงาม มีความคิดสร้างสรรค์ในการย้ายและสร้างเนื้อเยื่อขึ้นใหม่ให้ใช้งานได้จริง", desc_en: "You value aesthetics and creativity, restoring form and function from head to toe.", next: 'PLASTIC_END' },
@@ -252,13 +252,13 @@
                 { id: 'su_pop', emoji: '🌍', title_th: "ระดับประชากรและเฉพาะกลุ่ม", title_en: "Public Health & Niche", desc_th: "ระบาดวิทยา สิ่งแวดล้อม เวชศาสตร์การบิน ทะเล หรือการจราจร", desc_en: "Focusing on population health, occupational, aerospace, or marine medicine.", next: 'su_pop_sub' }
             ]},
             su_back_sub: { options: [
-                { id: 'radio', emoji: '☢️', title_th: "ผู้อ่านเงาในความมืด", title_en: "The Shadow Reader", desc_th: "คุณชอบทำงานในห้องมืด วิเคราะห์ภาพสแกนเพื่อไขข้อสงสัยให้หมอคนอื่น โดยแทบไม่ต้องแตะตัวคนไข้", desc_en: "You sit in a dark room, answering clinical questions via images without touching the patient.", next: 'RADIO_END' },
+                { id: 'radio', emoji: '☢️', title_th: "ผู้อ่านเงาในความมืด", title_en: "The Shadow Reader", desc_th: "คุณชอบทำงานในห้องมืด วิเคราะห์ภาพสแกนเพื่อไขข้อสงสัยให้หมอคนอื่น ใช้ภาพถ่ายทางการแพทย์เพื่อไขปริศนาโรคและช่วยทีมรักษาตัดสินใจ", desc_en: "You sit in a dark room, answering clinical questions via images without touching the patient.", next: 'RADIO_END' },
                 { id: 'patho', emoji: '🧪', title_th: "ผู้ตัดสินชี้ขาด", title_en: "The Final Judge", desc_th: "คุณคือผู้ให้คำตอบสุดท้ายจากกล้องจุลทรรศน์ ซึ่งการตัดสินใจของคุณจะเป็นตัวกำหนดแผนการรักษาทั้งหมด", desc_en: "You provide the definitive microscopic diagnosis that dictates the entire treatment plan.", next: 'PATHO_END' },
                 { id: 'forensic', emoji: '🕵️', title_th: "พยานผู้ไร้เสียง", title_en: "The Silent Witness", desc_th: "คุณใช้ความรู้ทางการแพทย์เพื่อเป็นกระบอกเสียงให้ผู้ตาย ค้นหาความจริง และคืนความยุติธรรม", desc_en: "You speak for those who no longer can, solving the ultimate physiological mystery.", next: 'FORENSIC_END' }
             ]},
             su_holistic_sub: { options: [
-                { id: 'fm', emoji: '🏡', title_th: "เพื่อนร่วมทางชีวิต", title_en: "The Lifelong Companion", desc_th: "คุณชอบสร้างความผูกพันระยะยาว ดูแลสุขภาพคนไข้แบบองค์รวมตั้งแต่เกิดจนแก่ และรักษาโรคทั่วไปทั้งหมด", desc_en: "You treat the whole family across generations, focusing on deep trust and broad knowledge.", next: 'FM_END' },
-                { id: 'pmr', emoji: '🏃', title_th: "ผู้กอบกู้ฟังก์ชัน", title_en: "The Function Restorer", desc_th: "คุณช่วยออกแบบการฟื้นฟู ให้คนไข้ปรับตัวเข้ากับชีวิตใหม่ หลังจากสูญเสียการเคลื่อนไหวจากโรคร้าย", desc_en: "You help patients adapt to a new normal after catastrophic functional or physical loss.", next: 'PMR_END' },
+                { id: 'fm', emoji: '🏡', title_th: "ดูแลตั้งแต่เกิดจนแก่", title_en: "The Lifelong Companion", desc_th: "คุณชอบสร้างความผูกพันระยะยาว ดูแลสุขภาพคนไข้แบบองค์รวมตั้งแต่เกิดจนแก่ และรักษาโรคทั่วไปทั้งหมด", desc_en: "You treat the whole family across generations, focusing on deep trust and broad knowledge.", next: 'FM_END' },
+                { id: 'pmr', emoji: '🏃', title_th: "ผู้กอบกู้คุณภาพชีวิต", title_en: "The Function Restorer", desc_th: "คุณช่วยออกแบบการฟื้นฟู ให้คนไข้ปรับตัวเข้ากับชีวิตใหม่ หลังจากสูญเสียการเคลื่อนไหวจากโรคร้าย", desc_en: "You help patients adapt to a new normal after catastrophic functional or physical loss.", next: 'PMR_END' },
                 { id: 'pall', emoji: '🕊️', title_th: "ผู้มอบความสงบ", title_en: "The Comfort Provider", desc_th: "คุณเปลี่ยนเป้าหมายจาก 'การรักษาให้หาย' เป็น 'การดูแลไม่ให้ทรมาน' จัดการอาการในวาระสุดท้าย", desc_en: "You shift the focus from curing to caring, managing complex symptoms at the end of life.", next: 'PALL_END' },
                 { id: 'lifestyle', emoji: '🥗', title_th: "โค้ชปรับพฤติกรรม", title_en: "The Habit Coach", desc_th: "คุณเชื่อในการแก้ที่ต้นเหตุ จัดการโรคเรื้อรังด้วยการปรับเปลี่ยนอาหาร การนอนหลับ และการออกกำลังกาย", desc_en: "You tackle the root causes of chronic disease by coaching patients on diet and daily habits.", next: 'LIFESTYLE_END' }
             ]},
@@ -272,7 +272,7 @@
         };
 
         const results = {
-            ER_END: { title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", desc_th: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อชิงชีวิตคนไข้จากมัจจุราช", desc_en: "Frontline heroes making split-second life-saving decisions.", slug: "emergency-medicine" },
+            ER_END: { title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", desc_th: "ฮีโร่ด่านหน้า ผู้ตัดสินใจในเสี้ยววินาทีเพื่อกู้ชีวิตคนไข้จากวิกฤต", desc_en: "Frontline heroes making split-second life-saving decisions.", slug: "emergency-medicine" },
             ANES_END: { title_th: "วิสัญญีแพทย์", title_en: "Anesthesiology", desc_th: "ผู้กุมความลับของความเจ็บปวด และควบคุมสัญญาณชีพขณะผ่าตัด", desc_en: "Masters of pain control and vital signs during surgery.", slug: "anesthesiology" },
             IR_END: { title_th: "รังสีแพทย์ร่วมรักษา", title_en: "Interventional Radiologist", desc_th: "แพทย์ผู้ทำหัตถการนำทางด้วยภาพสแกนแบบแผลเล็กที่สุด", desc_en: "Performing minimally invasive, image-guided procedures.", slug: "interventional-radiology" },
             GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", desc_th: "เสาหลักของห้องผ่าตัด เชี่ยวชาญการรักษาอวัยวะช่องท้อง", desc_en: "The pillar of the OR, specializing in abdominal organs.", slug: "general-surgery" },
