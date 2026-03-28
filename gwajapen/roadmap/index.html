@@ -23,136 +23,140 @@
         body.lang-en .show-th { display: none !important; }
         body.lang-th .node-title, body.lang-th .node-desc, body.lang-th .roadmap-title-badge, body.lang-th .col-header { letter-spacing: normal !important; }
 
+        /* Dynamic Background */
         #bg-canvas { position: fixed; inset: -50%; z-index: -10; background: radial-gradient(ellipse at center, #FFFFFF 0%, #FDF8F2 40%, #EFE1D1 100%); background-size: 200% 200%; animation: calmBreath 20s ease-in-out infinite alternate; }
         @keyframes calmBreath { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.85; }
-        
+        /* Navigation */
+        .header-banner { position: fixed; top: 0; left: 0; width: 100%; height: 140px; overflow: hidden; z-index: 200; border-bottom: 2px solid var(--border-color); background: white; box-shadow: 0 4px 25px rgba(0,0,0,0.04); }
+        .header-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.85; filter: contrast(1.05); }
         .top-nav-bar { position: fixed; top: 30px; left: 0; width: 100%; padding: 0 6vw; display: flex; justify-content: space-between; align-items: flex-start; z-index: 210; pointer-events: none; }
-        
         .back-nav { pointer-events: auto; text-decoration: none; color: var(--text-main); font-weight: 700; background: rgba(255,255,255,0.9); padding: 12px 25px; border-radius: 50px; backdrop-filter: blur(10px); transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .back-nav:hover { transform: translateY(-2px); background: white; box-shadow: 0 10px 20px rgba(166, 123, 91, 0.1); }
-
+        .back-nav:hover { transform: translateY(-2px); background: white; box-shadow: 0 10px 20px rgba(166, 123, 91, 0.15); }
         .top-right-controls { pointer-events: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-        .roadmap-title-badge { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: var(--accent-primary); box-shadow: 0 4px 10px rgba(0,0,0,0.03); text-transform: uppercase; }
-        .lang-switcher { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 15px; border-radius: 30px; display: flex; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .lang-switcher button { background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
-        .lang-switcher button.active { color: var(--text-main); text-decoration: underline; text-underline-offset: 3px; }
+        .roadmap-title-badge { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: var(--accent-primary); box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-transform: uppercase; }
+        .lang-switcher { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid var(--border-color); padding: 6px 15px; border-radius: 30px; display: flex; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .lang-switcher button { background: none; border: none; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 4px 8px; border-radius: 15px; }
+        .lang-switcher button.active { color: var(--text-main); background: #FAF6F2; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
 
-        #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
-        .calling-grid { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; padding: 40px; }
-        .calling-card { background: white; border: 1.5px solid var(--border-color); padding: 50px 30px; border-radius: 40px; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 280px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
-        .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.1); }
-        .calling-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+        /* Entrance */
+        #entrance-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(253, 248, 242, 0.95); backdrop-filter: blur(15px); display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+        .calling-grid { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; padding: 40px; }
+        .calling-card { background: white; border: 2px solid var(--border-color); padding: 50px 40px; border-radius: 40px; cursor: pointer; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 300px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.04); position: relative; overflow: hidden; }
+        .calling-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(166, 123, 91, 0.1) 0%, transparent 100%); opacity: 0; transition: 0.5s; }
+        .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-15px) scale(1.03); box-shadow: 0 25px 50px rgba(166, 123, 91, 0.15); }
+        .calling-card.active:hover::before { opacity: 1; }
+        .calling-card.locked { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
 
-        /* SVG */
+        /* SVG Lines */
         #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; pointer-events: none; }
-        .connection-line { fill: none; stroke: var(--line-color); stroke-width: 2.5px; transition: stroke-width 0.3s; }
-        .connection-line.active-path { stroke: var(--accent-primary); stroke-width: 3.5px; filter: drop-shadow(0 0 5px rgba(166,123,91,0.3)); }
-        .animate-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes drawLine { to { stroke-dashoffset: 0; } }
-
-        #roadmap-container { 
-            display: none; height: calc(100vh - 140px); margin-top: 140px;
-            overflow-x: auto; overflow-y: hidden; padding: 50px 8vw 100px; align-items: flex-start; scroll-behavior: smooth; position: relative; z-index: 10;
+        .connection-line { fill: none; stroke: var(--line-color); stroke-width: 3px; stroke-dasharray: 8 8; transition: all 0.4s ease; opacity: 0.4; }
+        .connection-line.active-path { 
+            stroke: var(--accent-primary); stroke-width: 4px; stroke-dasharray: none; opacity: 1; 
+            filter: drop-shadow(0 0 8px rgba(166,123,91,0.5));
+            animation: drawLine 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-        
-        .flex-wrapper { display: flex; gap: 80px; min-width: max-content; padding-bottom: 50px; position: relative; }
-        
-        .col-wrapper {
-            display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; z-index: 10;
-            max-height: calc(100vh - 200px);
-        }
+        @keyframes drawLine { 0% { stroke-dasharray: 1000; stroke-dashoffset: 1000; } 100% { stroke-dasharray: 1000; stroke-dashoffset: 0; } }
 
+        /* Layout */
+        #roadmap-container { display: none; height: calc(100vh - 140px); margin-top: 140px; overflow-x: auto; overflow-y: hidden; padding: 50px 8vw 100px; align-items: flex-start; scroll-behavior: smooth; position: relative; z-index: 10; }
+        .flex-wrapper { display: flex; gap: 90px; min-width: max-content; padding-bottom: 50px; position: relative; }
+        .col-wrapper { display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 10; max-height: calc(100vh - 200px); width: 340px; }
+        
         .node-column { 
-            width: 100%; display: flex; flex-direction: column; gap: 20px; align-items: center; position: relative;
-            padding: 20px; border-radius: 35px; border: 1px solid rgba(255,255,255,0.6);
-            overflow-y: auto; backdrop-filter: blur(8px); flex-grow: 1;
-            -ms-overflow-style: none; scrollbar-width: none; box-shadow: 0 15px 35px rgba(0,0,0,0.02);
+            width: 100%; display: flex; flex-direction: column; gap: 25px; align-items: center; position: relative;
+            padding: 25px 15px; border-radius: 40px; overflow-y: auto; flex-grow: 1;
+            -ms-overflow-style: none; scrollbar-width: none; 
         }
         .node-column::-webkit-scrollbar { display: none; }
 
-        #col-1 { background: linear-gradient(180deg, rgba(166,123,91,0.1) 0%, rgba(255,255,255,0.4) 100%); }
-        #col-2 { background: linear-gradient(180deg, rgba(87,111,114,0.1) 0%, rgba(255,255,255,0.4) 100%); }
-        #col-3 { background: linear-gradient(180deg, rgba(125,143,105,0.1) 0%, rgba(255,255,255,0.4) 100%); }
-        #col-4 { background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(255,255,255,0.4) 100%); }
-        #col-5 { background: linear-gradient(180deg, rgba(166,123,91,0.1) 0%, rgba(255,255,255,0.4) 100%); }
-        
-        @keyframes popIn { 
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); } 
-            70% { transform: scale(1.02) translateY(-5px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); } 
-        }
+        /* Column Backgrounds - Subtle differentiation */
+        #col-1 { background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 100%); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        #col-2 { background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 100%); border: 1px dashed rgba(166,123,91,0.2); }
+        #col-3 { background: transparent; } /* Stage 3 floats freely */
 
+        /* Header Aesthetics */
         .col-header {
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
-            font-size: 0.9rem; font-weight: 700; color: var(--accent-primary);
-            padding: 10px 25px; letter-spacing: 0.5px;
-            border-radius: 30px; border: 1.5px solid var(--border-color);
-            box-shadow: 0 8px 20px rgba(166,123,91,0.1);
-            flex-shrink: 0;
+            background: #FFFFFF; font-size: 0.95rem; font-weight: 800; color: var(--accent-primary);
+            padding: 12px 30px; letter-spacing: 0.5px; border-radius: 30px; border: 2px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(166,123,91,0.08); flex-shrink: 0; position: relative;
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        .node-box { 
-            background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 25px; 
-            width: 320px; white-space: normal; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 20;
-            opacity: 0;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        
-        .node-box:nth-child(1) { animation-delay: 0.1s; }
-        .node-box:nth-child(2) { animation-delay: 0.2s; }
-        .node-box:nth-child(3) { animation-delay: 0.3s; }
-        .node-box:nth-child(4) { animation-delay: 0.4s; }
-        .node-box:nth-child(5) { animation-delay: 0.5s; }
-        .node-box:nth-child(6) { animation-delay: 0.6s; }
+        /* =========================================
+           STAGE SPECIFIC AESTHETICS (The "Vibe" UI)
+           =========================================
+        */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.85) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes floatGently { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        .node-box:hover { border-color: var(--accent-primary); transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(166, 123, 91, 0.08); }
-        .node-box.selected { border-color: var(--accent-primary); background: #FAF6F2; border-width: 2px; transform: scale(1.03); box-shadow: 0 10px 25px rgba(166, 123, 91, 0.15); }
+        .node-box { cursor: pointer; position: relative; z-index: 20; opacity: 0; width: 100%; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .node-box:nth-child(1) { animation-delay: 0.05s; } .node-box:nth-child(2) { animation-delay: 0.15s; } .node-box:nth-child(3) { animation-delay: 0.25s; }
+        .node-box:nth-child(4) { animation-delay: 0.35s; } .node-box:nth-child(5) { animation-delay: 0.45s; } .node-box:nth-child(6) { animation-delay: 0.55s; }
         
-        .node-emoji { font-size: 2.2rem; margin-bottom: 12px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
-        .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1.5px; color: var(--accent-primary); opacity: 0.9; }
-        .node-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px; line-height: 1.3; }
+        .node-title { font-weight: 700; color: var(--text-main); line-height: 1.3; margin-bottom: 6px; }
         .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-        
         .node-desc b { color: var(--text-main); font-weight: 700; }
 
-        .specialty-result { 
-            color: white; padding: 45px 35px; width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); 
-            cursor: default; border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 25px; position: relative; z-index: 20;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        .specialty-result:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(0,0,0,0.35); }
-        
-        .keyword-pill {
-            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-            padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
-            backdrop-filter: blur(5px); display: inline-block; white-space: nowrap; color: #fff;
-        }
+        /* Stage 1: Big, Bold, Chunky Cards */
+        .stage-1 { background: white; border: 2px solid var(--border-color); padding: 35px 25px; border-radius: 30px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.03); transition: all 0.3s ease; }
+        .stage-1 .node-emoji { font-size: 3.5rem; margin-bottom: 15px; display: inline-block; animation: floatGently 4s ease-in-out infinite; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.05)); }
+        .stage-1 .node-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-primary); margin-bottom: 10px; display: block; }
+        .stage-1 .node-title { font-size: 1.35rem; }
+        .stage-1:hover { border-color: var(--accent-primary); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.12); }
+        .stage-1.selected { border-color: var(--accent-primary); background: #FAF6F2; transform: scale(1.02); border-width: 3px; box-shadow: 0 15px 30px rgba(166, 123, 91, 0.2); }
 
-        .advice-section { background: rgba(0,0,0,0.15); border-radius: 15px; padding: 20px; margin-top: 25px; border: 1px solid rgba(255,255,255,0.05); }
-        .advice-title { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.95); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .advice-list { font-size: 0.85rem; color: rgba(255,255,255,0.85); padding-left: 20px; line-height: 1.6; margin-bottom: 15px; }
-        .advice-list li { margin-bottom: 6px; }
+        /* Stage 2: Sleek Horizontal Pills */
+        .stage-2 { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1.5px solid var(--border-color); border-left-width: 8px; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .stage-2 .node-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+        .stage-2 .node-emoji { font-size: 2.2rem; background: #FDF8F2; padding: 12px; border-radius: 15px; border: 1px solid var(--border-color); }
+        .stage-2 .node-title { font-size: 1.15rem; margin-bottom: 0; }
+        .stage-2:hover { border-color: var(--accent-primary); background: white; transform: translateX(8px); box-shadow: -5px 15px 25px rgba(166, 123, 91, 0.08); }
+        .stage-2.selected { border-color: var(--accent-primary); background: #FFFFFF; transform: scale(1.02) translateX(5px); box-shadow: 0 10px 30px rgba(166, 123, 91, 0.15); }
+
+        /* Stage 3: Elegant Outlined Glass Cards */
+        .stage-3 { background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border: 2px dashed rgba(166,123,91,0.3); padding: 25px; border-radius: 25px; transition: all 0.3s ease; text-align: left; }
+        .stage-3 .node-emoji { font-size: 1.8rem; margin-bottom: 10px; opacity: 0.8; }
+        .stage-3 .node-title { font-size: 1.1rem; color: #3A3028; }
+        .stage-3:hover { background: white; border-style: solid; border-color: var(--accent-primary); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(166, 123, 91, 0.1); }
+        .stage-3.selected { background: #FFFFFF; border-style: solid; border-color: var(--accent-primary); box-shadow: 0 0 0 4px rgba(166,123,91,0.1), 0 15px 35px rgba(166, 123, 91, 0.15); transform: scale(1.03); }
+
+        /* Final Reveal Specialty Card */
+        .specialty-result { 
+            color: white; padding: 0 0 45px 0; width: 440px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); 
+            cursor: default; border: 1px solid rgba(255,255,255,0.2); border-radius: 35px; 
+            position: relative; z-index: 20; overflow: hidden;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .specialty-result:hover { transform: translateY(-5px); box-shadow: 0 35px 70px rgba(0,0,0,0.4); }
+        
+        /* The Aesthetic SVG Header */
+        .result-header-art { width: 100%; height: 180px; background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center; position: relative; margin-bottom: 25px; overflow: hidden; }
+        .result-header-art::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); animation: rotateGlow 10s linear infinite; }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .illustration-wrapper { width: 110px; height: 110px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; z-index: 5; animation: floatGently 4s ease-in-out infinite; border: 4px solid rgba(255,255,255,0.5); }
+        .illustration-wrapper svg { width: 65%; height: 65%; }
+
+        .result-content { padding: 0 35px; }
+        .keyword-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(5px); display: inline-block; white-space: nowrap; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        .advice-section { background: rgba(0,0,0,0.15); border-radius: 20px; padding: 25px; margin-top: 25px; border: 1px solid rgba(255,255,255,0.08); box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
+        .advice-title { font-size: 0.9rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .advice-list { font-size: 0.9rem; color: rgba(255,255,255,0.9); padding-left: 20px; line-height: 1.6; margin-bottom: 15px; }
+        .advice-list li { margin-bottom: 8px; }
         .advice-list li:last-child { margin-bottom: 0; }
         
-        .series-banner { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px; text-align: center; margin-top: 15px; }
-        .series-banner p { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.9); margin: 0; }
-
-        .specialty-result .aamc-btn { display: flex; justify-content: center; align-items: center; gap: 8px; flex: 1; padding: 14px 10px; background: rgba(255,255,255,0.9); color: #000 !important; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .specialty-result .aamc-btn.btn-outline { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4); color: #FFF !important; box-shadow: none; }
-        .specialty-result .aamc-btn:hover { transform: translateY(-3px); background: #FFF; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .specialty-result .aamc-btn.btn-outline:hover { background: rgba(0,0,0,0.4); border-color: #FFF; }
+        .specialty-result .aamc-btn { display: flex; justify-content: center; align-items: center; gap: 8px; flex: 1; padding: 15px 10px; background: #FFFFFF; color: #000 !important; text-decoration: none; border-radius: 15px; font-weight: 800; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .specialty-result .aamc-btn.btn-outline { background: rgba(0,0,0,0.25); border: 2px solid rgba(255,255,255,0.5); color: #FFF !important; box-shadow: none; }
+        .specialty-result .aamc-btn:hover { transform: translateY(-4px); background: #FFF; box-shadow: 0 15px 25px rgba(0,0,0,0.25); }
+        .specialty-result .aamc-btn.btn-outline:hover { background: rgba(0,0,0,0.5); border-color: #FFF; }
 
         .copyright { position: fixed; bottom: 15px; right: 25px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); opacity: 0.6; z-index: 1000; pointer-events: none; }
     </style>
 </head>
 <body class="lang-th">
-    <div class="header-banner"><img src="../banner.jpg" alt="Banner"></div>
+    <div class="header-banner"><img src="../banner.jpg" alt="Banner" onerror="this.style.display='none'"></div>
     <div id="bg-canvas"></div>
     
     <div class="top-nav-bar">
@@ -167,24 +171,19 @@
     </div>
     
     <div id="entrance-overlay">
-        <h1 style="font-size: 2.8rem; margin-bottom:40px; color: var(--text-main); letter-spacing: -1px;">
+        <h1 style="font-size: 3rem; margin-bottom:40px; color: var(--text-main); letter-spacing: -1px; text-shadow: 0 4px 15px rgba(0,0,0,0.05);">
             <span class="show-th">ค้นหาสไตล์ที่ใช่คุณ</span><span class="show-en">What's Your Vibe?</span>
         </h1>
         <div class="calling-grid">
             <div class="calling-card active" onclick="unlockRoadmap()">
-                <span style="font-size: 3.5rem;">🩺</span>
-                <h3>Medicine</h3>
-                <p style="color: var(--text-muted); margin-top:10px;"><span class="show-th">เริ่มทดสอบกันเลย</span><span class="show-en">Let's Go</span></p>
+                <span style="font-size: 4rem; display:block; margin-bottom:15px; animation: floatGently 3s infinite;">🩺</span>
+                <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Medicine</h3>
+                <p style="color: var(--text-muted); font-weight: 600;"><span class="show-th">เริ่มทดสอบกันเลย</span><span class="show-en">Let's Go</span></p>
             </div>
             <div class="calling-card locked">
-                <span style="font-size: 3.5rem;">⚙️</span>
-                <h3>Engineering</h3>
-                <p style="color: var(--text-muted); margin-top:10px;"><span class="show-th">เร็วๆ นี้</span><span class="show-en">Coming Soon</span></p>
-            </div>
-            <div class="calling-card locked">
-                <span style="font-size: 3.5rem;">💻</span>
-                <h3>Computer Sci</h3>
-                <p style="color: var(--text-muted); margin-top:10px;"><span class="show-th">เร็วๆ นี้</span><span class="show-en">Coming Soon</span></p>
+                <span style="font-size: 4rem; display:block; margin-bottom:15px;">⚙️</span>
+                <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Engineering</h3>
+                <p style="color: var(--text-muted); font-weight: 600;"><span class="show-th">เร็วๆ นี้</span><span class="show-en">Coming Soon</span></p>
             </div>
         </div>
     </div>
@@ -196,21 +195,21 @@
             <div class="col-wrapper" id="wrap-1">
                 <div class="col-header" id="head-1"><span class="show-th">1. ลักษณะการทำงานที่คุณชอบ</span><span class="show-en">1. What's your working style?</span></div>
                 <div class="node-column" id="col-1">
-                    <div class="node-box" id="box-1-1" onclick="branch(1, 'procedural_vibe', this)" style="border-left: 8px solid var(--category-surg)">
-                        <span class="node-emoji">🔺</span>
-                        <span class="node-tag">The Doer</span>
+                    <div class="node-box stage-1" id="box-1-1" onclick="branch(1, 'procedural_vibe', this)" style="border-bottom-color: var(--category-surg)">
+                        <span class="node-emoji">🏃</span>
+                        <span class="node-tag" style="color: var(--category-surg)">The Doer</span>
                         <p class="node-title"><span class="show-th">สายลุย ลงมือทำทันที</span><span class="show-en">Action Oriented</span></p>
                         <p class="node-desc"><span class="show-th">ชอบกิจกรรมที่เห็นผลลัพธ์รวดเร็ว ถนัดการใช้ทักษะร่างกายหรือเครื่องมือเพื่อจัดการเรื่องตรงหน้าให้จบไปทีละอย่าง</span><span class="show-en">You prefer tangible tasks with quick results. You like using tools or your hands to get things done directly.</span></p>
                     </div>
-                    <div class="node-box" id="box-1-2" onclick="branch(1, 'cognitive_vibe', this)" style="border-left: 8px solid var(--category-med)">
-                        <span class="node-emoji">🔹</span>
-                        <span class="node-tag">The Thinker</span>
+                    <div class="node-box stage-1" id="box-1-2" onclick="branch(1, 'cognitive_vibe', this)" style="border-bottom-color: var(--category-med)">
+                        <span class="node-emoji">🧩</span>
+                        <span class="node-tag" style="color: var(--category-med)">The Thinker</span>
                         <p class="node-title"><span class="show-th">สายคิด วิเคราะห์ข้อมูล</span><span class="show-en">Thought Oriented</span></p>
                         <p class="node-desc"><span class="show-th">ชอบเผชิญหน้ากับความท้าทายทางความคิด ถนัดการปะติดปะต่อข้อมูลและหาเบาะแสเพื่อทำความเข้าใจกลไกที่ซ่อนอยู่</span><span class="show-en">You enjoy intellectual challenges. You are good at piecing together clues to understand how complex systems work.</span></p>
                     </div>
-                    <div class="node-box" id="box-1-3" onclick="branch(1, 'support_vibe', this)" style="border-left: 8px solid var(--category-supp)">
-                        <span class="node-emoji">🔸</span>
-                        <span class="node-tag">The Observer</span>
+                    <div class="node-box stage-1" id="box-1-3" onclick="branch(1, 'support_vibe', this)" style="border-bottom-color: var(--category-supp)">
+                        <span class="node-emoji">🔭</span>
+                        <span class="node-tag" style="color: var(--category-supp)">The Observer</span>
                         <p class="node-title"><span class="show-th">สายซัพพอร์ต คุมภาพรวม</span><span class="show-en">Big Picture Oriented</span></p>
                         <p class="node-desc"><span class="show-th">ชอบถอยออกมาก้าวหนึ่งเพื่อมองโครงสร้างทั้งหมด ถนัดการวางแผนระยะยาวและจัดการสภาพแวดล้อมให้เป็นระเบียบ</span><span class="show-en">You like to step back and look at the whole system. You excel at long-term planning and organizing the environment.</span></p>
                     </div>
@@ -239,6 +238,17 @@
     <div class="copyright">© Copyright Prawees</div>
 
 <script>
+        // Inline SVG Artwork for Results
+        const svgIcons = {
+            svg_crisis: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M55 15L25 55H48L42 90L75 45H52L55 15Z" fill="url(#grad_crisis)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.2))"/><defs><linearGradient id="grad_crisis" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF416C"/><stop offset="100%" stop-color="#FF4B2B"/></linearGradient></defs></svg>`,
+            svg_surgery: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M80 20L65 15L25 55C20 60 20 70 25 75C30 80 40 80 45 75L80 35L80 20Z" fill="url(#grad_surg)"/><path d="M25 55L45 75" stroke="#FFF" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="25" r="4" fill="#FFF"/><defs><linearGradient id="grad_surg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F2994A"/><stop offset="100%" stop-color="#F2C94C"/></linearGradient></defs></svg>`,
+            svg_med: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M30 30V50C30 65 45 75 60 75C75 75 90 65 90 50V30" stroke="url(#grad_med)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="30" r="10" fill="url(#grad_med)"/><circle cx="100" cy="30" r="10" fill="url(#grad_med)"/><path d="M60 75V95M50 95H70" stroke="url(#grad_med)" stroke-width="10" stroke-linecap="round"/><defs><linearGradient id="grad_med" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#11998E"/><stop offset="100%" stop-color="#38EF7D"/></linearGradient></defs></svg>`,
+            svg_brain: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 20C25 20 15 35 20 55C25 75 40 80 50 80C60 80 75 75 80 55C85 35 75 20 50 20Z" stroke="url(#grad_brain)" stroke-width="8"/><path d="M50 20V80M30 40Q50 55 30 70M70 40Q50 55 70 70" stroke="url(#grad_brain)" stroke-width="6" stroke-linecap="round"/><defs><linearGradient id="grad_brain" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8E2DE2"/><stop offset="100%" stop-color="#4A00E0"/></linearGradient></defs></svg>`,
+            svg_tech: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="25" y="30" width="50" height="35" rx="8" stroke="url(#grad_tech)" stroke-width="8"/><circle cx="50" cy="47" r="8" fill="url(#grad_tech)"/><path d="M40 65V80M60 65V80M25 80H75" stroke="url(#grad_tech)" stroke-width="8" stroke-linecap="round"/><defs><linearGradient id="grad_tech" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4facfe"/><stop offset="100%" stop-color="#00f2fe"/></linearGradient></defs></svg>`,
+            svg_peds: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="45" r="30" fill="url(#grad_peds)"/><circle cx="25" cy="25" r="15" fill="url(#grad_peds)"/><circle cx="75" cy="25" r="15" fill="url(#grad_peds)"/><path d="M40 55Q50 65 60 55" stroke="#FFF" stroke-width="6" stroke-linecap="round"/><defs><linearGradient id="grad_peds" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F2C94C"/><stop offset="100%" stop-color="#F2994A"/></linearGradient></defs></svg>`,
+            svg_life: `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 15C50 15 20 40 20 60C20 76.5 33.5 90 50 90C66.5 90 80 76.5 80 60C80 40 50 15 50 15Z" fill="url(#grad_life)"/><path d="M50 90C50 90 60 65 40 50C40 50 50 60 50 90Z" fill="#FFF" opacity="0.5"/><defs><linearGradient id="grad_life" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#A8E063"/><stop offset="100%" stop-color="#56AB2F"/></linearGradient></defs></svg>`
+        };
+
         const treeData = {
             procedural_vibe: { options: [
                 { id:'p_crisis',emoji:'🌀',title_th:"รับมือความกดดันสูง",title_en:"Fast-Paced Decider",desc_th:"คุณเอาตัวรอดเก่งในสถานการณ์ที่คาดเดาไม่ได้ สามารถตัดสินใจอย่างรวดเร็วเพื่อประคองสถานการณ์ไว้",desc_en:"You adapt well in unpredictable scenarios and make quick decisions to keep things under control.",next:'p_crisis_sub'},
@@ -325,49 +335,49 @@
         };
 
         const results = {
-            ER_END: { title_th: "หมอเวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", slug: "emergency-medicine", interview: null, desc_th: "จากสไตล์การตัดสินใจที่รวดเร็วและพร้อมรับมือกับสิ่งที่คาดเดาไม่ได้ สาขานี้น่าจะเหมาะกับคุณ เพราะคุณคือด่านหน้าที่มีไหวพริบในการจัดการวิกฤต", desc_en: "Based on your quick decision-making and comfort with unpredictability, this specialty fits you. You are the frontline problem solver.", color: ["#e74c3c", "#c0392b"], keywords_th: ["ไหวพริบดี", "แก้ปัญหาฉับไว", "รับมือความเปลี่ยนแปลง"], keywords_en: ["Quick Wit", "Rapid Response", "Adaptable"], stats: [ { l_th: "ความตื่นตัวหน้างาน", l_en: "Action & Urgency", v: 95 }, { l_th: "การตัดสินใจ", l_en: "Decision Making", v: 90 }, { l_th: "ความหลากหลายของงาน", l_en: "Task Variety", v: 95 } ] },
-            ANES_END: { title_th: "วิสัญญีแพทย์", title_en: "Anesthesiology", slug: "anesthesiology", interview: null, desc_th: "ความใจเย็นและการชอบจัดการตัวแปรให้สมดุลคือจุดแข็งของคุณ คุณคือผู้อยู่เบื้องหลังที่คอยประคองให้ทุกอย่างราบรื่นและปลอดภัย", desc_en: "Your calmness and preference for balance are your strengths. You are the steady hand ensuring everything runs smoothly behind the scenes.", color: ["#8e44ad", "#5b2c6f"], keywords_th: ["ความเยือกเย็น", "ผู้คุมจังหวะ", "ความละเอียดรอบคอบ"], keywords_en: ["Calmness", "Pace Controller", "Thoroughness"], stats: [ { l_th: "การควบคุมสถานการณ์", l_en: "Variable Control", v: 95 }, { l_th: "ความนิ่งและสมาธิ", l_en: "Focus & Calm", v: 90 }, { l_th: "การสังเกตการณ์", l_en: "Observation", v: 85 } ] },
-            IR_END: { title_th: "รังสีแพทย์ร่วมรักษา", title_en: "Interventional Radiologist", slug: "interventional-radiology", interview: null, desc_th: "ด้วยความสนใจในเทคโนโลยีและการแก้ปัญหาอย่างตรงจุด คุณเหมาะกับการใช้เครื่องมือสมัยใหม่เพื่อสร้างผลลัพธ์ที่แม่นยำและกระทบกระเทือนน้อยที่สุด", desc_en: "With your interest in tech and direct problem-solving, you are suited to use modern tools for precise, minimally invasive results.", color: ["#e67e22", "#d35400"], keywords_th: ["แม่นยำและตรงจุด", "สายเทคโนโลยี", "นักแก้ปัญหา"], keywords_en: ["Precise Action", "Tech Enthusiast", "Problem Solver"], stats: [ { l_th: "การประยุกต์ใช้เครื่องมือ", l_en: "Tech Utilization", v: 95 }, { l_th: "ทักษะเฉพาะทาง", l_en: "Niche Skills", v: 90 }, { l_th: "ความจดจ่อหน้าจอ", l_en: "Screen Focus", v: 85 } ] },
-            GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", slug: "general-surgery", interview: null, desc_th: "ความสามารถที่หลากหลายและความมุ่งมั่นของคุณ ทำให้คุณเป็นแกนหลักที่เชื่อถือได้ พร้อมรับมือกับงานสเกลใหญ่และสถานการณ์ที่ต้องการความเด็ดขาด", desc_en: "Your versatility and dedication make you a reliable core team member, ready to handle large-scale tasks and decisive moments.", color: ["#c0392b", "#922b21"], keywords_th: ["แกนหลักของทีม", "ความยืดหยุ่น", "ตัดสินใจเด็ดขาด"], keywords_en: ["Core Team Player", "Versatility", "Decisiveness"], stats: [ { l_th: "ความอดทนทุ่มเท", l_en: "Endurance", v: 90 }, { l_th: "การรับมือความกดดัน", l_en: "Pressure Handling", v: 85 }, { l_th: "ขอบเขตความรู้", l_en: "Scope of Knowledge", v: 85 } ] },
-            CVT_END: { title_th: "ศัลยแพทย์ทรวงอก", title_en: "Thoracic Surgeon", slug: "thoracic-surgery", interview: null, desc_th: "คุณไม่หวั่นไหวต่อแรงกดดันและพร้อมรับผิดชอบในส่วนที่สำคัญที่สุด การทำงานกับระบบขับเคลื่อนหลักของร่างกายคือความท้าทายที่คุณรับมือได้", desc_en: "You are unfazed by pressure and ready to take on critical responsibilities. Working on the body's main engines is a challenge you welcome.", color: ["#e74c3c", "#922b21"], keywords_th: ["ความมุ่งมั่นสูง", "สมาธิภายใต้ความกดดัน", "รับผิดชอบงานใหญ่"], keywords_en: ["High Dedication", "Focus Under Pressure", "Major Responsibilities"], stats: [ { l_th: "ความกดดันและความรับผิดชอบ", l_en: "Pressure & Duty", v: 95 }, { l_th: "ทักษะความแม่นยำ", l_en: "Precision Skills", v: 90 }, { l_th: "ความต่อเนื่องในการทำงาน", l_en: "Endurance", v: 90 } ] },
-            URO_END: { title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", slug: "urology", interview: null, desc_th: "คุณชอบกระบวนการทำงานที่เป็นระบบและจบในตัว การผสานทักษะเข้ากับเทคโนโลยีจะช่วยให้คุณจัดการเป้าหมายได้อย่างมีประสิทธิภาพ", desc_en: "You like systematic and self-contained workflows. Blending skills with technology will help you achieve your goals efficiently.", color: ["#f39c12", "#d35400"], keywords_th: ["ทำงานเป็นระบบ", "ใช้เทคโนโลยีช่วย", "การจัดการที่ดี"], keywords_en: ["Systematic Work", "Tech Integration", "Good Management"], stats: [ { l_th: "การใช้เครื่องมือเทคโนโลยี", l_en: "Robotic/Tech Use", v: 85 }, { l_th: "ความสมดุลของการทำงาน", l_en: "Work-Life Balance", v: 75 }, { l_th: "การวางแผนกระบวนการ", l_en: "Process Planning", v: 80 } ] },
-            OBGYN_END: { title_th: "สูตินรีแพทย์", title_en: "OB/GYN", slug: "obstetrics-and-gynecology", interview: null, desc_th: "ด้วยพลังงานที่เต็มเปี่ยมและความยืดหยุ่นทางอารมณ์ คุณสามารถดูแลสถานการณ์ที่หลากหลาย ตั้งแต่เรื่องน่ายินดีไปจนถึงเวลาที่ต้องการความรัดกุม", desc_en: "With your high energy and emotional flexibility, you can navigate diverse situations, from joyful events to moments needing strict focus.", color: ["#d35400", "#a04000"], keywords_th: ["พลังงานบวก", "ความยืดหยุ่นทางอารมณ์", "ดูแลรอบด้าน"], keywords_en: ["Positive Energy", "Emotional Flexibility", "Comprehensive Care"], stats: [ { l_th: "ความกระฉับกระเฉง", l_en: "Dynamic Pace", v: 85 }, { l_th: "ทักษะการตัดสินใจ", l_en: "Decision Making", v: 80 }, { l_th: "การสื่อสารกับคนไข้", l_en: "Patient Communication", v: 80 } ] },
-            PEDSURG_END: { title_th: "กุมารศัลยแพทย์", title_en: "Pediatric Surgeon", slug: "pediatric-surgery", interview: null, desc_th: "ความละเอียดอ่อนและความทุ่มเทของคุณเหมาะอย่างยิ่งกับการดูแลโครงสร้างที่เปราะบาง คุณพร้อมที่จะใช้สมาธิเพื่อสร้างการเปลี่ยนแปลงที่มีความหมาย", desc_en: "Your delicacy and dedication are perfect for caring for fragile structures. You are ready to use deep focus to create meaningful changes.", color: ["#e67e22", "#b9770e"], keywords_th: ["ความละเอียดอ่อน", "ความทุ่มเท", "สมาธิแน่วแน่"], keywords_en: ["Delicacy", "Dedication", "Steadfast Focus"], stats: [ { l_th: "ความประณีต", l_en: "Meticulousness", v: 95 }, { l_th: "การสื่อสารกับครอบครัว", l_en: "Family Interaction", v: 80 }, { l_th: "ความท้าทายเฉพาะทาง", l_en: "Niche Challenges", v: 85 } ] },
-            ORTHO_END: { title_th: "ศัลยแพทย์ออร์โธปิดิกส์", title_en: "Orthopedic Surgeon", slug: "orthopedic-surgery", interview: null, desc_th: "ความสนใจในกลศาสตร์และการเคลื่อนไหวทำให้สาขานี้ตอบโจทย์ คุณจะได้ใช้ความคิดเชิงโครงสร้างเพื่อซ่อมแซมและฟื้นฟูการใช้งานให้กลับมาแข็งแรง", desc_en: "Your interest in mechanics and motion makes this a great fit. You will use structural thinking to repair and restore functionality.", color: ["#c0392b", "#7b241c"], keywords_th: ["ความเข้าใจโครงสร้าง", "สายพลังงาน", "ผลลัพธ์ที่เป็นรูปธรรม"], keywords_en: ["Structural Mind", "High Energy", "Tangible Results"], stats: [ { l_th: "ทักษะเชิงกลศาสตร์", l_en: "Mechanical Skills", v: 90 }, { l_th: "ความกระตือรือร้น", l_en: "Active Vibe", v: 85 }, { l_th: "ความพึงพอใจในผลงาน", l_en: "Result Satisfaction", v: 90 } ] },
-            NS_END: { title_th: "ศัลยแพทย์ประสาท", title_en: "Neurosurgeon", slug: "neurosurgery", interview: "01", desc_th: "หากคุณเป็นคนที่มีสมาธิจดจ่อได้ยาวนานและไม่หวั่นกับความซับซ้อน นี่คือเส้นทางที่คุณจะได้ทำงานกับระบบเครือข่ายที่ละเอียดอ่อนที่สุด", desc_en: "If you have sustained focus and don't fear complexity, this is the path where you will work with the most intricate networks.", color: ["#5b2c6f", "#1a5276"], keywords_th: ["สมาธิขั้นสูง", "ความรอบคอบ", "วิเคราะห์ระบบซับซ้อน"], keywords_en: ["Deep Focus", "Thoroughness", "Complex Systems"], stats: [ { l_th: "ความจดจ่อและความนิ่ง", l_en: "Focus & Steadiness", v: 95 }, { l_th: "ความอดทนในการทำงาน", l_en: "Endurance", v: 90 }, { l_th: "การประเมินความเสี่ยง", l_en: "Risk Assessment", v: 90 } ] },
-            PLASTIC_END: { title_th: "ศัลยแพทย์ตกแต่ง", title_en: "Plastic Surgeon", slug: "plastic-surgery", interview: null, desc_th: "การผสานความคิดสร้างสรรค์เข้ากับความแม่นยำคือเอกลักษณ์ของคุณ คุณมองเห็นคุณค่าของทั้งความสวยงามและการใช้งานที่สมบูรณ์แบบ", desc_en: "Blending creativity with precision is your signature. You see the value in both aesthetics and perfect functionality.", color: ["#e67e22", "#d35400"], keywords_th: ["ความประณีต", "วิสัยทัศน์ความงาม", "ใส่ใจรายละเอียด"], keywords_en: ["Meticulousness", "Aesthetic Vision", "Detail Oriented"], stats: [ { l_th: "ทักษะและความละเอียด", l_en: "Fine Skills", v: 95 }, { l_th: "ความคิดสร้างสรรค์", l_en: "Creativity", v: 85 }, { l_th: "ความยืดหยุ่นในการทำงาน", l_en: "Work Flexibility", v: 80 } ] },
-            ENT_END: { title_th: "หมอหู คอ จมูก", title_en: "Otolaryngologist", slug: "otolaryngology", interview: null, desc_th: "ความคล่องตัวในการทำงานในพื้นที่จำกัดและความใส่ใจในประสาทสัมผัส ทำให้คุณเหมาะกับการดูแลโครงสร้างที่มีข้อจำกัดแต่มีความสำคัญสูง", desc_en: "Your agility in confined spaces and attention to vital senses make you suited for caring for limited but highly important structures.", color: ["#f39c12", "#d68910"], keywords_th: ["ความคล่องตัว", "จัดการพื้นที่เฉพาะ", "คืนความสมดุล"], keywords_en: ["Agility", "Confined Spaces", "Restoring Balance"], stats: [ { l_th: "ความเชี่ยวชาญเฉพาะจุด", l_en: "Targeted Expertise", v: 85 }, { l_th: "การใช้เครื่องมือขนาดเล็ก", l_en: "Micro-Tool Use", v: 85 }, { l_th: "ความสมดุลของชีวิต", l_en: "Work-Life Balance", v: 75 } ] },
-            OPHTHA_END: { title_th: "จักษุแพทย์", title_en: "Ophthalmologist", slug: "ophthalmology", interview: null, desc_th: "คุณให้ความสำคัญกับความชัดเจนและความแม่นยำระดับไมโคร การทำงานด้วยสมาธิและความนิ่งจะช่วยให้คุณรักษาองค์ประกอบที่สำคัญนี้ไว้ได้", desc_en: "You value clarity and micro-precision. Working with focus and steadiness will help you preserve this vital element.", color: ["#f1c40f", "#d4ac0d"], keywords_th: ["ความแม่นยำสูงสุด", "สมาธิและความนิ่ง", "ความละเอียดอ่อน"], keywords_en: ["High Precision", "Focus & Calm", "Delicacy"], stats: [ { l_th: "การทำงานผ่านกล้องจุลทรรศน์", l_en: "Microscopic Work", v: 95 }, { l_th: "คุณภาพชีวิตการทำงาน", l_en: "Work Quality", v: 90 }, { l_th: "ความประณีตในงาน", l_en: "Meticulousness", v: 95 } ] },
-            CARDIO_END: { title_th: "อายุรแพทย์โรคหัวใจ", title_en: "Cardiologist", slug: "internal-medicine-cardiovascular-disease", interview: null, desc_th: "ความชอบในการวิเคราะห์จังหวะและกลไกหลัก ทำให้คุณเหมาะกับการประเมินและปรับปรุงระบบการสูบฉีดให้ทำงานได้อย่างสม่ำเสมอ", desc_en: "Your affinity for analyzing rhythms and core mechanics makes you suited to assess and tune the pumping system.", color: ["#c0392b", "#7b241c"], keywords_th: ["วิเคราะห์ข้อมูลเร็ว", "ทำความเข้าใจระบบ", "การจัดการฉับไว"], keywords_en: ["Quick Analysis", "System Understanding", "Prompt Action"], stats: [ { l_th: "การประเมินสถานการณ์", l_en: "Situation Assessment", v: 90 }, { l_th: "การประยุกต์ใช้เทคนิค", l_en: "Technique Application", v: 80 }, { l_th: "ความตื่นตัว", l_en: "Alertness", v: 85 } ] },
-            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", slug: "pulmonary-disease", interview: null, desc_th: "คุณรับมือกับความกดดันได้ดีและถนัดการจัดการตัวแปร คุณคือคนที่คอยดูแลการแลกเปลี่ยนทรัพยากรที่สำคัญในสถานการณ์ที่ต้องการความมั่นคง", desc_en: "You handle pressure well and excel at managing variables. You oversee the essential exchange of resources in critical situations.", color: ["#16a085", "#0e6655"], keywords_th: ["การควบคุมตัวแปร", "รับมือภาวะวิกฤต", "ความรอบคอบ"], keywords_en: ["Variable Control", "Crisis Management", "Thoroughness"], stats: [ { l_th: "การจัดการในภาวะวิกฤต", l_en: "Crisis Handling", v: 90 }, { l_th: "ความเข้าใจสรีรวิทยา", l_en: "Physiology Knowledge", v: 85 }, { l_th: "ความละเอียด", l_en: "Detail Oriented", v: 85 } ] },
-            GI_END: { title_th: "หมอทางเดินอาหาร", title_en: "Gastroenterologist", slug: "internal-medicine-gastroenterology", interview: null, desc_th: "ตรรกะที่ดีและความชอบในการสำรวจเส้นทาง ทำให้คุณสนุกกับการตรวจสอบและเคลียร์ปัญหาภายในด้วยความคล่องแคล่ว", desc_en: "Good logic and a love for exploration make you enjoy investigating and clearing internal pathways efficiently.", color: ["#d35400", "#873600"], keywords_th: ["นักสำรวจ", "คิดวิเคราะห์", "จัดการเป็นระบบ"], keywords_en: ["Explorer", "Analytical Thinker", "Systematic Handling"], stats: [ { l_th: "ทักษะการตรวจสอบ", l_en: "Inspection Skills", v: 85 }, { l_th: "การคิดเชิงตรรกะ", l_en: "Logical Thinking", v: 85 }, { l_th: "ความยืดหยุ่น", l_en: "Flexibility", v: 75 } ] },
-            NEPHRO_END: { title_th: "อายุรแพทย์โรคไต", title_en: "Nephrologist", slug: "internal-medicine-nephrology", interview: null, desc_th: "ความละเอียดรอบคอบและความชอบในการทำงานกับตัวเลข ทำให้คุณเป็นคนที่รักษาสมดุลและจัดการกับการคำนวณที่ซับซ้อนได้อย่างดีเยี่ยม", desc_en: "Your meticulousness and preference for numbers make you excellent at maintaining balance and handling complex calculations.", color: ["#2980b9", "#154360"], keywords_th: ["ความละเอียดถี่ถ้วน", "วิเคราะห์ตัวเลข", "รักษาสมดุล"], keywords_en: ["Thoroughness", "Numerical Analysis", "Maintaining Balance"], stats: [ { l_th: "การคิดวิเคราะห์ข้อมูล", l_en: "Data Analysis", v: 95 }, { l_th: "การวางแผนระยะยาว", l_en: "Long-term Planning", v: 85 }, { l_th: "ความรอบคอบ", l_en: "Meticulousness", v: 90 } ] },
-            NEURO_END: { title_th: "อายุรแพทย์ประสาทวิทยา", title_en: "Neurologist", slug: "neurology", interview: "03", desc_th: "ด้วยความเป็นระบบและตรรกะที่แข็งแรง คุณจะสนุกกับการประเมินทีละขั้นตอนเพื่อค้นหาว่าจุดไหนในเครือข่ายที่มีการตอบสนองผิดปกติ", desc_en: "With your systematic approach and strong logic, you will enjoy evaluating step-by-step to find out where the network is misfiring.", color: ["#2e86c1", "#1b4f72"], keywords_th: ["นักวิเคราะห์ตรรกะ", "การประเมินเป็นขั้นตอน", "ช่างสังเกต"], keywords_en: ["Logical Analyst", "Step-by-step Evaluation", "Observant"], stats: [ { l_th: "การใช้เหตุผลวิเคราะห์", l_en: "Logical Reasoning", v: 95 }, { l_th: "ทักษะการสังเกตการณ์", l_en: "Observation Skills", v: 90 }, { l_th: "ความใจเย็น", l_en: "Calmness", v: 85 } ] },
-            ENDO_END: { title_th: "แพทย์ต่อมไร้ท่อ", title_en: "Endocrinologist", slug: "endocrinology-diabetes-and-metabolism", interview: null, desc_th: "คุณมีความสามารถในการมองเห็นความเชื่อมโยงของสิ่งต่างๆ การถอดรหัสสัญญาณที่ส่งผลกระทบในภาพรวมจะช่วยให้คุณปรับสมดุลระบบได้", desc_en: "You have the ability to see connections. Decoding signals that affect the overall picture will help you balance the system.", color: ["#16a085", "#0b5345"], keywords_th: ["เชื่อมโยงข้อมูล", "มองภาพรวม", "ปรับสมดุลระบบ"], keywords_en: ["Data Connecting", "Big Picture", "System Balancing"], stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systems Thinking", v: 90 }, { l_th: "การติดตามผลระยะยาว", l_en: "Long-term Tracking", v: 85 }, { l_th: "การวิเคราะห์ข้อมูล", l_en: "Data Analysis", v: 85 } ] },
-            RHEUM_END: { title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", slug: "rheumatology", interview: null, desc_th: "การเป็นผู้ไกล่เกลี่ยในสถานการณ์ที่ซับซ้อนคือจุดแข็งของคุณ คุณมีความอดทนในการปรับความเข้าใจและหาวิธีทำให้ระบบกลับมาทำงานร่วมกันได้", desc_en: "Acting as a mediator in complex situations is your strength. You have the patience to recalibrate and get systems working together again.", color: ["#1abc9c", "#117a65"], keywords_th: ["แก้ปัญหาความขัดแย้ง", "วิเคราะห์เชิงลึก", "ความอดทนสูง"], keywords_en: ["Conflict Resolution", "Deep Analysis", "High Patience"], stats: [ { l_th: "การสืบค้นข้อมูล", l_en: "Information Retrieval", v: 90 }, { l_th: "การสื่อสารและติดตาม", l_en: "Communication & Tracking", v: 85 }, { l_th: "การคิดวิเคราะห์", l_en: "Analytical Thinking", v: 90 } ] },
-            HEMA_END: { title_th: "อายุรแพทย์โลหิตวิทยา", title_en: "Hematologist", slug: "hematology-and-medical-oncology", interview: null, desc_th: "คุณชอบวิเคราะห์จากรากฐาน การสังเกตองค์ประกอบพื้นฐานจะช่วยให้คุณเข้าใจถึงต้นตอของผลกระทบที่เกิดขึ้นในวงกว้าง", desc_en: "You enjoy analyzing from the ground up. Observing foundational elements helps you understand the roots of widespread effects.", color: ["#c0392b", "#641e16"], keywords_th: ["วิเคราะห์ระดับพื้นฐาน", "ความเชื่อมโยง", "ความรอบคอบ"], keywords_en: ["Foundation Analysis", "Connections", "Thoroughness"], stats: [ { l_th: "ทักษะการวิจัยและห้องปฏิบัติการ", l_en: "Lab & Research Skills", v: 90 }, { l_th: "การเชื่อมโยงภาพรวม", l_en: "Connecting the Dots", v: 85 }, { l_th: "ความใส่ใจรายละเอียด", l_en: "Attention to Detail", v: 90 } ] },
-            ONC_END: { title_th: "อายุรแพทย์โรคมะเร็ง", title_en: "Medical Oncologist", slug: "hematology-and-medical-oncology", interview: null, desc_th: "ความเข้าอกเข้าใจและการคิดเชิงกลยุทธ์ของคุณ จะทำให้คุณเป็นผู้วางแผนที่พึ่งพาได้ในการเผชิญหน้ากับความท้าทายระยะยาว", desc_en: "Your empathy and strategic thinking make you a reliable planner when facing long-term challenges.", color: ["#d35400", "#78281f"], keywords_th: ["นักกลยุทธ์", "ความเห็นอกเห็นใจ", "เพื่อนร่วมทาง"], keywords_en: ["Strategist", "Empathy", "Companion"], stats: [ { l_th: "การให้คำปรึกษา", l_en: "Counseling", v: 95 }, { l_th: "การวางแผนการรักษา", l_en: "Treatment Planning", v: 90 }, { l_th: "ความเข้มแข็งทางอารมณ์", l_en: "Emotional Resilience", v: 85 } ] },
-            ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease Specialist", slug: "infectious-disease", interview: null, desc_th: "สัญชาตญาณความเป็นนักสืบและการชอบตั้งคำถาม จะช่วยให้คุณรวบรวมเบาะแสเพื่อค้นหาต้นตอและเลือกวิธีจัดการได้อย่างเฉียบคม", desc_en: "Your investigative instincts and curiosity will help you gather clues to find the root cause and choose sharp management strategies.", color: ["#27ae60", "#145a32"], keywords_th: ["นักสืบหาความจริง", "ช่างสังเกต", "คิดอย่างมีเหตุผล"], keywords_en: ["Truth Investigator", "Observant", "Logical Thinking"], stats: [ { l_th: "การสืบค้นประวัติ", l_en: "History Gathering", v: 95 }, { l_th: "ความรู้ความเข้าใจเฉพาะทาง", l_en: "Specific Knowledge", v: 90 }, { l_th: "การวิเคราะห์บริบท", l_en: "Context Analysis", v: 90 } ] },
-            ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist / Immunologist", slug: "allergy-and-immunology", interview: null, desc_th: "คุณมีความละเอียดในการค้นหาปัจจัยกระตุ้นในชีวิตประจำวัน การใส่ใจเรื่องเล็กๆ จะช่วยลดความขัดข้องและสร้างความราบรื่นได้", desc_en: "You are meticulous in finding everyday triggers. Paying attention to small things will reduce friction and create smoothness.", color: ["#2980b9", "#154360"], keywords_th: ["ตามหาตัวการ", "ปรับความสมดุล", "ใส่ใจรายละเอียด"], keywords_en: ["Trigger Finder", "Balancing", "Detail Oriented"], stats: [ { l_th: "การสังเกตและทดสอบ", l_en: "Observation & Testing", v: 85 }, { l_th: "การจัดการคุณภาพชีวิต", l_en: "Quality of Life Management", v: 90 }, { l_th: "การสื่อสาร", l_en: "Communication", v: 85 } ] },
-            GENE_END: { title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", slug: "medical-genetics", interview: null, desc_th: "ความสนใจในรหัสพื้นฐานทำให้คุณสามารถมองเห็นแนวโน้มและเตรียมพร้อมรับมือกับสิ่งที่อาจเกิดขึ้นในอนาคตได้อย่างรอบคอบ", desc_en: "Your interest in foundational codes allows you to see trends and thoughtfully prepare for what might happen in the future.", color: ["#8e44ad", "#4a235a"], keywords_th: ["วิเคราะห์โครงสร้างพื้นฐาน", "มองการณ์ไกล", "ความรู้ลึกซึ้ง"], keywords_en: ["Foundation Analysis", "Foresight", "Deep Knowledge"], stats: [ { l_th: "การศึกษาข้อมูลเชิงลึก", l_en: "Deep Data Study", v: 95 }, { l_th: "การให้คำแนะนำ", l_en: "Providing Guidance", v: 90 }, { l_th: "การคิดเชิงระบบ", l_en: "Systems Thinking", v: 85 } ] },
-            PEDS_END: { title_th: "กุมารแพทย์ทั่วไป", title_en: "General Pediatrician", slug: "pediatrics", interview: "02", desc_th: "พลังบวกและความเป็นมิตรของคุณ ทำให้คุณเป็นผู้สนับสนุนที่ดีในการดูแลพัฒนาการและสร้างสภาพแวดล้อมที่อบอุ่น", desc_en: "Your positive energy and friendliness make you a great supporter in nurturing development and creating a warm environment.", color: ["#f1c40f", "#b7950b"], keywords_th: ["ความอบอุ่น", "สนับสนุนพัฒนาการ", "สร้างความไว้วางใจ"], keywords_en: ["Warmth", "Development Support", "Building Trust"], stats: [ { l_th: "ความเห็นอกเห็นใจและความเข้าใจ", l_en: "Empathy & Understanding", v: 95 }, { l_th: "การสื่อสารกับครอบครัว", l_en: "Family Communication", v: 90 }, { l_th: "พลังงานเชิงบวก", l_en: "Positive Energy", v: 90 } ] },
-            NICU_END: { title_th: "แพทย์ทารกแรกเกิด", title_en: "Neonatologist", slug: "neonatal-perinatal-medicine", interview: null, desc_th: "ความรับผิดชอบและความนิ่งของคุณ จำเป็นอย่างยิ่งสำหรับการจัดการความเปราะบางและรายละเอียดที่สำคัญในระยะเริ่มต้น", desc_en: "Your responsibility and steadiness are essential for managing fragility and critical details in the early stages.", color: ["#1abc9c", "#0e6251"], keywords_th: ["ความรอบคอบสูง", "ดูแลสิ่งเปราะบาง", "สติมั่นคง"], keywords_en: ["High Caution", "Fragility Care", "Steady Mind"], stats: [ { l_th: "การประเมินสถานการณ์วิกฤต", l_en: "Critical Assessment", v: 90 }, { l_th: "ความละเอียดแม่นยำ", l_en: "Precision", v: 95 }, { l_th: "ความอดทน", l_en: "Patience", v: 90 } ] },
-            PEDSSUB_END: { title_th: "กุมารแพทย์เฉพาะทาง", title_en: "Pediatric Subspecialist", slug: "pediatrics", interview: "02", desc_th: "คุณมีความสามารถในการนำความรู้เชิงลึกมาประยุกต์ใช้กับบริบทที่กำลังเติบโตและเปลี่ยนแปลง คุณชอบความท้าทายที่มีความเป็นเอกลักษณ์", desc_en: "You have the ability to apply deep knowledge to growing and changing contexts. You enjoy unique challenges.", color: ["#3498db", "#154360"], keywords_th: ["ความเชี่ยวชาญลึกซึ้ง", "ความยืดหยุ่น", "ความเข้าใจพัฒนาการ"], keywords_en: ["Deep Expertise", "Flexibility", "Development Understanding"], stats: [ { l_th: "การวิเคราะห์ข้อมูลเฉพาะเจาะจง", l_en: "Specific Data Analysis", v: 90 }, { l_th: "การปรับตัว", l_en: "Adaptability", v: 85 }, { l_th: "การทำงานร่วมกับผู้อื่น", l_en: "Collaboration", v: 85 } ] },
-            PSYCH_END: { title_th: "จิตแพทย์", title_en: "Psychiatrist", slug: "psychiatry", interview: null, desc_th: "ทักษะการรับฟังและการเปิดกว้างของคุณ จะช่วยคลายความกังวลและปรับมุมมองให้ผู้คนค้นพบความสงบในจิตใจได้", desc_en: "Your listening skills and openness will help ease worries and shift perspectives, allowing people to find peace of mind.", color: ["#9b59b6", "#512e5f"], keywords_th: ["ผู้ฟังที่ดี", "ความเข้าอกเข้าใจ", "การให้คำปรึกษา"], keywords_en: ["Good Listener", "Empathy", "Counseling"], stats: [ { l_th: "ทักษะการสื่อสาร", l_en: "Communication Skills", v: 95 }, { l_th: "การทำความเข้าใจความรู้สึก", l_en: "Understanding Emotions", v: 95 }, { l_th: "ความอดทน", l_en: "Patience", v: 90 } ] },
-            CHILDPSYCH_END: { title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child & Adolescent Psychiatrist", slug: "child-and-adolescent-psychiatry", interview: null, desc_th: "ด้วยความเชื่อในการปูรากฐาน คุณสามารถช่วยสร้างทิศทางที่แข็งแรงและลดปัญหาความสับสนในช่วงเวลาที่กำลังเติบโตได้", desc_en: "With your belief in laying foundations, you can help build strong directions and reduce confusion during growing years.", color: ["#8e44ad", "#4a235a"], keywords_th: ["สร้างรากฐาน", "ความเข้าใจวัยรุ่น", "การให้คำแนะนำ"], keywords_en: ["Building Foundations", "Youth Understanding", "Guidance"], stats: [ { l_th: "ความเข้าใจพลวัตครอบครัว", l_en: "Family Dynamics Understanding", v: 90 }, { l_th: "การเปิดรับมุมมองใหม่", l_en: "Open-mindedness", v: 90 }, { l_th: "การสื่อสารเชิงบวก", l_en: "Positive Communication", v: 85 } ] },
-            DERM_END: { title_th: "แพทย์ผิวหนัง", title_en: "Dermatologist", slug: "dermatology", interview: null, desc_th: "ความช่างสังเกตของคุณทำให้คุณมองเห็นรูปแบบและคาดเดาสิ่งที่ซ่อนอยู่ได้จากการดูภาพรวมภายนอกได้อย่างแม่นยำ", desc_en: "Your observant nature allows you to spot patterns and accurately deduce hidden issues just by looking at the external overview.", color: ["#e67e22", "#873600"], keywords_th: ["การสังเกตรูปแบบ", "ความละเอียดอ่อน", "ความสวยงามและสุขภาพ"], keywords_en: ["Pattern Recognition", "Delicacy", "Aesthetics & Health"], stats: [ { l_th: "การประเมินทางสายตา", l_en: "Visual Assessment", v: 95 }, { l_th: "ความใส่ใจรายละเอียด", l_en: "Attention to Detail", v: 90 }, { l_th: "การจัดการสมดุลชีวิต", l_en: "Life Balance Management", v: 90 } ] },
-            RADIO_END: { title_th: "รังสีแพทย์", title_en: "Radiologist", slug: "radiology-diagnostic", interview: null, desc_th: "ความสามารถในการทำงานอย่างมีสมาธิและแปลความหมายจากภาพ จะช่วยให้คุณค้นพบข้อมูลสำคัญที่นำไปสู่ความชัดเจนได้", desc_en: "Your ability to work with focus and interpret images will help you discover crucial data that leads to clarity.", color: ["#34495e", "#17202a"], keywords_th: ["นักวิเคราะห์ภาพ", "สมาธิสูง", "ให้ความกระจ่าง"], keywords_en: ["Visual Analyst", "High Focus", "Providing Clarity"], stats: [ { l_th: "การแปลผลข้อมูล", l_en: "Data Interpretation", v: 95 }, { l_th: "การทำงานเชิงลึก", l_en: "Deep Work", v: 90 }, { l_th: "ความรอบคอบ", l_en: "Thoroughness", v: 90 } ] },
-            PATHO_END: { title_th: "พยาธิแพทย์", title_en: "Pathologist", slug: "pathology-anatomic-and-clinical", interview: null, desc_th: "ความเชื่อมั่นในหลักฐานและข้อเท็จจริงของคุณ ทำให้คุณเป็นคนที่ทีมพึ่งพาในการให้คำตอบที่ชัดเจนและเป็นข้อสรุป", desc_en: "Your reliance on evidence and facts makes you the person the team depends on for clear, conclusive answers.", color: ["#2c3e50", "#1a252f"], keywords_th: ["ยึดมั่นหลักฐาน", "ความชัดเจน", "การตัดสินใจเชิงข้อมูล"], keywords_en: ["Evidence-Based", "Clarity", "Data-Driven Decision"], stats: [ { l_th: "การวิเคราะห์ข้อเท็จจริง", l_en: "Fact Analysis", v: 95 }, { l_th: "ความแม่นยำ", l_en: "Accuracy", v: 95 }, { l_th: "การให้ข้อสรุป", l_en: "Providing Conclusions", v: 90 } ] },
-            FORENSIC_END: { title_th: "แพทย์นิติเวช", title_en: "Forensic Pathologist", slug: "forensic-pathology", interview: null, desc_th: "ไหวพริบและความต้องการค้นหาความจริงของคุณ จะช่วยไขข้อสงสัยและสร้างความกระจ่างให้กับเรื่องราวที่ยังไม่มีคำตอบ", desc_en: "Your perceptiveness and desire for truth will help resolve doubts and bring clarity to unanswered questions.", color: ["#273746", "#11171a"], keywords_th: ["นักไขปริศนา", "หาความกระจ่าง", "ความเป็นเหตุเป็นผล"], keywords_en: ["Puzzle Solver", "Seeking Clarity", "Rationality"], stats: [ { l_th: "ทักษะการสืบสวน", l_en: "Investigation Skills", v: 95 }, { l_th: "การเชื่อมโยงข้อมูล", l_en: "Data Linking", v: 90 }, { l_th: "ความตั้งใจ", l_en: "Determination", v: 85 } ] },
-            PREV_END: { title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", slug: "preventive-medicine", interview: "04", desc_th: "การคิดเชิงระบบและการมองภาพกว้าง จะช่วยให้คุณออกแบบมาตรการที่ส่งผลดีและสร้างการเปลี่ยนแปลงในระดับกลุ่มคนได้", desc_en: "Your systems thinking and big-picture view will help you design effective measures that create change at a population level.", color: ["#2980b9", "#154360"], keywords_th: ["คิดเชิงกลยุทธ์", "ภาพรวมระดับกลุ่ม", "การป้องกัน"], keywords_en: ["Strategic Thinking", "Population View", "Prevention"], stats: [ { l_th: "การประเมินสถิติและข้อมูล", l_en: "Stats & Data Evaluation", v: 95 }, { l_th: "การวางแผนนโยบาย", l_en: "Policy Planning", v: 85 }, { l_th: "มุมมองมหภาค", l_en: "Macro Perspective", v: 90 } ] },
-            OCCMED_END: { title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", slug: "occupational-and-environmental-medicine", interview: null, desc_th: "ความใส่ใจในบริบทและสภาพแวดล้อม จะทำให้คุณสามารถระบุความเสี่ยงและดูแลความปลอดภัยให้แก่ผู้คนในพื้นที่นั้นๆ ได้ดี", desc_en: "Your attention to context and environment allows you to identify risks and ensure the safety of people in those areas.", color: ["#27ae60", "#145a32"], keywords_th: ["ดูแลสภาพแวดล้อม", "ประเมินความเสี่ยง", "ความปลอดภัย"], keywords_en: ["Environment Care", "Risk Assessment", "Safety"], stats: [ { l_th: "การสังเกตพื้นที่", l_en: "Spatial Observation", v: 90 }, { l_th: "การจัดการความปลอดภัย", l_en: "Safety Management", v: 85 }, { l_th: "การทำงานเป็นเวลา", l_en: "Structured Time", v: 90 } ] },
-            AERO_END: { title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", slug: "aerospace-medicine", interview: null, desc_th: "ความเปิดรับสิ่งใหม่และความสนใจในความท้าทาย จะพาคุณไปเรียนรู้และจัดการกับสภาวะแวดล้อมที่อยู่นอกเหนือกรอบปกติ", desc_en: "Your openness to new things and interest in challenges will lead you to learn and manage conditions beyond the ordinary.", color: ["#3498db", "#1a5276"], keywords_th: ["เรียนรู้สิ่งใหม่", "จัดการสภาวะพิเศษ", "ความยืดหยุ่น"], keywords_en: ["Learning New Things", "Special Conditions", "Flexibility"], stats: [ { l_th: "ความเข้าใจสรีรวิทยาสภาพแวดล้อม", l_en: "Environmental Physiology", v: 90 }, { l_th: "การประเมินความพร้อม", l_en: "Readiness Assessment", v: 85 }, { l_th: "ความกระตือรือร้น", l_en: "Enthusiasm", v: 85 } ] },
-            MARINE_END: { title_th: "เวชศาสตร์ทางทะเล", title_en: "Maritime & Undersea Medicine", slug: "preventive-medicine", interview: null, desc_th: "ความสงสัยใคร่รู้ของคุณจะช่วยให้คุณทำความเข้าใจและหาวิธีจัดการกับข้อจำกัดในบริบทเฉพาะตัวได้อย่างมีประสิทธิภาพ", desc_en: "Your curiosity will help you understand and effectively manage limitations in highly unique contexts.", color: ["#2980b9", "#154360"], keywords_th: ["ความสงสัยใคร่รู้", "บริบทเฉพาะตัว", "การปรับตัว"], keywords_en: ["Curiosity", "Unique Contexts", "Adaptability"], stats: [ { l_th: "การจัดการทรัพยากรจำกัด", l_en: "Limited Resource Management", v: 85 }, { l_th: "การศึกษาผลกระทบสภาวะแวดล้อม", l_en: "Environmental Impact Study", v: 90 }, { l_th: "ความเปิดกว้าง", l_en: "Open-mindedness", v: 85 } ] },
-            TRAFFIC_END: { title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", slug: "preventive-medicine", interview: null, desc_th: "การมองระบบแบบองค์รวมและการหาแนวทางป้องกัน จะช่วยลดความเสี่ยงและเพิ่มความปลอดภัยให้กับการใช้ชีวิตประจำวันของทุกคน", desc_en: "Holistic systems thinking and finding preventative measures will reduce risks and enhance daily safety for everyone.", color: ["#e67e22", "#873600"], keywords_th: ["นักจัดระเบียบ", "ออกแบบความปลอดภัย", "ลดความเสี่ยง"], keywords_en: ["Organizer", "Safety Design", "Risk Reduction"], stats: [ { l_th: "การวิเคราะห์ระบบ", l_en: "Systems Analysis", v: 90 }, { l_th: "การวางแผนเชิงป้องกัน", l_en: "Preventative Planning", v: 85 }, { l_th: "การมองภาพรวม", l_en: "Big Picture View", v: 90 } ] },
-            PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", slug: "physical-medicine-and-rehabilitation", interview: null, desc_th: "การชอบสนับสนุนและให้กำลังใจผู้อื่น จะช่วยให้คุณออกแบบแผนการที่ดึงเอาศักยภาพสูงสุดของแต่ละคนกลับคืนมา", desc_en: "Your enjoyment of supporting and encouraging others will help you design plans that restore everyone's maximum potential.", color: ["#1abc9c", "#0e6251"], keywords_th: ["สนับสนุนศักยภาพ", "ความอดทน", "ตั้งเป้าหมายเชิงบวก"], keywords_en: ["Potential Support", "Patience", "Positive Goal Setting"], stats: [ { l_th: "การวางแผนการดูแล", l_en: "Care Planning", v: 90 }, { l_th: "ความสัมพันธ์ระยะยาว", l_en: "Long-term Relations", v: 85 }, { l_th: "การให้ความหวัง", l_en: "Providing Hope", v: 90 } ] },
-            FM_END: { title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", slug: "family-medicine", interview: null, desc_th: "การมีความรู้กว้างและการให้ความสำคัญกับความเชื่อใจ ทำให้คุณเป็นเพื่อนร่วมทางที่ดีที่คอยให้คำแนะนำได้ในระยะยาว", desc_en: "Having broad knowledge and valuing trust makes you a great companion who can provide guidance over the long term.", color: ["#27ae60", "#145a32"], keywords_th: ["ความไว้วางใจ", "ดูแลรอบด้าน", "ความสัมพันธ์ยาวนาน"], keywords_en: ["Trust", "Comprehensive Care", "Long-term Relations"], stats: [ { l_th: "การสื่อสารและความเข้าใจ", l_en: "Communication & Understanding", v: 95 }, { l_th: "ขอบเขตเนื้อหาที่กว้าง", l_en: "Broad Knowledge Scope", v: 90 }, { l_th: "ความเห็นอกเห็นใจ", l_en: "Empathy", v: 90 } ] },
-            PALL_END: { title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", slug: "hospice-and-palliative-medicine", interview: null, desc_th: "ความเห็นอกเห็นใจและการยอมรับความเป็นจริง จะช่วยให้คุณมอบความสบายใจและสร้างพื้นที่ที่สงบในช่วงเวลาที่จำเป็นที่สุด", desc_en: "Your compassion and acceptance of reality will help you provide comfort and create a peaceful space when it's needed most.", color: ["#7f8c8d", "#4d5656"], keywords_th: ["ความเห็นอกเห็นใจลึกซึ้ง", "มอบความสงบ", "ยอมรับความเป็นจริง"], keywords_en: ["Deep Compassion", "Providing Peace", "Accepting Reality"], stats: [ { l_th: "การให้ความดูแลเชิงอารมณ์", l_en: "Emotional Care", v: 95 }, { l_th: "ทักษะการรับฟัง", l_en: "Listening Skills", v: 95 }, { l_th: "ความนิ่งและสงบ", l_en: "Calmness", v: 90 } ] },
-            LIFESTYLE_END: { title_th: "แพทย์เวชศาสตร์วิถีชีวิต", title_en: "Lifestyle Medicine", slug: "preventive-medicine", interview: null, desc_th: "ความเชื่อในการปรับปรุงพฤติกรรม จะทำให้คุณสามารถให้คำแนะนำที่เป็นรูปธรรมเพื่อสร้างวิถีชีวิตที่สมดุลและยั่งยืนขึ้นได้", desc_en: "Your belief in behavioral improvement will enable you to give concrete advice for building a more balanced and sustainable lifestyle.", color: ["#f39c12", "#9c640c"], keywords_th: ["ปรับเปลี่ยนพฤติกรรม", "เน้นความเป็นอยู่ที่ดี", "วางรากฐานระยะยาว"], keywords_en: ["Behavior Change", "Well-being Focus", "Long-term Foundation"], stats: [ { l_th: "การให้คำแนะนำเชิงรุก", l_en: "Proactive Guidance", v: 90 }, { l_th: "ความเข้าใจเรื่องสมดุลชีวิต", l_en: "Life Balance Understanding", v: 90 }, { l_th: "การทำงานร่วมกับผู้คน", l_en: "Working with People", v: 85 } ] }
+            ER_END: { title_th: "เวชศาสตร์ฉุกเฉิน", title_en: "Emergency Medicine", slug: "emergency-medicine", illustration: "svg_crisis", interview: null, desc_th: "จากสไตล์การตัดสินใจที่รวดเร็วและพร้อมรับมือกับสิ่งที่คาดเดาไม่ได้ สาขานี้น่าจะเหมาะกับคุณ เพราะคุณคือด่านหน้าที่มีไหวพริบในการจัดการวิกฤต", desc_en: "Based on your quick decision-making and comfort with unpredictability, this specialty fits you. You are the frontline problem solver.", color: ["#FF416C", "#FF4B2B"], keywords_th: ["ไหวพริบดี", "แก้ปัญหาฉับไว", "รับมือความเปลี่ยนแปลง"], keywords_en: ["Quick Wit", "Rapid Response", "Adaptable"], stats: [ { l_th: "ความตื่นตัวหน้างาน", l_en: "Action & Urgency", v: 95 }, { l_th: "การตัดสินใจ", l_en: "Decision Making", v: 90 } ] },
+            ANES_END: { title_th: "วิสัญญีแพทย์", title_en: "Anesthesiology", slug: "anesthesiology", illustration: "svg_tech", interview: null, desc_th: "ความใจเย็นและการชอบจัดการตัวแปรให้สมดุลคือจุดแข็งของคุณ คุณคือผู้อยู่เบื้องหลังที่คอยประคองให้ทุกอย่างราบรื่นและปลอดภัย", desc_en: "Your calmness and preference for balance are your strengths. You are the steady hand ensuring everything runs smoothly behind the scenes.", color: ["#4facfe", "#00f2fe"], keywords_th: ["ความเยือกเย็น", "ผู้คุมจังหวะ", "ความละเอียดรอบคอบ"], keywords_en: ["Calmness", "Pace Controller", "Thoroughness"], stats: [ { l_th: "การควบคุมสถานการณ์", l_en: "Variable Control", v: 95 }, { l_th: "ความนิ่งและสมาธิ", l_en: "Focus & Calm", v: 90 } ] },
+            IR_END: { title_th: "รังสีแพทย์ร่วมรักษา", title_en: "Interventional Radiology", slug: "interventional-radiology", illustration: "svg_tech", interview: null, desc_th: "ด้วยความสนใจในเทคโนโลยีและการแก้ปัญหาอย่างตรงจุด คุณเหมาะกับการใช้เครื่องมือสมัยใหม่เพื่อสร้างผลลัพธ์ที่แม่นยำและกระทบกระเทือนน้อยที่สุด", desc_en: "With your interest in tech and direct problem-solving, you are suited to use modern tools for precise, minimally invasive results.", color: ["#00c6ff", "#0072ff"], keywords_th: ["แม่นยำและตรงจุด", "สายเทคโนโลยี", "นักแก้ปัญหา"], keywords_en: ["Precise Action", "Tech Enthusiast", "Problem Solver"], stats: [ { l_th: "การประยุกต์ใช้เครื่องมือ", l_en: "Tech Utilization", v: 95 }, { l_th: "ทักษะเฉพาะทาง", l_en: "Niche Skills", v: 90 } ] },
+            GS_END: { title_th: "ศัลยแพทย์ทั่วไป", title_en: "General Surgeon", slug: "general-surgery", illustration: "svg_surgery", interview: null, desc_th: "ความสามารถที่หลากหลายและความมุ่งมั่นของคุณ ทำให้คุณเป็นแกนหลักที่เชื่อถือได้ พร้อมรับมือกับงานสเกลใหญ่และสถานการณ์ที่ต้องการความเด็ดขาด", desc_en: "Your versatility and dedication make you a reliable core team member, ready to handle large-scale tasks and decisive moments.", color: ["#f2709c", "#ff9472"], keywords_th: ["แกนหลักของทีม", "ความยืดหยุ่น", "ตัดสินใจเด็ดขาด"], keywords_en: ["Core Team Player", "Versatility", "Decisiveness"], stats: [ { l_th: "ความอดทนทุ่มเท", l_en: "Endurance", v: 90 }, { l_th: "การรับมือความกดดัน", l_en: "Pressure Handling", v: 85 } ] },
+            CVT_END: { title_th: "ศัลยแพทย์ทรวงอก", title_en: "Thoracic Surgeon", slug: "thoracic-surgery", illustration: "svg_surgery", interview: null, desc_th: "คุณไม่หวั่นไหวต่อแรงกดดันและพร้อมรับผิดชอบในส่วนที่สำคัญที่สุด การทำงานกับระบบขับเคลื่อนหลักของร่างกายคือความท้าทายที่คุณรับมือได้", desc_en: "You are unfazed by pressure and ready to take on critical responsibilities. Working on the body's main engines is a challenge you welcome.", color: ["#e52d27", "#b31217"], keywords_th: ["ความมุ่งมั่นสูง", "สมาธิภายใต้ความกดดัน", "รับผิดชอบงานใหญ่"], keywords_en: ["High Dedication", "Focus Under Pressure", "Major Responsibilities"], stats: [ { l_th: "ความกดดันและความรับผิดชอบ", l_en: "Pressure & Duty", v: 95 }, { l_th: "ทักษะความแม่นยำ", l_en: "Precision Skills", v: 90 } ] },
+            URO_END: { title_th: "ศัลยแพทย์ทางเดินปัสสาวะ", title_en: "Urologist", slug: "urology", illustration: "svg_surgery", interview: null, desc_th: "คุณชอบกระบวนการทำงานที่เป็นระบบและจบในตัว การผสานทักษะเข้ากับเทคโนโลยีจะช่วยให้คุณจัดการเป้าหมายได้อย่างมีประสิทธิภาพ", desc_en: "You like systematic and self-contained workflows. Blending skills with technology will help you achieve your goals efficiently.", color: ["#F2994A", "#F2C94C"], keywords_th: ["ทำงานเป็นระบบ", "ใช้เทคโนโลยีช่วย", "การจัดการที่ดี"], keywords_en: ["Systematic Work", "Tech Integration", "Good Management"], stats: [ { l_th: "การใช้เครื่องมือเทคโนโลยี", l_en: "Robotic/Tech Use", v: 85 }, { l_th: "การวางแผนกระบวนการ", l_en: "Process Planning", v: 80 } ] },
+            OBGYN_END: { title_th: "สูตินรีแพทย์", title_en: "OB/GYN", slug: "obstetrics-and-gynecology", illustration: "svg_surgery", interview: null, desc_th: "ด้วยพลังงานที่เต็มเปี่ยมและความยืดหยุ่นทางอารมณ์ คุณสามารถดูแลสถานการณ์ที่หลากหลาย ตั้งแต่เรื่องน่ายินดีไปจนถึงเวลาที่ต้องการความรัดกุม", desc_en: "With your high energy and emotional flexibility, you can navigate diverse situations, from joyful events to moments needing strict focus.", color: ["#ff4b1f", "#ff9068"], keywords_th: ["พลังงานบวก", "ความยืดหยุ่นทางอารมณ์", "ดูแลรอบด้าน"], keywords_en: ["Positive Energy", "Emotional Flexibility", "Comprehensive Care"], stats: [ { l_th: "ความกระฉับกระเฉง", l_en: "Dynamic Pace", v: 85 }, { l_th: "การสื่อสารกับคนไข้", l_en: "Patient Communication", v: 80 } ] },
+            PEDSURG_END: { title_th: "กุมารศัลยแพทย์", title_en: "Pediatric Surgeon", slug: "pediatric-surgery", illustration: "svg_peds", interview: null, desc_th: "ความละเอียดอ่อนและความทุ่มเทของคุณเหมาะอย่างยิ่งกับการดูแลโครงสร้างที่เปราะบาง คุณพร้อมที่จะใช้สมาธิเพื่อสร้างการเปลี่ยนแปลงที่มีความหมาย", desc_en: "Your delicacy and dedication are perfect for caring for fragile structures. You are ready to use deep focus to create meaningful changes.", color: ["#f6d365", "#fda085"], keywords_th: ["ความละเอียดอ่อน", "ความทุ่มเท", "สมาธิแน่วแน่"], keywords_en: ["Delicacy", "Dedication", "Steadfast Focus"], stats: [ { l_th: "ความประณีต", l_en: "Meticulousness", v: 95 }, { l_th: "ความท้าทายเฉพาะทาง", l_en: "Niche Challenges", v: 85 } ] },
+            ORTHO_END: { title_th: "ศัลยแพทย์ออร์โธปิดิกส์", title_en: "Orthopedic Surgeon", slug: "orthopedic-surgery", illustration: "svg_surgery", interview: null, desc_th: "ความสนใจในกลศาสตร์และการเคลื่อนไหวทำให้สาขานี้ตอบโจทย์ คุณจะได้ใช้ความคิดเชิงโครงสร้างเพื่อซ่อมแซมและฟื้นฟูการใช้งานให้กลับมาแข็งแรง", desc_en: "Your interest in mechanics and motion makes this a great fit. You will use structural thinking to repair and restore functionality.", color: ["#cb2d3e", "#ef473a"], keywords_th: ["ความเข้าใจโครงสร้าง", "สายพลังงาน", "ผลลัพธ์ที่เป็นรูปธรรม"], keywords_en: ["Structural Mind", "High Energy", "Tangible Results"], stats: [ { l_th: "ทักษะเชิงกลศาสตร์", l_en: "Mechanical Skills", v: 90 }, { l_th: "ความพึงพอใจในผลงาน", l_en: "Result Satisfaction", v: 90 } ] },
+            NS_END: { title_th: "ศัลยแพทย์ประสาท", title_en: "Neurosurgeon", slug: "neurosurgery", illustration: "svg_brain", interview: "01", desc_th: "หากคุณเป็นคนที่มีสมาธิจดจ่อได้ยาวนานและไม่หวั่นกับความซับซ้อน นี่คือเส้นทางที่คุณจะได้ทำงานกับระบบเครือข่ายที่ละเอียดอ่อนที่สุด", desc_en: "If you have sustained focus and don't fear complexity, this is the path where you will work with the most intricate networks.", color: ["#8E2DE2", "#4A00E0"], keywords_th: ["สมาธิขั้นสูง", "ความรอบคอบ", "วิเคราะห์ระบบซับซ้อน"], keywords_en: ["Deep Focus", "Thoroughness", "Complex Systems"], stats: [ { l_th: "ความจดจ่อและความนิ่ง", l_en: "Focus & Steadiness", v: 95 }, { l_th: "ความอดทนในการทำงาน", l_en: "Endurance", v: 90 } ] },
+            PLASTIC_END: { title_th: "ศัลยแพทย์ตกแต่ง", title_en: "Plastic Surgeon", slug: "plastic-surgery", illustration: "svg_surgery", interview: null, desc_th: "การผสานความคิดสร้างสรรค์เข้ากับความแม่นยำคือเอกลักษณ์ของคุณ คุณมองเห็นคุณค่าของทั้งความสวยงามและการใช้งานที่สมบูรณ์แบบ", desc_en: "Blending creativity with precision is your signature. You see the value in both aesthetics and perfect functionality.", color: ["#f12711", "#f5af19"], keywords_th: ["ความประณีต", "วิสัยทัศน์ความงาม", "ใส่ใจรายละเอียด"], keywords_en: ["Meticulousness", "Aesthetic Vision", "Detail Oriented"], stats: [ { l_th: "ทักษะและความละเอียด", l_en: "Fine Skills", v: 95 }, { l_th: "ความคิดสร้างสรรค์", l_en: "Creativity", v: 85 } ] },
+            ENT_END: { title_th: "โสต ศอ นาสิกแพทย์", title_en: "Otolaryngologist", slug: "otolaryngology", illustration: "svg_surgery", interview: null, desc_th: "ความคล่องตัวในการทำงานในพื้นที่จำกัดและความใส่ใจในประสาทสัมผัส ทำให้คุณเหมาะกับการดูแลโครงสร้างที่มีข้อจำกัดแต่มีความสำคัญสูง", desc_en: "Your agility in confined spaces and attention to vital senses make you suited for caring for limited but highly important structures.", color: ["#F2C94C", "#F2994A"], keywords_th: ["ความคล่องตัว", "จัดการพื้นที่เฉพาะ", "คืนความสมดุล"], keywords_en: ["Agility", "Confined Spaces", "Restoring Balance"], stats: [ { l_th: "ความเชี่ยวชาญเฉพาะจุด", l_en: "Targeted Expertise", v: 85 }, { l_th: "การใช้เครื่องมือขนาดเล็ก", l_en: "Micro-Tool Use", v: 85 } ] },
+            OPHTHA_END: { title_th: "จักษุแพทย์", title_en: "Ophthalmologist", slug: "ophthalmology", illustration: "svg_tech", interview: null, desc_th: "คุณให้ความสำคัญกับความชัดเจนและความแม่นยำระดับไมโคร การทำงานด้วยสมาธิและความนิ่งจะช่วยให้คุณรักษาองค์ประกอบที่สำคัญนี้ไว้ได้", desc_en: "You value clarity and micro-precision. Working with focus and steadiness will help you preserve this vital element.", color: ["#fceabb", "#f8b500"], keywords_th: ["ความแม่นยำสูงสุด", "สมาธิและความนิ่ง", "ความละเอียดอ่อน"], keywords_en: ["High Precision", "Focus & Calm", "Delicacy"], stats: [ { l_th: "การทำงานผ่านกล้องจุลทรรศน์", l_en: "Microscopic Work", v: 95 }, { l_th: "ความประณีตในงาน", l_en: "Meticulousness", v: 95 } ] },
+            CARDIO_END: { title_th: "อายุรแพทย์โรคหัวใจ", title_en: "Cardiologist", slug: "internal-medicine-cardiovascular-disease", illustration: "svg_med", interview: null, desc_th: "ความชอบในการวิเคราะห์จังหวะและกลไกหลัก ทำให้คุณเหมาะกับการประเมินและปรับปรุงระบบการสูบฉีดให้ทำงานได้อย่างสม่ำเสมอ", desc_en: "Your affinity for analyzing rhythms and core mechanics makes you suited to assess and tune the pumping system.", color: ["#ED213A", "#93291E"], keywords_th: ["วิเคราะห์ข้อมูลเร็ว", "ทำความเข้าใจระบบ", "การจัดการฉับไว"], keywords_en: ["Quick Analysis", "System Understanding", "Prompt Action"], stats: [ { l_th: "การประเมินสถานการณ์", l_en: "Situation Assessment", v: 90 }, { l_th: "ความตื่นตัว", l_en: "Alertness", v: 85 } ] },
+            PULMO_END: { title_th: "อายุรแพทย์โรคปอด", title_en: "Pulmonologist", slug: "pulmonary-disease", illustration: "svg_med", interview: null, desc_th: "คุณรับมือกับความกดดันได้ดีและถนัดการจัดการตัวแปร คุณคือคนที่คอยดูแลการแลกเปลี่ยนทรัพยากรที่สำคัญในสถานการณ์ที่ต้องการความมั่นคง", desc_en: "You handle pressure well and excel at managing variables. You oversee the essential exchange of resources in critical situations.", color: ["#11998E", "#38EF7D"], keywords_th: ["การควบคุมตัวแปร", "รับมือภาวะวิกฤต", "ความรอบคอบ"], keywords_en: ["Variable Control", "Crisis Management", "Thoroughness"], stats: [ { l_th: "การจัดการในภาวะวิกฤต", l_en: "Crisis Handling", v: 90 }, { l_th: "ความเข้าใจสรีรวิทยา", l_en: "Physiology Knowledge", v: 85 } ] },
+            GI_END: { title_th: "อายุรแพทย์ทางเดินอาหาร", title_en: "Gastroenterologist", slug: "internal-medicine-gastroenterology", illustration: "svg_tech", interview: null, desc_th: "ตรรกะที่ดีและความชอบในการสำรวจเส้นทาง ทำให้คุณสนุกกับการตรวจสอบและเคลียร์ปัญหาภายในด้วยความคล่องแคล่ว", desc_en: "Good logic and a love for exploration make you enjoy investigating and clearing internal pathways efficiently.", color: ["#e65c00", "#F9D423"], keywords_th: ["นักสำรวจ", "คิดวิเคราะห์", "จัดการเป็นระบบ"], keywords_en: ["Explorer", "Analytical Thinker", "Systematic Handling"], stats: [ { l_th: "ทักษะการตรวจสอบ", l_en: "Inspection Skills", v: 85 }, { l_th: "การคิดเชิงตรรกะ", l_en: "Logical Thinking", v: 85 } ] },
+            NEPHRO_END: { title_th: "อายุรแพทย์โรคไต", title_en: "Nephrologist", slug: "internal-medicine-nephrology", illustration: "svg_med", interview: null, desc_th: "ความละเอียดรอบคอบและความชอบในการทำงานกับตัวเลข ทำให้คุณเป็นคนที่รักษาสมดุลและจัดการกับการคำนวณที่ซับซ้อนได้อย่างดีเยี่ยม", desc_en: "Your meticulousness and preference for numbers make you excellent at maintaining balance and handling complex calculations.", color: ["#1CB5E0", "#000046"], keywords_th: ["ความละเอียดถี่ถ้วน", "วิเคราะห์ตัวเลข", "รักษาสมดุล"], keywords_en: ["Thoroughness", "Numerical Analysis", "Maintaining Balance"], stats: [ { l_th: "การคิดวิเคราะห์ข้อมูล", l_en: "Data Analysis", v: 95 }, { l_th: "ความรอบคอบ", l_en: "Meticulousness", v: 90 } ] },
+            NEURO_END: { title_th: "อายุรแพทย์ประสาทวิทยา", title_en: "Neurologist", slug: "neurology", illustration: "svg_brain", interview: "03", desc_th: "ด้วยความเป็นระบบและตรรกะที่แข็งแรง คุณจะสนุกกับการประเมินทีละขั้นตอนเพื่อค้นหาว่าจุดไหนในเครือข่ายที่มีการตอบสนองผิดปกติ", desc_en: "With your systematic approach and strong logic, you will enjoy evaluating step-by-step to find out where the network is misfiring.", color: ["#00B4DB", "#0083B0"], keywords_th: ["นักวิเคราะห์ตรรกะ", "การประเมินเป็นขั้นตอน", "ช่างสังเกต"], keywords_en: ["Logical Analyst", "Step-by-step Evaluation", "Observant"], stats: [ { l_th: "การใช้เหตุผลวิเคราะห์", l_en: "Logical Reasoning", v: 95 }, { l_th: "ทักษะการสังเกตการณ์", l_en: "Observation Skills", v: 90 } ] },
+            ENDO_END: { title_th: "แพทย์ต่อมไร้ท่อ", title_en: "Endocrinologist", slug: "endocrinology-diabetes-and-metabolism", illustration: "svg_med", interview: null, desc_th: "คุณมีความสามารถในการมองเห็นความเชื่อมโยงของสิ่งต่างๆ การถอดรหัสสัญญาณที่ส่งผลกระทบในภาพรวมจะช่วยให้คุณปรับสมดุลระบบได้", desc_en: "You have the ability to see connections. Decoding signals that affect the overall picture will help you balance the system.", color: ["#38ef7d", "#11998e"], keywords_th: ["เชื่อมโยงข้อมูล", "มองภาพรวม", "ปรับสมดุลระบบ"], keywords_en: ["Data Connecting", "Big Picture", "System Balancing"], stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systems Thinking", v: 90 }, { l_th: "การติดตามผลระยะยาว", l_en: "Long-term Tracking", v: 85 } ] },
+            RHEUM_END: { title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", slug: "rheumatology", illustration: "svg_med", interview: null, desc_th: "การเป็นผู้ไกล่เกลี่ยในสถานการณ์ที่ซับซ้อนคือจุดแข็งของคุณ คุณมีความอดทนในการปรับความเข้าใจและหาวิธีทำให้ระบบกลับมาทำงานร่วมกันได้", desc_en: "Acting as a mediator in complex situations is your strength. You have the patience to recalibrate and get systems working together again.", color: ["#1D976C", "#93F9B9"], keywords_th: ["แก้ปัญหาความขัดแย้ง", "วิเคราะห์เชิงลึก", "ความอดทนสูง"], keywords_en: ["Conflict Resolution", "Deep Analysis", "High Patience"], stats: [ { l_th: "การสืบค้นข้อมูล", l_en: "Information Retrieval", v: 90 }, { l_th: "การคิดวิเคราะห์", l_en: "Analytical Thinking", v: 90 } ] },
+            HEMA_END: { title_th: "อายุรแพทย์โลหิตวิทยา", title_en: "Hematologist", slug: "hematology-and-medical-oncology", illustration: "svg_tech", interview: null, desc_th: "คุณชอบวิเคราะห์จากรากฐาน การสังเกตองค์ประกอบพื้นฐานจะช่วยให้คุณเข้าใจถึงต้นตอของผลกระทบที่เกิดขึ้นในวงกว้าง", desc_en: "You enjoy analyzing from the ground up. Observing foundational elements helps you understand the roots of widespread effects.", color: ["#cb2d3e", "#ef473a"], keywords_th: ["วิเคราะห์ระดับพื้นฐาน", "ความเชื่อมโยง", "ความรอบคอบ"], keywords_en: ["Foundation Analysis", "Connections", "Thoroughness"], stats: [ { l_th: "ทักษะการวิจัยห้องปฏิบัติการ", l_en: "Lab & Research Skills", v: 90 }, { l_th: "การเชื่อมโยงภาพรวม", l_en: "Connecting the Dots", v: 85 } ] },
+            ONC_END: { title_th: "อายุรแพทย์โรคมะเร็ง", title_en: "Medical Oncologist", slug: "hematology-and-medical-oncology", illustration: "svg_life", interview: null, desc_th: "ความเข้าอกเข้าใจและการคิดเชิงกลยุทธ์ของคุณ จะทำให้คุณเป็นผู้วางแผนที่พึ่งพาได้ในการเผชิญหน้ากับความท้าทายระยะยาว", desc_en: "Your empathy and strategic thinking make you a reliable planner when facing long-term challenges.", color: ["#f12711", "#f5af19"], keywords_th: ["นักกลยุทธ์", "ความเห็นอกเห็นใจ", "เพื่อนร่วมทาง"], keywords_en: ["Strategist", "Empathy", "Companion"], stats: [ { l_th: "การให้คำปรึกษา", l_en: "Counseling", v: 95 }, { l_th: "การวางแผนการรักษา", l_en: "Treatment Planning", v: 90 } ] },
+            ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease", slug: "infectious-disease", illustration: "svg_tech", interview: null, desc_th: "สัญชาตญาณความเป็นนักสืบและการชอบตั้งคำถาม จะช่วยให้คุณรวบรวมเบาะแสเพื่อค้นหาต้นตอและเลือกวิธีจัดการได้อย่างเฉียบคม", desc_en: "Your investigative instincts and curiosity will help you gather clues to find the root cause and choose sharp management strategies.", color: ["#56AB2F", "#A8E063"], keywords_th: ["นักสืบหาความจริง", "ช่างสังเกต", "คิดอย่างมีเหตุผล"], keywords_en: ["Truth Investigator", "Observant", "Logical Thinking"], stats: [ { l_th: "การสืบค้นประวัติ", l_en: "History Gathering", v: 95 }, { l_th: "การวิเคราะห์บริบท", l_en: "Context Analysis", v: 90 } ] },
+            ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist", slug: "allergy-and-immunology", illustration: "svg_med", interview: null, desc_th: "คุณมีความละเอียดในการค้นหาปัจจัยกระตุ้นในชีวิตประจำวัน การใส่ใจเรื่องเล็กๆ จะช่วยลดความขัดข้องและสร้างความราบรื่นได้", desc_en: "You are meticulous in finding everyday triggers. Paying attention to small things will reduce friction and create smoothness.", color: ["#00c6ff", "#0072ff"], keywords_th: ["ตามหาตัวการ", "ปรับความสมดุล", "ใส่ใจรายละเอียด"], keywords_en: ["Trigger Finder", "Balancing", "Detail Oriented"], stats: [ { l_th: "การสังเกตและทดสอบ", l_en: "Observation & Testing", v: 85 }, { l_th: "การจัดการคุณภาพชีวิต", l_en: "Quality of Life Management", v: 90 } ] },
+            GENE_END: { title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", slug: "medical-genetics", illustration: "svg_life", interview: null, desc_th: "ความสนใจในรหัสพื้นฐานทำให้คุณสามารถมองเห็นแนวโน้มและเตรียมพร้อมรับมือกับสิ่งที่อาจเกิดขึ้นในอนาคตได้อย่างรอบคอบ", desc_en: "Your interest in foundational codes allows you to see trends and thoughtfully prepare for what might happen in the future.", color: ["#8E2DE2", "#4A00E0"], keywords_th: ["วิเคราะห์โครงสร้างพื้นฐาน", "มองการณ์ไกล", "ความรู้ลึกซึ้ง"], keywords_en: ["Foundation Analysis", "Foresight", "Deep Knowledge"], stats: [ { l_th: "การศึกษาข้อมูลเชิงลึก", l_en: "Deep Data Study", v: 95 }, { l_th: "การให้คำแนะนำ", l_en: "Providing Guidance", v: 90 } ] },
+            PEDS_END: { title_th: "กุมารแพทย์", title_en: "Pediatrician", slug: "pediatrics", illustration: "svg_peds", interview: "02", desc_th: "พลังบวกและความเป็นมิตรของคุณ ทำให้คุณเป็นผู้สนับสนุนที่ดีในการดูแลพัฒนาการและสร้างสภาพแวดล้อมที่อบอุ่น", desc_en: "Your positive energy and friendliness make you a great supporter in nurturing development and creating a warm environment.", color: ["#F2C94C", "#F2994A"], keywords_th: ["ความอบอุ่น", "สนับสนุนพัฒนาการ", "สร้างความไว้วางใจ"], keywords_en: ["Warmth", "Development Support", "Building Trust"], stats: [ { l_th: "ความเห็นอกเห็นใจ", l_en: "Empathy & Understanding", v: 95 }, { l_th: "การสื่อสารกับครอบครัว", l_en: "Family Communication", v: 90 } ] },
+            NICU_END: { title_th: "แพทย์ทารกแรกเกิด", title_en: "Neonatologist", slug: "neonatal-perinatal-medicine", illustration: "svg_peds", interview: null, desc_th: "ความรับผิดชอบและความนิ่งของคุณ จำเป็นอย่างยิ่งสำหรับการจัดการความเปราะบางและรายละเอียดที่สำคัญในระยะเริ่มต้น", desc_en: "Your responsibility and steadiness are essential for managing fragility and critical details in the early stages.", color: ["#11998E", "#38EF7D"], keywords_th: ["ความรอบคอบสูง", "ดูแลสิ่งเปราะบาง", "สติมั่นคง"], keywords_en: ["High Caution", "Fragility Care", "Steady Mind"], stats: [ { l_th: "การประเมินสถานการณ์วิกฤต", l_en: "Critical Assessment", v: 90 }, { l_th: "ความละเอียดแม่นยำ", l_en: "Precision", v: 95 } ] },
+            PEDSSUB_END: { title_th: "กุมารแพทย์เฉพาะทาง", title_en: "Pediatric Subspecialist", slug: "pediatrics", illustration: "svg_peds", interview: "02", desc_th: "คุณมีความสามารถในการนำความรู้เชิงลึกมาประยุกต์ใช้กับบริบทที่กำลังเติบโตและเปลี่ยนแปลง คุณชอบความท้าทายที่มีความเป็นเอกลักษณ์", desc_en: "You have the ability to apply deep knowledge to growing and changing contexts. You enjoy unique challenges.", color: ["#2980B9", "#6DD5FA"], keywords_th: ["ความเชี่ยวชาญลึกซึ้ง", "ความยืดหยุ่น", "ความเข้าใจพัฒนาการ"], keywords_en: ["Deep Expertise", "Flexibility", "Development Understanding"], stats: [ { l_th: "การวิเคราะห์เฉพาะเจาะจง", l_en: "Specific Data Analysis", v: 90 }, { l_th: "การปรับตัว", l_en: "Adaptability", v: 85 } ] },
+            PSYCH_END: { title_th: "จิตแพทย์", title_en: "Psychiatrist", slug: "psychiatry", illustration: "svg_brain", interview: null, desc_th: "ทักษะการรับฟังและการเปิดกว้างของคุณ จะช่วยคลายความกังวลและปรับมุมมองให้ผู้คนค้นพบความสงบในจิตใจได้", desc_en: "Your listening skills and openness will help ease worries and shift perspectives, allowing people to find peace of mind.", color: ["#8A2387", "#E94057"], keywords_th: ["ผู้ฟังที่ดี", "ความเข้าอกเข้าใจ", "การให้คำปรึกษา"], keywords_en: ["Good Listener", "Empathy", "Counseling"], stats: [ { l_th: "ทักษะการสื่อสาร", l_en: "Communication Skills", v: 95 }, { l_th: "ทำความเข้าใจความรู้สึก", l_en: "Understanding Emotions", v: 95 } ] },
+            CHILDPSYCH_END: { title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child Psychiatrist", slug: "child-and-adolescent-psychiatry", illustration: "svg_brain", interview: null, desc_th: "ด้วยความเชื่อในการปูรากฐาน คุณสามารถช่วยสร้างทิศทางที่แข็งแรงและลดปัญหาความสับสนในช่วงเวลาที่กำลังเติบโตได้", desc_en: "With your belief in laying foundations, you can help build strong directions and reduce confusion during growing years.", color: ["#DA4453", "#89216B"], keywords_th: ["สร้างรากฐาน", "ความเข้าใจวัยรุ่น", "การให้คำแนะนำ"], keywords_en: ["Building Foundations", "Youth Understanding", "Guidance"], stats: [ { l_th: "เข้าใจพลวัตครอบครัว", l_en: "Family Dynamics Understanding", v: 90 }, { l_th: "การสื่อสารเชิงบวก", l_en: "Positive Communication", v: 85 } ] },
+            DERM_END: { title_th: "แพทย์ผิวหนัง", title_en: "Dermatologist", slug: "dermatology", illustration: "svg_med", interview: null, desc_th: "ความช่างสังเกตของคุณทำให้คุณมองเห็นรูปแบบและคาดเดาสิ่งที่ซ่อนอยู่ได้จากการดูภาพรวมภายนอกได้อย่างแม่นยำ", desc_en: "Your observant nature allows you to spot patterns and accurately deduce hidden issues just by looking at the external overview.", color: ["#f2709c", "#ff9472"], keywords_th: ["การสังเกตรูปแบบ", "ความละเอียดอ่อน", "ความสวยงาม"], keywords_en: ["Pattern Recognition", "Delicacy", "Aesthetics"], stats: [ { l_th: "การประเมินทางสายตา", l_en: "Visual Assessment", v: 95 }, { l_th: "ความใส่ใจรายละเอียด", l_en: "Attention to Detail", v: 90 } ] },
+            RADIO_END: { title_th: "รังสีแพทย์", title_en: "Radiologist", slug: "radiology-diagnostic", illustration: "svg_tech", interview: null, desc_th: "ความสามารถในการทำงานอย่างมีสมาธิและแปลความหมายจากภาพ จะช่วยให้คุณค้นพบข้อมูลสำคัญที่นำไปสู่ความชัดเจนได้", desc_en: "Your ability to work with focus and interpret images will help you discover crucial data that leads to clarity.", color: ["#141E30", "#243B55"], keywords_th: ["นักวิเคราะห์ภาพ", "สมาธิสูง", "ให้ความกระจ่าง"], keywords_en: ["Visual Analyst", "High Focus", "Providing Clarity"], stats: [ { l_th: "การแปลผลข้อมูล", l_en: "Data Interpretation", v: 95 }, { l_th: "การทำงานเชิงลึก", l_en: "Deep Work", v: 90 } ] },
+            PATHO_END: { title_th: "พยาธิแพทย์", title_en: "Pathologist", slug: "pathology-anatomic-and-clinical", illustration: "svg_tech", interview: null, desc_th: "ความเชื่อมั่นในหลักฐานและข้อเท็จจริงของคุณ ทำให้คุณเป็นคนที่ทีมพึ่งพาในการให้คำตอบที่ชัดเจนและเป็นข้อสรุป", desc_en: "Your reliance on evidence and facts makes you the person the team depends on for clear, conclusive answers.", color: ["#232526", "#414345"], keywords_th: ["ยึดมั่นหลักฐาน", "ความชัดเจน", "การตัดสินใจเชิงข้อมูล"], keywords_en: ["Evidence-Based", "Clarity", "Data-Driven Decision"], stats: [ { l_th: "การวิเคราะห์ข้อเท็จจริง", l_en: "Fact Analysis", v: 95 }, { l_th: "ความแม่นยำ", l_en: "Accuracy", v: 95 } ] },
+            FORENSIC_END: { title_th: "แพทย์นิติเวช", title_en: "Forensic Pathologist", slug: "forensic-pathology", illustration: "svg_tech", interview: null, desc_th: "ไหวพริบและความต้องการค้นหาความจริงของคุณ จะช่วยไขข้อสงสัยและสร้างความกระจ่างให้กับเรื่องราวที่ยังไม่มีคำตอบ", desc_en: "Your perceptiveness and desire for truth will help resolve doubts and bring clarity to unanswered questions.", color: ["#000000", "#434343"], keywords_th: ["นักไขปริศนา", "หาความกระจ่าง", "ความเป็นเหตุเป็นผล"], keywords_en: ["Puzzle Solver", "Seeking Clarity", "Rationality"], stats: [ { l_th: "ทักษะการสืบสวน", l_en: "Investigation Skills", v: 95 }, { l_th: "การเชื่อมโยงข้อมูล", l_en: "Data Linking", v: 90 } ] },
+            PREV_END: { title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: "04", desc_th: "การคิดเชิงระบบและการมองภาพกว้าง จะช่วยให้คุณออกแบบมาตรการที่ส่งผลดีและสร้างการเปลี่ยนแปลงในระดับกลุ่มคนได้", desc_en: "Your systems thinking and big-picture view will help you design effective measures that create change at a population level.", color: ["#00B4DB", "#0083B0"], keywords_th: ["คิดเชิงกลยุทธ์", "ภาพรวมระดับกลุ่ม", "การป้องกัน"], keywords_en: ["Strategic Thinking", "Population View", "Prevention"], stats: [ { l_th: "การประเมินสถิติและข้อมูล", l_en: "Stats & Data Evaluation", v: 95 }, { l_th: "มุมมองมหภาค", l_en: "Macro Perspective", v: 90 } ] },
+            OCCMED_END: { title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", slug: "occupational-and-environmental-medicine", illustration: "svg_life", interview: null, desc_th: "ความใส่ใจในบริบทและสภาพแวดล้อม จะทำให้คุณสามารถระบุความเสี่ยงและดูแลความปลอดภัยให้แก่ผู้คนในพื้นที่นั้นๆ ได้ดี", desc_en: "Your attention to context and environment allows you to identify risks and ensure the safety of people in those areas.", color: ["#56AB2F", "#A8E063"], keywords_th: ["ดูแลสภาพแวดล้อม", "ประเมินความเสี่ยง", "ความปลอดภัย"], keywords_en: ["Environment Care", "Risk Assessment", "Safety"], stats: [ { l_th: "การสังเกตพื้นที่", l_en: "Spatial Observation", v: 90 }, { l_th: "การจัดการความปลอดภัย", l_en: "Safety Management", v: 85 } ] },
+            AERO_END: { title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", slug: "aerospace-medicine", illustration: "svg_crisis", interview: null, desc_th: "ความเปิดรับสิ่งใหม่และความสนใจในความท้าทาย จะพาคุณไปเรียนรู้และจัดการกับสภาวะแวดล้อมที่อยู่นอกเหนือกรอบปกติ", desc_en: "Your openness to new things and interest in challenges will lead you to learn and manage conditions beyond the ordinary.", color: ["#2980B9", "#6DD5FA"], keywords_th: ["เรียนรู้สิ่งใหม่", "จัดการสภาวะพิเศษ", "ความยืดหยุ่น"], keywords_en: ["Learning New Things", "Special Conditions", "Flexibility"], stats: [ { l_th: "ความเข้าใจสรีรวิทยาสิ่งแวดล้อม", l_en: "Environmental Physiology", v: 90 }, { l_th: "การประเมินความพร้อม", l_en: "Readiness Assessment", v: 85 } ] },
+            MARINE_END: { title_th: "เวชศาสตร์ทางทะเล", title_en: "Maritime Medicine", slug: "preventive-medicine", illustration: "svg_crisis", interview: null, desc_th: "ความสงสัยใคร่รู้ของคุณจะช่วยให้คุณทำความเข้าใจและหาวิธีจัดการกับข้อจำกัดในบริบทเฉพาะตัวได้อย่างมีประสิทธิภาพ", desc_en: "Your curiosity will help you understand and effectively manage limitations in highly unique contexts.", color: ["#0052D4", "#4364F7"], keywords_th: ["ความสงสัยใคร่รู้", "บริบทเฉพาะตัว", "การปรับตัว"], keywords_en: ["Curiosity", "Unique Contexts", "Adaptability"], stats: [ { l_th: "จัดการทรัพยากรจำกัด", l_en: "Limited Resource Management", v: 85 }, { l_th: "ศึกษาผลกระทบสิ่งแวดล้อม", l_en: "Environmental Impact", v: 90 } ] },
+            TRAFFIC_END: { title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: null, desc_th: "การมองระบบแบบองค์รวมและการหาแนวทางป้องกัน จะช่วยลดความเสี่ยงและเพิ่มความปลอดภัยให้กับการใช้ชีวิตประจำวันของทุกคน", desc_en: "Holistic systems thinking and finding preventative measures will reduce risks and enhance daily safety for everyone.", color: ["#F2994A", "#F2C94C"], keywords_th: ["นักจัดระเบียบ", "ออกแบบความปลอดภัย", "ลดความเสี่ยง"], keywords_en: ["Organizer", "Safety Design", "Risk Reduction"], stats: [ { l_th: "การวิเคราะห์ระบบ", l_en: "Systems Analysis", v: 90 }, { l_th: "การวางแผนเชิงป้องกัน", l_en: "Preventative Planning", v: 85 } ] },
+            PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", slug: "physical-medicine-and-rehabilitation", illustration: "svg_life", interview: null, desc_th: "การชอบสนับสนุนและให้กำลังใจผู้อื่น จะช่วยให้คุณออกแบบแผนการที่ดึงเอาศักยภาพสูงสุดของแต่ละคนกลับคืนมา", desc_en: "Your enjoyment of supporting and encouraging others will help you design plans that restore everyone's maximum potential.", color: ["#11998E", "#38EF7D"], keywords_th: ["สนับสนุนศักยภาพ", "ความอดทน", "ตั้งเป้าหมายเชิงบวก"], keywords_en: ["Potential Support", "Patience", "Positive Goal Setting"], stats: [ { l_th: "การวางแผนการดูแล", l_en: "Care Planning", v: 90 }, { l_th: "การให้ความหวัง", l_en: "Providing Hope", v: 90 } ] },
+            FM_END: { title_th: "เวชศาสตร์ครอบครัว", title_en: "Family Physician", slug: "family-medicine", illustration: "svg_life", interview: null, desc_th: "การมีความรู้กว้างและการให้ความสำคัญกับความเชื่อใจ ทำให้คุณเป็นเพื่อนร่วมทางที่ดีที่คอยให้คำแนะนำได้ในระยะยาว", desc_en: "Having broad knowledge and valuing trust makes you a great companion who can provide guidance over the long term.", color: ["#56AB2F", "#A8E063"], keywords_th: ["ความไว้วางใจ", "ดูแลรอบด้าน", "ความสัมพันธ์ยาวนาน"], keywords_en: ["Trust", "Comprehensive Care", "Long-term Relations"], stats: [ { l_th: "การสื่อสารและความเข้าใจ", l_en: "Communication & Understanding", v: 95 }, { l_th: "ขอบเขตเนื้อหาที่กว้าง", l_en: "Broad Knowledge Scope", v: 90 } ] },
+            PALL_END: { title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", slug: "hospice-and-palliative-medicine", illustration: "svg_life", interview: null, desc_th: "ความเห็นอกเห็นใจและการยอมรับความเป็นจริง จะช่วยให้คุณมอบความสบายใจและสร้างพื้นที่ที่สงบในช่วงเวลาที่จำเป็นที่สุด", desc_en: "Your compassion and acceptance of reality will help you provide comfort and create a peaceful space when it's needed most.", color: ["#8e9eab", "#eef2f3"], keywords_th: ["ความเห็นอกเห็นใจลึกซึ้ง", "มอบความสงบ", "ยอมรับความเป็นจริง"], keywords_en: ["Deep Compassion", "Providing Peace", "Accepting Reality"], stats: [ { l_th: "การให้ความดูแลเชิงอารมณ์", l_en: "Emotional Care", v: 95 }, { l_th: "ทักษะการรับฟัง", l_en: "Listening Skills", v: 95 } ] },
+            LIFESTYLE_END: { title_th: "เวชศาสตร์วิถีชีวิต", title_en: "Lifestyle Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: null, desc_th: "ความเชื่อในการปรับปรุงพฤติกรรม จะทำให้คุณสามารถให้คำแนะนำที่เป็นรูปธรรมเพื่อสร้างวิถีชีวิตที่สมดุลและยั่งยืนขึ้นได้", desc_en: "Your belief in behavioral improvement will enable you to give concrete advice for building a more balanced and sustainable lifestyle.", color: ["#F2C94C", "#F2994A"], keywords_th: ["ปรับเปลี่ยนพฤติกรรม", "เน้นความเป็นอยู่", "วางรากฐานยาว"], keywords_en: ["Behavior Change", "Well-being Focus", "Long-term Foundation"], stats: [ { l_th: "การให้คำแนะนำเชิงรุก", l_en: "Proactive Guidance", v: 90 }, { l_th: "เข้าใจเรื่องสมดุลชีวิต", l_en: "Life Balance Understanding", v: 90 } ] }
         };
 
         let currentLang = 'th';
@@ -383,6 +393,7 @@
 
         function unlockRoadmap() { 
             document.getElementById('entrance-overlay').style.opacity = '0'; 
+            document.getElementById('entrance-overlay').style.visibility = 'hidden'; 
             setTimeout(() => { 
                 document.getElementById('entrance-overlay').style.display = 'none'; 
                 document.getElementById('roadmap-container').style.display = 'flex'; 
@@ -396,7 +407,7 @@
             element.classList.add('selected'); 
             stateSelections[colIndex] = element.id;
 
-            // Clear out subsequent columns and headers
+            // Clear subsequent columns
             for (let i = colIndex + 1; i <= 5; i++) { 
                 const wrap = document.getElementById(`wrap-${i}`);
                 const col = document.getElementById(`col-${i}`); 
@@ -427,17 +438,29 @@
                 const data = treeData[key]; 
                 nextWrap.style.display = 'flex'; 
                 
+                // Assigning the appropriate stage class based on column
+                let stageClass = colIndex === 1 ? 'stage-2' : 'stage-3';
+                
                 let boxCounter = 1;
                 data.options.forEach(opt => { 
                     const box = document.createElement('div'); 
-                    box.className = 'node-box'; 
+                    box.className = `node-box ${stageClass}`; 
                     box.id = `box-${colIndex + 1}-${boxCounter++}`;
                     box.onclick = () => branch(colIndex + 1, opt.next, box); 
-                    box.innerHTML = `
-                        <span class="node-emoji">${opt.emoji}</span>
-                        <p class="node-title"><span class="show-th">${opt.title_th}</span><span class="show-en">${opt.title_en}</span></p>
-                        <p class="node-desc"><span class="show-th">${opt.desc_th}</span><span class="show-en">${opt.desc_en}</span></p>`; 
-                    box.setAttribute('data-new', 'true');
+                    
+                    if (stageClass === 'stage-2') {
+                        box.innerHTML = `
+                            <div class="node-header">
+                                <span class="node-emoji">${opt.emoji}</span>
+                                <p class="node-title"><span class="show-th">${opt.title_th}</span><span class="show-en">${opt.title_en}</span></p>
+                            </div>
+                            <p class="node-desc"><span class="show-th">${opt.desc_th}</span><span class="show-en">${opt.desc_en}</span></p>`; 
+                    } else {
+                        box.innerHTML = `
+                            <span class="node-emoji">${opt.emoji}</span>
+                            <p class="node-title"><span class="show-th">${opt.title_th}</span><span class="show-en">${opt.title_en}</span></p>
+                            <p class="node-desc" style="margin-top: 8px;"><span class="show-th">${opt.desc_th}</span><span class="show-en">${opt.desc_en}</span></p>`; 
+                    }
                     nextCol.appendChild(box); 
                 }); 
 
@@ -451,7 +474,6 @@
                 const resultBox = document.createElement('div');
                 resultBox.className = 'node-box specialty-result';
                 resultBox.id = `box-${colIndex + 1}-1`;
-                resultBox.setAttribute('data-new', 'true');
                 resultBox.style.background = `linear-gradient(145deg, ${res.color[0]} 0%, ${res.color[1]} 100%)`;
                 resultBox.style.borderColor = res.color[0];
                 
@@ -467,8 +489,8 @@
                             <span><span class="show-th">${s.l_th}</span><span class="show-en">${s.l_en}</span></span>
                             <span>${s.v}%</span>
                         </div>
-                        <div style="width:100%; background:rgba(255,255,255,0.15); border-radius:10px; height:8px; overflow:hidden;">
-                            <div style="width:${s.v}%; background:rgba(255,255,255,0.95); height:100%; border-radius:10px; box-shadow: 0 0 5px rgba(255,255,255,0.5);"></div>
+                        <div style="width:100%; background:rgba(255,255,255,0.2); border-radius:10px; height:8px; overflow:hidden;">
+                            <div style="width:${s.v}%; background:rgba(255,255,255,0.95); height:100%; border-radius:10px; box-shadow: 0 0 8px rgba(255,255,255,0.6);"></div>
                         </div>
                     </div>
                 `).join('');
@@ -476,67 +498,76 @@
                 let interviewBox = "";
                 if(res.interview) {
                     interviewBox = `
-                        <div style="margin-bottom: 25px; padding: 15px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; text-align: center;">
-                            <p style="font-size: 0.85rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
+                        <div style="margin-bottom: 25px; padding: 15px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);">
+                            <p style="font-size: 0.85rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
                                 <span class="show-th">รับชมบทสัมภาษณ์สาขานี้</span><span class="show-en">Watch insights from a doctor</span>
                             </p>
-                            <a href="../index.html?ep=${res.interview}#interview-section" class="aamc-btn" style="background: var(--accent-gold); color: #000 !important; width: 100%; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);">
+                            <a href="../index.html?ep=${res.interview}#interview-section" class="aamc-btn" style="background: var(--accent-gold); color: #000 !important; width: 100%; text-align: center; border: none;">
                                 <span class="show-th">ดู EP.${res.interview} ↗</span><span class="show-en">Watch EP.${res.interview} ↗</span>
                             </a>
                         </div>
                     `;
                 }
 
+                // The beautiful header featuring the SVG illustration
                 resultBox.innerHTML = `
-                    <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 20px; margin-bottom: 20px;">
-                        <p class="node-title" style="font-size:2rem; margin-bottom:5px; color:#fff !important; line-height: 1.1; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
-                            <span class="show-th">${res.title_th}</span><span class="show-en">${res.title_en}</span>
+                    <div class="result-header-art">
+                        <div class="illustration-wrapper">
+                            ${svgIcons[res.illustration] || svgIcons.svg_life}
+                        </div>
+                    </div>
+
+                    <div class="result-content">
+                        <div style="border-bottom: 1px solid rgba(255,255,255,0.25); padding-bottom: 20px; margin-bottom: 20px; text-align: center;">
+                            <p class="node-title" style="font-size:2.2rem; margin-bottom:5px; color:#fff !important; line-height: 1.1; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                                <span class="show-th">${res.title_th}</span><span class="show-en">${res.title_en}</span>
+                            </p>
+                            <p style="font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 1.5px; margin:0;">
+                                <span class="show-th">${res.title_en}</span><span class="show-en">${res.title_th}</span>
+                            </p>
+                        </div>
+
+                        ${interviewBox}
+
+                        <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content: center; margin-bottom: 25px;">
+                            ${kwHTML}
+                        </div>
+
+                        <p class="node-desc" style="color: #ffffff !important; text-shadow: 0 1px 4px rgba(0,0,0,0.2); font-size: 1.05rem; line-height: 1.6; margin-bottom: 30px; text-align: center;">
+                            <span class="show-th">${res.desc_th}</span><span class="show-en">${res.desc_en}</span>
                         </p>
-                        <p style="font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 1.5px; margin:0;">
-                            <span class="show-th">${res.title_en}</span><span class="show-en">${res.title_th}</span>
-                        </p>
-                    </div>
+                        
+                        <div style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);">
+                            <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #FFF; margin-bottom: 18px; font-weight: 800; text-align: center;">
+                                <span class="show-th">รูปแบบการทำงานโดยประมาณ</span><span class="show-en">Workstyle Overview</span>
+                            </p>
+                            ${statsHTML}
+                        </div>
+                        
+                        <div class="advice-section show-th" style="margin-top:0;">
+                            <p class="advice-title">คำแนะนำเพิ่มเติม</p>
+                            <ul class="advice-list">
+                                <li>สามารถพูดคุยกับผู้เชี่ยวชาญหรือแพทย์เฉพาะทางเพื่อศึกษาข้อมูลเพิ่มเติม</li>
+                                <li>ลองค้นหาวิดีโอรูปแบบการทำงานในแต่ละวันเพื่อประกอบการตัดสินใจ</li>
+                            </ul>
+                        </div>
 
-                    ${interviewBox}
+                        <div class="advice-section show-en" style="margin-top:0;">
+                            <p class="advice-title">Additional Suggestions</p>
+                            <ul class="advice-list">
+                                <li>Consider reaching out to a specialist for a quick chat or shadowing opportunity.</li>
+                                <li>Explore 'Day in the Life' videos to better understand the daily routine.</li>
+                            </ul>
+                        </div>
 
-                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 20px;">
-                        ${kwHTML}
-                    </div>
-
-                    <p class="node-desc" style="color: #ffffff !important; text-shadow: 0 1px 4px rgba(0,0,0,0.5); font-size: 1rem; line-height: 1.6; margin-bottom: 25px;">
-                        <span class="show-th">${res.desc_th}</span><span class="show-en">${res.desc_en}</span>
-                    </p>
-                    
-                    <div style="background: rgba(0,0,0,0.25); padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
-                        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); margin-bottom: 15px; font-weight: 700;">
-                            <span class="show-th">รูปแบบการทำงานโดยประมาณ</span><span class="show-en">Workstyle Overview</span>
-                        </p>
-                        ${statsHTML}
-                    </div>
-                    
-                    <div class="advice-section show-th" style="margin-top:0;">
-                        <p class="advice-title">คำแนะนำเพิ่มเติม</p>
-                        <ul class="advice-list">
-                            <li>สามารถพูดคุยกับผู้เชี่ยวชาญหรือแพทย์เฉพาะทางเพื่อศึกษาข้อมูลเพิ่มเติม</li>
-                            <li>ลองค้นหาวิดีโอรูปแบบการทำงานในแต่ละวันเพื่อประกอบการตัดสินใจ</li>
-                        </ul>
-                    </div>
-
-                    <div class="advice-section show-en" style="margin-top:0;">
-                        <p class="advice-title">Additional Suggestions</p>
-                        <ul class="advice-list">
-                            <li>Consider reaching out to a specialist for a quick chat or shadowing opportunity.</li>
-                            <li>Explore 'Day in the Life' videos to better understand the daily routine.</li>
-                        </ul>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px;">
-                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">
-                            <span class="show-th">อ่านข้อมูลเพิ่มเติม ↗</span><span class="show-en">AAMC Profile ↗</span>
-                        </a>
-                        <a href="https://www.youtube.com/results?search_query=${ytSearch}" target="_blank" class="aamc-btn btn-outline">
-                            <span class="show-th">ค้นหาวิดีโอ ↗</span><span class="show-en">Search Videos ↗</span>
-                        </a>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 30px;">
+                            <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">
+                                <span class="show-th">อ่านข้อมูลเพิ่มเติม ↗</span><span class="show-en">AAMC Profile ↗</span>
+                            </a>
+                            <a href="https://www.youtube.com/results?search_query=${ytSearch}" target="_blank" class="aamc-btn btn-outline">
+                                <span class="show-th">ค้นหาวิดีโอ ↗</span><span class="show-en">Search Videos ↗</span>
+                            </a>
+                        </div>
                     </div>`;
                 nextCol.appendChild(resultBox);
             } 
@@ -544,7 +575,7 @@
             setTimeout(() => { 
                 drawLines();
                 nextCol.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }, 80); 
+            }, 50); 
         }
 
         function drawLines() {
@@ -553,7 +584,6 @@
             if(!svg || !wrapper) return;
 
             const neededPathIds = new Set();
-            
             svg.setAttribute('width', wrapper.scrollWidth);
             svg.setAttribute('height', wrapper.scrollHeight);
 
@@ -594,24 +624,18 @@
                                 lineClass = 'connection-line active-path';
                                 if (!path) path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                                 path.style.stroke = resColor;
-                                path.style.filter = `drop-shadow(0 0 5px ${resColor})`;
                             } else {
                                 lineClass = 'connection-line active-path';
-                                if (path) { path.style.stroke = ''; path.style.filter = ''; }
+                                if (path) { path.style.stroke = ''; }
                             }
                         } else {
-                            if (path) { path.style.stroke = ''; path.style.filter = ''; }
+                            if (path) { path.style.stroke = ''; }
                         }
 
                         if (!path) {
                             path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                             path.setAttribute('id', pathId);
-                            if (targetBox.getAttribute('data-new') === 'true') {
-                                path.setAttribute('class', `${lineClass} animate-draw`);
-                                targetBox.removeAttribute('data-new');
-                            } else {
-                                path.setAttribute('class', lineClass);
-                            }
+                            path.setAttribute('class', lineClass);
                             svg.appendChild(path);
                         } else {
                             path.setAttribute('class', lineClass);
