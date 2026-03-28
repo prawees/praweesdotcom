@@ -54,20 +54,25 @@
         .calling-card.active:hover { border-color: var(--accent-primary); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166, 123, 91, 0.1); }
         .calling-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
-        /* SVG Layout */
+        /* SVG */
         #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; pointer-events: none; }
         .connection-line { fill: none; stroke: var(--line-color); stroke-width: 2.5px; transition: stroke-width 0.3s; opacity: 0.4; }
         .connection-line.active-path { stroke: var(--accent-primary); stroke-width: 4px; filter: drop-shadow(0 0 6px rgba(166,123,91,0.5)); opacity: 1; }
         .animate-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes drawLine { to { stroke-dashoffset: 0; } }
 
-        /* Base Roadmap Structure (The stable one) */
+        /* Base Roadmap Structure (Rock Solid) */
         #roadmap-container { 
             display: none; height: calc(100vh - 140px); margin-top: 140px;
             overflow-x: auto; overflow-y: hidden; padding: 50px 8vw 100px; align-items: flex-start; scroll-behavior: smooth; position: relative; z-index: 10;
         }
+        
         .flex-wrapper { display: flex; gap: 80px; min-width: max-content; padding-bottom: 50px; position: relative; }
-        .col-wrapper { display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; z-index: 10; max-height: calc(100vh - 200px); }
+        
+        .col-wrapper {
+            display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; z-index: 10;
+            max-height: calc(100vh - 200px);
+        }
 
         .node-column { 
             width: 100%; display: flex; flex-direction: column; gap: 20px; align-items: center; position: relative;
@@ -102,7 +107,7 @@
             background: white; border: 1.5px solid var(--border-color); padding: 30px; border-radius: 25px; 
             width: 320px; white-space: normal; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; position: relative; z-index: 20;
-            opacity: 0; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
         
         .node-box:nth-child(1) { animation-delay: 0.05s; } .node-box:nth-child(2) { animation-delay: 0.15s; } .node-box:nth-child(3) { animation-delay: 0.25s; }
@@ -118,11 +123,12 @@
         
         .node-desc b { color: var(--text-main); font-weight: 700; }
 
-        /* The Beautiful Specialty Result Card */
+        /* The Beautiful Specialty Result Card (Overflow FIXED) */
         .specialty-result { 
-            color: white; padding: 0 0 45px 0; width: 420px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); 
-            cursor: default; border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 0 0 45px 0; width: 100%; max-width: 420px; box-sizing: border-box;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3); cursor: default; border: 1px solid rgba(255,255,255,0.2);
             border-radius: 35px; position: relative; z-index: 20; overflow: hidden;
+            overflow-wrap: break-word; word-break: break-word;
         }
         .specialty-result:hover { transform: translateY(-5px); box-shadow: 0 35px 70px rgba(0,0,0,0.4); }
 
@@ -147,6 +153,9 @@
         .advice-list li { margin-bottom: 6px; }
         .advice-list li:last-child { margin-bottom: 0; }
         
+        .series-banner { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 12px; text-align: center; margin-top: 15px; }
+        .series-banner p { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.9); margin: 0; }
+
         .specialty-result .aamc-btn { display: flex; justify-content: center; align-items: center; gap: 8px; flex: 1; padding: 14px 10px; background: rgba(255,255,255,0.9); color: #000 !important; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .specialty-result .aamc-btn.btn-outline { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4); color: #FFF !important; box-shadow: none; }
         .specialty-result .aamc-btn:hover { transform: translateY(-3px); background: #FFF; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
@@ -321,7 +330,7 @@
             ]},
             su_back_sub: { options: [
                 { id:'radio',emoji:'🌒',title_th:"ผู้ถอดรหัสวิสัยทัศน์",title_en:"The Visionary Decoder",desc_th: "มีสมาธิสูง แปลความหมายจากเฉดสีและแพทเทิร์น ให้กลายเป็น<b>ข้อมูลที่สำคัญ</b>ในพื้นที่ที่สงบ", desc_en: "You have an eagle eye. You excel at interpreting visual data to find hidden truths in a <b>focused environment</b>.", next:'RADIO_END'},
-                { id:'patho',emoji:'⚕️',title_th:"ผู้ตัดสินข้อเท็จจริง",title_en:"The Final Arbiter",desc_th:"ยึดมั่นในความจริง เชื่อมั่นในหลักฐานที่จับต้องได้ เพื่อเป็นคนให้<b>คำตอบสุดท้าย</b>ที่ทุกคนรอคอย",desc_en:"You hold the gavel. You are thorough and fact-driven, providing definitive answers that <b>decide the next step</b>.",next:'PATHO_END'},
+                { id:'patho',emoji:'⚕️',title_th:"ผู้ตัดสินข้อเท็จจริง",title_en:"The Final Arbiter",desc_th:"ยึดมั่นในความจริง เชื่อมั่นในหลักฐานที่จับต้องได้ เพื่อเป็นคนให้<b>คำตอบสุดท้าย</b>ที่ทุกคนรอคอย",descen:"You hold the gavel. You are thorough and fact-driven, providing definitive answers that <b>decide the next step</b>.",next:'PATHO_END'},
                 { id: 'forensic', emoji: '🕰️', title_th: "นักสืบร่องรอยความจริง", title_en: "The Silent Investigator", desc_th: "สุขุมและรักความยุติธรรม ใช้ความเป็นเหตุเป็นผลทางตรรกะ หา<b>ความกระจ่างให้เรื่องราวที่ค้างคา</b>", desc_en: "You solve mysteries. You use science to answer complex questions and <b>resolve lingering doubts</b>.", next: 'FORENSIC_END' }
             ]},
             su_holistic_sub: { options: [
@@ -362,14 +371,14 @@
             RHEUM_END: { title_th: "รูมาโตโลจิสต์", title_en: "Rheumatologist", slug: "rheumatology", illustration: "svg_med", interview: null, desc_th: "การเป็นนักไกล่เกลี่ยในสถานการณ์ที่เต็มไปด้วยความขัดแย้งคือความสามารถพิเศษของคุณ คุณมีความอดทนสูงในการปรับความเข้าใจและฟื้นฟูความสอดคล้อง", desc_en: "Acting as a mediator in complex conflicts is your strength. You patiently step in to stop a system from erroneously opposing itself.", color: ["#1D976C", "#93F9B9"], keywords_th: ["นักไกล่เกลี่ยความขัดแย้ง", "วิเคราะห์เชิงลึก", "ความอดทนสูง"], keywords_en: ["Conflict Resolution", "Deep Analysis", "High Patience"], stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systematic Thinking", v: 95 }, { l_th: "การติดตามผู้ป่วยระยะยาว", l_en: "Long-term Care", v: 80 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 10 } ] },
             HEMA_END: { title_th: "อายุรแพทย์โลหิตวิทยา", title_en: "Hematologist", slug: "hematology-and-medical-oncology", illustration: "svg_tech", interview: null, desc_th: "คุณคือนักวิเคราะห์รากฐานตัวจริง การช่างสังเกตในระดับจุลภาคจะช่วยให้คุณมองเห็นว่าโดมิโนตัวแรกที่ล้มลงส่งผลกระทบต่อภาพรวมได้อย่างไร", desc_en: "You enjoy analyzing from the ground up. Observing foundational elements helps you understand the initial cause of widespread effects.", color: ["#cb2d3e", "#ef473a"], keywords_th: ["นักวิเคราะห์รากฐาน", "เชื่อมโยงบริบท", "ความละเอียดลออ"], keywords_en: ["Foundation Analysis", "Connections", "Thoroughness"], stats: [ { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 95 }, { l_th: "การตรวจทางห้องปฏิบัติการ", l_en: "Lab Integration", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 50 } ] },
             ONC_END: { title_th: "อายุรแพทย์โรคมะเร็ง", title_en: "Medical Oncologist", slug: "hematology-and-medical-oncology", illustration: "svg_life", interview: null, desc_th: "ความเข้าอกเข้าใจและวิสัยทัศน์ที่ยาวไกล ทำให้คุณเป็นเพื่อนร่วมทางที่แข็งแกร่ง พร้อมวางกลยุทธ์เพื่อต่อสู้เคียงข้างผู้อื่นในสถานการณ์ที่ยืดเยื้อ", desc_en: "Your empathy and strategic vision make you a reliable ally, ready to formulate and walk alongside others through difficult, long-term journeys.", color: ["#f12711", "#f5af19"], keywords_th: ["เพื่อนแท้สายแทคติก", "ความเข้าอกเข้าใจ", "วางแผนสู้ระยะยาว"], keywords_en: ["Strategist", "Empathy", "Companion"], stats: [ { l_th: "ความผูกพันกับผู้ป่วย", l_en: "Patient Bonding", v: 90 }, { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 95 }, { l_th: "รับมือกับวาระสุดท้าย", l_en: "End-of-life Care", v: 85 } ] },
-            ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease", slug: "infectious-disease", illustration: "svg_tech", interview: null, desc_th: "สัญชาตญาณของการค้นหาความจริง จะช่วยให้คุณรวบรวมเบาะแสเพื่อระบุถึงตัวแปรภายนอกและเลือกวิธีการตอบโต้ได้อย่างแม่นยำ", desc_en: "Your investigative instincts and curiosity will help you gather clues to identify external variables and choose precise counter-strategies.", color: ["#56AB2F", "#A8E063"], keywords_th: ["มือปราบภัยคุกคาม", "สืบค้นจากประวัติ", "คิดอย่างเป็นเหตุเป็นผล"], keywords_en: ["Truth Investigator", "Observant", "Logical Thinking"], stats: [ { l_th: "การวิเคราะห์เชิงตรรกะ", l_en: "Logical Analysis", v: 95 }, { l_th: "การสืบสวนซักประวัติ", l_en: "History Taking", v: 90 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 5 } ] },
-            ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist", slug: "allergy-and-immunology", illustration: "svg_med", interview: null, desc_th: "ความละเอียดอ่อนในการจับผิดตัวกระตุ้น จะช่วยให้คุณค้นพบปัจจัยที่ซ่อนอยู่ และสามารถออกแบบการรับมือเพื่อฟื้นฟูความราบรื่นในชีวิตประจำวัน", desc_en: "You are meticulous in finding everyday triggers. Discovering what makes a system overreact will help you restore balance and smooth operation.", color: ["#00c6ff", "#0072ff"], keywords_th: ["สายจับผิดตัวกระตุ้น", "ปรับสมดุลวิถีชีวิต", "ช่างสังเกต"], keywords_en: ["Trigger Finder", "Balancing", "Detail Oriented"], stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systematic Thinking", v: 80 }, { l_th: "การทดสอบวินิจฉัย (Test)", l_en: "Diagnostic Testing", v: 75 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 85 } ] },
+            ID_END: { title_th: "แพทย์โรคติดเชื้อ", title_en: "Infectious Disease Specialist", slug: "infectious-disease", illustration: "svg_tech", interview: null, desc_th: "สัญชาตญาณของการค้นหาความจริง จะช่วยให้คุณรวบรวมเบาะแสเพื่อระบุถึงตัวแปรภายนอกที่แทรกแซงและเลือกวิธีการตอบโต้ได้อย่างแม่นยำ", desc_en: "Your investigative instincts and curiosity will help you gather clues to identify external variables and choose precise counter-strategies.", color: ["#56AB2F", "#A8E063"], keywords_th: ["มือปราบภัยคุกคาม", "สืบค้นจากประวัติ", "คิดอย่างเป็นเหตุเป็นผล"], keywords_en: ["Truth Investigator", "Observant", "Logical Thinking"], stats: [ { l_th: "การวิเคราะห์เชิงตรรกะ", l_en: "Logical Analysis", v: 95 }, { l_th: "การสืบสวนซักประวัติ", l_en: "History Taking", v: 90 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 5 } ] },
+            ALLERGY_END: { title_th: "แพทย์ภูมิแพ้และภูมิคุ้มกัน", title_en: "Allergist / Immunologist", slug: "allergy-and-immunology", illustration: "svg_med", interview: null, desc_th: "ความละเอียดอ่อนในการจับผิดตัวกระตุ้น จะช่วยให้คุณค้นพบปัจจัยที่ซ่อนอยู่ และสามารถออกแบบการรับมือเพื่อฟื้นฟูความราบรื่นในชีวิตประจำวัน", desc_en: "You are meticulous in finding everyday triggers. Discovering what makes a system overreact will help you restore balance and smooth operation.", color: ["#00c6ff", "#0072ff"], keywords_th: ["สายจับผิดตัวกระตุ้น", "ปรับสมดุลวิถีชีวิต", "ช่างสังเกต"], keywords_en: ["Trigger Finder", "Balancing", "Detail Oriented"], stats: [ { l_th: "การคิดเชิงระบบ", l_en: "Systematic Thinking", v: 80 }, { l_th: "การทดสอบวินิจฉัย (Test)", l_en: "Diagnostic Testing", v: 75 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 85 } ] },
             GENE_END: { title_th: "แพทย์เวชพันธุศาสตร์", title_en: "Medical Geneticist", slug: "medical-genetics", illustration: "svg_life", interview: null, desc_th: "ความสนใจในรหัสและข้อมูลพื้นฐาน จะทำให้คุณสามารถคาดเดาความน่าจะเป็นและเตรียมความพร้อมสำหรับสิ่งที่จะสืบทอดต่อไปในอนาคตได้อย่างรอบคอบ", desc_en: "Your interest in foundational codes allows you to see probabilities and thoughtfully prepare for trends that span generations.", color: ["#8E2DE2", "#4A00E0"], keywords_th: ["นักอ่านโค้ดอนาคต", "วิสัยทัศน์กว้างไกล", "ความรู้ลึกซึ้ง"], keywords_en: ["Foundation Analysis", "Foresight", "Deep Knowledge"], stats: [ { l_th: "การวิเคราะห์ข้อมูลซับซ้อน", l_en: "Complex Data Analysis", v: 100 }, { l_th: "การให้คำปรึกษาครอบครัว", l_en: "Family Counseling", v: 90 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 10 } ] },
-            PEDS_END: { title_th: "กุมารแพทย์ทั่วไป", title_en: "Pediatrician", slug: "pediatrics", illustration: "svg_peds", interview: "02", desc_th: "พลังงานเชิงบวกและความเข้าใจในพัฒนาการ จะทำให้คุณเป็นผู้สนับสนุนที่ยอดเยี่ยมในการสร้างพื้นที่ปลอดภัยและส่งเสริมให้ทุกอย่างเติบโตอย่างสมบูรณ์", desc_en: "Your positive energy and understanding of development make you a great supporter in creating safe spaces and nurturing steady growth.", color: ["#F2C94C", "#F2994A"], keywords_th: ["ผู้สนับสนุนพลังบวก", "สร้างพื้นที่ปลอดภัย", "ดูแลการเติบโต"], keywords_en: ["Warmth", "Development Support", "Building Trust"], stats: [ { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 100 }, { l_th: "เวชศาสตร์ป้องกัน", l_en: "Preventive Care", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 40 } ] },
+            PEDS_END: { title_th: "กุมารแพทย์ทั่วไป", title_en: "General Pediatrician", slug: "pediatrics", illustration: "svg_peds", interview: "02", desc_th: "พลังงานเชิงบวกและความเข้าใจในพัฒนาการ จะทำให้คุณเป็นผู้สนับสนุนที่ยอดเยี่ยมในการสร้างพื้นที่ปลอดภัยและส่งเสริมให้ทุกอย่างเติบโตอย่างสมบูรณ์", desc_en: "Your positive energy and understanding of development make you a great supporter in creating safe spaces and nurturing steady growth.", color: ["#F2C94C", "#F2994A"], keywords_th: ["ผู้สนับสนุนพลังบวก", "สร้างพื้นที่ปลอดภัย", "ดูแลการเติบโต"], keywords_en: ["Warmth", "Development Support", "Building Trust"], stats: [ { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 100 }, { l_th: "เวชศาสตร์ป้องกัน", l_en: "Preventive Care", v: 85 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 40 } ] },
             NICU_END: { title_th: "แพทย์ทารกแรกเกิด", title_en: "Neonatologist", slug: "neonatal-perinatal-medicine", illustration: "svg_peds", interview: null, desc_th: "ความสามารถในการดำรงสติและรักษาความมั่นคง เป็นคุณสมบัติสำคัญที่คุณจะใช้เพื่อปกป้องและพยุงสถานการณ์ที่มีความเปราะบางมากที่สุด", desc_en: "Your responsibility and steadiness are essential for protecting and managing extreme fragility in highly sensitive, critical environments.", color: ["#11998E", "#38EF7D"], keywords_th: ["ผู้พิทักษ์ความอ่อนบาง", "สติมั่นคง", "รอบคอบขั้นสูง"], keywords_en: ["High Caution", "Fragility Care", "Steady Mind"], stats: [ { l_th: "การควบคุมตัวแปร", l_en: "Variable Control", v: 100 }, { l_th: "ความเร่งด่วนหน้างาน", l_en: "Pace & Urgency", v: 85 }, { l_th: "หัตถการเฉพาะจุด", l_en: "Targeted Procedures", v: 70 } ] },
             PEDSSUB_END: { title_th: "กุมารแพทย์เฉพาะทาง", title_en: "Pediatric Subspecialist", slug: "pediatrics", illustration: "svg_peds", interview: "02", desc_th: "การนำความรู้เฉพาะทางที่ลึกซึ้งมาผสานเข้ากับพลวัตที่ปรับเปลี่ยนอยู่เสมอ คือความท้าทายที่คุณสามารถจัดการและสร้างสรรค์ผลลัพธ์ได้อย่างยอดเยี่ยม", desc_en: "You have the ability to apply deep, niche knowledge to a dynamic biological scale that is constantly evolving and expanding.", color: ["#2980B9", "#6DD5FA"], keywords_th: ["ผู้เชี่ยวชาญแบบปรับตัว", "ยืดหยุ่นสูง", "เข้าใจพลวัต"], keywords_en: ["Deep Expertise", "Flexibility", "Development Understanding"], stats: [ { l_th: "การวิเคราะห์เชิงลึก", l_en: "Deep Medical Analysis", v: 95 }, { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 80 }, { l_th: "การวิจัยและวิชาการ", l_en: "Research & Academics", v: 70 } ] },
             PSYCH_END: { title_th: "จิตแพทย์", title_en: "Psychiatrist", slug: "psychiatry", illustration: "svg_brain", interview: null, desc_th: "ทักษะการรับฟังและการสังเกตอย่างลึกซึ้งของคุณ จะเป็นกุญแจสำคัญในการคลี่คลายปมปัญหาและช่วยให้ผู้คนค้นพบความสมดุลจากภายใน", desc_en: "Your elite listening skills and deep observation will be key to untangling complex emotional knots and helping people find internal balance.", color: ["#8A2387", "#E94057"], keywords_th: ["ผู้ปรับสมดุลคลื่นอารมณ์", "ลึกซึ้งเรื่องคน", "ศิลปะการสื่อสาร"], keywords_en: ["Good Listener", "Empathy", "Counseling"], stats: [ { l_th: "การสื่อสารและการฟัง", l_en: "Communication & Listening", v: 100 }, { l_th: "การวิเคราะห์เชิงนามธรรม", l_en: "Abstract Analysis", v: 90 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 0 } ] },
-            CHILDPSYCH_END: { title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child Psychiatrist", slug: "child-and-adolescent-psychiatry", illustration: "svg_brain", interview: null, desc_th: "การมองเห็นความสำคัญของรากฐาน ทำให้คุณมุ่งเน้นไปที่การทำความเข้าใจและแนะนำทิศทางที่แข็งแรง เพื่อป้องกันความสับสนในระยะยาว", desc_en: "With your focus on laying foundations, you intervene to untangle early confusions and build strong directions before issues escalate.", color: ["#DA4453", "#89216B"], keywords_th: ["ผู้สร้างรากฐาน", "ทำความเข้าใจบริบท", "การให้ทิศทาง"], keywords_en: ["Building Foundations", "Youth Understanding", "Guidance"], stats: [ { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 100 }, { l_th: "การวิเคราะห์เชิงนามธรรม", l_en: "Abstract Analysis", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 80 } ] },
+            CHILDPSYCH_END: { title_th: "จิตแพทย์เด็กและวัยรุ่น", title_en: "Child & Adolescent Psychiatrist", slug: "child-and-adolescent-psychiatry", illustration: "svg_brain", interview: null, desc_th: "การมองเห็นความสำคัญของรากฐาน ทำให้คุณมุ่งเน้นไปที่การทำความเข้าใจและแนะนำทิศทางที่แข็งแรง เพื่อป้องกันความสับสนในระยะยาว", desc_en: "With your focus on laying foundations, you intervene to untangle early confusions and build strong directions before issues escalate.", color: ["#DA4453", "#89216B"], keywords_th: ["ผู้สร้างรากฐาน", "ทำความเข้าใจบริบท", "การให้ทิศทาง"], keywords_en: ["Building Foundations", "Youth Understanding", "Guidance"], stats: [ { l_th: "ปฏิสัมพันธ์กับครอบครัว", l_en: "Family Interaction", v: 100 }, { l_th: "การวิเคราะห์เชิงนามธรรม", l_en: "Abstract Analysis", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 80 } ] },
             DERM_END: { title_th: "แพทย์ผิวหนัง", title_en: "Dermatologist", slug: "dermatology", illustration: "svg_med", interview: null, desc_th: "สายตาที่เฉียบคมและการถอดรหัสจากภาพรวม ทำให้คุณสามารถคาดเดาโครงสร้างเบื้องหลังได้อย่างแม่นยำ พร้อมทั้งสามารถรักษาสมดุลชีวิตได้เป็นอย่างดี", desc_en: "Your observant nature allows you to accurately deduce hidden internal structures just by looking at external patterns and details.", color: ["#f2709c", "#ff9472"], keywords_th: ["สายสแกนจับแพทเทิร์น", "ความละเอียดอ่อน", "วิสัยทัศน์ที่สมดุล"], keywords_en: ["Pattern Recognition", "Delicacy", "Aesthetics"], stats: [ { l_th: "การวินิจฉัยด้วยสายตา", l_en: "Visual Diagnosis", v: 100 }, { l_th: "หัตถการคลินิก/เลเซอร์", l_en: "Clinic Procedures", v: 80 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 95 } ] },
             RADIO_END: { title_th: "รังสีแพทย์", title_en: "Radiologist", slug: "radiology-diagnostic", illustration: "svg_tech", interview: null, desc_th: "ความสามารถในการโฟกัสและมองทะลุสิ่งที่คลุมเครือ จะช่วยให้คุณเป็นผู้ถอดรหัสข้อมูลที่สำคัญที่สุดได้อย่างแม่นยำ ในบรรยากาศที่สงบและเป็นส่วนตัว", desc_en: "You have an eagle eye. You excel at interpreting ambiguous visual data to find absolute truths in a focused, private environment.", color: ["#141E30", "#243B55"], keywords_th: ["ผู้ถอดรหัสวิสัยทัศน์", "สมาธิสูงลิบ", "วิเคราะห์เงียบสงบ"], keywords_en: ["Visual Analyst", "High Focus", "Providing Clarity"], stats: [ { l_th: "การวินิจฉัยภาพ", l_en: "Visual Diagnosis", v: 100 }, { l_th: "การทำงานหน้าจอคอมฯ", l_en: "Screen Time", v: 95 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย", l_en: "Patient Interaction", v: 10 } ] },
             PATHO_END: { title_th: "พยาธิแพทย์", title_en: "Pathologist", slug: "pathology-anatomic-and-clinical", illustration: "svg_tech", interview: null, desc_th: "ด้วยความหนักแน่นในเหตุผลและข้อเท็จจริง คุณจะเป็นผู้ตัดสินที่ทุกคนรอคอยข้อสรุป เพื่อใช้เป็นทิศทางที่ชัดเจนในการก้าวต่อไป", desc_en: "You hold the final say. Your reliance on factual evidence makes you the arbiter the team depends on for conclusive direction.", color: ["#232526", "#414345"], keywords_th: ["ผู้ตัดสินข้อเท็จจริง", "ยึดมั่นหลักฐาน", "ข้อสรุปที่เด็ดขาด"], keywords_en: ["Evidence-Based", "Clarity", "Data-Driven Decision"], stats: [ { l_th: "การวินิจฉัยระดับเซลล์", l_en: "Cellular Diagnosis", v: 100 }, { l_th: "ความเด็ดขาดแม่นยำ", l_en: "Definitive Accuracy", v: 95 }, { l_th: "ปฏิสัมพันธ์ผู้ป่วย", l_en: "Patient Interaction", v: 0 } ] },
@@ -377,12 +386,12 @@
             PREV_END: { title_th: "แพทย์เวชศาสตร์ป้องกัน", title_en: "Preventive Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: "04", desc_th: "มุมมองในสเกลมหภาคและความเข้าใจในโครงสร้าง จะเป็นกุญแจที่ทำให้คุณสามารถวางระบบป้องกัน ที่สร้างอิมแพคกว้างขวางต่อคนหมู่มาก", desc_en: "Treating issues one-by-one is too slow! Your systems thinking helps you design effective measures that create widespread impact.", color: ["#00B4DB", "#0083B0"], keywords_th: ["นักออกแบบระบบเชิงป้องกัน", "ขับเคลื่อนภาพรวม", "สายวิเคราะห์ข้อมูล"], keywords_en: ["Strategic Thinking", "Population View", "Prevention"], stats: [ { l_th: "การคิดเชิงระบบและข้อมูล", l_en: "Data & Systems Thinking", v: 95 }, { l_th: "ผลกระทบต่อประชากรหมู่มาก", l_en: "Population Impact", v: 100 }, { l_th: "การรักษาผู้ป่วยรายบุคคล", l_en: "Individual Treatment", v: 20 } ] },
             OCCMED_END: { title_th: "แพทย์อาชีวเวชศาสตร์", title_en: "Occupational Medicine", slug: "occupational-and-environmental-medicine", illustration: "svg_life", interview: null, desc_th: "ความใส่ใจในบริบทของพื้นที่และสภาพแวดล้อม จะทำให้คุณสามารถสอดส่องความเสี่ยงและพิทักษ์ความปลอดภัยให้กับผู้ที่อยู่ในพื้นที่นั้นได้อย่างดีเยี่ยม", desc_en: "The zone guardian! Your attention to environmental context allows you to identify risks and ensure the overarching safety of spaces.", color: ["#56AB2F", "#A8E063"], keywords_th: ["ผู้พิทักษ์พื้นที่เฉพาะ", "เคลียร์ความเสี่ยง", "ออกแบบความปลอดภัย"], keywords_en: ["Environment Care", "Risk Assessment", "Safety"], stats: [ { l_th: "การประเมินความเสี่ยง", l_en: "Risk Assessment", v: 90 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 95 }, { l_th: "หัตถการหน้างาน", l_en: "Procedures", v: 15 } ] },
             AERO_END: { title_th: "เวชศาสตร์การบินและอวกาศ", title_en: "Aerospace Medicine", slug: "aerospace-medicine", illustration: "svg_crisis", interview: null, desc_th: "การเปิดรับความท้าทายใหม่ๆ จะผลักดันให้คุณออกไปสำรวจและจัดการกับข้อจำกัดของมนุษย์ในสภาพแวดล้อมที่สุดขั้วและไม่ธรรมดา", desc_en: "Your openness to extreme challenges will lead you to study and manage human limitations in unconventional, frontier environments.", color: ["#2980B9", "#6DD5FA"], keywords_th: ["ผู้สำรวจความท้าทาย", "ทดสอบขีดจำกัด", "สภาวะสุดขั้ว"], keywords_en: ["Learning New Things", "Special Conditions", "Flexibility"], stats: [ { l_th: "สรีรวิทยาขั้นสูง", l_en: "Advanced Physiology", v: 90 }, { l_th: "การตรวจคัดกรองความพร้อม", l_en: "Fitness Screening", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 80 } ] },
-            MARINE_END: { title_th: "เวชศาสตร์ทางทะเล", title_en: "Maritime Medicine", slug: "preventive-medicine", illustration: "svg_crisis", interview: null, desc_th: "ความสงสัยใคร่รู้ในสิ่งที่คนทั่วไปเข้าไม่ถึง จะเป็นแรงผลักดันให้คุณเรียนรู้การปรับตัวและการรับมือในบริบทที่เต็มไปด้วยความกดดันและโดดเดี่ยว", desc_en: "Your curiosity for the inaccessible drives you to understand adaptation and survival in highly pressurized, isolated contexts.", color: ["#0052D4", "#4364F7"], keywords_th: ["ผู้นำทางภายใต้แรงกดดัน", "บริบทเฉพาะตัว", "การปรับตัว"], keywords_en: ["Curiosity", "Unique Contexts", "Adaptability"], stats: [ { l_th: "สรีรวิทยาขั้นสูง", l_en: "Advanced Physiology", v: 90 }, { l_th: "เวชศาสตร์ฉุกเฉินเฉพาะทาง", l_en: "Niche Emergency", v: 75 }, { l_th: "การรักษาผู้ป่วยทั่วไป", l_en: "General Practice", v: 30 } ] },
+            MARINE_END: { title_th: "เวชศาสตร์ทางทะเล", title_en: "Maritime & Undersea Medicine", slug: "preventive-medicine", illustration: "svg_crisis", interview: null, desc_th: "ความสงสัยใคร่รู้ในสิ่งที่คนทั่วไปเข้าไม่ถึง จะเป็นแรงผลักดันให้คุณเรียนรู้การปรับตัวและการรับมือในบริบทที่เต็มไปด้วยความกดดันและโดดเดี่ยว", desc_en: "Your curiosity for the inaccessible drives you to understand adaptation and survival in highly pressurized, isolated contexts.", color: ["#0052D4", "#4364F7"], keywords_th: ["ผู้นำทางภายใต้แรงกดดัน", "บริบทเฉพาะตัว", "การปรับตัว"], keywords_en: ["Curiosity", "Unique Contexts", "Adaptability"], stats: [ { l_th: "สรีรวิทยาขั้นสูง", l_en: "Advanced Physiology", v: 90 }, { l_th: "เวชศาสตร์ฉุกเฉินเฉพาะทาง", l_en: "Niche Emergency", v: 75 }, { l_th: "การรักษาผู้ป่วยทั่วไป", l_en: "General Practice", v: 30 } ] },
             TRAFFIC_END: { title_th: "เวชศาสตร์การจราจร", title_en: "Traffic Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: null, desc_th: "การมองปัญหาก่อนที่มันจะเกิด จะทำให้คุณสนใจการจัดระเบียบโครงข่ายและพฤติกรรม เพื่อวางระบบที่เพิ่มความปลอดภัยให้กับการใช้ชีวิตของทุกคน", desc_en: "You don't just react; you organize networks and analyze behaviors to engineer preventative safety systems for everyone.", color: ["#F2994A", "#F2C94C"], keywords_th: ["วิศวกรวิเคราะห์พฤติกรรม", "ออกแบบความปลอดภัย", "ลดความเสี่ยงสังคม"], keywords_en: ["Organizer", "Safety Design", "Risk Reduction"], stats: [ { l_th: "การคิดเชิงระบบและข้อมูล", l_en: "Data & Systems Thinking", v: 95 }, { l_th: "ผลกระทบต่อสังคม", l_en: "Societal Impact", v: 85 }, { l_th: "การรักษาผู้ป่วยรายบุคคล", l_en: "Individual Treatment", v: 15 } ] },
             PMR_END: { title_th: "หมอเวชศาสตร์ฟื้นฟู", title_en: "PM&R Physician", slug: "physical-medicine-and-rehabilitation", illustration: "svg_life", interview: null, desc_th: "ความมุ่งมั่นที่จะสนับสนุนผู้อื่น จะช่วยให้คุณสามารถออกแบบแผนงานที่สร้างแรงบันดาลใจ และดึงเอาศักยภาพที่ซ่อนอยู่ของทุกคนกลับคืนมา", desc_en: "Your drive to empower others helps you design inspiring roadmaps that restore and maximize everyone's hidden potential.", color: ["#11998E", "#38EF7D"], keywords_th: ["โค้ชดึงศักยภาพ", "คืนความสตรอง", "เชียร์อัพ"], keywords_en: ["Potential Support", "Patience", "Positive Goal Setting"], stats: [ { l_th: "การออกแบบแผนฟื้นฟู", l_en: "Rehab Planning", v: 90 }, { l_th: "ปฏิสัมพันธ์ระยะยาว", l_en: "Long-term Interaction", v: 85 }, { l_th: "สมดุลชีวิตการทำงาน", l_en: "Work-Life Balance", v: 90 } ] },
-            FM_END: { title_th: "เวชศาสตร์ครอบครัว", title_en: "Family Physician", slug: "family-medicine", illustration: "svg_life", interview: null, desc_th: "ความเข้าใจอย่างลึกซึ้งและการมองภาพรวม ทำให้คุณเป็นเพื่อนที่ปรึกษาที่ยอดเยี่ยม พร้อมที่จะสร้างความเชื่อใจและดูแลผู้คนอย่างยั่งยืน", desc_en: "Your comprehensive understanding and focus on the big picture make you a great lifelong ally who builds lasting trust.", color: ["#56AB2F", "#A8E063"], keywords_th: ["เพื่อนที่ปรึกษาระยะยาว", "รู้รอบด้าน", "สร้างความไว้วางใจ"], keywords_en: ["Trust", "Comprehensive Care", "Long-term Relations"], stats: [ { l_th: "ความผูกพันกับผู้ป่วย", l_en: "Patient Bonding", v: 100 }, { l_th: "ขอบเขตความรู้แบบกว้าง", l_en: "Breadth of Knowledge", v: 95 }, { l_th: "หัตถการขั้นสูง", l_en: "Advanced Procedures", v: 20 } ] },
+            FM_END: { title_th: "แพทย์เวชศาสตร์ครอบครัว", title_en: "Family Physician", slug: "family-medicine", illustration: "svg_life", interview: null, desc_th: "ความเข้าใจอย่างลึกซึ้งและการมองภาพรวม ทำให้คุณเป็นเพื่อนที่ปรึกษาที่ยอดเยี่ยม พร้อมที่จะสร้างความเชื่อใจและดูแลผู้คนอย่างยั่งยืน", desc_en: "Your comprehensive understanding and focus on the big picture make you a great lifelong ally who builds lasting trust.", color: ["#56AB2F", "#A8E063"], keywords_th: ["เพื่อนที่ปรึกษาระยะยาว", "รู้รอบด้าน", "สร้างความไว้วางใจ"], keywords_en: ["Trust", "Comprehensive Care", "Long-term Relations"], stats: [ { l_th: "ความผูกพันกับผู้ป่วย", l_en: "Patient Bonding", v: 100 }, { l_th: "ขอบเขตความรู้แบบกว้าง", l_en: "Breadth of Knowledge", v: 95 }, { l_th: "หัตถการขั้นสูง", l_en: "Advanced Procedures", v: 20 } ] },
             PALL_END: { title_th: "การดูแลประคับประคอง", title_en: "Palliative Care", slug: "hospice-and-palliative-medicine", illustration: "svg_life", interview: null, desc_th: "ความเข้าอกเข้าใจระดับสูงสุด จะช่วยให้คุณปรับวิสัยทัศน์จากการเอาชนะ มาสู่การมอบความสงบและความสบายใจอย่างแท้จริงเมื่อเวลามาถึง", desc_en: "With ultimate empathy, you shift the focus from defeating challenges to providing profound peace and true comfort when it matters most.", color: ["#8e9eab", "#eef2f3"], keywords_th: ["ผู้นำทางสู่ความสงบ", "เยียวยาขั้นสุด", "ยอมรับความจริง"], keywords_en: ["Deep Compassion", "Providing Peace", "Accepting Reality"], stats: [ { l_th: "ความเห็นอกเห็นใจ (Empathy)", l_en: "Empathy & Support", v: 100 }, { l_th: "การจัดการอาการปวด", l_en: "Pain Management", v: 90 }, { l_th: "การรักษาเพื่อหายขาด", l_en: "Curative Focus", v: 0 } ] },
-            LIFESTYLE_END: { title_th: "เวชศาสตร์วิถีชีวิต", title_en: "Lifestyle Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: null, desc_th: "การเชื่อมั่นในพื้นฐานที่แข็งแรง จะช่วยให้คุณสามารถออกแบบและปรับเปลี่ยนโครงสร้างพฤติกรรม เพื่อให้เกิดวิถีชีวิตที่มีคุณภาพและยั่งยืนอย่างแท้จริง", desc_en: "Believing in strong foundations, you design and alter behavioral structures to create a truly balanced and sustainable lifestyle.", color: ["#F2C94C", "#F2994A"], keywords_th: ["สถาปนิกโครงสร้างพฤติกรรม", "แก้ที่ต้นเหตุ", "วางรากฐานยาว"], keywords_en: ["Behavior Change", "Well-being Focus", "Long-term Foundation"], stats: [ { l_th: "การให้คำปรึกษาเชิงลึก", l_en: "Deep Counseling", v: 90 }, { l_th: "เวชศาสตร์ป้องกัน", l_en: "Preventive Care", v: 95 }, { l_th: "การใช้ยาเคมีบำบัด", l_en: "Chemical Therapy", v: 20 } ] }
+            LIFESTYLE_END: { title_th: "แพทย์เวชศาสตร์วิถีชีวิต", title_en: "Lifestyle Medicine", slug: "preventive-medicine", illustration: "svg_life", interview: null, desc_th: "การเชื่อมั่นในพื้นฐานที่แข็งแรง จะช่วยให้คุณสามารถออกแบบและปรับเปลี่ยนโครงสร้างพฤติกรรม เพื่อให้เกิดวิถีชีวิตที่มีคุณภาพและยั่งยืนอย่างแท้จริง", desc_en: "Believing in strong foundations, you design and alter behavioral structures to create a truly balanced and sustainable lifestyle.", color: ["#F2C94C", "#F2994A"], keywords_th: ["สถาปนิกโครงสร้างพฤติกรรม", "แก้ที่ต้นเหตุ", "วางรากฐานยาว"], keywords_en: ["Behavior Change", "Well-being Focus", "Long-term Foundation"], stats: [ { l_th: "การให้คำปรึกษาเชิงลึก", l_en: "Deep Counseling", v: 90 }, { l_th: "เวชศาสตร์ป้องกัน", l_en: "Preventive Care", v: 95 }, { l_th: "การใช้ยาเคมีบำบัด", l_en: "Chemical Therapy", v: 20 } ] }
         };
 
         let currentLang = 'th';
@@ -411,7 +420,7 @@
             element.classList.add('selected'); 
             stateSelections[colIndex] = element.id;
 
-            // Clear subsequent columns
+            // Clear out subsequent columns and headers
             for (let i = colIndex + 1; i <= 5; i++) { 
                 const wrap = document.getElementById(`wrap-${i}`);
                 const col = document.getElementById(`col-${i}`); 
@@ -428,8 +437,8 @@
             if (!nextWrap) { drawLines(); return; }
 
             let colHeaderTh = "", colHeaderEn = "";
-            if (colIndex === 1) { colHeaderTh = "2. จุดโฟกัสของสไตล์คุณคือ?"; colHeaderEn = "2. What is your focus?"; } 
-            else if (colIndex === 2) { colHeaderTh = "3. ขอเจาะลึกอีกนิด..."; colHeaderEn = "3. Let's get specific..."; }
+            if (colIndex === 1) { colHeaderTh = "2. จุดโฟกัสของปัญหา"; colHeaderEn = "2. Problem Focus"; } 
+            else if (colIndex === 2) { colHeaderTh = "3. สถานการณ์การทำงาน"; colHeaderEn = "3. Work Scenario"; }
 
             if (colHeaderTh) {
                 nextHead.innerHTML = `<span class="show-th">${colHeaderTh}</span><span class="show-en">${colHeaderEn}</span>`;
@@ -462,7 +471,7 @@
                 nextWrap.style.display = 'flex'; 
                 nextWrap.style.animation = 'fadeInRight 0.6s ease forwards'; 
 
-                nextHead.innerHTML = `<span class="show-th">ผลลัพธ์ที่ตรงกับตัวตนคุณ</span><span class="show-en">Your Potential Match</span>`;
+                nextHead.innerHTML = `<span class="show-th">🎉 ปลายทางของคุณ</span><span class="show-en">🎉 Your Calling</span>`;
                 nextHead.style.display = 'block';
 
                 const resultBox = document.createElement('div');
@@ -495,16 +504,15 @@
                     interviewBox = `
                         <div style="margin-bottom: 25px; padding: 15px; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; text-align: center;">
                             <p style="font-size: 0.85rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
-                                <span class="show-th">รับชมบทสัมภาษณ์เส้นทางนี้</span><span class="show-en">Watch insights from a doctor</span>
+                                <span class="show-th">🎙️ ดูบทสัมภาษณ์สาขานี้จากคุณหมอตัวจริง!</span><span class="show-en">🎙️ Watch real insights from a doctor!</span>
                             </p>
                             <a href="../index.html?ep=${res.interview}#interview-section" class="aamc-btn" style="background: var(--accent-gold); color: #000 !important; width: 100%; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);">
-                                <span class="show-th">ดู EP.${res.interview} ↗</span><span class="show-en">Watch EP.${res.interview} ↗</span>
+                                <span class="show-th">ย้อนกลับไปดู EP.${res.interview} ↗</span><span class="show-en">Watch EP.${res.interview} ↗</span>
                             </a>
                         </div>
                     `;
                 }
 
-                // The beautiful header featuring the SVG illustration injected safely into the standard box
                 resultBox.innerHTML = `
                     <div class="result-header-art">
                         <div class="illustration-wrapper">
@@ -533,33 +541,49 @@
                     
                     <div style="background: rgba(0,0,0,0.25); padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
                         <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); margin-bottom: 15px; font-weight: 700; text-align: center;">
-                            <span class="show-th">ไลฟ์สไตล์การทำงานโดยรวม</span><span class="show-en">Workstyle Overview</span>
+                            <span class="show-th">📊 วิเคราะห์สไตล์การทำงาน</span><span class="show-en">📊 Workstyle Analytics</span>
                         </p>
                         ${statsHTML}
                     </div>
                     
                     <div class="advice-section show-th" style="margin-top:0;">
-                        <p class="advice-title">คำแนะนำเพิ่มเติม</p>
+                        <p class="advice-title">💡 คำแนะนำสำหรับนักเรียน</p>
                         <ul class="advice-list">
-                            <li>สามารถพูดคุยกับผู้ที่มีประสบการณ์ตรงในสายนี้เพื่อศึกษาข้อมูลเพิ่มเติม</li>
-                            <li>ลองค้นหาวิดีโอรูปแบบการทำงานในแต่ละวันเพื่อใช้ประกอบการตัดสินใจ</li>
+                            <li>ขออนุญาตเข้าสังเกตการณ์การทำงาน (Shadowing) จากแพทย์ในแผนกที่สนใจ</li>
+                            <li>ศึกษาการทำงานประจำวันผ่านสื่อวิดีโอ เพื่อทำความเข้าใจเบื้องต้น</li>
+                        </ul>
+                        <p class="advice-title" style="margin-top: 15px;">🎓 คำแนะนำสำหรับนักศึกษาแพทย์</p>
+                        <ul class="advice-list">
+                            <li>สอบถามประสบการณ์ตรงจากแพทย์ประจำบ้าน (Resident)</li>
+                            <li>ติดต่อขอเข้าสังเกตการณ์การทำงาน (Shadowing) อย่างเป็นทางการ</li>
+                            <li>พิจารณาลงเรียนวิชาเลือก (Elective) ของสาขานี้</li>
                         </ul>
                     </div>
 
                     <div class="advice-section show-en" style="margin-top:0;">
-                        <p class="advice-title">Additional Suggestions</p>
+                        <p class="advice-title">💡 For High School Students</p>
                         <ul class="advice-list">
-                            <li>Consider reaching out to a professional in this field for a quick chat or shadowing opportunity.</li>
-                            <li>Explore 'Day in the Life' videos to better understand the daily routine.</li>
+                            <li>Request shadowing opportunities with attending physicians.</li>
+                            <li>Watch educational daily routine vlogs to understand the workflow.</li>
                         </ul>
+                        <p class="advice-title" style="margin-top: 15px;">🎓 For Medical Students</p>
+                        <ul class="advice-list">
+                            <li>Talk to current residents about their real-world experiences.</li>
+                            <li>Arrange formal shadowing sessions within the department.</li>
+                            <li>Apply for electives and attend relevant conferences.</li>
+                        </ul>
+                    </div>
+
+                    <div class="series-banner">
+                        <p><span class="show-th">✨ รอติดตามเจาะลึกทุกสาขาได้ในรายการ "กว่า-จะ-เป็น"</span><span class="show-en">✨ Stay tuned for our deep-dive "Gwa-Ja-Pen" series!</span></p>
                     </div>
 
                     <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px;">
                         <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${res.slug}" target="_blank" class="aamc-btn">
-                            <span class="show-th">อ่านข้อมูลเพิ่มเติม ↗</span><span class="show-en">AAMC Profile ↗</span>
+                            <span class="show-th">เจาะลึกที่ AAMC ↗</span><span class="show-en">AAMC Profile ↗</span>
                         </a>
                         <a href="https://www.youtube.com/results?search_query=${ytSearch}" target="_blank" class="aamc-btn btn-outline">
-                            <span class="show-th">ค้นหาวิดีโอ ↗</span><span class="show-en">Search Videos ↗</span>
+                            <span class="show-th">วิดีโอชีวิตจริง ↗</span><span class="show-en">Watch Vlog ↗</span>
                         </a>
                     </div>`;
                 nextCol.appendChild(resultBox);
