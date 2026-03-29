@@ -98,6 +98,7 @@
         .menu-item:nth-child(3) { animation-delay: 0.3s; }
         .menu-item:nth-child(4) { animation-delay: 0.4s; }
         .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(6) { animation-delay: 0.6s; }
         
         .menu-item:hover { padding-left: 20px; background-color: rgba(0,0,0,0.015); border-bottom-color: rgba(0,0,0,0.1); }
         .menu-num { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); width: 60px; letter-spacing: 1px; transition: color 0.3s; }
@@ -114,7 +115,6 @@
         .image-gallery { 
             width: 100%; max-width: 480px; 
             position: relative;
-            /* Added bottom margin so the staggered absolute elements don't get cut off */
             margin-bottom: 10%; 
         }
         
@@ -128,41 +128,18 @@
         .sub-frame { 
             position: absolute; overflow: hidden;
             border-radius: 12px; 
-            border: 6px solid var(--bg-color); /* Matches background to create a physical photo look */
+            border: 6px solid var(--bg-color); 
             box-shadow: 0 15px 35px rgba(0,0,0,0.12);
             opacity: 0; animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 2; cursor: pointer;
         }
 
-        /* First lagged portrait */
-        .sub-1 { 
-            bottom: -12%; 
-            left: -8%; 
-            width: 45%; 
-            aspect-ratio: 1 / 1; 
-            animation-delay: 0.4s;
-            opacity: 0.9;
-        }
+        .sub-1 { bottom: -12%; left: -8%; width: 45%; aspect-ratio: 1 / 1; animation-delay: 0.4s; opacity: 0.9; }
+        .sub-2 { bottom: -22%; right: 4%; width: 38%; aspect-ratio: 3 / 4; animation-delay: 0.6s; opacity: 0.5; filter: grayscale(40%) contrast(1.1); }
 
-        /* Second portrait, lagged significantly further down and more faded */
-        .sub-2 { 
-            bottom: -22%; 
-            right: 4%; 
-            width: 38%; 
-            aspect-ratio: 3 / 4; 
-            animation-delay: 0.6s;
-            opacity: 0.5;
-            filter: grayscale(40%) contrast(1.1);
-        }
-
-        /* Interactive Wake-up on hover */
         .sub-frame:hover {
-            opacity: 1; 
-            filter: grayscale(0%) contrast(1);
-            transform: translateY(-8px) scale(1.05);
-            z-index: 10;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.18);
+            opacity: 1; filter: grayscale(0%) contrast(1); transform: translateY(-8px) scale(1.05); z-index: 10; box-shadow: 0 25px 45px rgba(0,0,0,0.18);
         }
 
         .portrait-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -171,7 +148,7 @@
         /* --- FOOTER --- */
         .social-footer { 
             margin-top: 60px; display: flex; gap: 30px; 
-            opacity: 0; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+            opacity: 0; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
         }
         .social-footer a { 
             text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
@@ -188,19 +165,14 @@
 
         [data-th], [data-en] { transition: opacity 0.3s ease-in-out; }
 
-        /* --- THAI TYPOGRAPHY FIX --- */
-        body.lang-th * {
-            letter-spacing: normal !important;
-        }
+        body.lang-th * { letter-spacing: normal !important; }
 
         @media (max-width: 900px) {
             .layout-wrapper { flex-direction: column-reverse; padding-top: 80px; }
-            .image-side { padding: 4vw 8vw 15vw 8vw; } /* Extra bottom padding to prevent overflow clipping on mobile */
+            .image-side { padding: 4vw 8vw 15vw 8vw; } 
             .content-side { padding: 10vw 6vw; }
             .name-title { font-size: 2.5rem; }
             .bio { max-width: 100%; }
-            
-            /* Tighten up the spilling on mobile screens so it stays on-screen */
             .sub-1 { left: -4%; bottom: -10%; width: 48%; }
             .sub-2 { right: 0; bottom: -18%; width: 42%; }
         }
@@ -265,6 +237,14 @@
                     <div class="menu-text">
                         <h2 data-th="🤔 เกือบจะสมาร์ทละ" data-en="🤔 Almost Smart">🤔 เกือบจะสมาร์ทละ</h2>
                         <p data-th="บล็อกบน Substack ที่บันทึกเรื่องราวระหว่างการเรียนแพทย์-วิศวะของผมเอง" data-en="A personal substack blog of thoughts during my medicine and engineering journey.">บล็อกบน Substack ที่บันทึกเรื่องราวระหว่างการเรียนแพทย์-วิศวะของผมเอง</p>
+                    </div>
+                    <span class="menu-arrow">↗</span>
+                </a>
+                <a href="https://wisdom.prawees.com" class="menu-item" target="_blank">
+                    <span class="menu-num">06</span>
+                    <div class="menu-text">
+                        <h2 data-th="💡 Wisdom" data-en="💡 Wisdom">💡 Wisdom</h2>
+                        <p data-th="เกมจำลองสถานการณ์ชีวิต (Life Simulation) ที่ซ่อนบทเรียนเพื่อสอนทักษะการตัดสินใจและรู้เท่าทันอคติทางความคิด" data-en="A life simulation game designed to teach decision-making skills, cognitive biases, and mental models.">เกมจำลองสถานการณ์ชีวิต (Life Simulation) ที่ซ่อนบทเรียนเพื่อสอนทักษะการตัดสินใจและรู้เท่าทันอคติทางความคิด</p>
                     </div>
                     <span class="menu-arrow">↗</span>
                 </a>
