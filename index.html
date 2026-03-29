@@ -112,19 +112,27 @@
         .menu-arrow { font-size: 1.5rem; opacity: 0; transform: translateX(-20px) translateY(15px); transition: all 0.4s ease; color: var(--text-muted); }
         .menu-item:hover .menu-arrow { opacity: 1; transform: translateX(0) translateY(0); color: var(--text-main); }
 
-        /* --- PORTRAIT GALLERY --- */
+        /* --- EDITORIAL PORTRAIT GALLERY --- */
         .image-gallery { 
-            width: 100%; max-width: 480px; 
-            display: flex; flex-direction: column; gap: 16px; 
+            width: 100%; max-width: 650px; 
+            display: flex; align-items: center; gap: 24px;
         }
+        .gallery-col-main { flex: 1.3; } /* Makes the main image slightly larger */
+        .gallery-col-sub { 
+            flex: 1; display: flex; flex-direction: column; gap: 24px; 
+            transform: translateY(30px); /* Offsets the second column for that cool staggered look */
+        }
+        
         .image-frame { 
             width: 100%; overflow: hidden; flex-shrink: 0;
             border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); 
             opacity: 0; animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .main-frame { aspect-ratio: 4 / 5; animation-delay: 0.3s; }
-        .sub-images { display: flex; gap: 16px; width: 100%; }
-        .sub-frame { flex: 1; aspect-ratio: 1 / 1; animation-delay: 0.5s; }
+        .sub-frame { aspect-ratio: 1 / 1; }
+        .sub-frame:nth-child(1) { animation-delay: 0.4s; }
+        .sub-frame:nth-child(2) { animation-delay: 0.5s; }
+        
         .portrait-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
         .image-frame:hover .portrait-img { transform: scale(1.03); }
 
@@ -159,6 +167,10 @@
             .content-side { padding: 10vw 6vw; }
             .name-title { font-size: 2.5rem; }
             .bio { max-width: 100%; }
+            
+            /* Restack the gallery cleanly for mobile */
+            .image-gallery { flex-direction: column; gap: 16px; }
+            .gallery-col-sub { transform: translateY(0); flex-direction: row; gap: 16px; }
         }
     </style>
 </head>
@@ -227,6 +239,7 @@
             </nav>
             
             <footer class="social-footer">
+                <a href="mailto:prawee.sin@gmail.com">Email</a>
                 <a href="https://www.tiktok.com/@prawees" target="_blank">TikTok</a>
                 <a href="https://www.instagram.com/smprv" target="_blank">Instagram</a>
             </footer>
@@ -234,10 +247,12 @@
         
         <div class="image-side">
             <div class="image-gallery">
-                <div class="image-frame main-frame">
-                    <img src="portrait.jpg" alt="ประวีร์ สินวีรุทัย Prawee Sinweeruthai" class="portrait-img">
+                <div class="gallery-col-main">
+                    <div class="image-frame main-frame">
+                        <img src="portrait.jpg" alt="ประวีร์ สินวีรุทัย Prawee Sinweeruthai" class="portrait-img">
+                    </div>
                 </div>
-                <div class="sub-images">
+                <div class="gallery-col-sub">
                     <div class="image-frame sub-frame">
                         <img src="portrait-2.jpg" alt="Prawee Portrait 2" class="portrait-img">
                     </div>
