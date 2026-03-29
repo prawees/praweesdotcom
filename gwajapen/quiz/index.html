@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค้นหาสายแพทย์ที่ใช่ | Medical Career Explorer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8f6f3;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f0ebe4;
+            --surface-elevated: #ffffff;
+            
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a5a;
+            --text-muted: #7a7a8a;
+            --text-inverse: #ffffff;
+            
+            --accent-primary: #2d5a7b;
+            --accent-primary-light: #3d7aa8;
+            --accent-primary-pale: #e8f1f8;
+            --accent-warm: #c4956a;
+            --accent-warm-light: #e8d4c0;
+            --accent-success: #4a7c59;
+            --accent-success-light: #e8f2eb;
+            
+            --border-light: rgba(26, 26, 46, 0.08);
+            --border-medium: rgba(26, 26, 46, 0.15);
+            
+            --shadow-sm: 0 1px 3px rgba(26, 26, 46, 0.06);
+            --shadow-md: 0 4px 12px rgba(26, 26, 46, 0.08);
+            --shadow-lg: 0 8px 30px rgba(26, 26, 46, 0.12);
+            --shadow-xl: 0 20px 50px rgba(26, 26, 46, 0.15);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            
+            --font-thai: 'Sarabun', sans-serif;
+            --font-display: 'DM Sans', sans-serif;
+            
+            --transition-fast: 0.15s ease;
+            --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-thai);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body.lang-en {
+            font-family: var(--font-display);
+        }
+
+        body.lang-th .show-en,
+        body.lang-en .show-th {
+            display: none !important;
+        }
+
+        /* Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(45, 90, 123, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(196, 149, 106, 0.04) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, #f0ebe4 100%);
+        }
+
+        /* Container */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(248, 246, 243, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-light) 100%);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            padding: 3px;
+        }
+
+        .lang-toggle button {
+            background: none;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition-fast);
+            font-family: var(--font-display);
+        }
+
+        .lang-toggle button.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            padding: 20px 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: var(--transition-medium);
+        }
+
+        .progress-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-step {
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-primary-light) 100%);
+            border-radius: 3px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Welcome Screen */
+        .welcome-section {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-primary-pale);
+            color: var(--accent-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .welcome-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .welcome-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            background: var(--bg-secondary);
+            padding: 20px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .start-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-light) 100%);
+            color: var(--text-inverse);
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: var(--transition-medium);
+            box-shadow: var(--shadow-md), 0 4px 20px rgba(45, 90, 123, 0.3);
+            font-family: inherit;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg), 0 8px 30px rgba(45, 90, 123, 0.4);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+        }
+
+        .welcome-note {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--accent-warm-light);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .welcome-note strong {
+            color: var(--text-primary);
+        }
+
+        /* Question Screen */
+        .question-container {
+            padding: 20px 0 40px;
+        }
+
+        .question-header {
+            margin-bottom: 30px;
+        }
+
+        .question-category {
+            display: inline-block;
+            background: var(--accent-primary-pale);
+            color: var(--accent-primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .option-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .option-card:hover {
+            border-color: var(--accent-primary);
+            background: var(--accent-primary-pale);
+            transform: translateX(4px);
+        }
+
+        .option-card.selected {
+            border-color: var(--accent-primary);
+            background: var(--accent-primary-pale);
+            box-shadow: 0 0 0 3px rgba(45, 90, 123, 0.1);
+        }
+
+        .option-card:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(45, 90, 123, 0.2);
+        }
+
+        .option-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+
+        .option-card.selected .option-icon,
+        .option-card:hover .option-icon {
+            background: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .option-card.selected .option-icon {
+            box-shadow: 0 4px 12px rgba(45, 90, 123, 0.3);
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .option-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Micro Learning */
+        .micro-learning {
+            background: linear-gradient(135deg, var(--accent-success-light) 0%, #f0f7f2 100%);
+            border: 1px solid rgba(74, 124, 89, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            margin-top: 20px;
+            display: none;
+            animation: slideInRight 0.4s ease forwards;
+        }
+
+        .micro-learning.visible {
+            display: block;
+        }
+
+        .micro-learning-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--accent-success);
+            font-size: 0.85rem;
+        }
+
+        .micro-learning-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .question-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            font-family: inherit;
+        }
+
+        .nav-button.secondary {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-medium);
+            color: var(--text-secondary);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .nav-button.primary {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-light) 100%);
+            border: none;
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .nav-button.hidden {
+            visibility: hidden;
+        }
+
+        /* Processing Screen */
+        .processing-section {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .processing-animation {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .processing-ring {
+            position: absolute;
+            inset: 0;
+            border: 4px solid var(--border-light);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .processing-ring:nth-child(2) {
+            inset: 15px;
+            border-top-color: var(--accent-warm);
+            animation-direction: reverse;
+            animation-duration: 0.8s;
+        }
+
+        .processing-ring:nth-child(3) {
+            inset: 30px;
+            border-top-color: var(--accent-success);
+            animation-duration: 1.2s;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .processing-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .processing-subtext {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Results Screen */
+        .results-section {
+            padding: 20px 0 60px;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-celebration {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .results-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .results-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Top Matches */
+        .top-matches {
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .match-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition-medium);
+        }
+
+        .match-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .match-card.rank-1 {
+            border: 2px solid var(--accent-primary);
+            box-shadow: var(--shadow-lg), 0 0 0 4px rgba(45, 90, 123, 0.1);
+        }
+
+        .match-header {
+            padding: 24px;
+            color: var(--text-inverse);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .match-rank {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .match-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .match-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .match-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .match-fit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .fit-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .fit-fill {
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .fit-percent {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .match-body {
+            padding: 24px;
+        }
+
+        .match-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .match-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .match-tag {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Why This Fits */
+        .why-section {
+            background: var(--accent-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .why-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .why-list {
+            list-style: none;
+        }
+
+        .why-list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .why-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        /* Day in Life */
+        .day-section {
+            background: var(--accent-warm-light);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .day-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-warm);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .day-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px 10px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        /* Action Buttons */
+        .match-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            flex: 1;
+            min-width: 140px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-medium);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .action-button.primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+            border: none;
+        }
+
+        .action-button.primary:hover {
+            background: var(--accent-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .action-button.secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+        }
+
+        .action-button.secondary:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Expand/Collapse */
+        .match-details {
+            display: none;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+            margin-top: 16px;
+        }
+
+        .match-details.expanded {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .expand-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: none;
+            border: 1px dashed var(--border-medium);
+            border-radius: var(--radius-md);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-family: inherit;
+            margin-top: 16px;
+        }
+
+        .expand-toggle:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border-color: var(--text-muted);
+        }
+
+        .expand-toggle .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .expand-toggle.expanded .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Profile Summary */
+        .profile-summary {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trait-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .trait-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trait-label {
+            width: 120px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .trait-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .trait-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .trait-value {
+            width: 40px;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Final Actions */
+        .final-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .final-actions-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .final-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .final-action-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-medium);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .final-action-button:hover {
+            background: var(--accent-primary-pale);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .final-action-icon {
+            font-size: 1.5rem;
+        }
+
+        .final-action-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .disclaimer strong {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .welcome-features {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .final-actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .match-actions {
+                flex-direction: column;
+            }
+
+            .action-button {
+                width: 100%;
+            }
+
+            .trait-label {
+                width: 90px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Tooltip Styles */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-primary);
+            color: var(--text-inverse);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Animations */
+        .animate-in {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .animate-in-left {
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body class="lang-th">
+    <div class="bg-pattern"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <a href="#" class="logo" onclick="restart(); return false;">
+                <div class="logo-icon">🩺</div>
+                <span class="show-th">กว่า-จะ-เป็น</span>
+                <span class="show-en">Career Explorer</span>
+            </a>
+            <div class="header-controls">
+                <div class="lang-toggle">
+                    <button id="btn-th" class="active" onclick="setLanguage('th')">TH</button>
+                    <button id="btn-en" onclick="setLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-container" id="progress-container">
+            <div class="progress-info">
+                <span class="progress-step">
+                    <span class="show-th">คำถามที่ <span id="current-q">1</span> จาก 8</span>
+                    <span class="show-en">Question <span id="current-q-en">1</span> of 8</span>
+                </span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Welcome Screen -->
+        <section class="screen active" id="screen-welcome">
+            <div class="welcome-section">
+                <div class="welcome-badge">
+                    <span>✨</span>
+                    <span class="show-th">แบบทดสอบค้นหาสายแพทย์</span>
+                    <span class="show-en">Medical Specialty Finder</span>
+                </div>
+                
+                <h1 class="welcome-title">
+                    <span class="show-th">ค้นพบสาขาแพทย์<br>ที่เหมาะกับตัวคุณ</span>
+                    <span class="show-en">Discover Your<br>Medical Calling</span>
+                </h1>
+                
+                <p class="welcome-subtitle">
+                    <span class="show-th">ตอบคำถาม 8 ข้อเกี่ยวกับสไตล์การทำงานและบุคลิกภาพของคุณ เพื่อค้นหา 3 สาขาแพทย์ที่อาจเหมาะกับคุณที่สุด พร้อมเรียนรู้ข้อมูลเชิงลึกไปตลอดทาง</span>
+                    <span class="show-en">Answer 8 questions about your work style and personality to discover your top 3 medical specialty matches—with educational insights along the way.</span>
+                </p>
+
+                <div class="welcome-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-text">
+                            <span class="show-th">ใช้เวลา 3-5 นาที</span>
+                            <span class="show-en">Takes 3-5 minutes</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">
+                            <span class="show-th">ดู 3 อันดับที่แมตช์</span>
+                            <span class="show-en">See top 3 matches</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-text">
+                            <span class="show-th">เรียนรู้ไปพร้อมกัน</span>
+                            <span class="show-en">Learn as you go</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="start-button" onclick="startQuiz()">
+                    <span class="show-th">เริ่มค้นหาสายที่ใช่</span>
+                    <span class="show-en">Find Your Path</span>
+                    <span>→</span>
+                </button>
+
+                <div class="welcome-note">
+                    <strong>
+                        <span class="show-th">💡 หมายเหตุ:</span>
+                        <span class="show-en">💡 Note:</span>
+                    </strong>
+                    <span class="show-th"> แบบทดสอบนี้ไม่ได้ตัดสินว่าคุณเหมาะหรือไม่เหมาะกับสาขาใด แต่เป็นจุดเริ่มต้นในการสำรวจตัวเอง คุณสามารถย้อนกลับไปแก้ไขคำตอบได้ตลอดเวลา</span>
+                    <span class="show-en"> This quiz doesn't determine if you're "right" for any specialty—it's a starting point for self-exploration. You can go back and change answers anytime.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Screen -->
+        <section class="screen" id="screen-question">
+            <div class="question-container">
+                <div class="question-header">
+                    <span class="question-category" id="q-category"></span>
+                    <h2 class="question-text" id="q-text"></h2>
+                </div>
+
+                <div class="options-grid" id="options-grid">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <div class="micro-learning" id="micro-learning">
+                    <div class="micro-learning-header">
+                        <span>💡</span>
+                        <span class="show-th">รู้หรือไม่?</span>
+                        <span class="show-en">Did you know?</span>
+                    </div>
+                    <p class="micro-learning-text" id="micro-text"></p>
+                </div>
+
+                <div class="question-nav">
+                    <button class="nav-button secondary" id="btn-prev" onclick="prevQuestion()">
+                        <span>←</span>
+                        <span class="show-th">ย้อนกลับ</span>
+                        <span class="show-en">Back</span>
+                    </button>
+                    <button class="nav-button primary" id="btn-next" onclick="nextQuestion()" disabled>
+                        <span class="show-th">ถัดไป</span>
+                        <span class="show-en">Next</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Processing Screen -->
+        <section class="screen" id="screen-processing">
+            <div class="processing-section">
+                <div class="processing-animation">
+                    <div class="processing-ring"></div>
+                    <div class="processing-ring"></div>
+                    <div class="processing-ring"></div>
+                </div>
+                <p class="processing-text">
+                    <span class="show-th">กำลังวิเคราะห์โปรไฟล์ของคุณ...</span>
+                    <span class="show-en">Analyzing your profile...</span>
+                </p>
+                <p class="processing-subtext">
+                    <span class="show-th">กำลังจับคู่กับ 40+ สาขาแพทย์เฉพาะทาง</span>
+                    <span class="show-en">Matching against 40+ medical specialties</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section class="screen" id="screen-results">
+            <div class="results-section">
+                <div class="results-header">
+                    <div class="results-celebration">🎉</div>
+                    <h2 class="results-title">
+                        <span class="show-th">ผลลัพธ์ของคุณพร้อมแล้ว!</span>
+                        <span class="show-en">Your Results Are Ready!</span>
+                    </h2>
+                    <p class="results-subtitle">
+                        <span class="show-th">จากคำตอบของคุณ เราพบ 3 สาขาที่อาจเหมาะกับบุคลิกและสไตล์การทำงานของคุณ</span>
+                        <span class="show-en">Based on your answers, here are 3 specialties that may align with your personality and work style.</span>
+                    </p>
+                </div>
+
+                <!-- Profile Summary -->
+                <div class="profile-summary">
+                    <h3 class="profile-title">
+                        <span>📊</span>
+                        <span class="show-th">โปรไฟล์การทำงานของคุณ</span>
+                        <span class="show-en">Your Work Profile</span>
+                    </h3>
+                    <div class="trait-bars" id="trait-bars">
+                        <!-- Trait bars inserted by JS -->
+                    </div>
+                </div>
+
+                <!-- Top Matches -->
+                <div class="top-matches" id="top-matches">
+                    <div class="section-label">
+                        <span class="show-th">🏆 สาขาที่แมตช์กับคุณมากที่สุด</span>
+                        <span class="show-en">🏆 YOUR TOP MATCHES</span>
+                    </div>
+                    <!-- Match cards inserted by JS -->
+                </div>
+
+                <!-- Final Actions -->
+                <div class="final-actions">
+                    <h3 class="final-actions-title">
+                        <span class="show-th">ขั้นตอนถัดไป</span>
+                        <span class="show-en">What's Next?</span>
+                    </h3>
+                    <div class="final-actions-grid">
+                        <button class="final-action-button" onclick="shareResults()">
+                            <span class="final-action-icon">📤</span>
+                            <span class="final-action-text">
+                                <span class="show-th">แชร์ผลลัพธ์</span>
+                                <span class="show-en">Share Results</span>
+                            </span>
+                        </button>
+                        <button class="final-action-button" onclick="downloadResults()">
+                            <span class="final-action-icon">💾</span>
+                            <span class="final-action-text">
+                                <span class="show-th">บันทึก PDF</span>
+                                <span class="show-en">Save as PDF</span>
+                            </span>
+                        </button>
+                        <button class="final-action-button" onclick="restart()">
+                            <span class="final-action-icon">🔄</span>
+                            <span class="final-action-text">
+                                <span class="show-th">ทำแบบทดสอบใหม่</span>
+                                <span class="show-en">Retake Quiz</span>
+                            </span>
+                        </button>
+                        <a href="#" class="final-action-button" onclick="alert('Coming soon!')">
+                            <span class="final-action-icon">🎬</span>
+                            <span class="final-action-text">
+                                <span class="show-th">ดูซีรีส์ กว่า-จะ-เป็น</span>
+                                <span class="show-en">Watch Career Series</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <strong>
+                        <span class="show-th">⚠️ ข้อควรทราบ:</span>
+                        <span class="show-en">⚠️ Important Note:</span>
+                    </strong>
+                    <span class="show-th"> ผลลัพธ์นี้เป็นเพียงจุดเริ่มต้นในการสำรวจ ไม่ใช่การวินิจฉัยหรือคำแนะนำทางอาชีพ ก่อนตัดสินใจ ควรพูดคุยกับแพทย์ในสาขาที่สนใจ เข้าร่วม Shadowing หรือลองลงวิชาเลือก (Elective) เพื่อสัมผัสประสบการณ์จริง ข้อมูลจาก AAMC อ้างอิงระบบการฝึกอบรมของสหรัฐอเมริกา ซึ่งอาจแตกต่างจากระบบในประเทศไทย</span>
+                    <span class="show-en"> These results are a starting point for exploration, not career advice. Before deciding, talk to doctors in your areas of interest, shadow them, or take electives. AAMC resources reference U.S. training pathways, which may differ from other countries.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    // ============================================
+    // QUIZ DATA
+    // ============================================
+    
+    const questions = [
+        {
+            id: 'environment',
+            category_th: 'สภาพแวดล้อมการทำงาน',
+            category_en: 'Work Environment',
+            text_th: 'สภาพแวดล้อมการทำงานแบบไหนที่ทำให้คุณรู้สึกมีพลัง?',
+            text_en: 'What kind of work environment energizes you?',
+            options: [
+                {
+                    icon: '⚡',
+                    title_th: 'เร่งรีบ คาดเดาไม่ได้',
+                    title_en: 'Fast-paced & unpredictable',
+                    desc_th: 'ชอบความตื่นเต้น ทำงานได้ดีภายใต้ความกดดัน',
+                    desc_en: 'I thrive under pressure and enjoy the adrenaline',
+                    scores: { pace: 5, acute: 5, procedural: 3 }
+                },
+                {
+                    icon: '🎯',
+                    title_th: 'มีโครงสร้าง แต่ยืดหยุ่น',
+                    title_en: 'Structured but varied',
+                    desc_th: 'ชอบมีตารางเวลา แต่ก็ต้องการความหลากหลาย',
+                    desc_en: 'I like having a schedule, but with variety in my day',
+                    scores: { pace: 3, breadth: 4, patientTime: 3 }
+                },
+                {
+                    icon: '🧘',
+                    title_th: 'สงบ โฟกัสลึก',
+                    title_en: 'Calm & deeply focused',
+                    desc_th: 'ชอบที่จะจดจ่อกับงานอย่างต่อเนื่องโดยไม่ถูกรบกวน',
+                    desc_en: 'I prefer sustained concentration without interruptions',
+                    scores: { pace: 1, depth: 5, behindScenes: 4 }
+                },
+                {
+                    icon: '🤝',
+                    title_th: 'ทำงานร่วมกับทีม',
+                    title_en: 'Collaborative & social',
+                    desc_th: 'ชอบทำงานกับคนอื่นและแลกเปลี่ยนความคิดเห็น',
+                    desc_en: 'I enjoy working closely with others and exchanging ideas',
+                    scores: { patientFacing: 4, relationship: 4, teamwork: 4 }
+                }
+            ],
+            microLearn_th: 'แพทย์เวชศาสตร์ฉุกเฉิน (ER) อาจเจอผู้ป่วย 20-50 รายต่อกะ ขณะที่จิตแพทย์อาจพบผู้ป่วยเพียง 6-8 รายต่อวัน แต่ใช้เวลาลึกซึ้งกับแต่ละราย — ทั้งสองแบบเป็นงานที่มีคุณค่าเท่ากัน แค่ต่างสไตล์',
+            microLearn_en: 'ER doctors may see 20-50 patients per shift, while psychiatrists might see just 6-8 but spend deep time with each. Both are equally valuable—just different rhythms.'
+        },
+        {
+            id: 'problemSolving',
+            category_th: 'วิธีแก้ปัญหา',
+            category_en: 'Problem-Solving Style',
+            text_th: 'เมื่อเผชิญกับปัญหาที่ซับซ้อน คุณมักจะ...',
+            text_en: 'When facing a complex problem, you tend to...',
+            options: [
+                {
+                    icon: '🔧',
+                    title_th: 'ลงมือแก้ไขทันที',
+                    title_en: 'Jump in and fix it',
+                    desc_th: 'เชื่อในการเรียนรู้จากการลองทำ เห็นผลเป็นรูปธรรม',
+                    desc_en: 'I believe in learning by doing and seeing tangible results',
+                    scores: { procedural: 5, acute: 4, action: 5 }
+                },
+                {
+                    icon: '🔍',
+                    title_th: 'วิเคราะห์อย่างเป็นระบบ',
+                    title_en: 'Analyze systematically',
+                    desc_th: 'ชอบรวบรวมข้อมูลและหาสาเหตุที่แท้จริงก่อน',
+                    desc_en: 'I gather data and find the root cause before acting',
+                    scores: { cognitive: 5, depth: 4, diagnostic: 5 }
+                },
+                {
+                    icon: '🗺️',
+                    title_th: 'วางแผนป้องกันล่วงหน้า',
+                    title_en: 'Plan ahead to prevent',
+                    desc_th: 'ชอบคิดถึงความเสี่ยงและป้องกันก่อนเกิดปัญหา',
+                    desc_en: 'I think about risks and prevent problems before they occur',
+                    scores: { prevention: 5, population: 4, strategy: 4 }
+                },
+                {
+                    icon: '💬',
+                    title_th: 'ปรึกษาและฟังความเห็น',
+                    title_en: 'Consult and listen',
+                    desc_th: 'เชื่อว่าคำตอบที่ดีที่สุดมาจากการรับฟังหลายมุมมอง',
+                    desc_en: 'I believe the best answers come from multiple perspectives',
+                    scores: { relationship: 5, patientFacing: 4, holistic: 4 }
+                }
+            ],
+            microLearn_th: 'ศัลยแพทย์มักบอกว่า "เห็นปัญหา แก้ปัญหา" ขณะที่อายุรแพทย์อาจบอกว่า "ค้นหาว่าทำไมถึงเกิดปัญหา" — ทั้งสองวิธีจำเป็นในการดูแลผู้ป่วย และแพทย์ที่ดีมักผสมผสานทั้งสองแนวทาง',
+            microLearn_en: 'Surgeons often say "See a problem, fix a problem." Internists might say "Find out why it happened." Both approaches are essential—and great doctors blend them.'
+        },
+        {
+            id: 'timeframe',
+            category_th: 'กรอบเวลาที่สร้างแรงบันดาลใจ',
+            category_en: 'Time Horizon',
+            text_th: 'กรอบเวลาในการเห็นผลลัพธ์แบบไหนที่สร้างแรงบันดาลใจให้คุณมากที่สุด?',
+            text_en: 'What timeframe for seeing results motivates you most?',
+            options: [
+                {
+                    icon: '⏱️',
+                    title_th: 'ทันที (นาทีถึงชั่วโมง)',
+                    title_en: 'Immediate (minutes to hours)',
+                    desc_th: 'ชอบเห็นผลลัพธ์ของการกระทำแบบเรียลไทม์',
+                    desc_en: 'I love seeing the immediate impact of my actions',
+                    scores: { acute: 5, procedural: 4, pace: 4 }
+                },
+                {
+                    icon: '📅',
+                    title_th: 'ระยะสั้น (วันถึงสัปดาห์)',
+                    title_en: 'Short-term (days to weeks)',
+                    desc_th: 'ชอบเห็นการเปลี่ยนแปลงที่ค่อยๆ ดีขึ้นอย่างชัดเจน',
+                    desc_en: 'I like seeing clear progress over a defined period',
+                    scores: { acute: 3, breadth: 3, procedural: 3 }
+                },
+                {
+                    icon: '📈',
+                    title_th: 'ระยะยาว (เดือนถึงปี)',
+                    title_en: 'Long-term (months to years)',
+                    desc_th: 'ชอบสร้างความสัมพันธ์และเห็นการเติบโตตลอดเวลา',
+                    desc_en: 'I value building relationships and seeing growth over time',
+                    scores: { relationship: 5, chronic: 5, patientTime: 5 }
+                },
+                {
+                    icon: '🌍',
+                    title_th: 'ข้ามรุ่น (ทศวรรษ)',
+                    title_en: 'Generational (decades)',
+                    desc_th: 'อยากสร้างผลกระทบที่ส่งต่อไปยังคนรุ่นหลัง',
+                    desc_en: 'I want to create impact that outlasts my career',
+                    scores: { population: 5, prevention: 4, research: 4 }
+                }
+            ],
+            microLearn_th: 'วิสัญญีแพทย์เห็นผลลัพธ์ทุกนาที ศัลยแพทย์เห็นผลในชั่วโมง แพทย์ครอบครัวเห็นครอบครัวเดียวกันมา 30 ปี และแพทย์เวชศาสตร์ป้องกันอาจส่งผลต่อคนนับล้านในอนาคต — ทุกกรอบเวลามีความหมาย',
+            microLearn_en: 'Anesthesiologists see results every minute. Surgeons see them in hours. Family doctors see the same families for 30 years. Preventive medicine doctors may impact millions for decades. Every timeframe matters.'
+        },
+        {
+            id: 'stress',
+            category_th: 'การรับมือความกดดัน',
+            category_en: 'Stress Response',
+            text_th: 'เมื่ออยู่ภายใต้ความกดดันสูง คุณมักจะ...',
+            text_en: 'Under high pressure, you tend to...',
+            options: [
+                {
+                    icon: '🔥',
+                    title_th: 'เบ่งบานและตัดสินใจเร็ว',
+                    title_en: 'Thrive and decide quickly',
+                    desc_th: 'ความกดดันทำให้ฉันตื่นตัวและคิดได้ชัดเจนขึ้น',
+                    desc_en: 'Pressure makes me alert and think more clearly',
+                    scores: { acute: 5, pace: 5, crisis: 5 }
+                },
+                {
+                    icon: '🧊',
+                    title_th: 'นิ่งสงบและเป็นระบบ',
+                    title_en: 'Stay calm and methodical',
+                    desc_th: 'ฉันรักษาความสงบและทำตามขั้นตอนอย่างรอบคอบ',
+                    desc_en: 'I maintain composure and follow systematic steps',
+                    scores: { pace: 2, depth: 4, control: 4 }
+                },
+                {
+                    icon: '🛡️',
+                    title_th: 'หลีกเลี่ยงสถานการณ์วิกฤต',
+                    title_en: 'Prefer avoiding crisis',
+                    desc_th: 'ฉันทำงานได้ดีกว่าเมื่อมีเวลาคิดและไม่ถูกกดดันมาก',
+                    desc_en: 'I work better with time to think and less acute stress',
+                    scores: { pace: 1, chronic: 4, behindScenes: 4 }
+                },
+                {
+                    icon: '🤲',
+                    title_th: 'มุ่งเน้นช่วยเหลือผู้อื่น',
+                    title_en: 'Focus on supporting others',
+                    desc_th: 'ในสถานการณ์กดดัน ฉันมักช่วยให้คนอื่นรู้สึกดีขึ้น',
+                    desc_en: 'In stressful situations, I help others feel calmer',
+                    scores: { relationship: 5, empathy: 5, support: 4 }
+                }
+            ],
+            microLearn_th: 'ศัลยแพทย์หัวใจและทรวงอกทำงานภายใต้ความกดดันสูงมาก (หัวใจหยุดเต้น = ต้องแก้ไขทันที) ขณะที่แพทย์พันธุศาสตร์อาจใช้เวลาหลายเดือนในการวินิจฉัย — ทั้งสองต้องการความเชี่ยวชาญเท่าๆ กัน แค่ต่างจังหวะ',
+            microLearn_en: 'Cardiothoracic surgeons work under extreme pressure (heart stops = act NOW). Geneticists may take months to reach a diagnosis. Both require equal expertise—just different rhythms.'
+        },
+        {
+            id: 'learning',
+            category_th: 'สไตล์การเรียนรู้',
+            category_en: 'Learning Preference',
+            text_th: 'คุณชอบเรียนรู้และฝึกฝนแบบไหนมากกว่า?',
+            text_en: 'How do you prefer to learn and develop expertise?',
+            options: [
+                {
+                    icon: '🎯',
+                    title_th: 'เชี่ยวชาญเทคนิคเฉพาะทาง',
+                    title_en: 'Master specific techniques',
+                    desc_th: 'ชอบฝึกฝนทักษะทางกายภาพจนชำนาญ',
+                    desc_en: 'I enjoy practicing physical skills until they\'re perfect',
+                    scores: { procedural: 5, depth: 5, technical: 5 }
+                },
+                {
+                    icon: '🧩',
+                    title_th: 'เข้าใจระบบซับซ้อน',
+                    title_en: 'Understand complex systems',
+                    desc_th: 'ชอบเรียนรู้ว่าสิ่งต่างๆ เชื่อมโยงกันอย่างไร',
+                    desc_en: 'I love learning how everything connects together',
+                    scores: { cognitive: 5, depth: 4, diagnostic: 4 }
+                },
+                {
+                    icon: '📚',
+                    title_th: 'รู้รอบด้านหลายเรื่อง',
+                    title_en: 'Know a bit about everything',
+                    desc_th: 'ชอบมีความรู้กว้างเพื่อรับมือสถานการณ์หลากหลาย',
+                    desc_en: 'I prefer broad knowledge to handle varied situations',
+                    scores: { breadth: 5, patientFacing: 3, versatile: 4 }
+                },
+                {
+                    icon: '🔬',
+                    title_th: 'ค้นคว้าและสร้างความรู้ใหม่',
+                    title_en: 'Research and create new knowledge',
+                    desc_th: 'ตื่นเต้นกับการค้นพบสิ่งที่ยังไม่มีใครรู้',
+                    desc_en: 'I\'m excited by discovering what no one knows yet',
+                    scores: { research: 5, depth: 4, behindScenes: 3 }
+                }
+            ],
+            microLearn_th: 'จักษุแพทย์อาจใช้เวลาหลายปีฝึกฝนเทคนิคผ่าตัดด้วยกล้องจุลทรรศน์ แพทย์ครอบครัวต้องรู้เรื่องทุกระบบในร่างกาย และนักวิจัยทางการแพทย์อาจค้นพบสิ่งที่เปลี่ยนโลก — ทุกเส้นทางต้องการความทุ่มเทเท่ากัน',
+            microLearn_en: 'Ophthalmologists spend years perfecting microscopic surgery. Family doctors need to know something about everything. Medical researchers may discover world-changing treatments. All paths require equal dedication.'
+        },
+        {
+            id: 'patientInteraction',
+            category_th: 'ปฏิสัมพันธ์กับผู้ป่วย',
+            category_en: 'Patient Interaction',
+            text_th: 'รูปแบบการทำงานกับผู้ป่วยที่คุณชอบมากที่สุดคือ...',
+            text_en: 'Your ideal patient interaction style is...',
+            options: [
+                {
+                    icon: '👥',
+                    title_th: 'พบผู้ป่วยจำนวนมาก แบบสั้นๆ',
+                    title_en: 'Many patients, brief encounters',
+                    desc_th: 'ชอบความหลากหลายและช่วยคนได้มากในแต่ละวัน',
+                    desc_en: 'I enjoy variety and helping many people each day',
+                    scores: { pace: 4, acute: 3, volume: 5 }
+                },
+                {
+                    icon: '🤝',
+                    title_th: 'น้อยราย แต่ดูแลลึกและยาวนาน',
+                    title_en: 'Fewer patients, deep long-term care',
+                    desc_th: 'ชอบสร้างความสัมพันธ์และติดตามดูแลต่อเนื่อง',
+                    desc_en: 'I value building relationships and continuity of care',
+                    scores: { relationship: 5, chronic: 5, patientTime: 5 }
+                },
+                {
+                    icon: '🔬',
+                    title_th: 'ทำงานเบื้องหลัง ไม่ค่อยพบผู้ป่วย',
+                    title_en: 'Behind the scenes, minimal contact',
+                    desc_th: 'ชอบมีส่วนช่วยโดยไม่ต้องพบปะผู้ป่วยโดยตรงมาก',
+                    desc_en: 'I contribute meaningfully without much direct contact',
+                    scores: { behindScenes: 5, depth: 4, diagnostic: 3 }
+                },
+                {
+                    icon: '👨‍👩‍👧',
+                    title_th: 'ทำงานกับครอบครัวและชุมชน',
+                    title_en: 'Work with families and communities',
+                    desc_th: 'ชอบดูแลผู้ป่วยในบริบทของครอบครัวและสังคม',
+                    desc_en: 'I like caring for patients in their family/social context',
+                    scores: { holistic: 5, population: 3, relationship: 4 }
+                }
+            ],
+            microLearn_th: 'แพทย์รังสีวินิจฉัยและพยาธิแพทย์แทบไม่พบผู้ป่วยโดยตรง แต่การวินิจฉัยของพวกเขากำหนดทิศทางการรักษาของผู้ป่วยทุกคน — พวกเขาคือ "ผู้ตัดสินความจริง" ที่อยู่เบื้องหลังการรักษาทุกเคส',
+            microLearn_en: 'Radiologists and pathologists rarely meet patients directly, yet their diagnoses shape every patient\'s treatment path. They\'re the "truth arbiters" behind every case.'
+        },
+        {
+            id: 'technology',
+            category_th: 'เทคโนโลยีในการทำงาน',
+            category_en: 'Technology Use',
+            text_th: 'ระดับการใช้เทคโนโลยีในการทำงานที่คุณชอบคือ...',
+            text_en: 'Your ideal level of technology use is...',
+            options: [
+                {
+                    icon: '🤖',
+                    title_th: 'ใช้เทคโนโลยีขั้นสูงตลอดเวลา',
+                    title_en: 'High-tech tools all the time',
+                    desc_th: 'ชอบใช้เครื่องมือล้ำสมัย หุ่นยนต์ หรือการถ่ายภาพขั้นสูง',
+                    desc_en: 'I love using cutting-edge devices, robots, or imaging',
+                    scores: { technical: 5, procedural: 4, imaging: 4 }
+                },
+                {
+                    icon: '⚖️',
+                    title_th: 'ผสมผสานเทคโนโลยีกับการพูดคุย',
+                    title_en: 'Balance of tech and human touch',
+                    desc_th: 'ใช้เทคโนโลยีเมื่อจำเป็น แต่เน้นการสื่อสารกับคน',
+                    desc_en: 'I use tech when needed but prioritize human connection',
+                    scores: { breadth: 3, patientFacing: 4, versatile: 3 }
+                },
+                {
+                    icon: '💬',
+                    title_th: 'เน้นการสนทนาและความสัมพันธ์',
+                    title_en: 'Conversation-focused, minimal tech',
+                    desc_th: 'เครื่องมือหลักของฉันคือการฟังและพูดคุย',
+                    desc_en: 'My main tools are listening and talking',
+                    scores: { relationship: 5, empathy: 4, counseling: 5 }
+                },
+                {
+                    icon: '📊',
+                    title_th: 'วิเคราะห์ข้อมูลและระบบ',
+                    title_en: 'Data analysis and systems',
+                    desc_th: 'ชอบทำงานกับข้อมูล สถิติ และการวางแผนเชิงระบบ',
+                    desc_en: 'I enjoy working with data, statistics, and systems',
+                    scores: { population: 4, research: 4, behindScenes: 3 }
+                }
+            ],
+            microLearn_th: 'รังสีแพทย์ร่วมรักษา (IR) ใช้เครื่องมือผ่าตัดผ่านสายสวนโดยดูจากหน้าจอ ศัลยแพทย์ระบบทางเดินปัสสาวะอาจใช้หุ่นยนต์ดาวินชี ขณะที่จิตแพทย์อาจใช้แค่ห้องเงียบๆ และบทสนทนา — ทุกอย่างเป็น "เครื่องมือ" ที่เหมาะกับงาน',
+            microLearn_en: 'Interventional radiologists operate through screens. Urologists may use Da Vinci robots. Psychiatrists might just need a quiet room and conversation. All are valid "tools" for the job.'
+        },
+        {
+            id: 'impact',
+            category_th: 'วิธีสร้างผลกระทบ',
+            category_en: 'Impact Style',
+            text_th: 'คุณอยากช่วยเหลือผู้อื่นในแบบไหนมากที่สุด?',
+            text_en: 'How do you most want to help others?',
+            options: [
+                {
+                    icon: '🚑',
+                    title_th: 'แก้ปัญหาเฉียบพลันทันที',
+                    title_en: 'Fix acute problems right now',
+                    desc_th: 'ตอบสนองวิกฤต กู้ชีพ หรือผ่าตัดฉุกเฉิน',
+                    desc_en: 'Respond to crises, save lives, or operate in emergencies',
+                    scores: { acute: 5, procedural: 4, crisis: 5 }
+                },
+                {
+                    icon: '🛡️',
+                    title_th: 'ป้องกันปัญหาก่อนเกิด',
+                    title_en: 'Prevent problems before they happen',
+                    desc_th: 'ออกแบบระบบ นโยบาย หรือแผนป้องกันโรค',
+                    desc_en: 'Design systems, policies, or prevention programs',
+                    scores: { prevention: 5, population: 5, strategy: 4 }
+                },
+                {
+                    icon: '🌱',
+                    title_th: 'พัฒนาคุณภาพชีวิตระยะยาว',
+                    title_en: 'Improve quality of life over time',
+                    desc_th: 'ดูแลโรคเรื้อรัง ฟื้นฟูสภาพ หรือเสริมพลังให้ผู้ป่วย',
+                    desc_en: 'Manage chronic conditions, rehabilitate, or empower',
+                    scores: { chronic: 5, relationship: 4, holistic: 5 }
+                },
+                {
+                    icon: '🔬',
+                    title_th: 'สร้างความรู้ใหม่เพื่อคนรุ่นหลัง',
+                    title_en: 'Create knowledge for future generations',
+                    desc_th: 'ทำวิจัย สอน หรือพัฒนาการรักษาใหม่ๆ',
+                    desc_en: 'Research, teach, or develop new treatments',
+                    scores: { research: 5, depth: 4, behindScenes: 4 }
+                }
+            ],
+            microLearn_th: 'แพทย์ฉุกเฉินอาจช่วยชีวิต 5 คนในหนึ่งกะ แพทย์เวชศาสตร์ป้องกันอาจออกแบบนโยบายที่ช่วยคนนับล้าน และนักวิจัยอาจค้นพบยาที่ช่วยคนอีกหลายรุ่น — ทุกแบบคือการ "ช่วยชีวิต" ที่มีความหมาย',
+            microLearn_en: 'An ER doctor might save 5 lives in one shift. A preventive medicine specialist might design a policy that saves millions. A researcher might discover a drug that helps generations. All are meaningful ways to "save lives."'
+        }
+    ];
+
+    // Specialty definitions with scoring profiles
+    const specialties = [
+        // Surgical specialties
+        { id: 'ER', title_th: 'เวชศาสตร์ฉุกเฉิน', title_en: 'Emergency Medicine', color: ['#dc2626', '#f87171'], icon: '🚨',
+          profile: { acute: 5, pace: 5, crisis: 5, procedural: 3, breadth: 4 },
+          tags_th: ['ไหวพริบ', 'รับมือวิกฤต', 'หลากหลาย'], tags_en: ['Quick thinking', 'Crisis management', 'Variety'],
+          desc_th: 'คุณเหมาะกับสภาพแวดล้อมที่เปลี่ยนแปลงเร็ว ชอบแก้ปัญหาเฉียบพลัน และมีพลังงานสูงในการรับมือกับสิ่งที่คาดเดาไม่ได้',
+          desc_en: 'You thrive in fast-changing environments, love solving acute problems, and have high energy for unpredictability.',
+          day_th: 'กะละ 8-12 ชม. พบผู้ป่วย 20-40 ราย ตั้งแต่เรื่องเล็กน้อยถึงกู้ชีพ ตัดสินใจเร็วภายใต้ข้อมูลจำกัด ไม่ต้องติดตามผู้ป่วยระยะยาว',
+          day_en: '8-12hr shifts, 20-40 patients from minor issues to resuscitations. Quick decisions with limited info. No long-term follow-up.',
+          stats: [{ l_th: 'ความเร่งด่วน', l_en: 'Urgency', v: 100 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 60 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 20 }],
+          slug: 'emergency-medicine' },
+
+        { id: 'GS', title_th: 'ศัลยกรรมทั่วไป', title_en: 'General Surgery', color: ['#b91c1c', '#ef4444'], icon: '🔪',
+          profile: { procedural: 5, acute: 4, action: 5, pace: 4, breadth: 3 },
+          tags_th: ['ลงมือทำ', 'เห็นผลทันที', 'ทุกระบบ'], tags_en: ['Hands-on', 'Immediate results', 'All systems'],
+          desc_th: 'คุณชอบลงมือแก้ปัญหาด้วยทักษะทางกายภาพ เห็นผลลัพธ์ชัดเจน และพร้อมรับมือกับหลากหลายสถานการณ์',
+          desc_en: 'You like solving problems with physical skills, seeing clear results, and handling diverse situations.',
+          day_th: 'เริ่ม 6 โมงเช้า ผ่าตัด 2-5 เคสต่อวัน ตรวจผู้ป่วยหลังผ่าตัด ออกตรวจคลินิก อยู่เวรฉุกเฉิน',
+          day_en: 'Start 6am, 2-5 surgeries daily, post-op rounds, clinic hours, emergency calls.',
+          stats: [{ l_th: 'หัตถการ', l_en: 'Procedures', v: 95 }, { l_th: 'ความเร่งด่วน', l_en: 'Urgency', v: 75 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 30 }],
+          slug: 'general-surgery' },
+
+        { id: 'ORTHO', title_th: 'ศัลยกรรมกระดูก', title_en: 'Orthopedic Surgery', color: ['#c2410c', '#fb923c'], icon: '🦴',
+          profile: { procedural: 5, technical: 5, action: 5, acute: 3 },
+          tags_th: ['โครงสร้าง', 'ฟื้นฟูการเคลื่อนไหว', 'พลังงานสูง'], tags_en: ['Structural', 'Restore movement', 'High energy'],
+          desc_th: 'คุณชอบงานที่เกี่ยวกับโครงสร้างและการซ่อมแซม ได้เห็นผู้ป่วยกลับมาเคลื่อนไหวได้อีกครั้ง',
+          desc_en: 'You enjoy structural work and repairs, seeing patients return to movement.',
+          day_th: 'ผ่าตัดหลากหลายตั้งแต่เปลี่ยนข้อถึงซ่อมกระดูกหัก ดูผู้ป่วยในคลินิก ทำงานกับทีมกายภาพบำบัด',
+          day_en: 'Various surgeries from joint replacements to fracture repairs, clinic visits, work with PT teams.',
+          stats: [{ l_th: 'หัตถการ', l_en: 'Procedures', v: 95 }, { l_th: 'ผลลัพธ์ชัดเจน', l_en: 'Tangible results', v: 90 }, { l_th: 'ความซับซ้อนอายุรกรรม', l_en: 'Medical complexity', v: 30 }],
+          slug: 'orthopedic-surgery' },
+
+        { id: 'NS', title_th: 'ประสาทศัลยศาสตร์', title_en: 'Neurosurgery', color: ['#7c3aed', '#a78bfa'], icon: '🧠',
+          profile: { procedural: 5, depth: 5, technical: 5, pace: 3, control: 5 },
+          tags_th: ['ซับซ้อน', 'ความแม่นยำสูงสุด', 'ความท้าทาย'], tags_en: ['Complex', 'Extreme precision', 'Challenge'],
+          desc_th: 'คุณพร้อมทุ่มเทกับงานที่ท้าทายที่สุด ต้องการความแม่นยำสูงและสมาธิยาวนาน',
+          desc_en: 'You\'re ready to dedicate yourself to the most challenging work requiring extreme precision and sustained focus.',
+          day_th: 'ผ่าตัดยาว 4-12+ ชม. ต้องการสมาธิสูงมาก ดูผู้ป่วยในไอซียู เวรฉุกเฉินบ่อย',
+          day_en: '4-12+ hour surgeries requiring extreme focus, ICU rounds, frequent emergency calls.',
+          stats: [{ l_th: 'ความยากเชิงเทคนิค', l_en: 'Technical difficulty', v: 100 }, { l_th: 'ชั่วโมงทำงาน', l_en: 'Work hours', v: 95 }, { l_th: 'สมดุลชีวิต', l_en: 'Work-life balance', v: 15 }],
+          slug: 'neurosurgery' },
+
+        { id: 'CVT', title_th: 'ศัลยกรรมหัวใจ', title_en: 'Cardiothoracic Surgery', color: ['#be123c', '#fb7185'], icon: '❤️',
+          profile: { procedural: 5, acute: 5, crisis: 5, technical: 5, pace: 4 },
+          tags_th: ['ความกดดันสูง', 'กู้ชีพ', 'ทีมเวิร์ค'], tags_en: ['High stakes', 'Life-saving', 'Teamwork'],
+          desc_th: 'คุณพร้อมรับความกดดันสูงสุด ทำงานกับอวัยวะที่สำคัญที่สุด และตัดสินใจชี้เป็นชี้ตาย',
+          desc_en: 'You\'re ready for extreme pressure, working on the most critical organs, making life-or-death decisions.',
+          day_th: 'ผ่าตัดหัวใจ 1-3 เคส ใช้เวลา 4-8 ชม.ต่อเคส ดูผู้ป่วยในไอซียู 24/7 ต้องพร้อมตลอดเวลา',
+          day_en: '1-3 cardiac surgeries, 4-8 hrs each, ICU coverage 24/7, always on call.',
+          stats: [{ l_th: 'ความกดดัน', l_en: 'Pressure', v: 100 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 95 }, { l_th: 'สมดุลชีวิต', l_en: 'Work-life balance', v: 10 }],
+          slug: 'thoracic-surgery' },
+
+        { id: 'OPHTHA', title_th: 'จักษุวิทยา', title_en: 'Ophthalmology', color: ['#0891b2', '#22d3ee'], icon: '👁️',
+          profile: { procedural: 5, technical: 5, depth: 5, pace: 2 },
+          tags_th: ['ความละเอียด', 'เทคโนโลยี', 'สมดุลชีวิตดี'], tags_en: ['Precision', 'Technology', 'Good lifestyle'],
+          desc_th: 'คุณชอบงานที่ต้องการความละเอียดสูงสุด ทำงานกับกล้องจุลทรรศน์ และมีสมดุลชีวิตที่ดี',
+          desc_en: 'You enjoy work requiring extreme precision, microscope work, with good work-life balance.',
+          day_th: 'ผ่าตัดเล็ก 6-12 เคสต่อวัน ตรวจคลินิก ผู้ป่วยส่วนใหญ่เป็นผู้ป่วยนอก ไม่ค่อยมีเวรฉุกเฉิน',
+          day_en: '6-12 micro-surgeries daily, clinic visits, mostly outpatient, rare emergencies.',
+          stats: [{ l_th: 'ความละเอียด', l_en: 'Precision', v: 100 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 85 }, { l_th: 'ความเร่งด่วน', l_en: 'Urgency', v: 20 }],
+          slug: 'ophthalmology' },
+
+        { id: 'ENT', title_th: 'โสต ศอ นาสิก', title_en: 'Otolaryngology (ENT)', color: ['#0d9488', '#2dd4bf'], icon: '👂',
+          profile: { procedural: 4, technical: 4, breadth: 4, pace: 3 },
+          tags_th: ['หลากหลาย', 'ผ่าตัดและคลินิก', 'คุณภาพชีวิต'], tags_en: ['Variety', 'Surgery & clinic', 'Quality of life'],
+          desc_th: 'คุณชอบความหลากหลายของงานทั้งผ่าตัดและคลินิก ดูแลปัญหาที่กระทบคุณภาพชีวิตโดยตรง',
+          desc_en: 'You enjoy variety in both surgery and clinic, caring for issues that directly impact quality of life.',
+          day_th: 'ผ่าตัด 2-4 เคส ตรวจคลินิกเด็กถึงผู้ใหญ่ ปัญหาหูหนวก จมูก เสียง ไซนัส',
+          day_en: '2-4 surgeries, clinic from kids to adults, hearing, nose, voice, sinus issues.',
+          stats: [{ l_th: 'หัตถการ', l_en: 'Procedures', v: 75 }, { l_th: 'ความหลากหลาย', l_en: 'Variety', v: 80 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 70 }],
+          slug: 'otolaryngology' },
+
+        { id: 'PLASTIC', title_th: 'ศัลยกรรมตกแต่ง', title_en: 'Plastic Surgery', color: ['#db2777', '#f472b6'], icon: '✨',
+          profile: { procedural: 5, technical: 5, depth: 4, relationship: 3 },
+          tags_th: ['ศิลปะ+วิทยาศาสตร์', 'ฟื้นฟู+ความงาม', 'ความละเอียด'], tags_en: ['Art + Science', 'Reconstruct + Aesthetic', 'Precision'],
+          desc_th: 'คุณผสมผสานศิลปะกับวิทยาศาสตร์ ใส่ใจทั้งการทำงานและรูปลักษณ์ของผลลัพธ์',
+          desc_en: 'You blend art with science, caring about both function and appearance of results.',
+          day_th: 'ผ่าตัดซ่อมแซมหรือเสริมความงาม ให้คำปรึกษาผู้ป่วย วางแผนอย่างละเอียด',
+          day_en: 'Reconstructive or cosmetic surgery, patient consultations, detailed planning.',
+          stats: [{ l_th: 'ความละเอียดศิลป์', l_en: 'Artistic precision', v: 95 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 85 }, { l_th: 'ความเร่งด่วน', l_en: 'Urgency', v: 30 }],
+          slug: 'plastic-surgery' },
+
+        { id: 'URO', title_th: 'ศัลยกรรมระบบปัสสาวะ', title_en: 'Urology', color: ['#ea580c', '#fdba74'], icon: '🎮',
+          profile: { procedural: 4, technical: 5, breadth: 3, pace: 3 },
+          tags_th: ['เทคโนโลยี', 'หุ่นยนต์', 'สมดุลชีวิตดี'], tags_en: ['Technology', 'Robotics', 'Good lifestyle'],
+          desc_th: 'คุณชอบใช้เทคโนโลยีขั้นสูง หุ่นยนต์ผ่าตัด และมีสมดุลชีวิตที่ดี',
+          desc_en: 'You enjoy advanced technology, robotic surgery, with good work-life balance.',
+          day_th: 'ผ่าตัดหุ่นยนต์/ส่องกล้อง คลินิกผู้ป่วยนอก เวรฉุกเฉินไม่บ่อยมาก',
+          day_en: 'Robotic/endoscopic surgery, outpatient clinic, moderate emergency calls.',
+          stats: [{ l_th: 'เทคโนโลยี', l_en: 'Technology', v: 90 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 80 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 70 }],
+          slug: 'urology' },
+
+        { id: 'OBGYN', title_th: 'สูติ-นรีเวชวิทยา', title_en: 'OB/GYN', color: ['#e11d48', '#fda4af'], icon: '👶',
+          profile: { procedural: 4, acute: 4, relationship: 4, breadth: 4, holistic: 3 },
+          tags_th: ['หลากหลาย', 'ดูแลครบวงจร', 'พลังงานสูง'], tags_en: ['Variety', 'Complete care', 'High energy'],
+          desc_th: 'คุณชอบความหลากหลายจากคลินิกถึงห้องคลอดฉุกเฉิน ดูแลครบวงจรทั้งป้องกันและผ่าตัด',
+          desc_en: 'You enjoy variety from clinic to emergency deliveries, complete care from prevention to surgery.',
+          day_th: 'คลินิกฝากครรภ์ ผ่าตัด ทำคลอด อยู่เวรคลอดฉุกเฉิน ดูแลปัญหานรีเวช',
+          day_en: 'Prenatal clinic, surgeries, deliveries, L&D call, gynecological care.',
+          stats: [{ l_th: 'ความหลากหลาย', l_en: 'Variety', v: 90 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 75 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 70 }],
+          slug: 'obstetrics-and-gynecology' },
+
+        // Medical specialties
+        { id: 'IM', title_th: 'อายุรศาสตร์ทั่วไป', title_en: 'Internal Medicine', color: ['#059669', '#34d399'], icon: '🩺',
+          profile: { cognitive: 5, diagnostic: 5, breadth: 4, chronic: 4, relationship: 3 },
+          tags_th: ['วิเคราะห์', 'แก้ปริศนา', 'ดูแลระยะยาว'], tags_en: ['Analysis', 'Puzzle-solving', 'Long-term care'],
+          desc_th: 'คุณชอบวิเคราะห์ปัญหาซับซ้อน ไขปริศนาจากอาการ และดูแลผู้ป่วยอย่างต่อเนื่อง',
+          desc_en: 'You enjoy analyzing complex problems, solving diagnostic puzzles, and ongoing patient care.',
+          day_th: 'ดูผู้ป่วยในวอร์ด 10-15 ราย คลินิกผู้ป่วยนอก ปรึกษาทีมสหสาขา วางแผนการรักษา',
+          day_en: 'Ward rounds 10-15 patients, outpatient clinic, multidisciplinary consults, treatment planning.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 90 }, { l_th: 'ความกว้าง', l_en: 'Breadth', v: 85 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 25 }],
+          slug: 'internal-medicine' },
+
+        { id: 'CARDIO', title_th: 'อายุรศาสตร์หัวใจ', title_en: 'Cardiology', color: ['#dc2626', '#f87171'], icon: '💓',
+          profile: { cognitive: 5, diagnostic: 5, procedural: 3, acute: 4, technical: 4 },
+          tags_th: ['ไดนามิก', 'หัตถการ+คิด', 'เทคโนโลยี'], tags_en: ['Dynamic', 'Procedures+thinking', 'Technology'],
+          desc_th: 'คุณชอบผสมผสานการวิเคราะห์กับหัตถการ รับมือทั้งเรื้อรังและฉุกเฉิน',
+          desc_en: 'You enjoy blending analysis with procedures, handling both chronic and acute cases.',
+          day_th: 'อ่านผล Echo/EKG สวนหัวใจ ดูผู้ป่วยวิกฤต คลินิกโรคเรื้อรัง',
+          day_en: 'Read Echo/EKG, cardiac catheterization, critical care, chronic disease clinic.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 85 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 70 }, { l_th: 'ความเร่งด่วน', l_en: 'Urgency', v: 75 }],
+          slug: 'internal-medicine-cardiovascular-disease' },
+
+        { id: 'GI', title_th: 'ทางเดินอาหาร', title_en: 'Gastroenterology', color: ['#d97706', '#fbbf24'], icon: '🔬',
+          profile: { cognitive: 4, procedural: 4, diagnostic: 4, technical: 4, breadth: 3 },
+          tags_th: ['ส่องกล้อง', 'วิเคราะห์+ทำ', 'สมดุลดี'], tags_en: ['Endoscopy', 'Think+do', 'Good balance'],
+          desc_th: 'คุณชอบผสมผสานการส่องกล้องกับการวิเคราะห์ มีสมดุลชีวิตที่ดี',
+          desc_en: 'You enjoy combining endoscopy with analysis, with good work-life balance.',
+          day_th: 'ส่องกล้อง 4-8 เคส คลินิกโรคตับ/ลำไส้ ให้คำปรึกษาในวอร์ด',
+          day_en: 'Endoscopy 4-8 cases, liver/GI clinic, inpatient consults.',
+          stats: [{ l_th: 'หัตถการ', l_en: 'Procedures', v: 80 }, { l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 75 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 65 }],
+          slug: 'internal-medicine-gastroenterology' },
+
+        { id: 'NEPHRO', title_th: 'โรคไต', title_en: 'Nephrology', color: ['#0284c7', '#38bdf8'], icon: '⚖️',
+          profile: { cognitive: 5, depth: 5, chronic: 5, diagnostic: 4 },
+          tags_th: ['ตรรกะ', 'ตัวเลข', 'ดูแลระยะยาว'], tags_en: ['Logic', 'Numbers', 'Long-term care'],
+          desc_th: 'คุณชอบงานที่ต้องใช้ตรรกะและตัวเลข รักษาสมดุลที่ซับซ้อน ดูแลผู้ป่วยระยะยาว',
+          desc_en: 'You enjoy logic and numbers, maintaining complex balance, long-term patient care.',
+          day_th: 'ดูผู้ป่วยฟอกไต คลินิกโรคไตเรื้อรัง ให้คำปรึกษาปัญหาอิเล็กโทรไลต์',
+          day_en: 'Dialysis rounds, chronic kidney clinic, electrolyte consults.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 95 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 80 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 30 }],
+          slug: 'internal-medicine-nephrology' },
+
+        { id: 'PULMO', title_th: 'โรคปอด', title_en: 'Pulmonology', color: ['#0891b2', '#67e8f9'], icon: '🌬️',
+          profile: { cognitive: 4, acute: 4, procedural: 3, control: 4, chronic: 4 },
+          tags_th: ['วิกฤต+เรื้อรัง', 'ไอซียู', 'หลากหลาย'], tags_en: ['Critical+chronic', 'ICU', 'Varied'],
+          desc_th: 'คุณชอบดูแลทั้งผู้ป่วยวิกฤตในไอซียูและโรคเรื้อรังในคลินิก',
+          desc_en: 'You enjoy caring for both ICU critical patients and chronic disease in clinic.',
+          day_th: 'ดูผู้ป่วยไอซียู ส่องกล้องหลอดลม คลินิกโรคหอบ/ปอดเรื้อรัง',
+          day_en: 'ICU rounds, bronchoscopy, asthma/COPD clinic.',
+          stats: [{ l_th: 'ความเร่งด่วน', l_en: 'Urgency', v: 75 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 55 }, { l_th: 'ความหลากหลาย', l_en: 'Variety', v: 80 }],
+          slug: 'pulmonary-disease' },
+
+        { id: 'NEURO', title_th: 'ประสาทวิทยา', title_en: 'Neurology', color: ['#7c3aed', '#a78bfa'], icon: '⚡',
+          profile: { cognitive: 5, diagnostic: 5, depth: 5, relationship: 3 },
+          tags_th: ['ปริศนาซับซ้อน', 'ตรรกะ', 'ตรวจร่างกายละเอียด'], tags_en: ['Complex puzzles', 'Logic', 'Detailed exam'],
+          desc_th: 'คุณชอบไขปริศนาที่ซับซ้อนที่สุด ใช้ตรรกะทีละขั้นตอน และตรวจร่างกายอย่างละเอียด',
+          desc_en: 'You enjoy solving the most complex puzzles, step-by-step logic, and detailed examinations.',
+          day_th: 'ดูผู้ป่วยสโตรค คลินิกโรคเรื้อรัง อ่านผล EEG/EMG ให้คำปรึกษา',
+          day_en: 'Stroke rounds, chronic disease clinic, EEG/EMG reading, consults.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 100 }, { l_th: 'ความลึก', l_en: 'Depth', v: 95 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 20 }],
+          slug: 'neurology' },
+
+        { id: 'RHEUM', title_th: 'รูมาโตโลยี', title_en: 'Rheumatology', color: ['#16a34a', '#4ade80'], icon: '🛡️',
+          profile: { cognitive: 5, diagnostic: 5, chronic: 5, relationship: 5 },
+          tags_th: ['ปริศนาภูมิคุ้มกัน', 'ดูแลระยะยาว', 'ความสัมพันธ์'], tags_en: ['Immune puzzles', 'Long-term care', 'Relationships'],
+          desc_th: 'คุณชอบไขปริศนาภูมิคุ้มกันที่ซับซ้อน สร้างความสัมพันธ์ระยะยาวกับผู้ป่วย',
+          desc_en: 'You enjoy solving complex immune puzzles, building long-term patient relationships.',
+          day_th: 'คลินิกโรคข้อ/ภูมิคุ้มกัน ติดตามผู้ป่วยเรื้อรัง ให้คำปรึกษาเคสซับซ้อน',
+          day_en: 'Joint/immune clinic, chronic patient follow-up, complex case consults.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 95 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 90 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 15 }],
+          slug: 'rheumatology' },
+
+        { id: 'ENDO', title_th: 'ต่อมไร้ท่อ', title_en: 'Endocrinology', color: ['#059669', '#6ee7b7'], icon: '📶',
+          profile: { cognitive: 5, chronic: 5, relationship: 4, diagnostic: 4, holistic: 4 },
+          tags_th: ['ระบบฮอร์โมน', 'ดูแลระยะยาว', 'สมดุลชีวิตดี'], tags_en: ['Hormones', 'Long-term care', 'Good lifestyle'],
+          desc_th: 'คุณชอบทำความเข้าใจระบบฮอร์โมนที่ซับซ้อน ดูแลผู้ป่วยระยะยาว สมดุลชีวิตดี',
+          desc_en: 'You enjoy understanding complex hormone systems, long-term care, good work-life balance.',
+          day_th: 'คลินิกเบาหวาน/ไทรอยด์ ติดตามผู้ป่วยเรื้อรัง ให้ความรู้ผู้ป่วย',
+          day_en: 'Diabetes/thyroid clinic, chronic follow-up, patient education.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 85 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 85 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 85 }],
+          slug: 'endocrinology-diabetes-and-metabolism' },
+
+        { id: 'ONC', title_th: 'มะเร็งวิทยา', title_en: 'Medical Oncology', color: ['#be185d', '#f472b6'], icon: '🎗️',
+          profile: { cognitive: 4, relationship: 5, empathy: 5, chronic: 5, research: 4 },
+          tags_th: ['ดูแลองค์รวม', 'ความสัมพันธ์ลึก', 'เดินเคียงข้าง'], tags_en: ['Holistic care', 'Deep bonds', 'Walk alongside'],
+          desc_th: 'คุณพร้อมเดินเคียงข้างผู้ป่วยในช่วงเวลาที่ยากลำบาก สร้างความสัมพันธ์ที่มีความหมาย',
+          desc_en: 'You\'re ready to walk alongside patients through difficult times, building meaningful relationships.',
+          day_th: 'คลินิกเคมีบำบัด ดูแลผู้ป่วยในวอร์ด พูดคุยกับครอบครัว ประชุมทีมสหสาขา',
+          day_en: 'Chemo clinic, ward rounds, family discussions, tumor board meetings.',
+          stats: [{ l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 100 }, { l_th: 'ความยากทางอารมณ์', l_en: 'Emotional weight', v: 90 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 20 }],
+          slug: 'hematology-and-medical-oncology' },
+
+        { id: 'ID', title_th: 'โรคติดเชื้อ', title_en: 'Infectious Disease', color: ['#15803d', '#86efac'], icon: '🔎',
+          profile: { cognitive: 5, diagnostic: 5, research: 4, breadth: 4 },
+          tags_th: ['นักสืบ', 'สาธารณสุข', 'ความรู้กว้าง'], tags_en: ['Detective', 'Public health', 'Broad knowledge'],
+          desc_th: 'คุณชอบสืบหาเชื้อโรค ใช้หลักฐานและตรรกะ มีมุมมองสาธารณสุข',
+          desc_en: 'You enjoy hunting pathogens, using evidence and logic, with public health perspective.',
+          day_th: 'ให้คำปรึกษาเคสติดเชื้อซับซ้อน ดูแลผู้ป่วย HIV คลินิกเฉพาะทาง',
+          day_en: 'Complex infection consults, HIV care, specialized clinics.',
+          stats: [{ l_th: 'การวิเคราะห์', l_en: 'Analysis', v: 95 }, { l_th: 'ความกว้าง', l_en: 'Breadth', v: 85 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 10 }],
+          slug: 'infectious-disease' },
+
+        { id: 'DERM', title_th: 'ผิวหนัง', title_en: 'Dermatology', color: ['#f59e0b', '#fcd34d'], icon: '👁️‍🗨️',
+          profile: { diagnostic: 5, depth: 4, procedural: 3, breadth: 3 },
+          tags_th: ['สังเกตแพทเทิร์น', 'สมดุลชีวิตดีมาก', 'หลากหลาย'], tags_en: ['Pattern recognition', 'Great lifestyle', 'Variety'],
+          desc_th: 'คุณชอบสังเกตและจดจำแพทเทิร์น มีสมดุลชีวิตที่ดีมาก ทำได้หลากหลาย',
+          desc_en: 'You enjoy observing and recognizing patterns, excellent work-life balance, varied work.',
+          day_th: 'คลินิกผู้ป่วย 30-50 ราย ทำหัตถการเล็ก ตัดชิ้นเนื้อ เลเซอร์',
+          day_en: 'Clinic 30-50 patients, minor procedures, biopsies, laser.',
+          stats: [{ l_th: 'การวินิจฉัย', l_en: 'Diagnosis', v: 100 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 95 }, { l_th: 'หัตถการใหญ่', l_en: 'Major procedures', v: 20 }],
+          slug: 'dermatology' },
+
+        // Psychiatry & Neuro
+        { id: 'PSYCH', title_th: 'จิตเวชศาสตร์', title_en: 'Psychiatry', color: ['#6366f1', '#a5b4fc'], icon: '🧠',
+          profile: { empathy: 5, relationship: 5, counseling: 5, cognitive: 4 },
+          tags_th: ['ฟังและเข้าใจ', 'ความสัมพันธ์ลึก', 'ไม่มีหัตถการ'], tags_en: ['Listen & understand', 'Deep bonds', 'No procedures'],
+          desc_th: 'คุณชอบฟังและเข้าใจจิตใจคน สร้างความสัมพันธ์ลึกซึ้ง ช่วยเหลือทางอารมณ์',
+          desc_en: 'You enjoy listening and understanding minds, building deep relationships, providing emotional support.',
+          day_th: 'พบผู้ป่วย 6-10 รายต่อวัน 45-60 นาทีต่อราย ดูผู้ป่วยในวอร์ดจิตเวช',
+          day_en: 'See 6-10 patients daily, 45-60 min each, psychiatric ward rounds.',
+          stats: [{ l_th: 'การฟัง', l_en: 'Listening', v: 100 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 95 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 5 }],
+          slug: 'psychiatry' },
+
+        // Pediatrics
+        { id: 'PEDS', title_th: 'กุมารเวชศาสตร์', title_en: 'Pediatrics', color: ['#f59e0b', '#fcd34d'], icon: '🧒',
+          profile: { relationship: 5, empathy: 4, holistic: 5, breadth: 4 },
+          tags_th: ['ดูแลเด็ก', 'ทำงานกับครอบครัว', 'พลังบวก'], tags_en: ['Child care', 'Work with families', 'Positive energy'],
+          desc_th: 'คุณชอบทำงานกับเด็กและครอบครัว สร้างพื้นที่ปลอดภัย มีพลังบวก',
+          desc_en: 'You enjoy working with children and families, creating safe spaces, bringing positive energy.',
+          day_th: 'คลินิกเด็กสุขภาพดี ดูผู้ป่วยในวอร์ด ให้คำปรึกษาครอบครัว ฉีดวัคซีน',
+          day_en: 'Well-child clinic, ward rounds, family counseling, vaccinations.',
+          stats: [{ l_th: 'ปฏิสัมพันธ์ครอบครัว', l_en: 'Family interaction', v: 100 }, { l_th: 'ความหลากหลาย', l_en: 'Variety', v: 85 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 25 }],
+          slug: 'pediatrics' },
+
+        // Radiology & Pathology
+        { id: 'RADIO', title_th: 'รังสีวิทยา', title_en: 'Radiology', color: ['#374151', '#6b7280'], icon: '📷',
+          profile: { diagnostic: 5, depth: 5, behindScenes: 5, technical: 4 },
+          tags_th: ['เบื้องหลัง', 'อ่านภาพ', 'สมดุลชีวิตดี'], tags_en: ['Behind scenes', 'Image reading', 'Good lifestyle'],
+          desc_th: 'คุณชอบทำงานเบื้องหลัง วิเคราะห์ภาพอย่างละเอียด มีสมดุลชีวิตที่ดี',
+          desc_en: 'You enjoy working behind scenes, detailed image analysis, good work-life balance.',
+          day_th: 'อ่านผล CT/MRI/X-ray 50-100+ ภาพ ให้คำปรึกษาแพทย์อื่น ประชุมทีม',
+          day_en: 'Read 50-100+ CT/MRI/X-ray, consult other doctors, team meetings.',
+          stats: [{ l_th: 'การวินิจฉัย', l_en: 'Diagnosis', v: 100 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 80 }, { l_th: 'ปฏิสัมพันธ์ผู้ป่วย', l_en: 'Patient contact', v: 10 }],
+          slug: 'radiology-diagnostic' },
+
+        { id: 'IR', title_th: 'รังสีร่วมรักษา', title_en: 'Interventional Radiology', color: ['#0ea5e9', '#7dd3fc'], icon: '🎯',
+          profile: { procedural: 5, technical: 5, imaging: 5, acute: 4 },
+          tags_th: ['ผ่าตัดผ่านสายสวน', 'เทคโนโลยี', 'แม่นยำ'], tags_en: ['Catheter surgery', 'Technology', 'Precision'],
+          desc_th: 'คุณชอบทำหัตถการผ่านสายสวนโดยดูจากหน้าจอ ใช้เทคโนโลยีขั้นสูง',
+          desc_en: 'You enjoy catheter procedures guided by screens, using advanced technology.',
+          day_th: 'หัตถการผ่านสายสวน 3-6 เคส ใส่สเตนท์ อุดเส้นเลือด เจาะชิ้นเนื้อ',
+          day_en: '3-6 catheter procedures, stents, embolization, biopsies.',
+          stats: [{ l_th: 'หัตถการ', l_en: 'Procedures', v: 95 }, { l_th: 'เทคโนโลยี', l_en: 'Technology', v: 95 }, { l_th: 'ปฏิสัมพันธ์ผู้ป่วย', l_en: 'Patient contact', v: 30 }],
+          slug: 'interventional-radiology' },
+
+        { id: 'PATHO', title_th: 'พยาธิวิทยา', title_en: 'Pathology', color: ['#1f2937', '#4b5563'], icon: '🔬',
+          profile: { diagnostic: 5, depth: 5, behindScenes: 5, research: 4 },
+          tags_th: ['ผู้ตัดสินความจริง', 'เบื้องหลัง', 'ไม่พบผู้ป่วย'], tags_en: ['Truth arbiter', 'Behind scenes', 'No patient contact'],
+          desc_th: 'คุณชอบเป็นผู้ตัดสินความจริงขั้นสุดท้าย ทำงานเบื้องหลัง วิเคราะห์ระดับเซลล์',
+          desc_en: 'You enjoy being the final truth arbiter, working behind scenes, cellular analysis.',
+          day_th: 'ดูสไลด์ชิ้นเนื้อ 20-50+ เคส ประชุมทีมมะเร็ง ให้คำวินิจฉัยสุดท้าย',
+          day_en: 'Review 20-50+ tissue slides, tumor board, provide final diagnoses.',
+          stats: [{ l_th: 'ความแม่นยำ', l_en: 'Accuracy', v: 100 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 85 }, { l_th: 'ปฏิสัมพันธ์ผู้ป่วย', l_en: 'Patient contact', v: 0 }],
+          slug: 'pathology-anatomic-and-clinical' },
+
+        // Primary Care & Preventive
+        { id: 'FM', title_th: 'เวชศาสตร์ครอบครัว', title_en: 'Family Medicine', color: ['#22c55e', '#86efac'], icon: '🏠',
+          profile: { relationship: 5, breadth: 5, holistic: 5, chronic: 4 },
+          tags_th: ['ดูแลครบวงจร', 'ทุกวัย', 'ความสัมพันธ์ยาวนาน'], tags_en: ['Complete care', 'All ages', 'Lifelong bonds'],
+          desc_th: 'คุณชอบดูแลผู้ป่วยทุกวัยอย่างครบวงจร สร้างความสัมพันธ์ยาวนาน',
+          desc_en: 'You enjoy complete care for all ages, building lifelong relationships.',
+          day_th: 'คลินิกผู้ป่วย 20-30 ราย ทุกวัยทุกปัญหา หัตถการเล็ก ติดตามโรคเรื้อรัง',
+          day_en: 'Clinic 20-30 patients, all ages all problems, minor procedures, chronic follow-up.',
+          stats: [{ l_th: 'ความกว้าง', l_en: 'Breadth', v: 100 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 95 }, { l_th: 'หัตถการใหญ่', l_en: 'Major procedures', v: 15 }],
+          slug: 'family-medicine' },
+
+        { id: 'PMR', title_th: 'เวชศาสตร์ฟื้นฟู', title_en: 'PM&R / Physiatry', color: ['#14b8a6', '#5eead4'], icon: '🦾',
+          profile: { holistic: 5, relationship: 5, chronic: 5, empathy: 4 },
+          tags_th: ['ฟื้นฟูศักยภาพ', 'คุณภาพชีวิต', 'ทีมสหสาขา'], tags_en: ['Restore function', 'Quality of life', 'Team-based'],
+          desc_th: 'คุณชอบช่วยให้ผู้ป่วยกลับมาใช้ชีวิตได้เต็มศักยภาพ ทำงานกับทีมสหสาขา',
+          desc_en: 'You enjoy helping patients return to full function, working with multidisciplinary teams.',
+          day_th: 'ดูผู้ป่วยฟื้นฟู ประชุมทีมกายภาพบำบัด ฉีดยาลดปวด คลินิกติดตาม',
+          day_en: 'Rehab rounds, PT team meetings, pain injections, follow-up clinic.',
+          stats: [{ l_th: 'การฟื้นฟู', l_en: 'Rehabilitation', v: 95 }, { l_th: 'ความสัมพันธ์', l_en: 'Relationships', v: 85 }, { l_th: 'สมดุลชีวิต', l_en: 'Lifestyle', v: 80 }],
+          slug: 'physical-medicine-and-rehabilitation' },
+
+        { id: 'ANES', title_th: 'วิสัญญีวิทยา', title_en: 'Anesthesiology', color: ['#8b5cf6', '#c4b5fd'], icon: '💉',
+          profile: { procedural: 4, control: 5, acute: 4, technical: 4, pace: 3 },
+          tags_th: ['ควบคุมตัวแปร', 'เบื้องหลังห้องผ่าตัด', 'เห็นผลทันที'], tags_en: ['Variable control', 'Behind OR', 'Immediate results'],
+          desc_th: 'คุณชอบควบคุมตัวแปรที่สำคัญ ทำงานเบื้องหลังห้องผ่าตัด เห็นผลทันที',
+          desc_en: 'You enjoy controlling critical variables, working behind OR scenes, seeing immediate results.',
+          day_th: 'ดูแลการดมยาผ่าตัด 4-8 เคส ใส่สายระงับปวด ดูผู้ป่วยห้องพักฟื้น',
+          day_en: 'Anesthesia for 4-8 cases, pain blocks, recovery room care.',
+          stats: [{ l_th: 'การควบคุม', l_en: 'Control', v: 95 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 80 }, { l_th: 'ปฏิสัมพันธ์ผู้ป่วย', l_en: 'Patient contact', v: 25 }],
+          slug: 'anesthesiology' },
+
+        { id: 'PREV', title_th: 'เวชศาสตร์ป้องกัน', title_en: 'Preventive Medicine', color: ['#06b6d4', '#67e8f9'], icon: '🌍',
+          profile: { population: 5, prevention: 5, strategy: 5, research: 4 },
+          tags_th: ['สาธารณสุข', 'นโยบาย', 'ผลกระทบวงกว้าง'], tags_en: ['Public health', 'Policy', 'Broad impact'],
+          desc_th: 'คุณชอบสร้างผลกระทบวงกว้าง ออกแบบนโยบายและระบบสุขภาพ',
+          desc_en: 'You enjoy creating broad impact, designing health policies and systems.',
+          day_th: 'วิเคราะห์ข้อมูลสุขภาพประชากร ออกแบบโปรแกรมป้องกัน ประชุมนโยบาย',
+          day_en: 'Analyze population data, design prevention programs, policy meetings.',
+          stats: [{ l_th: 'ผลกระทบประชากร', l_en: 'Population impact', v: 100 }, { l_th: 'การวิเคราะห์ข้อมูล', l_en: 'Data analysis', v: 90 }, { l_th: 'ปฏิสัมพันธ์ผู้ป่วย', l_en: 'Patient contact', v: 15 }],
+          slug: 'preventive-medicine' },
+
+        { id: 'PALL', title_th: 'การดูแลประคับประคอง', title_en: 'Palliative Care', color: ['#78716c', '#a8a29e'], icon: '🕯️',
+          profile: { empathy: 5, relationship: 5, holistic: 5, support: 5 },
+          tags_th: ['ความสงบ', 'ดูแลครอบครัว', 'คุณภาพชีวิตวาระสุดท้าย'], tags_en: ['Peace', 'Family care', 'End-of-life quality'],
+          desc_th: 'คุณพร้อมช่วยให้ผู้ป่วยและครอบครัวเผชิญช่วงเวลาสุดท้ายอย่างสงบและมีศักดิ์ศรี',
+          desc_en: 'You\'re ready to help patients and families face final moments with peace and dignity.',
+          day_th: 'ดูผู้ป่วยระยะสุดท้าย พูดคุยกับครอบครัว จัดการอาการปวด วางแผนการดูแล',
+          day_en: 'Terminal patient care, family discussions, pain management, care planning.',
+          stats: [{ l_th: 'ความเห็นอกเห็นใจ', l_en: 'Empathy', v: 100 }, { l_th: 'การสื่อสาร', l_en: 'Communication', v: 95 }, { l_th: 'หัตถการ', l_en: 'Procedures', v: 10 }],
+          slug: 'hospice-and-palliative-medicine' }
+    ];
+
+    // Trait definitions for profile visualization
+    const traits = [
+        { id: 'pace', label_th: 'ความเร่งรีบ', label_en: 'Pace', color: '#dc2626', low_th: 'ช้า สุขุม', low_en: 'Slow & steady', high_th: 'เร็ว ฉับไว', high_en: 'Fast & urgent' },
+        { id: 'procedural', label_th: 'หัตถการ', label_en: 'Procedures', color: '#f59e0b', low_th: 'ไม่ค่อยทำ', low_en: 'Minimal', high_th: 'ทำบ่อยมาก', high_en: 'Frequent' },
+        { id: 'relationship', label_th: 'ความสัมพันธ์', label_en: 'Relationships', color: '#22c55e', low_th: 'สั้นๆ', low_en: 'Brief', high_th: 'ยาวนาน ลึกซึ้ง', high_en: 'Long & deep' },
+        { id: 'depth', label_th: 'ความลึกซึ้ง', label_en: 'Depth', color: '#6366f1', low_th: 'กว้าง รู้ทั่วไป', low_en: 'Broad generalist', high_th: 'ลึก เชี่ยวชาญ', high_en: 'Deep specialist' },
+        { id: 'behindScenes', label_th: 'เบื้องหลัง', label_en: 'Behind Scenes', color: '#8b5cf6', low_th: 'พบผู้ป่วยตลอด', low_en: 'Patient-facing', high_th: 'ทำงานเบื้องหลัง', high_en: 'Behind the scenes' }
+    ];
+
+    // ============================================
+    // STATE MANAGEMENT
+    // ============================================
+    
+    let currentQuestion = 0;
+    let answers = [];
+    let lang = 'th';
+
+    // ============================================
+    // INITIALIZATION
+    // ============================================
+    
+    function setLanguage(newLang) {
+        lang = newLang;
+        document.body.className = `lang-${lang}`;
+        document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    }
+
+    function startQuiz() {
+        currentQuestion = 0;
+        answers = new Array(questions.length).fill(null);
+        showScreen('screen-question');
+        document.getElementById('progress-container').classList.add('visible');
+        renderQuestion();
+    }
+
+    function restart() {
+        currentQuestion = 0;
+        answers = [];
+        document.getElementById('progress-container').classList.remove('visible');
+        showScreen('screen-welcome');
+    }
+
+    // ============================================
+    // SCREEN MANAGEMENT
+    // ============================================
+    
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    // ============================================
+    // QUESTION RENDERING
+    // ============================================
+    
+    function renderQuestion() {
+        const q = questions[currentQuestion];
+        
+        // Update progress
+        const progress = ((currentQuestion) / questions.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        document.getElementById('progress-percent').textContent = `${Math.round(progress)}%`;
+        document.getElementById('current-q').textContent = currentQuestion + 1;
+        document.getElementById('current-q-en').textContent = currentQuestion + 1;
+
+        // Update category and question
+        document.getElementById('q-category').innerHTML = `
+            <span class="show-th">${q.category_th}</span>
+            <span class="show-en">${q.category_en}</span>
+        `;
+        document.getElementById('q-text').innerHTML = `
+            <span class="show-th">${q.text_th}</span>
+            <span class="show-en">${q.text_en}</span>
+        `;
+
+        // Render options
+        const grid = document.getElementById('options-grid');
+        grid.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const card = document.createElement('div');
+            card.className = 'option-card' + (answers[currentQuestion] === idx ? ' selected' : '');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.innerHTML = `
+                <div class="option-icon">${opt.icon}</div>
+                <div class="option-content">
+                    <div class="option-title">
+                        <span class="show-th">${opt.title_th}</span>
+                        <span class="show-en">${opt.title_en}</span>
+                    </div>
+                    <div class="option-desc">
+                        <span class="show-th">${opt.desc_th}</span>
+                        <span class="show-en">${opt.desc_en}</span>
+                    </div>
+                </div>
+            `;
+            card.onclick = () => selectOption(idx);
+            card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOption(idx); }};
+            grid.appendChild(card);
+        });
+
+        // Hide micro-learning initially
+        document.getElementById('micro-learning').classList.remove('visible');
+
+        // Update navigation buttons
+        document.getElementById('btn-prev').classList.toggle('hidden', currentQuestion === 0);
+        updateNextButton();
+    }
+
+    function selectOption(idx) {
+        answers[currentQuestion] = idx;
+        
+        // Update visual selection
+        document.querySelectorAll('.option-card').forEach((card, i) => {
+            card.classList.toggle('selected', i === idx);
+        });
+
+        // Show micro-learning
+        const q = questions[currentQuestion];
+        document.getElementById('micro-text').innerHTML = `
+            <span class="show-th">${q.microLearn_th}</span>
+            <span class="show-en">${q.microLearn_en}</span>
+        `;
+        document.getElementById('micro-learning').classList.add('visible');
+
+        updateNextButton();
+    }
+
+    function updateNextButton() {
+        const btn = document.getElementById('btn-next');
+        btn.disabled = answers[currentQuestion] === null;
+        
+        const isLast = currentQuestion === questions.length - 1;
+        btn.innerHTML = isLast 
+            ? `<span class="show-th">ดูผลลัพธ์</span><span class="show-en">See Results</span><span>🎉</span>`
+            : `<span class="show-th">ถัดไป</span><span class="show-en">Next</span><span>→</span>`;
+    }
+
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    
+    function nextQuestion() {
+        if (answers[currentQuestion] === null) return;
+
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            renderQuestion();
+            document.getElementById('screen-question').scrollIntoView({ behavior: 'smooth' });
+        } else {
+            showResults();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            renderQuestion();
+        }
+    }
+
+    // ============================================
+    // SCORING & RESULTS
+    // ============================================
+    
+    function calculateScores() {
+        // Initialize user profile
+        const userProfile = {};
+        
+        // Accumulate scores from answers
+        answers.forEach((ansIdx, qIdx) => {
+            if (ansIdx !== null) {
+                const opt = questions[qIdx].options[ansIdx];
+                Object.entries(opt.scores).forEach(([trait, value]) => {
+                    userProfile[trait] = (userProfile[trait] || 0) + value;
+                });
+            }
+        });
+
+        // Normalize profile
+        const maxPossible = questions.length * 5;
+        Object.keys(userProfile).forEach(key => {
+            userProfile[key] = Math.min(100, (userProfile[key] / maxPossible) * 100);
+        });
+
+        // Calculate match scores for each specialty
+        const results = specialties.map(spec => {
+            let matchScore = 0;
+            let matchedTraits = [];
+            let totalWeight = 0;
+
+            Object.entries(spec.profile).forEach(([trait, importance]) => {
+                const userValue = userProfile[trait] || 0;
+                const normalized = Math.min(100, (userValue / 25) * 100); // Normalize to 0-100
+                
+                // Higher importance = higher weight
+                const weight = importance;
+                totalWeight += weight;
+                
+                // Score based on alignment
+                const alignment = 100 - Math.abs(normalized - (importance * 20));
+                matchScore += alignment * weight;
+
+                if (userProfile[trait] && userProfile[trait] > 10) {
+                    matchedTraits.push(trait);
+                }
+            });
+
+            return {
+                ...spec,
+                score: Math.round(matchScore / totalWeight),
+                matchedTraits
+            };
+        });
+
+        // Sort by score and return top 3
+        results.sort((a, b) => b.score - a.score);
+        
+        return {
+            topMatches: results.slice(0, 3),
+            userProfile
+        };
+    }
+
+    function showResults() {
+        // Show processing screen
+        showScreen('screen-processing');
+        document.getElementById('progress-container').classList.remove('visible');
+
+        // Calculate and display after delay for UX
+        setTimeout(() => {
+            const { topMatches, userProfile } = calculateScores();
+            renderResults(topMatches, userProfile);
+            showScreen('screen-results');
+        }, 2000);
+    }
+
+    function renderResults(matches, profile) {
+        // Render profile traits
+        const traitBars = document.getElementById('trait-bars');
+        traitBars.innerHTML = '';
+        
+        traits.forEach(trait => {
+            const value = profile[trait.id] || 0;
+            const normalizedValue = Math.min(100, value * 4); // Scale up for visibility
+            
+            const row = document.createElement('div');
+            row.className = 'trait-row';
+            row.innerHTML = `
+                <div class="trait-label">
+                    <span class="show-th">${trait.label_th}</span>
+                    <span class="show-en">${trait.label_en}</span>
+                </div>
+                <div class="trait-bar">
+                    <div class="trait-fill" style="width: 0%; background: ${trait.color};" data-width="${normalizedValue}"></div>
+                </div>
+                <div class="trait-value">${Math.round(normalizedValue)}%</div>
+            `;
+            traitBars.appendChild(row);
+        });
+
+        // Animate trait bars
+        setTimeout(() => {
+            document.querySelectorAll('.trait-fill').forEach(fill => {
+                fill.style.width = fill.dataset.width + '%';
+            });
+        }, 100);
+
+        // Render match cards
+        const container = document.getElementById('top-matches');
+        container.innerHTML = `
+            <div class="section-label">
+                <span class="show-th">🏆 สาขาที่แมตช์กับคุณมากที่สุด</span>
+                <span class="show-en">🏆 YOUR TOP MATCHES</span>
+            </div>
+        `;
+
+        matches.forEach((match, idx) => {
+            const card = createMatchCard(match, idx + 1);
+            container.appendChild(card);
+        });
+
+        // Animate fit bars
+        setTimeout(() => {
+            document.querySelectorAll('.fit-fill').forEach(fill => {
+                fill.style.width = fill.dataset.width + '%';
+            });
+        }, 300);
+    }
+
+    function createMatchCard(match, rank) {
+        const card = document.createElement('div');
+        card.className = `match-card rank-${rank}`;
+        
+        const gradient = `linear-gradient(135deg, ${match.color[0]} 0%, ${match.color[1]} 100%)`;
+        
+        // Generate "why" reasons based on matched traits
+        const whyReasons = generateWhyReasons(match);
+        
+        card.innerHTML = `
+            <div class="match-header" style="background: ${gradient};">
+                <div class="match-rank">
+                    <span class="show-th">#${rank} แมตช์</span>
+                    <span class="show-en">#${rank} Match</span>
+                </div>
+                <div class="match-icon">${match.icon}</div>
+                <div class="match-title">
+                    <span class="show-th">${match.title_th}</span>
+                    <span class="show-en">${match.title_en}</span>
+                </div>
+                <div class="match-subtitle">
+                    <span class="show-th">${match.title_en}</span>
+                    <span class="show-en">${match.title_th}</span>
+                </div>
+                <div class="match-fit">
+                    <div class="fit-bar">
+                        <div class="fit-fill" data-width="${match.score}" style="width: 0%;"></div>
+                    </div>
+                    <div class="fit-percent">${match.score}%</div>
+                </div>
+            </div>
+            <div class="match-body">
+                <p class="match-description">
+                    <span class="show-th">${match.desc_th}</span>
+                    <span class="show-en">${match.desc_en}</span>
+                </p>
+                
+                <div class="match-tags">
+                    ${match.tags_th.map((tag, i) => `
+                        <span class="match-tag">
+                            <span class="show-th">${tag}</span>
+                            <span class="show-en">${match.tags_en[i]}</span>
+                        </span>
+                    `).join('')}
+                </div>
+
+                <div class="why-section">
+                    <div class="why-title">
+                        <span>✨</span>
+                        <span class="show-th">ทำไมสาขานี้ถึงแมตช์กับคุณ</span>
+                        <span class="show-en">Why This Matches You</span>
+                    </div>
+                    <ul class="why-list">
+                        ${whyReasons.map(r => `
+                            <li>
+                                <span class="show-th">${r.th}</span>
+                                <span class="show-en">${r.en}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <button class="expand-toggle" onclick="toggleDetails(this)">
+                    <span class="show-th">ดูรายละเอียดเพิ่มเติม</span>
+                    <span class="show-en">See More Details</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div class="match-details">
+                    <div class="day-section">
+                        <div class="day-title">
+                            <span>📅</span>
+                            <span class="show-th">ชีวิตประจำวันในสาขานี้</span>
+                            <span class="show-en">A Day in This Specialty</span>
+                        </div>
+                        <p class="day-text">
+                            <span class="show-th">${match.day_th}</span>
+                            <span class="show-en">${match.day_en}</span>
+                        </p>
+                    </div>
+
+                    <div class="stats-grid">
+                        ${match.stats.map(s => `
+                            <div class="stat-item">
+                                <div class="stat-value">${s.v}%</div>
+                                <div class="stat-label">
+                                    <span class="show-th">${s.l_th}</span>
+                                    <span class="show-en">${s.l_en}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="match-actions">
+                        <a href="https://careersinmedicine.aamc.org/explore-options/specialty-profiles/${match.slug}" 
+                           target="_blank" class="action-button primary">
+                            <span class="show-th">ดูข้อมูลเพิ่มเติมที่ AAMC</span>
+                            <span class="show-en">Learn More at AAMC</span>
+                            <span>↗</span>
+                        </a>
+                        <a href="https://www.youtube.com/results?search_query=day+in+the+life+${encodeURIComponent(match.title_en)}+doctor" 
+                           target="_blank" class="action-button secondary">
+                            <span class="show-th">ดูวิดีโอชีวิตจริง</span>
+                            <span class="show-en">Watch Day-in-Life</span>
+                            <span>▶</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return card;
+    }
+
+    function generateWhyReasons(match) {
+        const reasons = [];
+        const profile = match.profile;
+
+        if (profile.procedural >= 4) {
+            reasons.push({ th: 'คุณชอบงานลงมือทำและเห็นผลลัพธ์ชัดเจน', en: 'You prefer hands-on work with tangible results' });
+        }
+        if (profile.cognitive >= 4) {
+            reasons.push({ th: 'คุณชอบวิเคราะห์ปัญหาอย่างเป็นระบบ', en: 'You enjoy systematic problem analysis' });
+        }
+        if (profile.relationship >= 4) {
+            reasons.push({ th: 'คุณให้ความสำคัญกับความสัมพันธ์ระยะยาว', en: 'You value long-term relationships' });
+        }
+        if (profile.acute >= 4) {
+            reasons.push({ th: 'คุณทำงานได้ดีภายใต้ความกดดันเฉียบพลัน', en: 'You perform well under acute pressure' });
+        }
+        if (profile.chronic >= 4) {
+            reasons.push({ th: 'คุณชอบติดตามดูแลผู้ป่วยต่อเนื่อง', en: 'You enjoy continuous patient follow-up' });
+        }
+        if (profile.depth >= 4) {
+            reasons.push({ th: 'คุณชอบเจาะลึกความเชี่ยวชาญเฉพาะด้าน', en: 'You prefer deep expertise in one area' });
+        }
+        if (profile.breadth >= 4) {
+            reasons.push({ th: 'คุณชอบความรู้กว้างและหลากหลาย', en: 'You prefer broad, varied knowledge' });
+        }
+        if (profile.behindScenes >= 4) {
+            reasons.push({ th: 'คุณสบายใจกับการทำงานเบื้องหลัง', en: 'You\'re comfortable working behind the scenes' });
+        }
+        if (profile.technical >= 4) {
+            reasons.push({ th: 'คุณชอบใช้เทคโนโลยีและเครื่องมือขั้นสูง', en: 'You enjoy advanced technology and tools' });
+        }
+        if (profile.empathy >= 4) {
+            reasons.push({ th: 'คุณมีความเห็นอกเห็นใจและเข้าใจผู้อื่นสูง', en: 'You have high empathy and understanding' });
+        }
+
+        // Return top 3 reasons
+        return reasons.slice(0, 3);
+    }
+
+    function toggleDetails(btn) {
+        const details = btn.nextElementSibling;
+        details.classList.toggle('expanded');
+        btn.classList.toggle('expanded');
+        
+        const isExpanded = details.classList.contains('expanded');
+        btn.innerHTML = `
+            <span class="show-th">${isExpanded ? 'ซ่อนรายละเอียด' : 'ดูรายละเอียดเพิ่มเติม'}</span>
+            <span class="show-en">${isExpanded ? 'Hide Details' : 'See More Details'}</span>
+            <span class="arrow">▼</span>
+        `;
+    }
+
+    // ============================================
+    // SHARE & EXPORT
+    // ============================================
+    
+    function shareResults() {
+        const text = lang === 'th' 
+            ? 'ฉันเพิ่งค้นพบสาขาแพทย์ที่เหมาะกับตัวเองจากแบบทดสอบนี้! 🩺'
+            : 'I just discovered my medical specialty matches from this quiz! 🩺';
+        
+        if (navigator.share) {
+            navigator.share({
+                title: lang === 'th' ? 'ผลลัพธ์แบบทดสอบสายแพทย์' : 'Medical Career Quiz Results',
+                text: text,
+                url: window.location.href
+            });
+        } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard.writeText(text + ' ' + window.location.href);
+            alert(lang === 'th' ? 'คัดลอกลิงก์แล้ว!' : 'Link copied!');
+        }
+    }
+
+    function downloadResults() {
+        alert(lang === 'th' 
+            ? 'ฟีเจอร์บันทึก PDF กำลังพัฒนาอยู่ กรุณารอติดตามในเร็วๆ นี้!' 
+            : 'PDF export feature coming soon!');
+    }
+
+    // Initialize
+    setLanguage('th');
+    </script>
+</body>
+</html>
