@@ -1042,10 +1042,10 @@ const questions = [
         text_th: "ถ้าคุณเป็นแพทย์ คุณอยากให้การชีวิตการทำงานในแต่ละวันเป็นยังไง?",
         text_en: "If you were a doctor at a hospital, what would you want your day to be like?",
         options: [
-            { id: 'a', icon: '⚡', title_th: 'คนไข้ใหม่เข้ามาเรื่อยๆ ทำหลายเคสต่อวัน', title_en: 'New patients constantly, many cases daily', desc_th: 'ไม่มีวันที่เหมือนกัน ต้องตัดสินใจเร็ว', desc_en: 'No two days alike, quick decisions', scores: { pace: 3, acute: 3, crisis: 2 } },
-            { id: 'b', icon: '📋', title_th: 'ดูคนไข้นัดหมาย ตามตารางที่วางไว้', title_en: 'See scheduled patients, follow set plan', desc_th: 'รู้ว่าวันนี้จะทำอะไรตั้งแต่เช้า', desc_en: 'Know the day plan from morning', scores: { chronic: 2, depth: 2, control: 2 } },
+            { id: 'a', icon: '⚡', title_th: 'เอาคนไข้ใหม่เข้ามาเรื่อยๆ ทำหลายเคสต่อวัน', title_en: 'New patients constantly, many cases daily', desc_th: 'ไม่มีวันที่เหมือนกัน ต้องตัดสินใจเร็ว', desc_en: 'No two days alike, quick decisions', scores: { pace: 3, acute: 3, crisis: 2 } },
+            { id: 'b', icon: '📋', title_th: 'ดูคนไข้ที่นัดไว้ ทำตามตารางที่แพลน', title_en: 'See scheduled patients, follow set plan', desc_th: 'รู้ว่าวันนี้จะทำอะไรตั้งแต่เช้า', desc_en: 'Know the day plan from morning', scores: { chronic: 2, depth: 2, control: 2 } },
             { id: 'c', icon: '🧘', title_th: 'ทำงานในห้อง อ่านผล วิเคราะห์ข้อมูล', title_en: 'Work in office, read results, analyze data', desc_th: 'มีเวลาคิด ไม่ต้องรีบ', desc_en: 'Time to think, no rush', scores: { cognitive: 3, diagnostic: 2, behindScenes: 2 } },
-            { id: 'd', icon: '🤝', title_th: 'ประชุมทีม คุยกับหลายภาควิชา', title_en: 'Team meetings, discuss with multiple departments', desc_th: 'ทำงานร่วมกับหมอหลายสาขา', desc_en: 'Work with doctors from many fields', scores: { teamwork: 3, holistic: 2, support: 2 } }
+            { id: 'd', icon: '🤝', title_th: 'ประชุมทีม คุยกับหลายๆ ภาควิชา', title_en: 'Team meetings, discuss with multiple departments', desc_th: 'ทำงานร่วมกับหมอหลายสาขา', desc_en: 'Work with doctors from many fields', scores: { teamwork: 3, holistic: 2, support: 2 } }
         ],
         facts: [
             { th: 'แพทย์ฉุกเฉินอาจดูผู้ป่วย 20-50 รายต่อเวร ในขณะที่จิตแพทย์อาจพบเพียง 6-8 ราย แต่ใช้เวลากับแต่ละคนนานกว่ามาก', en: 'ER doctors may see 20-50 patients per shift, while psychiatrists might see just 6-8 but spend much deeper time with each one' },
@@ -1062,7 +1062,7 @@ const questions = [
             { id: 'a', icon: '🔧', title_th: 'ผ่าตัดแก้ไขทันที ถ้าเป็นไส้ติ่ง', title_en: 'Operate immediately if appendicitis', desc_th: 'ลงมือทำได้เลย เห็นผลชัด', desc_en: 'Can act right away, clear results', scores: { procedural: 3, action: 3, acute: 2 } },
             { id: 'b', icon: '🔍', title_th: 'ตรวจเลือด CT Scan หาสาเหตุ', title_en: 'Run blood tests, CT scan to find cause', desc_th: 'ต้องรู้ว่าเป็นอะไรแน่ๆ ก่อน', desc_en: 'Need to know exactly what it is first', scores: { cognitive: 3, diagnostic: 3, depth: 2 } },
             { id: 'c', icon: '🛡️', title_th: 'สอนวิธีดูแลตัวเองในอนาคตไม่ให้ปวดอีก ปรับพฤติกรรม', title_en: 'Teach prevention for next time, change behavior', desc_th: 'แก้ที่ต้นเหตุ ป้องกันดีกว่ารักษา', desc_en: 'Fix root cause, prevention beats cure', scores: { prevention: 3, population: 2, strategy: 2 } },
-            { id: 'd', icon: '💬', title_th: 'ถามให้ละเอียด อาจเป็นเรื่องความเครียด', title_en: 'Ask detailed questions, might be stress-related', desc_th: 'ฟังเรื่องราว อาจไม่ใช่แค่โรคกาย', desc_en: 'Listen to story, may not be just physical', scores: { counseling: 3, empathy: 2, relationship: 2 } }
+            { id: 'd', icon: '💬', title_th: 'ถามให้ละเอียดสิ อาจเป็นเรื่องความเครียดก็ได้', title_en: 'Ask detailed questions, might be stress-related', desc_th: 'ฟังเรื่องราว อาจไม่ใช่แค่โรคกาย', desc_en: 'Listen to story, may not be just physical', scores: { counseling: 3, empathy: 2, relationship: 2 } }
         ],
         facts: [
             { th: 'ศัลยแพทย์ออร์โธฯ "ซ่อม" กระดูกหักทันที แต่รูมาโตโลจิสต์ต้องวิเคราะห์ระบบภูมิคุ้มกันซับซ้อนนานหลายสัปดาห์', en: 'Orthopedic surgeons "fix" fractures immediately, while rheumatologists analyze complex immune systems for weeks' },
