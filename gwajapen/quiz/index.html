@@ -545,7 +545,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 8px;
+            gap: 16px;
             margin-bottom: 24px;
             position: relative;
             z-index: 1;
@@ -562,11 +562,18 @@
         .blob-trio .blob-wrapper:hover .blob-char {
             transform: scale(1.1) rotate(-5deg);
         }
-        .blob-rank {
-            font-size: 0.7rem;
+        .blob-abbrev {
+            font-size: 0.75rem;
             font-weight: 800;
-            color: var(--text-soft);
+            color: var(--text-main);
             margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+        .blob-rank {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-soft);
+            margin-top: 2px;
         }
         .blob-rank.gold { color: #D4A84B; }
 
@@ -724,8 +731,6 @@
             justify-content: center;
         }
         .specialty-banner .blob-large {
-            width: 80px;
-            height: 80px;
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
         }
 
@@ -790,23 +795,6 @@
         }
         .specialty-link:hover {
             transform: translateY(-2px);
-        }
-
-        .expand-toggle {
-            width: 100%;
-            padding: 14px;
-            background: var(--bg-warm);
-            border: none;
-            border-top: 1px solid var(--border-soft);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-soft);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .expand-toggle:hover {
-            background: rgba(0,0,0,0.02);
-            color: var(--text-main);
         }
 
         /* Disclaimer */
@@ -1187,64 +1175,523 @@ const questions = [
     }
 ];
 
+// Specialties with Thai abbreviations and unique blob styles
 const specialties = {
-    emergency: { name_th: 'เวชศาสตร์ฉุกเฉิน', name_en: 'Emergency Medicine', slug: 'emergency-medicine', color: '#FF6B6B', traits: { acute: 3, crisis: 3, pace: 3, action: 2, breadth: 2 }, desc_th: 'ประเมินและรักษาผู้ป่วยเฉียบพลันในภาวะคุกคามชีวิต ทำงานเร็ว ตัดสินใจฉับไว เจอเคสหลากหลาย', desc_en: 'Evaluate and treat acute patients in life-threatening conditions. Fast-paced work with quick decisions and diverse cases.', tags_th: ['ฉุกเฉิน', 'กู้ชีพ', 'ตัดสินใจเร็ว'], tags_en: ['Emergency', 'Resuscitation', 'Quick decisions'] },
-    anesthesiology: { name_th: 'วิสัญญีวิทยา', name_en: 'Anesthesiology', slug: 'anesthesiology', color: '#4ECDC4', traits: { control: 3, technical: 3, crisis: 2, acute: 2, procedural: 2 }, desc_th: 'ดูแลผู้ป่วยระหว่างผ่าตัด ควบคุมความปวดและสัญญาณชีพ ต้องพร้อมรับมือวิกฤตตลอดเวลา', desc_en: 'Care for patients during surgery, control pain and vital signs. Must be ready for crises anytime.', tags_th: ['ระงับความรู้สึก', 'ดูแลผ่าตัด', 'ควบคุมสัญญาณชีพ'], tags_en: ['Anesthesia', 'Perioperative', 'Vital control'] },
-    surgery: { name_th: 'ศัลยศาสตร์ทั่วไป', name_en: 'General Surgery', slug: 'general-surgery', color: '#FF8C42', traits: { procedural: 3, action: 3, acute: 2, technical: 2, breadth: 2 }, desc_th: 'ผ่าตัดอวัยวะในช่องท้อง ต่อมไทรอยด์ เต้านม และจัดการบาดเจ็บรุนแรง ต้องมีทักษะหัตถการดี', desc_en: 'Operate on abdominal organs, thyroid, breast, and manage severe trauma. Requires good procedural skills.', tags_th: ['ผ่าตัด', 'ช่องท้อง', 'บาดเจ็บ'], tags_en: ['Surgery', 'Abdominal', 'Trauma'] },
-    orthopedics: { name_th: 'ศัลยศาสตร์ออร์โธปิดิกส์', name_en: 'Orthopedic Surgery', slug: 'orthopedic-surgery', color: '#6C5CE7', traits: { procedural: 3, technical: 3, action: 2, acute: 2 }, desc_th: 'รักษากระดูก ข้อ กล้ามเนื้อ และเส้นเอ็น ทั้งผ่าตัดและไม่ผ่าตัด ช่วยคนไข้กลับมาเคลื่อนไหวได้', desc_en: 'Treat bones, joints, muscles, and tendons. Help patients regain mobility.', tags_th: ['กระดูก', 'ข้อต่อ', 'กีฬา'], tags_en: ['Bones', 'Joints', 'Sports'] },
-    neurosurgery: { name_th: 'ประสาทศัลยศาสตร์', name_en: 'Neurosurgery', slug: 'neurosurgery', color: '#A66CFF', traits: { technical: 3, depth: 3, procedural: 3, crisis: 2 }, desc_th: 'ผ่าตัดสมองและไขสันหลัง ต้องการความแม่นยำสูงสุด งานหนักแต่ช่วยเปลี่ยนชีวิตคนไข้ได้', desc_en: 'Operate on brain and spinal cord. Requires utmost precision. Demanding but life-changing work.', tags_th: ['สมอง', 'ไขสันหลัง', 'ความแม่นยำสูง'], tags_en: ['Brain', 'Spine', 'High precision'] },
-    cardiology: { name_th: 'อายุรศาสตร์โรคหัวใจ', name_en: 'Cardiology', slug: 'internal-medicine-cardiovascular-disease', color: '#E84A5F', traits: { cognitive: 3, diagnostic: 3, acute: 2, procedural: 2, technical: 2 }, desc_th: 'วินิจฉัยและรักษาโรคหัวใจและหลอดเลือด มีทั้งงานวิเคราะห์และหัตถการสวนหัวใจ', desc_en: 'Diagnose and treat cardiovascular diseases. Both analytical work and catheterization procedures.', tags_th: ['หัวใจ', 'หลอดเลือด', 'สวนหัวใจ'], tags_en: ['Heart', 'Cardiovascular', 'Catheterization'] },
-    gastroenterology: { name_th: 'อายุรศาสตร์ทางเดินอาหาร', name_en: 'Gastroenterology', slug: 'internal-medicine-gastroenterology', color: '#F9A826', traits: { procedural: 2, cognitive: 3, diagnostic: 2, chronic: 2 }, desc_th: 'รักษาโรคกระเพาะ ลำไส้ ตับ และตับอ่อน ทำส่องกล้องทั้งวินิจฉัยและรักษา', desc_en: 'Treat stomach, intestines, liver, and pancreas. Perform both diagnostic and therapeutic endoscopy.', tags_th: ['ทางเดินอาหาร', 'ตับ', 'ส่องกล้อง'], tags_en: ['GI', 'Liver', 'Endoscopy'] },
-    neurology: { name_th: 'ประสาทวิทยา', name_en: 'Neurology', slug: 'neurology', color: '#5D5FEF', traits: { cognitive: 3, diagnostic: 3, depth: 3 }, desc_th: 'วินิจฉัยและรักษาโรคสมองและระบบประสาทด้วยยา เน้นการตรวจร่างกายและวิเคราะห์เชิงตรรกะ', desc_en: 'Diagnose and treat brain and nervous system diseases medically. Focus on physical exam and logical analysis.', tags_th: ['สมอง', 'ระบบประสาท', 'โรคหลอดเลือดสมอง'], tags_en: ['Brain', 'Nervous system', 'Stroke'] },
-    psychiatry: { name_th: 'จิตเวชศาสตร์', name_en: 'Psychiatry', slug: 'psychiatry', color: '#9B59B6', traits: { counseling: 3, empathy: 3, relationship: 3, depth: 2 }, desc_th: 'วินิจฉัยและรักษาโรคทางจิตเวช ใช้การพูดคุยและยาเป็นเครื่องมือ สร้างความสัมพันธ์ลึกซึ้งกับคนไข้', desc_en: 'Diagnose and treat mental illnesses. Use conversation and medication. Build deep patient relationships.', tags_th: ['สุขภาพจิต', 'จิตบำบัด', 'ความสัมพันธ์'], tags_en: ['Mental health', 'Psychotherapy', 'Relationships'] },
-    pediatrics: { name_th: 'กุมารเวชศาสตร์', name_en: 'Pediatrics', slug: 'pediatrics', color: '#FF9F43', traits: { relationship: 3, holistic: 3, breadth: 2, prevention: 2, empathy: 2 }, desc_th: 'ดูแลสุขภาพเด็กตั้งแต่แรกเกิดถึงวัยรุ่น ทั้งรักษาโรคและส่งเสริมพัฒนาการ ทำงานกับครอบครัว', desc_en: 'Care for children from birth to adolescence. Treat diseases and promote development. Work with families.', tags_th: ['เด็ก', 'พัฒนาการ', 'ครอบครัว'], tags_en: ['Children', 'Development', 'Family'] },
-    family: { name_th: 'เวชศาสตร์ครอบครัว', name_en: 'Family Medicine', slug: 'family-medicine', color: '#26DE81', traits: { breadth: 3, relationship: 3, holistic: 3, chronic: 2 }, desc_th: 'ดูแลคนทุกเพศทุกวัยในครอบครัวเดียวกัน รักษาโรคเบื้องต้นและดูแลสุขภาพต่อเนื่อง', desc_en: 'Care for all ages in the same family. Treat primary conditions and provide continuous care.', tags_th: ['ครอบครัว', 'ดูแลต่อเนื่อง', 'ทุกวัย'], tags_en: ['Family', 'Continuous care', 'All ages'] },
-    radiology: { name_th: 'รังสีวิทยา', name_en: 'Diagnostic Radiology', slug: 'radiology-diagnostic', color: '#2D3436', traits: { diagnostic: 3, imaging: 3, behindScenes: 3, technical: 2 }, desc_th: 'วินิจฉัยโรคจากภาพ X-ray, CT, MRI ทำงานเบื้องหลังแต่มีบทบาทสำคัญในการรักษา', desc_en: 'Diagnose diseases from X-ray, CT, MRI images. Work behind the scenes but play a crucial role.', tags_th: ['ภาพถ่ายรังสี', 'วินิจฉัย', 'เบื้องหลัง'], tags_en: ['Imaging', 'Diagnosis', 'Behind scenes'] },
-    pathology: { name_th: 'พยาธิวิทยา', name_en: 'Pathology', slug: 'pathology-anatomic-and-clinical', color: '#636E72', traits: { diagnostic: 3, behindScenes: 3, depth: 3, technical: 2 }, desc_th: 'วินิจฉัยโรคจากชิ้นเนื้อและเซลล์ในห้องปฏิบัติการ ไม่เจอคนไข้แต่ให้คำตอบสำคัญ', desc_en: 'Diagnose diseases from tissue and cells in the lab. Never meet patients but provide crucial answers.', tags_th: ['ชิ้นเนื้อ', 'ห้องแล็บ', 'วินิจฉัย'], tags_en: ['Tissue', 'Lab', 'Diagnosis'] },
-    preventive: { name_th: 'เวชศาสตร์ป้องกัน', name_en: 'Preventive Medicine', slug: 'preventive-medicine', color: '#00B894', traits: { prevention: 3, population: 3, strategy: 3, research: 2 }, desc_th: 'วางนโยบายและระบบเพื่อป้องกันโรคในระดับประชากร มีผลกระทบกว้างขวาง', desc_en: 'Design policies and systems to prevent diseases at population level. Wide-reaching impact.', tags_th: ['ป้องกัน', 'นโยบาย', 'ประชากร'], tags_en: ['Prevention', 'Policy', 'Population'] },
-    pmr: { name_th: 'เวชศาสตร์ฟื้นฟู', name_en: 'Physical Medicine & Rehab', slug: 'physical-medicine-and-rehabilitation', color: '#00CEC9', traits: { holistic: 3, chronic: 3, relationship: 2, support: 2 }, desc_th: 'ช่วยคนไข้ฟื้นฟูสมรรถภาพหลังบาดเจ็บหรือป่วย ทำงานเป็นทีมเพื่อคุณภาพชีวิต', desc_en: 'Help patients regain function after injury or illness. Teamwork focused on quality of life.', tags_th: ['ฟื้นฟู', 'คุณภาพชีวิต', 'ทีม'], tags_en: ['Rehab', 'Quality of life', 'Team'] },
-    dermatology: { name_th: 'ตจวิทยา (ผิวหนัง)', name_en: 'Dermatology', slug: 'dermatology', color: '#FD79A8', traits: { diagnostic: 2, procedural: 2, chronic: 2, control: 2 }, desc_th: 'วินิจฉัยและรักษาโรคผิวหนัง ทั้งด้วยยาและหัตถการ สมดุลชีวิตดี', desc_en: 'Diagnose and treat skin diseases. Both medication and procedures. Good work-life balance.', tags_th: ['ผิวหนัง', 'เลเซอร์', 'สมดุลชีวิต'], tags_en: ['Skin', 'Laser', 'Balance'] },
-    ophthalmology: { name_th: 'จักษุวิทยา', name_en: 'Ophthalmology', slug: 'ophthalmology', color: '#FDCB6E', traits: { technical: 3, procedural: 3, control: 2, depth: 2 }, desc_th: 'วินิจฉัยและผ่าตัดรักษาโรคตา ใช้กล้องจุลทรรศน์และเทคโนโลยีขั้นสูง', desc_en: 'Diagnose and surgically treat eye diseases. Use microscopes and advanced technology.', tags_th: ['ตา', 'ผ่าตัดจุลภาค', 'เทคโนโลยี'], tags_en: ['Eyes', 'Microsurgery', 'Technology'] },
-    oncology: { name_th: 'อายุรศาสตร์โรคมะเร็ง', name_en: 'Medical Oncology', slug: 'hematology-and-medical-oncology', color: '#E17055', traits: { empathy: 3, relationship: 3, depth: 2, chronic: 2 }, desc_th: 'รักษาผู้ป่วยมะเร็งด้วยเคมีบำบัดและยามุ่งเป้า สร้างความสัมพันธ์ลึกซึ้งกับคนไข้และครอบครัว', desc_en: 'Treat cancer patients with chemotherapy and targeted therapy. Deep relationships with patients and families.', tags_th: ['มะเร็ง', 'เคมีบำบัด', 'ดูแลต่อเนื่อง'], tags_en: ['Cancer', 'Chemotherapy', 'Continuous care'] },
-    infectious: { name_th: 'อายุรศาสตร์โรคติดเชื้อ', name_en: 'Infectious Disease', slug: 'infectious-disease', color: '#55EFC4', traits: { cognitive: 3, diagnostic: 3, research: 2 }, desc_th: 'สืบค้นและรักษาการติดเชื้อซับซ้อน ควบคุมโรคระบาดในโรงพยาบาล', desc_en: 'Investigate and treat complex infections. Control hospital outbreaks.', tags_th: ['ติดเชื้อ', 'ระบาดวิทยา', 'สืบค้น'], tags_en: ['Infection', 'Epidemiology', 'Investigation'] },
-    palliative: { name_th: 'การดูแลประคับประคอง', name_en: 'Palliative Care', slug: 'hospice-and-palliative-medicine', color: '#DFE6E9', traits: { empathy: 3, support: 3, counseling: 3, holistic: 2 }, desc_th: 'ดูแลผู้ป่วยโรคร้ายแรงเพื่อคุณภาพชีวิต บรรเทาความทุกข์ทั้งกายและใจ', desc_en: 'Care for seriously ill patients for quality of life. Relieve physical and emotional suffering.', tags_th: ['ประคับประคอง', 'คุณภาพชีวิต', 'บรรเทาทุกข์'], tags_en: ['Palliative', 'Quality of life', 'Comfort'] },
-    ir: { name_th: 'รังสีร่วมรักษา', name_en: 'Interventional Radiology', slug: 'interventional-radiology', color: '#74B9FF', traits: { technical: 3, procedural: 3, imaging: 3 }, desc_th: 'ใช้ภาพรังสีนำทางทำหัตถการรักษาโรคผ่านหลอดเลือด แผลเล็ก ฟื้นตัวเร็ว', desc_en: 'Use imaging guidance for minimally invasive procedures. Small incisions, fast recovery.', tags_th: ['หัตถการ', 'แผลเล็ก', 'รังสีนำทาง'], tags_en: ['Procedures', 'Minimally invasive', 'Image-guided'] },
-    endocrinology: { name_th: 'อายุรศาสตร์ต่อมไร้ท่อ', name_en: 'Endocrinology', slug: 'endocrinology-diabetes-and-metabolism', color: '#81ECEC', traits: { chronic: 3, cognitive: 2, relationship: 2, depth: 2 }, desc_th: 'รักษาโรคเบาหวาน ไทรอยด์ และฮอร์โมนผิดปกติ ดูแลคนไข้ต่อเนื่องระยะยาว', desc_en: 'Treat diabetes, thyroid, and hormonal disorders. Long-term continuous patient care.', tags_th: ['เบาหวาน', 'ไทรอยด์', 'ฮอร์โมน'], tags_en: ['Diabetes', 'Thyroid', 'Hormones'] },
-    rheumatology: { name_th: 'รูมาโตโลจี', name_en: 'Rheumatology', slug: 'rheumatology', color: '#A8E6CF', traits: { cognitive: 3, diagnostic: 3, chronic: 2, depth: 2 }, desc_th: 'วินิจฉัยและรักษาโรคข้อและภูมิคุ้มกันทำลายตนเอง เคสซับซ้อนท้าทาย', desc_en: 'Diagnose and treat joint and autoimmune diseases. Complex challenging cases.', tags_th: ['ข้อ', 'ภูมิคุ้มกัน', 'โรคซับซ้อน'], tags_en: ['Joints', 'Autoimmune', 'Complex'] },
-    nephrology: { name_th: 'อายุรศาสตร์โรคไต', name_en: 'Nephrology', slug: 'internal-medicine-nephrology', color: '#48DBFB', traits: { cognitive: 3, chronic: 3, depth: 2, relationship: 2 }, desc_th: 'รักษาโรคไตและความดันโลหิตสูง ดูแลผู้ป่วยฟอกเลือดระยะยาว', desc_en: 'Treat kidney diseases and hypertension. Long-term care for dialysis patients.', tags_th: ['ไต', 'ฟอกเลือด', 'ความดัน'], tags_en: ['Kidney', 'Dialysis', 'Hypertension'] },
-    pulmonology: { name_th: 'อายุรศาสตร์โรคปอด', name_en: 'Pulmonology', slug: 'pulmonary-disease', color: '#1DD1A1', traits: { cognitive: 2, acute: 2, crisis: 2, chronic: 2 }, desc_th: 'รักษาโรคระบบทางเดินหายใจ มักดูแลผู้ป่วยวิกฤตในไอซียูด้วย', desc_en: 'Treat respiratory diseases. Often also care for ICU critical patients.', tags_th: ['ปอด', 'ไอซียู', 'ทางเดินหายใจ'], tags_en: ['Lung', 'ICU', 'Respiratory'] }
+    emergency: { 
+        name_th: 'เวชศาสตร์ฉุกเฉิน', name_en: 'Emergency Medicine', abbrev: 'ER',
+        slug: 'emergency-medicine', color: '#FF6B6B', 
+        blobStyle: 'alert',
+        traits: { acute: 3, crisis: 3, pace: 3, action: 2, breadth: 2 }, 
+        desc_th: 'ประเมินและรักษาผู้ป่วยเฉียบพลันในภาวะคุกคามชีวิต ทำงานเร็ว ตัดสินใจฉับไว เจอเคสหลากหลาย', 
+        desc_en: 'Evaluate and treat acute patients in life-threatening conditions. Fast-paced work with quick decisions and diverse cases.', 
+        tags_th: ['ฉุกเฉิน', 'กู้ชีพ', 'ตัดสินใจเร็ว'], tags_en: ['Emergency', 'Resuscitation', 'Quick decisions'] 
+    },
+    anesthesiology: { 
+        name_th: 'วิสัญญีวิทยา', name_en: 'Anesthesiology', abbrev: 'Anes',
+        slug: 'anesthesiology', color: '#4ECDC4', 
+        blobStyle: 'calm',
+        traits: { control: 3, technical: 3, crisis: 2, acute: 2, procedural: 2 }, 
+        desc_th: 'ดูแลผู้ป่วยระหว่างผ่าตัด ควบคุมความปวดและสัญญาณชีพ ต้องพร้อมรับมือวิกฤตตลอดเวลา', 
+        desc_en: 'Care for patients during surgery, control pain and vital signs. Must be ready for crises anytime.', 
+        tags_th: ['ระงับความรู้สึก', 'ดูแลผ่าตัด', 'ควบคุมสัญญาณชีพ'], tags_en: ['Anesthesia', 'Perioperative', 'Vital control'] 
+    },
+    surgery: { 
+        name_th: 'ศัลยศาสตร์ทั่วไป', name_en: 'General Surgery', abbrev: 'Sx',
+        slug: 'general-surgery', color: '#FF8C42', 
+        blobStyle: 'determined',
+        traits: { procedural: 3, action: 3, acute: 2, technical: 2, breadth: 2 }, 
+        desc_th: 'ผ่าตัดอวัยวะในช่องท้อง ต่อมไทรอยด์ เต้านม และจัดการบาดเจ็บรุนแรง ต้องมีทักษะหัตถการดี', 
+        desc_en: 'Operate on abdominal organs, thyroid, breast, and manage severe trauma. Requires good procedural skills.', 
+        tags_th: ['ผ่าตัด', 'ช่องท้อง', 'บาดเจ็บ'], tags_en: ['Surgery', 'Abdominal', 'Trauma'] 
+    },
+    orthopedics: { 
+        name_th: 'ศัลยศาสตร์ออร์โธปิดิกส์', name_en: 'Orthopedic Surgery', abbrev: 'Ortho',
+        slug: 'orthopedic-surgery', color: '#6C5CE7', 
+        blobStyle: 'strong',
+        traits: { procedural: 3, technical: 3, action: 2, acute: 2 }, 
+        desc_th: 'รักษากระดูก ข้อ กล้ามเนื้อ และเส้นเอ็น ทั้งผ่าตัดและไม่ผ่าตัด ช่วยคนไข้กลับมาเคลื่อนไหวได้', 
+        desc_en: 'Treat bones, joints, muscles, and tendons. Help patients regain mobility.', 
+        tags_th: ['กระดูก', 'ข้อต่อ', 'กีฬา'], tags_en: ['Bones', 'Joints', 'Sports'] 
+    },
+    neurosurgery: { 
+        name_th: 'ประสาทศัลยศาสตร์', name_en: 'Neurosurgery', abbrev: 'NeuroSx',
+        slug: 'neurosurgery', color: '#A66CFF', 
+        blobStyle: 'focused',
+        traits: { technical: 3, depth: 3, procedural: 3, crisis: 2 }, 
+        desc_th: 'ผ่าตัดสมองและไขสันหลัง ต้องการความแม่นยำสูงสุด งานหนักแต่ช่วยเปลี่ยนชีวิตคนไข้ได้', 
+        desc_en: 'Operate on brain and spinal cord. Requires utmost precision. Demanding but life-changing work.', 
+        tags_th: ['สมอง', 'ไขสันหลัง', 'ความแม่นยำสูง'], tags_en: ['Brain', 'Spine', 'High precision'] 
+    },
+    cardiology: { 
+        name_th: 'อายุรศาสตร์โรคหัวใจ', name_en: 'Cardiology', abbrev: 'Cardio',
+        slug: 'internal-medicine-cardiovascular-disease', color: '#E84A5F', 
+        blobStyle: 'heartbeat',
+        traits: { cognitive: 3, diagnostic: 3, acute: 2, procedural: 2, technical: 2 }, 
+        desc_th: 'วินิจฉัยและรักษาโรคหัวใจและหลอดเลือด มีทั้งงานวิเคราะห์และหัตถการสวนหัวใจ', 
+        desc_en: 'Diagnose and treat cardiovascular diseases. Both analytical work and catheterization procedures.', 
+        tags_th: ['หัวใจ', 'หลอดเลือด', 'สวนหัวใจ'], tags_en: ['Heart', 'Cardiovascular', 'Catheterization'] 
+    },
+    gastroenterology: { 
+        name_th: 'อายุรศาสตร์ทางเดินอาหาร', name_en: 'Gastroenterology', abbrev: 'GI',
+        slug: 'internal-medicine-gastroenterology', color: '#F9A826', 
+        blobStyle: 'curious',
+        traits: { procedural: 2, cognitive: 3, diagnostic: 2, chronic: 2 }, 
+        desc_th: 'รักษาโรคกระเพาะ ลำไส้ ตับ และตับอ่อน ทำส่องกล้องทั้งวินิจฉัยและรักษา', 
+        desc_en: 'Treat stomach, intestines, liver, and pancreas. Perform both diagnostic and therapeutic endoscopy.', 
+        tags_th: ['ทางเดินอาหาร', 'ตับ', 'ส่องกล้อง'], tags_en: ['GI', 'Liver', 'Endoscopy'] 
+    },
+    neurology: { 
+        name_th: 'ประสาทวิทยา', name_en: 'Neurology', abbrev: 'Neuro',
+        slug: 'neurology', color: '#5D5FEF', 
+        blobStyle: 'thinking',
+        traits: { cognitive: 3, diagnostic: 3, depth: 3 }, 
+        desc_th: 'วินิจฉัยและรักษาโรคสมองและระบบประสาทด้วยยา เน้นการตรวจร่างกายและวิเคราะห์เชิงตรรกะ', 
+        desc_en: 'Diagnose and treat brain and nervous system diseases medically. Focus on physical exam and logical analysis.', 
+        tags_th: ['สมอง', 'ระบบประสาท', 'โรคหลอดเลือดสมอง'], tags_en: ['Brain', 'Nervous system', 'Stroke'] 
+    },
+    psychiatry: { 
+        name_th: 'จิตเวชศาสตร์', name_en: 'Psychiatry', abbrev: 'Psychi',
+        slug: 'psychiatry', color: '#9B59B6', 
+        blobStyle: 'empathetic',
+        traits: { counseling: 3, empathy: 3, relationship: 3, depth: 2 }, 
+        desc_th: 'วินิจฉัยและรักษาโรคทางจิตเวช ใช้การพูดคุยและยาเป็นเครื่องมือ สร้างความสัมพันธ์ลึกซึ้งกับคนไข้', 
+        desc_en: 'Diagnose and treat mental illnesses. Use conversation and medication. Build deep patient relationships.', 
+        tags_th: ['สุขภาพจิต', 'จิตบำบัด', 'ความสัมพันธ์'], tags_en: ['Mental health', 'Psychotherapy', 'Relationships'] 
+    },
+    pediatrics: { 
+        name_th: 'กุมารเวชศาสตร์', name_en: 'Pediatrics', abbrev: 'Ped',
+        slug: 'pediatrics', color: '#FF9F43', 
+        blobStyle: 'cheerful',
+        traits: { relationship: 3, holistic: 3, breadth: 2, prevention: 2, empathy: 2 }, 
+        desc_th: 'ดูแลสุขภาพเด็กตั้งแต่แรกเกิดถึงวัยรุ่น ทั้งรักษาโรคและส่งเสริมพัฒนาการ ทำงานกับครอบครัว', 
+        desc_en: 'Care for children from birth to adolescence. Treat diseases and promote development. Work with families.', 
+        tags_th: ['เด็ก', 'พัฒนาการ', 'ครอบครัว'], tags_en: ['Children', 'Development', 'Family'] 
+    },
+    family: { 
+        name_th: 'เวชศาสตร์ครอบครัว', name_en: 'Family Medicine', abbrev: 'FM',
+        slug: 'family-medicine', color: '#26DE81', 
+        blobStyle: 'warm',
+        traits: { breadth: 3, relationship: 3, holistic: 3, chronic: 2 }, 
+        desc_th: 'ดูแลคนทุกเพศทุกวัยในครอบครัวเดียวกัน รักษาโรคเบื้องต้นและดูแลสุขภาพต่อเนื่อง', 
+        desc_en: 'Care for all ages in the same family. Treat primary conditions and provide continuous care.', 
+        tags_th: ['ครอบครัว', 'ดูแลต่อเนื่อง', 'ทุกวัย'], tags_en: ['Family', 'Continuous care', 'All ages'] 
+    },
+    radiology: { 
+        name_th: 'รังสีวิทยา', name_en: 'Diagnostic Radiology', abbrev: 'Radio',
+        slug: 'radiology-diagnostic', color: '#2D3436', 
+        blobStyle: 'analytical',
+        traits: { diagnostic: 3, imaging: 3, behindScenes: 3, technical: 2 }, 
+        desc_th: 'วินิจฉัยโรคจากภาพ X-ray, CT, MRI ทำงานเบื้องหลังแต่มีบทบาทสำคัญในการรักษา', 
+        desc_en: 'Diagnose diseases from X-ray, CT, MRI images. Work behind the scenes but play a crucial role.', 
+        tags_th: ['ภาพถ่ายรังสี', 'วินิจฉัย', 'เบื้องหลัง'], tags_en: ['Imaging', 'Diagnosis', 'Behind scenes'] 
+    },
+    pathology: { 
+        name_th: 'พยาธิวิทยา', name_en: 'Pathology', abbrev: 'Patho',
+        slug: 'pathology-anatomic-and-clinical', color: '#636E72', 
+        blobStyle: 'detective',
+        traits: { diagnostic: 3, behindScenes: 3, depth: 3, technical: 2 }, 
+        desc_th: 'วินิจฉัยโรคจากชิ้นเนื้อและเซลล์ในห้องปฏิบัติการ ไม่เจอคนไข้แต่ให้คำตอบสำคัญ', 
+        desc_en: 'Diagnose diseases from tissue and cells in the lab. Never meet patients but provide crucial answers.', 
+        tags_th: ['ชิ้นเนื้อ', 'ห้องแล็บ', 'วินิจฉัย'], tags_en: ['Tissue', 'Lab', 'Diagnosis'] 
+    },
+    preventive: { 
+        name_th: 'เวชศาสตร์ป้องกัน', name_en: 'Preventive Medicine', abbrev: 'Prevent',
+        slug: 'preventive-medicine', color: '#00B894', 
+        blobStyle: 'guardian',
+        traits: { prevention: 3, population: 3, strategy: 3, research: 2 }, 
+        desc_th: 'วางนโยบายและระบบเพื่อป้องกันโรคในระดับประชากร มีผลกระทบกว้างขวาง', 
+        desc_en: 'Design policies and systems to prevent diseases at population level. Wide-reaching impact.', 
+        tags_th: ['ป้องกัน', 'นโยบาย', 'ประชากร'], tags_en: ['Prevention', 'Policy', 'Population'] 
+    },
+    pmr: { 
+        name_th: 'เวชศาสตร์ฟื้นฟู', name_en: 'Physical Medicine & Rehab', abbrev: 'PMR',
+        slug: 'physical-medicine-and-rehabilitation', color: '#00CEC9', 
+        blobStyle: 'encouraging',
+        traits: { holistic: 3, chronic: 3, relationship: 2, support: 2, teamwork: 2 }, 
+        desc_th: 'ช่วยคนไข้ฟื้นฟูสมรรถภาพหลังบาดเจ็บหรือป่วย ทำงานเป็นทีมเพื่อคุณภาพชีวิต', 
+        desc_en: 'Help patients regain function after injury or illness. Teamwork focused on quality of life.', 
+        tags_th: ['ฟื้นฟู', 'คุณภาพชีวิต', 'ทีม'], tags_en: ['Rehab', 'Quality of life', 'Team'] 
+    },
+    dermatology: { 
+        name_th: 'ตจวิทยา (ผิวหนัง)', name_en: 'Dermatology', abbrev: 'Derm',
+        slug: 'dermatology', color: '#FD79A8', 
+        blobStyle: 'fresh',
+        traits: { diagnostic: 2, procedural: 2, chronic: 2, control: 2 }, 
+        desc_th: 'วินิจฉัยและรักษาโรคผิวหนัง ทั้งด้วยยาและหัตถการ สมดุลชีวิตดี', 
+        desc_en: 'Diagnose and treat skin diseases. Both medication and procedures. Good work-life balance.', 
+        tags_th: ['ผิวหนัง', 'เลเซอร์', 'สมดุลชีวิต'], tags_en: ['Skin', 'Laser', 'Balance'] 
+    },
+    ophthalmology: { 
+        name_th: 'จักษุวิทยา', name_en: 'Ophthalmology', abbrev: 'Eye',
+        slug: 'ophthalmology', color: '#FDCB6E', 
+        blobStyle: 'precise',
+        traits: { technical: 3, procedural: 3, control: 2, depth: 2 }, 
+        desc_th: 'วินิจฉัยและผ่าตัดรักษาโรคตา ใช้กล้องจุลทรรศน์และเทคโนโลยีขั้นสูง', 
+        desc_en: 'Diagnose and surgically treat eye diseases. Use microscopes and advanced technology.', 
+        tags_th: ['ตา', 'ผ่าตัดจุลภาค', 'เทคโนโลยี'], tags_en: ['Eyes', 'Microsurgery', 'Technology'] 
+    },
+    oncology: { 
+        name_th: 'อายุรศาสตร์โรคมะเร็ง', name_en: 'Medical Oncology', abbrev: 'Onco',
+        slug: 'hematology-and-medical-oncology', color: '#E17055', 
+        blobStyle: 'compassionate',
+        traits: { empathy: 3, relationship: 3, depth: 2, chronic: 2 }, 
+        desc_th: 'รักษาผู้ป่วยมะเร็งด้วยเคมีบำบัดและยามุ่งเป้า สร้างความสัมพันธ์ลึกซึ้งกับคนไข้และครอบครัว', 
+        desc_en: 'Treat cancer patients with chemotherapy and targeted therapy. Deep relationships with patients and families.', 
+        tags_th: ['มะเร็ง', 'เคมีบำบัด', 'ดูแลต่อเนื่อง'], tags_en: ['Cancer', 'Chemotherapy', 'Continuous care'] 
+    },
+    infectious: { 
+        name_th: 'อายุรศาสตร์โรคติดเชื้อ', name_en: 'Infectious Disease', abbrev: 'ID',
+        slug: 'infectious-disease', color: '#55EFC4', 
+        blobStyle: 'investigator',
+        traits: { cognitive: 3, diagnostic: 3, research: 2 }, 
+        desc_th: 'สืบค้นและรักษาการติดเชื้อซับซ้อน ควบคุมโรคระบาดในโรงพยาบาล', 
+        desc_en: 'Investigate and treat complex infections. Control hospital outbreaks.', 
+        tags_th: ['ติดเชื้อ', 'ระบาดวิทยา', 'สืบค้น'], tags_en: ['Infection', 'Epidemiology', 'Investigation'] 
+    },
+    palliative: { 
+        name_th: 'การดูแลประคับประคอง', name_en: 'Palliative Care', abbrev: 'Palli',
+        slug: 'hospice-and-palliative-medicine', color: '#B2BEC3', 
+        blobStyle: 'gentle',
+        traits: { empathy: 3, support: 3, counseling: 3, holistic: 2 }, 
+        desc_th: 'ดูแลผู้ป่วยโรคร้ายแรงเพื่อคุณภาพชีวิต บรรเทาความทุกข์ทั้งกายและใจ', 
+        desc_en: 'Care for seriously ill patients for quality of life. Relieve physical and emotional suffering.', 
+        tags_th: ['ประคับประคอง', 'คุณภาพชีวิต', 'บรรเทาทุกข์'], tags_en: ['Palliative', 'Quality of life', 'Comfort'] 
+    },
+    ir: { 
+        name_th: 'รังสีร่วมรักษา', name_en: 'Interventional Radiology', abbrev: 'IR',
+        slug: 'interventional-radiology', color: '#74B9FF', 
+        blobStyle: 'techy',
+        traits: { technical: 3, procedural: 3, imaging: 3 }, 
+        desc_th: 'ใช้ภาพรังสีนำทางทำหัตถการรักษาโรคผ่านหลอดเลือด แผลเล็ก ฟื้นตัวเร็ว', 
+        desc_en: 'Use imaging guidance for minimally invasive procedures. Small incisions, fast recovery.', 
+        tags_th: ['หัตถการ', 'แผลเล็ก', 'รังสีนำทาง'], tags_en: ['Procedures', 'Minimally invasive', 'Image-guided'] 
+    },
+    endocrinology: { 
+        name_th: 'อายุรศาสตร์ต่อมไร้ท่อ', name_en: 'Endocrinology', abbrev: 'Endo',
+        slug: 'endocrinology-diabetes-and-metabolism', color: '#81ECEC', 
+        blobStyle: 'balanced',
+        traits: { chronic: 3, cognitive: 2, relationship: 2, depth: 2 }, 
+        desc_th: 'รักษาโรคเบาหวาน ไทรอยด์ และฮอร์โมนผิดปกติ ดูแลคนไข้ต่อเนื่องระยะยาว', 
+        desc_en: 'Treat diabetes, thyroid, and hormonal disorders. Long-term continuous patient care.', 
+        tags_th: ['เบาหวาน', 'ไทรอยด์', 'ฮอร์โมน'], tags_en: ['Diabetes', 'Thyroid', 'Hormones'] 
+    },
+    rheumatology: { 
+        name_th: 'รูมาโตโลจี', name_en: 'Rheumatology', abbrev: 'Rheuma',
+        slug: 'rheumatology', color: '#A8E6CF', 
+        blobStyle: 'puzzle',
+        traits: { cognitive: 3, diagnostic: 3, chronic: 2, depth: 2 }, 
+        desc_th: 'วินิจฉัยและรักษาโรคข้อและภูมิคุ้มกันทำลายตนเอง เคสซับซ้อนท้าทาย', 
+        desc_en: 'Diagnose and treat joint and autoimmune diseases. Complex challenging cases.', 
+        tags_th: ['ข้อ', 'ภูมิคุ้มกัน', 'โรคซับซ้อน'], tags_en: ['Joints', 'Autoimmune', 'Complex'] 
+    },
+    nephrology: { 
+        name_th: 'อายุรศาสตร์โรคไต', name_en: 'Nephrology', abbrev: 'Nephro',
+        slug: 'internal-medicine-nephrology', color: '#48DBFB', 
+        blobStyle: 'steady',
+        traits: { cognitive: 3, chronic: 3, depth: 2, relationship: 2 }, 
+        desc_th: 'รักษาโรคไตและความดันโลหิตสูง ดูแลผู้ป่วยฟอกเลือดระยะยาว', 
+        desc_en: 'Treat kidney diseases and hypertension. Long-term care for dialysis patients.', 
+        tags_th: ['ไต', 'ฟอกเลือด', 'ความดัน'], tags_en: ['Kidney', 'Dialysis', 'Hypertension'] 
+    },
+    pulmonology: { 
+        name_th: 'อายุรศาสตร์โรคปอด', name_en: 'Pulmonology', abbrev: 'Pulmo',
+        slug: 'pulmonary-disease', color: '#1DD1A1', 
+        blobStyle: 'breathing',
+        traits: { cognitive: 2, acute: 2, crisis: 2, chronic: 2 }, 
+        desc_th: 'รักษาโรคระบบทางเดินหายใจ มักดูแลผู้ป่วยวิกฤตในไอซียูด้วย', 
+        desc_en: 'Treat respiratory diseases. Often also care for ICU critical patients.', 
+        tags_th: ['ปอด', 'ไอซียู', 'ทางเดินหายใจ'], tags_en: ['Lung', 'ICU', 'Respiratory'] 
+    },
+    cvts: { 
+        name_th: 'ศัลยศาสตร์หัวใจและทรวงอก', name_en: 'Cardiothoracic Surgery', abbrev: 'CVT',
+        slug: 'thoracic-surgery', color: '#C0392B', 
+        blobStyle: 'heroic',
+        traits: { procedural: 3, technical: 3, crisis: 3, acute: 2, depth: 2 }, 
+        desc_th: 'ผ่าตัดหัวใจ ปอด และหลอดเลือดใหญ่ ต้องการความอดทนและทักษะสูงสุด', 
+        desc_en: 'Operate on heart, lungs, and great vessels. Requires utmost endurance and skill.', 
+        tags_th: ['ผ่าตัดหัวใจ', 'ทรวงอก', 'หลอดเลือดใหญ่'], tags_en: ['Heart surgery', 'Thoracic', 'Great vessels'] 
+    }
 };
 
-// Blob SVG generator
-function getBlobSVG(color, size = 80, accessories = '') {
-    const eyeSize = size * 0.08;
-    const eyeY = size * 0.43;
-    const leftEyeX = size * 0.38;
-    const rightEyeX = size * 0.62;
-    const blushSize = size * 0.08;
+// Unique blob SVG generator with expressions and props for each specialty
+function getBlobSVG(specKey, size = 80) {
+    const spec = specialties[specKey];
+    if (!spec) return '';
     
-    return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-        <ellipse cx="${size/2}" cy="${size*0.54}" rx="${size*0.42}" ry="${size*0.38}" fill="${color}"/>
-        <circle cx="${leftEyeX}" cy="${eyeY}" r="${eyeSize}" fill="#3D3229"/>
-        <circle cx="${rightEyeX}" cy="${eyeY}" r="${eyeSize}" fill="#3D3229"/>
-        <circle cx="${leftEyeX + eyeSize*0.3}" cy="${eyeY - eyeSize*0.3}" r="${eyeSize*0.35}" fill="white"/>
-        <circle cx="${rightEyeX + eyeSize*0.3}" cy="${eyeY - eyeSize*0.3}" r="${eyeSize*0.35}" fill="white"/>
-        <ellipse cx="${size*0.5}" cy="${size*0.6}" rx="${size*0.08}" ry="${size*0.04}" fill="${shadeColor(color, -20)}"/>
-        <ellipse cx="${size*0.28}" cy="${size*0.52}" rx="${blushSize}" ry="${blushSize*0.6}" fill="rgba(228, 160, 183, 0.5)"/>
-        <ellipse cx="${size*0.72}" cy="${size*0.52}" rx="${blushSize}" ry="${blushSize*0.6}" fill="rgba(228, 160, 183, 0.5)"/>
-        ${accessories}
-    </svg>`;
-}
-
-function shadeColor(color, percent) {
-    const num = parseInt(color.replace('#', ''), 16);
-    const amt = Math.round(2.55 * percent);
-    const R = (num >> 16) + amt;
-    const G = (num >> 8 & 0x00FF) + amt;
-    const B = (num & 0x0000FF) + amt;
-    return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + 
-        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255))
-        .toString(16).slice(1);
+    const color = spec.color;
+    const style = spec.blobStyle;
+    const s = size;
+    
+    let svg = `<svg viewBox="0 0 ${s} ${s}" width="${s}" height="${s}">`;
+    
+    // Body
+    svg += `<ellipse cx="${s/2}" cy="${s*0.56}" rx="${s*0.42}" ry="${s*0.36}" fill="${color}"/>`;
+    
+    // Blush (common)
+    svg += `<ellipse cx="${s*0.28}" cy="${s*0.54}" rx="${s*0.07}" ry="${s*0.045}" fill="rgba(255,200,200,0.5)"/>`;
+    svg += `<ellipse cx="${s*0.72}" cy="${s*0.54}" rx="${s*0.07}" ry="${s*0.045}" fill="rgba(255,200,200,0.5)"/>`;
+    
+    switch(style) {
+        case 'alert': // ER - determined eyes, siren
+            svg += `<circle cx="${s*0.38}" cy="${s*0.45}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.45}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.43}" r="${s*0.025}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.43}" r="${s*0.025}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.58} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none" stroke-linecap="round"/>`;
+            svg += `<ellipse cx="${s*0.5}" cy="${s*0.22}" rx="${s*0.1}" ry="${s*0.06}" fill="#FF4757"/>`;
+            svg += `<rect x="${s*0.47}" y="${s*0.22}" width="${s*0.06}" height="${s*0.08}" fill="#FF6B81"/>`;
+            break;
+            
+        case 'calm': // Anes - zen face, mask
+            svg += `<path d="M${s*0.32} ${s*0.46} Q${s*0.38} ${s*0.44} ${s*0.44} ${s*0.46}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<path d="M${s*0.56} ${s*0.46} Q${s*0.62} ${s*0.44} ${s*0.68} ${s*0.46}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.6} L${s*0.56} ${s*0.6}" stroke="#3D3229" stroke-width="${s*0.02}" stroke-linecap="round"/>`;
+            svg += `<ellipse cx="${s*0.5}" cy="${s*0.72}" rx="${s*0.15}" ry="${s*0.08}" fill="#5DADE2" opacity="0.6"/>`;
+            break;
+            
+        case 'determined': // Surgery - focused, scalpel
+            svg += `<circle cx="${s*0.38}" cy="${s*0.44}" r="${s*0.065}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.44}" r="${s*0.065}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.61} Q${s*0.5} ${s*0.64} ${s*0.56} ${s*0.61}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<line x1="${s*0.75}" y1="${s*0.22}" x2="${s*0.85}" y2="${s*0.35}" stroke="#AAA" stroke-width="${s*0.025}" stroke-linecap="round"/>`;
+            svg += `<polygon points="${s*0.85},${s*0.35} ${s*0.90},${s*0.42} ${s*0.83},${s*0.38}" fill="#DDD"/>`;
+            break;
+            
+        case 'strong': // Ortho - confident, bone
+            svg += `<circle cx="${s*0.36}" cy="${s*0.44}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.38}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<circle cx="${s*0.66}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<path d="M${s*0.40} ${s*0.62} Q${s*0.5} ${s*0.68} ${s*0.60} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.022}" fill="none"/>`;
+            svg += `<ellipse cx="${s*0.80}" cy="${s*0.22}" rx="${s*0.05}" ry="${s*0.04}" fill="#F5F5DC"/>`;
+            svg += `<rect x="${s*0.78}" y="${s*0.22}" width="${s*0.04}" height="${s*0.10}" fill="#F5F5DC"/>`;
+            svg += `<ellipse cx="${s*0.80}" cy="${s*0.32}" rx="${s*0.05}" ry="${s*0.04}" fill="#F5F5DC"/>`;
+            break;
+            
+        case 'focused': // NeuroSx - intense, brain
+            svg += `<ellipse cx="${s*0.38}" cy="${s*0.44}" rx="${s*0.055}" ry="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<ellipse cx="${s*0.62}" cy="${s*0.44}" rx="${s*0.055}" ry="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.39}" cy="${s*0.42}" r="${s*0.02}" fill="white"/>`;
+            svg += `<circle cx="${s*0.63}" cy="${s*0.42}" r="${s*0.02}" fill="white"/>`;
+            svg += `<line x1="${s*0.45}" y1="${s*0.62}" x2="${s*0.55}" y2="${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.18} Q${s*0.5} ${s*0.12} ${s*0.58} ${s*0.18} Q${s*0.62} ${s*0.24} ${s*0.56} ${s*0.28} Q${s*0.5} ${s*0.32} ${s*0.44} ${s*0.28} Q${s*0.38} ${s*0.24} ${s*0.42} ${s*0.18}" fill="#FFB6C1"/>`;
+            svg += `<path d="M${s*0.5} ${s*0.15} L${s*0.5} ${s*0.28}" stroke="#E91E63" stroke-width="${s*0.008}"/>`;
+            break;
+            
+        case 'heartbeat': // Cardio - caring, heart
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.06}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.06}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.68} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<path d="M${s*0.5} ${s*0.30} L${s*0.56} ${s*0.22} Q${s*0.62} ${s*0.18} ${s*0.62} ${s*0.24} L${s*0.5} ${s*0.36} L${s*0.38} ${s*0.24} Q${s*0.38} ${s*0.18} ${s*0.44} ${s*0.22} Z" fill="#E84A5F"/>`;
+            break;
+            
+        case 'curious': // GI - curious look, scope
+            svg += `<circle cx="${s*0.36}" cy="${s*0.44}" r="${s*0.065}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.38}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<circle cx="${s*0.66}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<ellipse cx="${s*0.5}" cy="${s*0.63}" rx="${s*0.06}" ry="${s*0.035}" fill="#3D3229"/>`;
+            svg += `<path d="M${s*0.75} ${s*0.20} Q${s*0.85} ${s*0.25} ${s*0.80} ${s*0.35} Q${s*0.75} ${s*0.40} ${s*0.82} ${s*0.45}" stroke="#666" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<circle cx="${s*0.82}" cy="${s*0.45}" r="${s*0.03}" fill="#888"/>`;
+            break;
+            
+        case 'thinking': // Neuro - thoughtful
+            svg += `<circle cx="${s*0.36}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.60}" cy="${s*0.44}" r="${s*0.065}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.42}" r="${s*0.024}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.63} Q${s*0.48} ${s*0.60} ${s*0.54} ${s*0.63}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<circle cx="${s*0.78}" cy="${s*0.22}" r="${s*0.08}" fill="white" stroke="#DDD" stroke-width="1"/>`;
+            svg += `<text x="${s*0.78}" y="${s*0.26}" font-size="${s*0.09}" text-anchor="middle" fill="#5D5FEF">?</text>`;
+            break;
+            
+        case 'empathetic': // Psychiatry - gentle smile, heart
+            svg += `<ellipse cx="${s*0.38}" cy="${s*0.46}" rx="${s*0.06}" ry="${s*0.05}" fill="#3D3229"/>`;
+            svg += `<ellipse cx="${s*0.62}" cy="${s*0.46}" rx="${s*0.06}" ry="${s*0.05}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.40} ${s*0.62} Q${s*0.5} ${s*0.72} ${s*0.60} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.022}" fill="none"/>`;
+            svg += `<text x="${s*0.78}" y="${s*0.28}" font-size="${s*0.14}">💭</text>`;
+            break;
+            
+        case 'cheerful': // Pediatrics - big smile, teddy
+            svg += `<circle cx="${s*0.36}" cy="${s*0.44}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.38}" cy="${s*0.42}" r="${s*0.028}" fill="white"/>`;
+            svg += `<circle cx="${s*0.66}" cy="${s*0.42}" r="${s*0.028}" fill="white"/>`;
+            svg += `<path d="M${s*0.36} ${s*0.60} Q${s*0.5} ${s*0.74} ${s*0.64} ${s*0.60}" stroke="#3D3229" stroke-width="${s*0.025}" fill="none"/>`;
+            svg += `<circle cx="${s*0.80}" cy="${s*0.26}" r="${s*0.08}" fill="#D4A574"/>`;
+            svg += `<circle cx="${s*0.76}" cy="${s*0.20}" r="${s*0.03}" fill="#D4A574"/>`;
+            svg += `<circle cx="${s*0.84}" cy="${s*0.20}" r="${s*0.03}" fill="#D4A574"/>`;
+            svg += `<circle cx="${s*0.78}" cy="${s*0.25}" r="${s*0.012}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.82}" cy="${s*0.25}" r="${s*0.012}" fill="#3D3229"/>`;
+            break;
+            
+        case 'warm': // Family Med - house
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.40} ${s*0.61} Q${s*0.5} ${s*0.70} ${s*0.60} ${s*0.61}" stroke="#3D3229" stroke-width="${s*0.022}" fill="none"/>`;
+            svg += `<path d="M${s*0.72} ${s*0.30} L${s*0.80} ${s*0.22} L${s*0.88} ${s*0.30} L${s*0.88} ${s*0.38} L${s*0.72} ${s*0.38} Z" fill="#26DE81"/>`;
+            svg += `<rect x="${s*0.78}" y="${s*0.32}" width="${s*0.04}" height="${s*0.06}" fill="#FFF"/>`;
+            break;
+            
+        case 'analytical': // Radiology - glasses
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.05}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.05}" fill="#3D3229"/>`;
+            svg += `<path d="M${s*0.45} ${s*0.62} L${s*0.55} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}" stroke-linecap="round"/>`;
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.10}" fill="none" stroke="#333" stroke-width="${s*0.012}"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.10}" fill="none" stroke="#333" stroke-width="${s*0.012}"/>`;
+            svg += `<line x1="${s*0.48}" y1="${s*0.46}" x2="${s*0.52}" y2="${s*0.46}" stroke="#333" stroke-width="${s*0.012}"/>`;
+            break;
+            
+        case 'detective': // Pathology - magnifying glass
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.065}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.024}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.63} Q${s*0.5} ${s*0.60} ${s*0.56} ${s*0.63}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<circle cx="${s*0.78}" cy="${s*0.25}" r="${s*0.08}" fill="none" stroke="#666" stroke-width="${s*0.02}"/>`;
+            svg += `<line x1="${s*0.84}" y1="${s*0.31}" x2="${s*0.90}" y2="${s*0.38}" stroke="#8B4513" stroke-width="${s*0.025}" stroke-linecap="round"/>`;
+            break;
+            
+        case 'guardian': // Preventive - shield
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.06}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.06}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.68} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<path d="M${s*0.5} ${s*0.15} L${s*0.60} ${s*0.18} L${s*0.60} ${s*0.28} Q${s*0.60} ${s*0.34} ${s*0.5} ${s*0.38} Q${s*0.40} ${s*0.34} ${s*0.40} ${s*0.28} L${s*0.40} ${s*0.18} Z" fill="#00B894"/>`;
+            svg += `<text x="${s*0.5}" y="${s*0.30}" font-size="${s*0.09}" text-anchor="middle" fill="white">✓</text>`;
+            break;
+            
+        case 'encouraging': // PM&R - flexing
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.40} ${s*0.62} Q${s*0.5} ${s*0.70} ${s*0.60} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.022}" fill="none"/>`;
+            svg += `<text x="${s*0.80}" y="${s*0.30}" font-size="${s*0.14}">💪</text>`;
+            break;
+            
+        case 'fresh': // Derm - sparkles
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.68} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<text x="${s*0.78}" y="${s*0.25}" font-size="${s*0.12}">✨</text>`;
+            svg += `<text x="${s*0.22}" y="${s*0.30}" font-size="${s*0.10}">✨</text>`;
+            break;
+            
+        case 'precise': // Eye - big eyes
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.09}" fill="white" stroke="#333" stroke-width="${s*0.01}"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.09}" fill="white" stroke="#333" stroke-width="${s*0.01}"/>`;
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.05}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.05}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<path d="M${s*0.45} ${s*0.62} L${s*0.55} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}"/>`;
+            break;
+            
+        case 'compassionate': // Oncology - ribbon
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.68} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<path d="M${s*0.78} ${s*0.20} Q${s*0.82} ${s*0.28} ${s*0.78} ${s*0.36} M${s*0.82} ${s*0.20} Q${s*0.78} ${s*0.28} ${s*0.82} ${s*0.36}" stroke="#FFB6C1" stroke-width="${s*0.025}" fill="none"/>`;
+            break;
+            
+        case 'investigator': // ID - magnifier + germ
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.62} Q${s*0.5} ${s*0.66} ${s*0.56} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<circle cx="${s*0.78}" cy="${s*0.25}" r="${s*0.06}" fill="#55EFC4"/>`;
+            svg += `<line x1="${s*0.78}" y1="${s*0.18}" x2="${s*0.78}" y2="${s*0.14}" stroke="#55EFC4" stroke-width="${s*0.02}"/>`;
+            svg += `<line x1="${s*0.72}" y1="${s*0.22}" x2="${s*0.68}" y2="${s*0.20}" stroke="#55EFC4" stroke-width="${s*0.02}"/>`;
+            svg += `<line x1="${s*0.84}" y1="${s*0.22}" x2="${s*0.88}" y2="${s*0.20}" stroke="#55EFC4" stroke-width="${s*0.02}"/>`;
+            break;
+            
+        case 'gentle': // Palliative - peaceful, dove
+            svg += `<path d="M${s*0.32} ${s*0.46} Q${s*0.38} ${s*0.44} ${s*0.44} ${s*0.46}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<path d="M${s*0.56} ${s*0.46} Q${s*0.62} ${s*0.44} ${s*0.68} ${s*0.46}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.68} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<text x="${s*0.80}" y="${s*0.28}" font-size="${s*0.14}">🕊️</text>`;
+            break;
+            
+        case 'techy': // IR - cool, catheter
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.62} Q${s*0.5} ${s*0.58} ${s*0.56} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<path d="M${s*0.72} ${s*0.20} Q${s*0.82} ${s*0.24} ${s*0.78} ${s*0.32} L${s*0.85} ${s*0.38}" stroke="#74B9FF" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<circle cx="${s*0.72}" cy="${s*0.20}" r="${s*0.03}" fill="#74B9FF"/>`;
+            break;
+            
+        case 'balanced': // Endo - zen
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.62} Q${s*0.5} ${s*0.66} ${s*0.56} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<text x="${s*0.78}" y="${s*0.28}" font-size="${s*0.12}">⚖️</text>`;
+            break;
+            
+        case 'puzzle': // Rheuma - puzzle piece
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.058}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.44}" r="${s*0.065}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.42}" r="${s*0.024}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.62} Q${s*0.5} ${s*0.58} ${s*0.56} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}" fill="none"/>`;
+            svg += `<text x="${s*0.78}" y="${s*0.28}" font-size="${s*0.12}">🧩</text>`;
+            break;
+            
+        case 'steady': // Nephro - calm, kidney
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<path d="M${s*0.44} ${s*0.62} L${s*0.56} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.018}" stroke-linecap="round"/>`;
+            svg += `<ellipse cx="${s*0.80}" cy="${s*0.26}" rx="${s*0.06}" ry="${s*0.08}" fill="#E74C3C" transform="rotate(-15 ${s*0.80} ${s*0.26})"/>`;
+            break;
+            
+        case 'breathing': // Pulmo - lungs
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.055}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.02}" fill="white"/>`;
+            svg += `<ellipse cx="${s*0.5}" cy="${s*0.63}" rx="${s*0.06}" ry="${s*0.035}" fill="#3D3229"/>`;
+            svg += `<ellipse cx="${s*0.74}" cy="${s*0.26}" rx="${s*0.05}" ry="${s*0.07}" fill="#1DD1A1"/>`;
+            svg += `<ellipse cx="${s*0.86}" cy="${s*0.26}" rx="${s*0.05}" ry="${s*0.07}" fill="#1DD1A1"/>`;
+            svg += `<line x1="${s*0.80}" y1="${s*0.20}" x2="${s*0.80}" y2="${s*0.32}" stroke="#1DD1A1" stroke-width="${s*0.02}"/>`;
+            break;
+            
+        case 'heroic': // CVT - cape/hero
+            svg += `<circle cx="${s*0.38}" cy="${s*0.44}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.44}" r="${s*0.07}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.42}" r="${s*0.025}" fill="white"/>`;
+            svg += `<path d="M${s*0.42} ${s*0.62} Q${s*0.5} ${s*0.58} ${s*0.58} ${s*0.62}" stroke="#3D3229" stroke-width="${s*0.02}" fill="none"/>`;
+            svg += `<path d="M${s*0.20} ${s*0.40} Q${s*0.15} ${s*0.65} ${s*0.25} ${s*0.80}" stroke="#C0392B" stroke-width="${s*0.04}" fill="none" opacity="0.8"/>`;
+            svg += `<path d="M${s*0.80} ${s*0.40} Q${s*0.85} ${s*0.65} ${s*0.75} ${s*0.80}" stroke="#C0392B" stroke-width="${s*0.04}" fill="none" opacity="0.8"/>`;
+            break;
+            
+        default:
+            svg += `<circle cx="${s*0.38}" cy="${s*0.46}" r="${s*0.06}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.62}" cy="${s*0.46}" r="${s*0.06}" fill="#3D3229"/>`;
+            svg += `<circle cx="${s*0.40}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<circle cx="${s*0.64}" cy="${s*0.44}" r="${s*0.022}" fill="white"/>`;
+            svg += `<ellipse cx="${s*0.5}" cy="${s*0.63}" rx="${s*0.08}" ry="${s*0.04}" fill="#3D3229"/>`;
+    }
+    
+    svg += '</svg>';
+    return svg;
 }
 
 // ========== STATE ==========
@@ -1276,12 +1723,10 @@ function renderQuestion() {
     const q = questions[currentQuestion];
     const card = document.getElementById('questionCard');
     
-    // Update progress
     document.getElementById('progressText').textContent = `${currentQuestion + 1} / 8`;
     document.getElementById('progressPercent').textContent = `${Math.round((currentQuestion + 1) / 8 * 100)}%`;
     document.getElementById('progressFill').style.width = `${(currentQuestion + 1) / 8 * 100}%`;
     
-    // Render question
     card.innerHTML = `
         <span class="question-number">
             <span class="show-th">คำถามที่ ${currentQuestion + 1}</span>
@@ -1311,10 +1756,8 @@ function renderQuestion() {
         </div>
     `;
     
-    // Setup facts
     setupFactCarousel(q.facts);
     
-    // Update buttons
     document.getElementById('backBtn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
     document.getElementById('nextBtn').disabled = !answers[currentQuestion];
     document.getElementById('nextBtn').innerHTML = currentQuestion === 7 
@@ -1353,15 +1796,23 @@ function rotateFact(total) {
 }
 
 function selectOption(optId, index) {
+    // Remove previous scores if changing answer
+    if (answers[currentQuestion]) {
+        const prevOpt = questions[currentQuestion].options.find(o => o.id === answers[currentQuestion]);
+        if (prevOpt) {
+            Object.entries(prevOpt.scores).forEach(([trait, val]) => {
+                userScores[trait] = (userScores[trait] || 0) - val;
+            });
+        }
+    }
+    
     answers[currentQuestion] = optId;
     
-    // Add scores
     const opt = questions[currentQuestion].options[index];
     Object.entries(opt.scores).forEach(([trait, val]) => {
         userScores[trait] = (userScores[trait] || 0) + val;
     });
     
-    // Update UI
     document.querySelectorAll('.option-btn').forEach((btn, i) => {
         btn.classList.toggle('selected', i === index);
     });
@@ -1379,16 +1830,6 @@ function nextQuestion() {
 
 function prevQuestion() {
     if (currentQuestion > 0) {
-        // Remove scores from current answer if exists
-        if (answers[currentQuestion]) {
-            const q = questions[currentQuestion];
-            const opt = q.options.find(o => o.id === answers[currentQuestion]);
-            if (opt) {
-                Object.entries(opt.scores).forEach(([trait, val]) => {
-                    userScores[trait] = (userScores[trait] || 0) - val;
-                });
-            }
-        }
         currentQuestion--;
         renderQuestion();
     }
@@ -1405,42 +1846,132 @@ function showProcessing() {
 }
 
 function calculateResults() {
+    // Step 1: Calculate user's total accumulated scores per trait
+    const userTotal = {};
+    Object.entries(userScores).forEach(([trait, val]) => {
+        userTotal[trait] = val || 0;
+    });
+    
+    // Step 2: Score each specialty using weighted trait matching
+    // Key insight: A specialty scores high when user has high scores in traits the specialty values
     const results = [];
     
     Object.entries(specialties).forEach(([key, spec]) => {
         let score = 0;
         let maxPossible = 0;
+        let traitMatches = [];
         
+        // For each trait the specialty cares about
         Object.entries(spec.traits).forEach(([trait, weight]) => {
-            maxPossible += weight * 3;
-            score += (userScores[trait] || 0) * weight;
+            const userVal = userTotal[trait] || 0;
+            
+            // Calculate how much user matches this trait
+            // Max possible per trait = 3 (highest single answer score) * ~2 questions that could give it = 6
+            // But more realistically, 8-12 is typical max
+            const maxTraitScore = 12; // reasonable ceiling
+            const traitMatch = Math.min(userVal / maxTraitScore, 1);
+            
+            // Weighted contribution
+            score += traitMatch * weight;
+            maxPossible += weight;
+            
+            traitMatches.push({ trait, weight, userVal, traitMatch });
         });
         
-        const percent = Math.round((score / maxPossible) * 100);
-        results.push({ key, ...spec, percent: Math.min(99, Math.max(40, percent)) });
+        // Penalty: Also penalize if user has strong traits that specialty DOESN'T value
+        // This creates real differentiation between specialties
+        let penalty = 0;
+        const specTraits = Object.keys(spec.traits);
+        Object.entries(userTotal).forEach(([trait, val]) => {
+            if (!specTraits.includes(trait) && val > 4) {
+                // User has a strong trait that this specialty doesn't use
+                penalty += (val - 4) * 0.15;
+            }
+        });
+        
+        // Raw match ratio
+        const matchRatio = maxPossible > 0 ? (score / maxPossible) : 0;
+        
+        // Apply penalty (caps at reducing score by 30%)
+        const penaltyFactor = Math.max(0.7, 1 - penalty * 0.05);
+        const adjustedRatio = matchRatio * penaltyFactor;
+        
+        // Convert to percentage: 35-95% range with real spread
+        // Use a curve that emphasizes differences
+        const rawPercent = adjustedRatio * 100;
+        
+        results.push({ 
+            key, 
+            ...spec, 
+            rawScore: adjustedRatio,
+            debugTraits: traitMatches
+        });
     });
     
-    results.sort((a, b) => b.percent - a.percent);
-    showResults(results.slice(0, 3));
+    // Sort by raw score
+    results.sort((a, b) => b.rawScore - a.rawScore);
+    
+    // Get actual min and max from calculated scores for this user
+    const rawMin = results[results.length - 1].rawScore;
+    const rawMax = results[0].rawScore;
+    const rawRange = rawMax - rawMin || 0.1;
+    
+    // Scale to display range (38% to 94%) based on actual spread
+    // This ensures #1 and #25 actually have different scores
+    results.forEach((r, i) => {
+        // Relative position in user's personal ranking
+        const normalizedPos = (r.rawScore - rawMin) / rawRange;
+        
+        // Map to 38-94% display range
+        // Top match gets 80-94% based on how strong the match actually is
+        // Lower matches spread down naturally
+        const displayPercent = 38 + normalizedPos * 56;
+        
+        // Add small random jitter to prevent ties
+        r.percent = Math.round(displayPercent + (Math.random() - 0.5) * 2);
+    });
+    
+    // Ensure top 3 have minimum visual separation
+    const top = results.slice(0, 3);
+    
+    // Cap top match at realistic max (strong match = 85-94%, medium = 70-84%)
+    top[0].percent = Math.min(94, Math.max(68, top[0].percent));
+    
+    // Ensure gaps between rankings
+    if (top[1].percent >= top[0].percent - 3) {
+        top[1].percent = top[0].percent - 4 - Math.floor(Math.random() * 4);
+    }
+    if (top[2].percent >= top[1].percent - 3) {
+        top[2].percent = top[1].percent - 4 - Math.floor(Math.random() * 4);
+    }
+    
+    // Ensure minimums
+    top[1].percent = Math.max(50, top[1].percent);
+    top[2].percent = Math.max(42, top[2].percent);
+    
+    showResults(top);
 }
 
 function showResults(top3) {
     document.getElementById('processingScreen').style.display = 'none';
     document.getElementById('resultsScreen').style.display = 'block';
     
-    // Render blob trio
+    // Render blob trio with abbreviations
     const blobTrio = document.getElementById('blobTrio');
     blobTrio.innerHTML = `
         <div class="blob-wrapper">
-            <div class="blob-char">${getBlobSVG(top3[1].color, 55)}</div>
+            <div class="blob-char">${getBlobSVG(top3[1].key, 55)}</div>
+            <div class="blob-abbrev">${top3[1].abbrev}</div>
             <div class="blob-rank">#2</div>
         </div>
         <div class="blob-wrapper">
-            <div class="blob-char">${getBlobSVG(top3[0].color, 75)}</div>
+            <div class="blob-char">${getBlobSVG(top3[0].key, 75)}</div>
+            <div class="blob-abbrev" style="font-size: 0.85rem; color: #D4A84B;">${top3[0].abbrev}</div>
             <div class="blob-rank gold">🥇 #1</div>
         </div>
         <div class="blob-wrapper">
-            <div class="blob-char">${getBlobSVG(top3[2].color, 55)}</div>
+            <div class="blob-char">${getBlobSVG(top3[2].key, 55)}</div>
+            <div class="blob-abbrev">${top3[2].abbrev}</div>
             <div class="blob-rank">#3</div>
         </div>
     `;
@@ -1472,7 +2003,7 @@ function showResults(top3) {
     detailCards.innerHTML = top3.map((spec, i) => `
         <div class="specialty-card">
             <div class="specialty-banner" style="background: linear-gradient(135deg, ${spec.color}22, ${spec.color}44)">
-                <div class="blob-large">${getBlobSVG(spec.color, 80)}</div>
+                <div class="blob-large">${getBlobSVG(spec.key, 80)}</div>
             </div>
             <div class="specialty-content">
                 <div class="specialty-name">
