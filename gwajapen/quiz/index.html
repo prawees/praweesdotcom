@@ -1039,7 +1039,7 @@
 const questions = [
     {
         id: 1,
-        text_th: "ถ้าคุณเป็นแพทย์ในโรงพยาบาล คุณอยากวันหนึ่งเป็นอย่างไร?",
+        text_th: "ถ้าคุณเป็นแพทย์ คุณอยากให้การชีวิตการทำงานในแต่ละวันเป็นยังไง?",
         text_en: "If you were a doctor at a hospital, what would you want your day to be like?",
         options: [
             { id: 'a', icon: '⚡', title_th: 'คนไข้ใหม่เข้ามาเรื่อยๆ ทำหลายเคสต่อวัน', title_en: 'New patients constantly, many cases daily', desc_th: 'ไม่มีวันที่เหมือนกัน ต้องตัดสินใจเร็ว', desc_en: 'No two days alike, quick decisions', scores: { pace: 3, acute: 3, crisis: 2 } },
@@ -1061,7 +1061,7 @@ const questions = [
         options: [
             { id: 'a', icon: '🔧', title_th: 'ผ่าตัดแก้ไขทันที ถ้าเป็นไส้ติ่ง', title_en: 'Operate immediately if appendicitis', desc_th: 'ลงมือทำได้เลย เห็นผลชัด', desc_en: 'Can act right away, clear results', scores: { procedural: 3, action: 3, acute: 2 } },
             { id: 'b', icon: '🔍', title_th: 'ตรวจเลือด CT Scan หาสาเหตุ', title_en: 'Run blood tests, CT scan to find cause', desc_th: 'ต้องรู้ว่าเป็นอะไรแน่ๆ ก่อน', desc_en: 'Need to know exactly what it is first', scores: { cognitive: 3, diagnostic: 3, depth: 2 } },
-            { id: 'c', icon: '🛡️', title_th: 'สอนไม่ให้ปวดครั้งหน้า เปลี่ยนพฤติกรรม', title_en: 'Teach prevention for next time, change behavior', desc_th: 'แก้ที่ต้นเหตุ ป้องกันดีกว่ารักษา', desc_en: 'Fix root cause, prevention beats cure', scores: { prevention: 3, population: 2, strategy: 2 } },
+            { id: 'c', icon: '🛡️', title_th: 'สอนวิธีดูแลตัวเองในอนาคตไม่ให้ปวดอีก ปรับพฤติกรรม', title_en: 'Teach prevention for next time, change behavior', desc_th: 'แก้ที่ต้นเหตุ ป้องกันดีกว่ารักษา', desc_en: 'Fix root cause, prevention beats cure', scores: { prevention: 3, population: 2, strategy: 2 } },
             { id: 'd', icon: '💬', title_th: 'ถามให้ละเอียด อาจเป็นเรื่องความเครียด', title_en: 'Ask detailed questions, might be stress-related', desc_th: 'ฟังเรื่องราว อาจไม่ใช่แค่โรคกาย', desc_en: 'Listen to story, may not be just physical', scores: { counseling: 3, empathy: 2, relationship: 2 } }
         ],
         facts: [
@@ -1078,8 +1078,8 @@ const questions = [
         options: [
             { id: 'a', icon: '⏱️', title_th: 'วันนี้เข้ามาป่วย พรุ่งนี้กลับบ้านหาย', title_en: 'Sick today, home cured tomorrow', desc_th: 'แก้ปัญหาเฉียบพลัน รักษาหายเร็ว', desc_en: 'Fix acute problem, quick recovery', scores: { acute: 3, crisis: 2, pace: 2 } },
             { id: 'b', icon: '📅', title_th: 'รักษา 2-3 เดือน ค่อยๆ ดีขึ้น', title_en: 'Treat 2-3 months, gradually improve', desc_th: 'ติดตามผลระยะกลาง เห็นความคืบหน้า', desc_en: 'Follow mid-term, see progress', scores: { chronic: 2, depth: 2, procedural: 1 } },
-            { id: 'c', icon: '📆', title_th: 'ดูแลไปเรื่อยๆ หลายปี รู้จักดี', title_en: 'Care continuously for years, know well', desc_th: 'สร้างความสัมพันธ์ยาวนาน ดูแลแบบองค์รวม', desc_en: 'Build long relationship, holistic care', scores: { relationship: 3, chronic: 3, holistic: 2 } },
-            { id: 'd', icon: '🌍', title_th: 'ช่วยคนรุ่นลูกหลานไม่ให้ป่วย', title_en: 'Help future generations not get sick', desc_th: 'ทำงานระบบ ผลกระทบกว้าง', desc_en: 'System work, broad impact', scores: { population: 3, prevention: 3, research: 2 } }
+            { id: 'c', icon: '📆', title_th: 'ดูแลไปเรื่อยๆ หลายปี รู้จักคนไข้ดี', title_en: 'Care continuously for years, know well', desc_th: 'สร้างความสัมพันธ์ยาวนาน ดูแลแบบองค์รวม', desc_en: 'Build long relationship, holistic care', scores: { relationship: 3, chronic: 3, holistic: 2 } },
+            { id: 'd', icon: '🌍', title_th: 'ช่วยรุ่นลูกหลานเหลนไม่ให้ป่วย', title_en: 'Help future generations not get sick', desc_th: 'ทำงานระบบ ผลกระทบกว้าง', desc_en: 'System work, broad impact', scores: { population: 3, prevention: 3, research: 2 } }
         ],
         facts: [
             { th: 'แพทย์ฉุกเฉินเห็นผลในไม่กี่นาที แพทย์โรคมะเร็งติดตามคนไข้ไปหลายปี แพทย์เวชพันธุศาสตร์อาจช่วยป้องกันโรคข้ามรุ่น', en: 'ER doctors see results in minutes, oncologists follow patients for years, geneticists may prevent diseases across generations' },
@@ -1093,9 +1093,9 @@ const questions = [
         text_th: "มีคนไข้วิกฤตเข้ามา 3 คนพร้อมกัน คุณจะรู้สึกอย่างไร?",
         text_en: "Three critical patients arrive at once. How would you feel?",
         options: [
-            { id: 'a', icon: '🔥', title_th: 'ตื่นเต้น! นี่แหละที่รอคอย', title_en: 'Excited! This is what I live for', desc_th: 'รู้สึกว่าทำงานได้ดีในสถานการณ์กดดัน', desc_en: 'Feel I work best under pressure', scores: { crisis: 3, acute: 3, action: 2 } },
-            { id: 'b', icon: '🧊', title_th: 'ใจเย็น แยกทีละคน ทำตามขั้นตอน', title_en: 'Stay calm, prioritize one by one, follow protocol', desc_th: 'คิดอย่างเป็นระบบ ไม่ตื่นตระหนก', desc_en: 'Think systematically, do not panic', scores: { cognitive: 2, control: 3, diagnostic: 2 } },
-            { id: 'c', icon: '🚫', title_th: 'เครียด อยากทำงานที่เงียบกว่า', title_en: 'Stressed, prefer quieter work', desc_th: 'ไม่ชอบความกดดันแบบนี้', desc_en: 'Do not like this kind of pressure', scores: { behindScenes: 3, chronic: 2, prevention: 1 } },
+            { id: 'a', icon: '🔥', title_th: 'ตื่นเต้นจัง นี่แหละที่รอคอย', title_en: 'Excited! This is what I live for', desc_th: 'รู้สึกว่าทำงานได้ดีในสถานการณ์กดดัน', desc_en: 'Feel I work best under pressure', scores: { crisis: 3, acute: 3, action: 2 } },
+            { id: 'b', icon: '🧊', title_th: 'ใจเย็น แยกทีละคน ทำตามขั้นตอนสิ', title_en: 'Stay calm, prioritize one by one, follow protocol', desc_th: 'คิดอย่างเป็นระบบ ไม่ตื่นตระหนก', desc_en: 'Think systematically, do not panic', scores: { cognitive: 2, control: 3, diagnostic: 2 } },
+            { id: 'c', icon: '🚫', title_th: 'เครียด อยากทำงานเงียบๆ', title_en: 'Stressed, prefer quieter work', desc_th: 'ไม่ชอบความกดดันแบบนี้', desc_en: 'Do not like this kind of pressure', scores: { behindScenes: 3, chronic: 2, prevention: 1 } },
             { id: 'd', icon: '🤗', title_th: 'ดูแลให้ครอบครัวสงบ ช่วยให้กำลังใจ', title_en: 'Keep families calm, give support', desc_th: 'เป็นที่พึ่งทางใจในยามวิกฤต', desc_en: 'Be emotional anchor in crisis', scores: { empathy: 3, support: 3, counseling: 2 } }
         ],
         facts: [
@@ -1110,10 +1110,10 @@ const questions = [
         text_th: "ถ้าต้องเรียนอะไรใหม่ คุณชอบแบบไหน?",
         text_en: "If you had to learn something new, what would you prefer?",
         options: [
-            { id: 'a', icon: '🎯', title_th: 'ฝึกเทคนิคซ้ำๆ จนเก่งมาก', title_en: 'Practice technique repeatedly until mastery', desc_th: 'เช่น เย็บแผล ทำหัตถการ', desc_en: 'Like suturing, procedures', scores: { procedural: 3, technical: 3, depth: 2 } },
+            { id: 'a', icon: '🎯', title_th: 'ฝึกเทคนิคซ้ำๆ จนเซียน', title_en: 'Practice technique repeatedly until mastery', desc_th: 'เช่น เย็บแผล ทำหัตถการ', desc_en: 'Like suturing, procedures', scores: { procedural: 3, technical: 3, depth: 2 } },
             { id: 'b', icon: '🧩', title_th: 'ศึกษากลไกว่ามันทำงานยังไง', title_en: 'Study how mechanisms work', desc_th: 'เช่น ระบบฮอร์โมน เซลล์สื่อสาร', desc_en: 'Like hormone systems, cell signaling', scores: { cognitive: 3, diagnostic: 2, depth: 3 } },
-            { id: 'c', icon: '📚', title_th: 'รู้หลายเรื่อง ไม่ลึกมาก', title_en: 'Know many things, not too deep', desc_th: 'รู้ทั่วหลายโรค หลายระบบ', desc_en: 'Know various diseases, systems', scores: { breadth: 3, versatile: 3, holistic: 2 } },
-            { id: 'd', icon: '🔬', title_th: 'ค้นหาสิ่งใหม่ๆ ทำวิจัย', title_en: 'Discover new things, do research', desc_th: 'สนใจสิ่งที่ยังไม่มีคำตอบ', desc_en: 'Interested in unanswered questions', scores: { research: 3, technical: 2, depth: 2 } }
+            { id: 'c', icon: '📚', title_th: 'รู้หลายเรื่อง ไม่ต้องลึกมากก็ได้', title_en: 'Know many things, not too deep', desc_th: 'รู้ทั่วหลายโรค หลายระบบ', desc_en: 'Know various diseases, systems', scores: { breadth: 3, versatile: 3, holistic: 2 } },
+            { id: 'd', icon: '🔬', title_th: 'ค้นหาสิ่งใหม่ๆ ทำวิจัยจ้ะ', title_en: 'Discover new things, do research', desc_th: 'สนใจสิ่งที่ยังไม่มีคำตอบ', desc_en: 'Interested in unanswered questions', scores: { research: 3, technical: 2, depth: 2 } }
         ],
         facts: [
             { th: 'จักษุแพทย์ฝึกผ่าตัดภายใต้กล้องจุลทรรศน์นับพันครั้ง แพทย์เวชศาสตร์ครอบครัวต้องรู้โรคหลายร้อยชนิด', en: 'Ophthalmologists train thousands of microscopic surgeries, family doctors must know hundreds of disease types' },
@@ -1128,9 +1128,9 @@ const questions = [
         text_en: "What kind of patient relationship do you want?",
         options: [
             { id: 'a', icon: '👥', title_th: 'เจอคนไข้ใหม่ทุกวัน ไม่ต้องจำ', title_en: 'Meet new patients daily, no need to remember', desc_th: 'แต่ละเคสไม่เหมือนกัน น่าสนใจ', desc_en: 'Each case different and interesting', scores: { pace: 2, acute: 2, breadth: 2 } },
-            { id: 'b', icon: '💝', title_th: 'พบคนไข้คนเดิมบ่อยๆ รู้จักดี', title_en: 'See same patients often, know them well', desc_th: 'เหมือนเพื่อน รู้ว่าชีวิตเป็นยังไง', desc_en: 'Like friends, know their lives', scores: { relationship: 3, depth: 3, empathy: 2 } },
+            { id: 'b', icon: '💝', title_th: 'พบคนไข้คนเดิมบ่อยๆ จนรู้จักกันดี', title_en: 'See same patients often, know them well', desc_th: 'เหมือนเพื่อน รู้ว่าชีวิตเป็นยังไง', desc_en: 'Like friends, know their lives', scores: { relationship: 3, depth: 3, empathy: 2 } },
             { id: 'c', icon: '🖥️', title_th: 'ไม่ต้องพบคนไข้เลย ทำงานกับข้อมูล', title_en: 'No patient meetings, work with data', desc_th: 'อ่านผลแล็บ ภาพถ่าย ชิ้นเนื้อ', desc_en: 'Read lab results, images, tissues', scores: { behindScenes: 3, technical: 2, diagnostic: 2 } },
-            { id: 'd', icon: '👨‍👩‍👧', title_th: 'ดูแลทั้งครอบครัว รู้จักทุกคน', title_en: 'Care for whole family, know everyone', desc_th: 'ทั้งพ่อแม่ ลูก ปู่ย่า', desc_en: 'Parents, kids, grandparents', scores: { holistic: 3, relationship: 2, population: 2 } }
+            { id: 'd', icon: '👨‍👩‍👧', title_th: 'ดูแลทั้งครอบครัว รู้จักทั้งซอย', title_en: 'Care for whole family, know everyone', desc_th: 'ทั้งพ่อแม่ ลูก ปู่ย่า', desc_en: 'Parents, kids, grandparents', scores: { holistic: 3, relationship: 2, population: 2 } }
         ],
         facts: [
             { th: 'รังสีแพทย์และพยาธิแพทย์แทบไม่เคยพบคนไข้ แต่การวินิจฉัยของพวกเขาช่วยชีวิตคนทุกวัน', en: 'Radiologists and pathologists rarely meet patients, yet their diagnoses save lives daily' },
@@ -1145,8 +1145,8 @@ const questions = [
         text_en: "If you could choose work tools, what would you pick?",
         options: [
             { id: 'a', icon: '🤖', title_th: 'หุ่นยนต์ผ่าตัด เลเซอร์ เครื่อง MRI', title_en: 'Surgical robot, lasers, MRI machines', desc_th: 'เทคโนโลยีล้ำหน้า ทันสมัย', desc_en: 'Advanced cutting-edge tech', scores: { technical: 3, imaging: 3, procedural: 2 } },
-            { id: 'b', icon: '⚖️', title_th: 'ทั้งเครื่องมือและการพูดคุย', title_en: 'Both tools and conversation', desc_th: 'ใช้เทคโนโลยีช่วย แต่ยังต้องคุยกับคนไข้', desc_en: 'Use tech but still talk to patients', scores: { versatile: 2, cognitive: 2, procedural: 1 } },
-            { id: 'c', icon: '💬', title_th: 'แค่ห้องสบายๆ กับเก้าอี้นั่งคุย', title_en: 'Just a comfortable room with chairs to talk', desc_th: 'การพูดคุยคือเครื่องมือหลัก', desc_en: 'Conversation is the main tool', scores: { counseling: 3, empathy: 3, relationship: 2 } },
+            { id: 'b', icon: '⚖️', title_th: 'ชอบใช้ทั้งเครื่องมือและการสนทนา', title_en: 'Both tools and conversation', desc_th: 'ใช้เทคโนโลยีช่วย แต่ยังต้องคุยกับคนไข้', desc_en: 'Use tech but still talk to patients', scores: { versatile: 2, cognitive: 2, procedural: 1 } },
+            { id: 'c', icon: '💬', title_th: 'แค่ห้องสบายๆ กับเก้าอี้นั่งคุยก็พอ', title_en: 'Just a comfortable room with chairs to talk', desc_th: 'การพูดคุยคือเครื่องมือหลัก', desc_en: 'Conversation is the main tool', scores: { counseling: 3, empathy: 3, relationship: 2 } },
             { id: 'd', icon: '📊', title_th: 'คอมพิวเตอร์ หน้าจอดูภาพหลายจอ', title_en: 'Computer, multiple screens for images', desc_th: 'วิเคราะห์ข้อมูล ดูภาพถ่ายทางการแพทย์', desc_en: 'Analyze data, view medical images', scores: { diagnostic: 3, imaging: 2, behindScenes: 2 } }
         ],
         facts: [
@@ -1163,7 +1163,7 @@ const questions = [
         options: [
             { id: 'a', icon: '🏥', title_th: 'ช่วยคนไข้รอดจากอันตราย', title_en: 'Save patients from danger', desc_th: 'รักษาคนป่วยฉุกเฉินให้รอด', desc_en: 'Treat emergency cases to survival', scores: { acute: 3, action: 3, crisis: 2 } },
             { id: 'b', icon: '🌱', title_th: 'ทำให้คนไม่ป่วยตั้งแต่แรก', title_en: 'Keep people from getting sick', desc_th: 'ป้องกันโรค วางนโยบาย ฉีดวัคซีน', desc_en: 'Prevent disease, policy, vaccines', scores: { prevention: 3, population: 3, strategy: 2 } },
-            { id: 'c', icon: '🌈', title_th: 'ช่วยให้คนไข้โรคเรื้อรังมีชีวิตที่ดี', title_en: 'Help chronic patients live better', desc_th: 'ควบคุมโรค ทำให้มีความสุข', desc_en: 'Control disease, bring happiness', scores: { holistic: 3, chronic: 3, support: 2 } },
+            { id: 'c', icon: '🌈', title_th: 'ช่วยให้คนไข้เรื้อรังมีชีวิตที่ดี', title_en: 'Help chronic patients live better', desc_th: 'ควบคุมโรค ทำให้มีความสุข', desc_en: 'Control disease, bring happiness', scores: { holistic: 3, chronic: 3, support: 2 } },
             { id: 'd', icon: '🔬', title_th: 'ค้นพบความรู้ใหม่ช่วยคนในอนาคต', title_en: 'Discover new knowledge to help future people', desc_th: 'ทำวิจัย หาวิธีรักษาใหม่', desc_en: 'Research, find new treatments', scores: { research: 3, depth: 3, cognitive: 2 } }
         ],
         facts: [
