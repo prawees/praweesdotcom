@@ -178,20 +178,41 @@
         .interest-card h4 { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
         .interest-card .keywords { font-size: 1rem; color: var(--text-main); font-weight: 400; line-height: 1.6; }
 
-        /* Card variant — Vision */
-        .card-vision { border-top: 2px solid var(--accent-blue); }
-        .card-vision h4 { color: var(--accent-blue); }
+        /* Card variants — uniform format, graduated blue */
+        .card-vision   { border-top: 2px solid rgba(0, 102, 204, 1.0); }
+        .card-vision h4 { color: rgba(0, 102, 204, 1.0); }
 
-        /* Card variant — Hobbies */
-        .card-hobbies .keywords { font-size: 0.95rem; color: var(--text-muted); font-weight: 300; line-height: 1.9; }
+        .card-hobbies  { border-top: 2px solid rgba(0, 102, 204, 0.55); }
+        .card-hobbies h4 { color: rgba(0, 102, 204, 0.7); }
 
-        /* Card variant — Films */
-        .card-films .keywords { font-style: italic; font-size: 0.95rem; line-height: 1.9; color: var(--text-muted); font-weight: 300; }
+        .card-interests { border-top: 2px solid rgba(0, 102, 204, 0.3); }
+        .card-interests h4 { color: rgba(0, 102, 204, 0.5); }
+
+        .card-films    { border-top: 2px solid rgba(0, 102, 204, 0.12); }
+        .card-films h4 { color: rgba(0, 102, 204, 0.35); }
+
+        /* EXPERIENCE TIMELINE — charcoal variant */
+        .timeline-exp::before {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.05) 70%, transparent 100%);
+        }
+        .timeline-exp .cv-item::before {
+            border-color: rgba(0, 0, 0, 0.28);
+        }
+        .timeline-exp .cv-item:hover::before {
+            background: #3A3A3C; border-color: #3A3A3C;
+        }
+        .timeline-exp .cv-date { color: var(--text-muted); }
 
         /* SONG NOTE */
         .song-note { margin-top: 50px; padding-top: 36px; border-top: 1px solid var(--border-color); }
-        .song-attribution { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
-        .song-story { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.85; margin-bottom: 24px; max-width: 560px; }
+        .song-story { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.85; margin-bottom: 24px; white-space: pre-line; }
+        .song-lyrics {
+            margin-top: 30px; padding: 24px 24px 24px 28px;
+            border-left: 1px solid var(--border-color);
+            font-size: 0.85rem; color: var(--text-muted); font-weight: 300;
+            line-height: 2.1; font-style: italic; opacity: 0.7;
+            white-space: pre-line;
+        }
 
         /* FOOTER & CONTACT */
         .footer-contact { margin-top: 80px; padding: 80px 0 40px; text-align: center; }
@@ -218,8 +239,8 @@
         body.lang-th .portfolio-caption,
         body.lang-th .contact-grid a,
         body.lang-th .footer-text,
-        body.lang-th .song-attribution,
-        body.lang-th .song-story {
+        body.lang-th .song-story,
+        body.lang-th .song-lyrics {
             letter-spacing: normal !important;
         }
 
@@ -319,13 +340,7 @@
                     <div class="divider"></div>
                 </div>
                 
-                <div class=”timeline”>
-                <div class=”cv-item”>
-                    <div class=”cv-title” data-th=”ตัวแทนนักศึกษาโครงการ M.D.-M.Eng” data-en=”M.D.-M.Eng Track Student Representative”>ตัวแทนนักศึกษาโครงการ M.D.-M.Eng</div>
-                    <div class=”cv-date”>2025 — 2026</div>
-                    <div class=”cv-desc” data-th=”ตัวแทนนักศึกษาโครงการแพทยศาสตร์-วิศวกรรมศาสตร์ (M.D.-M.Eng) ประจำปีการศึกษา 2568” data-en=”Student representative for the M.D.-M.Eng dual-degree program, academic year 2025/2026.”>ตัวแทนนักศึกษาโครงการแพทยศาสตร์-วิศวกรรมศาสตร์ (M.D.-M.Eng) ประจำปีการศึกษา 2568</div>
-                </div>
-
+                <div class=”timeline timeline-exp”>
                 <div class=”cv-item”>
                     <div class=”cv-title” data-th=”รองประธาน RAMA G7 Club for Medical Innovators” data-en=”Vice President, RAMA G7 Club for Medical Innovators”>รองประธาน RAMA G7 Club for Medical Innovators</div>
                     <div class=”cv-date”>2026</div>
@@ -336,6 +351,12 @@
                     <div class=”cv-title” data-th=”ประธานโครงการ Ramathon Run Club & อื่นๆ” data-en=”Ramathon Run Club President & Projects”>ประธานโครงการ Ramathon Run Club & อื่นๆ</div>
                     <div class=”cv-date”>2026</div>
                     <div class=”cv-desc” data-th=”ประธาน Ramathon Run Club, Moderator งาน RAMSC Career Month และฝ่ายสื่อวิดีโอโครงการ Road Traffic Injury Pitching Challenge” data-en=”President of Ramathon Run Club, Moderator for RAMSC Career Month, and Motion Media Team for Road Traffic Injury Pitching Challenge.”>ประธาน Ramathon Run Club, Moderator งาน RAMSC Career Month และฝ่ายสื่อวิดีโอโครงการ Road Traffic Injury Pitching Challenge</div>
+                </div>
+
+                <div class=”cv-item”>
+                    <div class=”cv-title” data-th=”ตัวแทนนักศึกษาโครงการ M.D.-M.Eng” data-en=”M.D.-M.Eng Track Student Representative”>ตัวแทนนักศึกษาโครงการ M.D.-M.Eng</div>
+                    <div class=”cv-date”>2025 — 2026</div>
+                    <div class=”cv-desc” data-th=”ตัวแทนนักศึกษาโครงการแพทยศาสตร์-วิศวกรรมศาสตร์ (M.D.-M.Eng) ประจำปีการศึกษา 2568” data-en=”Student representative for the M.D.-M.Eng dual-degree program, academic year 2025/2026.”>ตัวแทนนักศึกษาโครงการแพทยศาสตร์-วิศวกรรมศาสตร์ (M.D.-M.Eng) ประจำปีการศึกษา 2568</div>
                 </div>
 
                 <div class=”cv-item”>
@@ -443,15 +464,15 @@
                     </div>
                     <div class="interest-card card-hobbies">
                         <h4 data-th="งานอดิเรก" data-en="Hobbies">งานอดิเรก</h4>
-                        <p class="keywords" data-th="กีตาร์, วิ่ง, ดำน้ำ, โบว์ลิ่ง, เปตอง, กอล์ฟ" data-en="Guitar, Running, Scuba Diving, Bowling, Petanque, Golf">กีตาร์, วิ่ง, ดำน้ำ, โบว์ลิ่ง, เปตอง, กอล์ฟ</p>
+                        <p class="keywords" data-th="กีตาร์ • วิ่ง • ดำน้ำ • โบว์ลิ่ง • เปตอง • กอล์ฟ" data-en="Guitar • Running • Scuba Diving • Bowling • Petanque • Golf">กีตาร์ • วิ่ง • ดำน้ำ • โบว์ลิ่ง • เปตอง • กอล์ฟ</p>
                     </div>
-                    <div class="interest-card">
+                    <div class="interest-card card-interests">
                         <h4 data-th="ความชอบ" data-en="Interests">ความชอบ</h4>
                         <p class="keywords" data-th="สตรีทโฟโต้ • ดนตรีอัลเทอร์เนทีฟ • แมนเชสเตอร์ ยูไนเต็ด" data-en="Street Photography • Alt-Rock/Alt-R&B • Manchester United">สตรีทโฟโต้ • ดนตรีอัลเทอร์เนทีฟ • แมนเชสเตอร์ ยูไนเต็ด</p>
                     </div>
                     <div class="interest-card card-films">
                         <h4 data-th="ภาพยนตร์โปรด" data-en="Favorite Movies">ภาพยนตร์โปรด</h4>
-                        <p class="keywords" data-th="แสงศตวรรษ / เบลด รันเนอร์ 2049 / รักใครให้ร้องเพลงรัก / มหา'ลัยเหมืองแร่" data-en="Syndromes and a Century / Blade Runner 2049 / Sing Street / The Tin Mine">แสงศตวรรษ / เบลด รันเนอร์ 2049 / รักใครให้ร้องเพลงรัก / มหา'ลัยเหมืองแร่</p>
+                        <p class="keywords" data-th="แสงศตวรรษ • เบลด รันเนอร์ 2049 • รักใครให้ร้องเพลงรัก • มหา'ลัยเหมืองแร่" data-en="Syndromes and a Century • Blade Runner 2049 • Sing Street • The Tin Mine">แสงศตวรรษ • เบลด รันเนอร์ 2049 • รักใครให้ร้องเพลงรัก • มหา'ลัยเหมืองแร่</p>
                     </div>
                 </div>
             </section>
@@ -469,11 +490,24 @@
                 </div>
 
                 <div class="song-note">
-                    <div class="song-attribution" data-th="เพลงของผม" data-en="MY OWN SONG">เพลงของผม</div>
-                    <p class="song-story" data-th="นึกถึงอากงที่เป็นอัลไซเมอร์และหูตึงทั้งสองข้าง แล้วก็คิดขึ้นมาตอนตี 3 ก่อนสอบ NL ว่า ถ้าวันหนึ่งเขายังพูดคุยรู้เรื่อง เขาจะอยากบอกอะไรกับคนรอบตัวบ้างนะ เลยลองเอาคอร์ด D–E–A–F มาแต่งเพลงดู" data-en="Written at 3am before my licensing exam — thinking about my grandfather, who has Alzheimer's and is hard of hearing. What would he want to say, if he still could? I took the chords D–E–A–F and tried to write something.">นึกถึงอากงที่เป็นอัลไซเมอร์และหูตึงทั้งสองข้าง แล้วก็คิดขึ้นมาตอนตี 3 ก่อนสอบ NL ว่า ถ้าวันหนึ่งเขายังพูดคุยรู้เรื่อง เขาจะอยากบอกอะไรกับคนรอบตัวบ้างนะ เลยลองเอาคอร์ด D–E–A–F มาแต่งเพลงดู</p>
+                    <p class="song-story" data-th="และนี่เป็นเพลงที่ผมแต่ง
+ลองฟังกันดูได้นะครับ" data-en="This is a song I wrote.
+Give it a listen :-)">และนี่เป็นเพลงที่ผมแต่ง
+ลองฟังกันดูได้นะครับ</p>
                     <div class="spotify-container">
                         <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5s0yqiQ1NFUyBXtuzesxcN?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
+                    <p class="song-lyrics"> เธอบอกคืนนี้ เป็นอีกคืนที่ฉันนั้นนอนละเมอ
+ตั้งแต่แก่ตัว ฉันก็เริ่มคิดวน พูดจาพร่ำเพ้อ
+ถึงแม้ว่าหูของฉันไม่ค่อยได้ยิน
+แต่ฉันก็เริ่มจะชิน
+อย่างน้อยจมูกของฉันก็ยังได้กลิ่นของเธอ
+
+เธอบอกคืนนี้ เป็นอีกคืนที่เธอนั้นนอนไม่หลับ
+เธออารมณ์เสียที่ฉันเริ่มจะฟังเธอไม่ค่อยถนัด
+ก็เพราะว่าหูของฉันไม่ค่อยได้ยิน
+ตัวฉันก็ต้องขอโทษจริงๆ
+อย่างน้อยตาของฉันก็ยังได้เห็นหน้าเธอ</p>
                 </div>
             </section>
 
