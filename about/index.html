@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,23 +10,34 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
-      --bg:        #FFFFFF;
-      --ink:       #1A1A1A;
-      --ink-mid:   #555555;
+      --bg: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-mid: #555555;
       --ink-muted: #999999;
-      --rule:      #E5E5E5;
+      --rule: #E5E5E5;
       --rule-soft: #F2F2F2;
-      --link:      #1E66D0;
-      --link-hov:  #0048A3;
-      --hi:        #FFF6D6;
+      --link: #1E66D0;
+      --link-hov: #0048A3;
+      --hi: #FFF6D6;
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -47,58 +59,88 @@
       pointer-events: none;
       overflow: hidden;
     }
+
     .blob {
       position: absolute;
       border-radius: 50%;
       filter: blur(90px);
       will-change: transform;
     }
+
     .blob-1 {
-      width: 520px; height: 520px;
+      width: 520px;
+      height: 520px;
       background: #CFE0FF;
-      top: -12%; left: -8%;
+      top: -12%;
+      left: -8%;
       opacity: 0.35;
       animation: float-a 18s ease-in-out infinite alternate;
     }
+
     .blob-2 {
-      width: 600px; height: 600px;
+      width: 600px;
+      height: 600px;
       background: #E8DCFA;
-      bottom: -18%; right: -10%;
+      bottom: -18%;
+      right: -10%;
       opacity: 0.28;
       animation: float-b 22s ease-in-out infinite alternate;
       animation-delay: -6s;
     }
+
     .blob-3 {
-      width: 360px; height: 360px;
+      width: 360px;
+      height: 360px;
       background: #BFE0F5;
-      top: 50%; right: -8%;
+      top: 50%;
+      right: -8%;
       opacity: 0.22;
       animation: float-a 26s ease-in-out infinite alternate;
       animation-delay: -12s;
     }
+
     @keyframes float-a {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(80px, 60px) scale(1.08); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(80px, 60px) scale(1.08);
+      }
     }
+
     @keyframes float-b {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(-60px, -40px) scale(1.05); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(-60px, -40px) scale(1.05);
+      }
     }
 
     /* ── REVEAL ── */
     [data-reveal] {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
       transition-delay: var(--rd, 0ms);
     }
+
     [data-reveal].in {
       opacity: 1;
       transform: translateY(0);
     }
 
-    a { color: var(--link); text-decoration: none; transition: color 0.15s; }
-    a:hover { color: var(--link-hov); }
+    a {
+      color: var(--link);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    a:hover {
+      color: var(--link-hov);
+    }
 
     .wrap {
       max-width: 760px;
@@ -115,19 +157,54 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 14px;
     }
-    .crumbs { display: flex; align-items: center; gap: 8px; color: var(--ink-muted); }
-    .crumbs a { color: var(--ink-muted); }
-    .crumbs a:hover { color: var(--ink); }
-    .crumbs .here { color: var(--ink); }
-    .crumbs .slash { color: var(--rule); }
-    .lang { display: flex; align-items: center; gap: 6px; }
-    .lang button {
-      background: none; border: none;
-      font-family: inherit; font-size: 14px;
-      color: var(--ink-muted); cursor: pointer; padding: 0;
+
+    .crumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-muted);
     }
-    .lang button.active, .lang button:hover { color: var(--ink); }
-    .lang .slash { color: var(--rule); }
+
+    .crumbs a {
+      color: var(--ink-muted);
+    }
+
+    .crumbs a:hover {
+      color: var(--ink);
+    }
+
+    .crumbs .here {
+      color: var(--ink);
+    }
+
+    .crumbs .slash {
+      color: var(--rule);
+    }
+
+    .lang {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang button {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--ink-muted);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .lang button.active,
+    .lang button:hover {
+      color: var(--ink);
+    }
+
+    .lang .slash {
+      color: var(--rule);
+    }
 
     /* ── HERO BLOCK ── */
     .hero {
@@ -137,30 +214,54 @@
       align-items: start;
       margin-bottom: 56px;
     }
+
     .hero-portrait {
-      width: 110px; height: 138px;
+      width: 110px;
+      height: 138px;
       overflow: hidden;
       background: var(--rule-soft);
       position: relative;
     }
+
     .hero-portrait img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center top;
       display: block;
     }
+
     /* corner pixel marks */
     .pixmark {
       position: absolute;
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       background: var(--ink);
     }
-    .pixmark.tl { top: -3px; left: -3px; }
-    .pixmark.tr { top: -3px; right: -3px; }
-    .pixmark.bl { bottom: -3px; left: -3px; }
-    .pixmark.br { bottom: -3px; right: -3px; }
 
-    .hero-meta { padding-top: 4px; }
+    .pixmark.tl {
+      top: -3px;
+      left: -3px;
+    }
+
+    .pixmark.tr {
+      top: -3px;
+      right: -3px;
+    }
+
+    .pixmark.bl {
+      bottom: -3px;
+      left: -3px;
+    }
+
+    .pixmark.br {
+      bottom: -3px;
+      right: -3px;
+    }
+
+    .hero-meta {
+      padding-top: 4px;
+    }
 
     .hero-name {
       font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
@@ -171,6 +272,7 @@
       color: var(--ink);
       margin-bottom: 6px;
     }
+
     .hero-name-th {
       font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
       font-weight: 300;
@@ -178,6 +280,7 @@
       color: var(--ink-mid);
       margin-bottom: 16px;
     }
+
     .hero-tagline {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-size: 13.5px;
@@ -204,19 +307,45 @@
       border-left-width: 3px;
       background: var(--sec-bg, transparent);
       border-left-color: var(--sec-ink, var(--link));
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
     }
+
     .section:hover {
-      box-shadow: 0 12px 28px rgba(20,20,30,0.06);
+      box-shadow: 0 12px 28px rgba(20, 20, 30, 0.06);
     }
 
     /* Per-section accents */
-    .section.sec-01 { --sec-ink: #C77F3A; --sec-bg: linear-gradient(180deg, rgba(255,228,196,0.35) 0%, rgba(255,250,243,0.55) 100%); }
-    .section.sec-02 { --sec-ink: #1E66D0; --sec-bg: linear-gradient(180deg, rgba(207,224,255,0.45) 0%, rgba(244,248,255,0.55) 100%); }
-    .section.sec-03 { --sec-ink: #0E9577; --sec-bg: linear-gradient(180deg, rgba(196,236,220,0.4) 0%, rgba(244,253,250,0.55) 100%); }
-    .section.sec-04 { --sec-ink: #C53D7A; --sec-bg: linear-gradient(180deg, rgba(255,210,228,0.4) 0%, rgba(255,247,250,0.55) 100%); }
-    .section.sec-05 { --sec-ink: #7B49C7; --sec-bg: linear-gradient(180deg, rgba(225,213,250,0.45) 0%, rgba(249,246,255,0.55) 100%); }
-    .section.sec-06 { --sec-ink: #B58800; --sec-bg: linear-gradient(180deg, rgba(255,232,170,0.4) 0%, rgba(255,251,236,0.55) 100%); }
+    .section.sec-01 {
+      --sec-ink: #C77F3A;
+      --sec-bg: linear-gradient(180deg, rgba(255, 228, 196, 0.11) 0%, transparent 100%);
+    }
+
+    .section.sec-02 {
+      --sec-ink: #1E66D0;
+      --sec-bg: linear-gradient(180deg, rgba(207, 224, 255, 0.13) 0%, transparent 100%);
+    }
+
+    .section.sec-03 {
+      --sec-ink: #0E9577;
+      --sec-bg: linear-gradient(180deg, rgba(196, 236, 220, 0.12) 0%, transparent 100%);
+    }
+
+    .section.sec-04 {
+      --sec-ink: #C53D7A;
+      --sec-bg: linear-gradient(180deg, rgba(255, 210, 228, 0.11) 0%, transparent 100%);
+    }
+
+    .section.sec-05 {
+      --sec-ink: #7B49C7;
+      --sec-bg: linear-gradient(180deg, rgba(225, 213, 250, 0.12) 0%, transparent 100%);
+    }
+
+    .section.sec-06 {
+      --sec-ink: #B07090;
+      --sec-bg: linear-gradient(180deg, rgba(255, 210, 220, 0.09) 0%, transparent 70%);
+      border-left-color: rgba(176, 112, 144, 0.30);
+      border-left-width: 1px;
+    }
 
     .sec-head {
       display: flex;
@@ -226,6 +355,7 @@
       padding-bottom: 14px;
       border-bottom: 1px dashed var(--sec-ink, var(--rule));
     }
+
     .sec-num {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 11px;
@@ -234,8 +364,9 @@
       letter-spacing: 0.1em;
       padding: 2px 7px;
       border: 1px solid var(--sec-ink, var(--rule));
-      background: rgba(255,255,255,0.55);
+      background: rgba(255, 255, 255, 0.55);
     }
+
     .sec-title {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-size: 16px;
@@ -243,8 +374,14 @@
       font-weight: 600;
       letter-spacing: 0.01em;
     }
-    .sec-title::before { content: ''; }
-    .sec-rule { display: none; }
+
+    .sec-title::before {
+      content: '';
+    }
+
+    .sec-rule {
+      display: none;
+    }
 
     /* ── PROSE ── */
     .prose {
@@ -254,15 +391,21 @@
       color: var(--ink);
       max-width: 64ch;
     }
+
     .prose::first-line {
       font-weight: 600;
       color: var(--sec-ink, var(--ink));
     }
-    .prose strong, .prose b {
+
+    .prose strong,
+    .prose b {
       font-weight: 700;
       color: var(--sec-ink, var(--ink));
     }
-    .prose + .prose { margin-top: 18px; }
+
+    .prose+.prose {
+      margin-top: 18px;
+    }
 
     /* ── CLINICAL CALLOUT (pull-quote, programmer style) ── */
     .callout {
@@ -271,6 +414,7 @@
       max-width: 60ch;
       position: relative;
     }
+
     .callout-mark {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
@@ -278,8 +422,17 @@
       margin-bottom: 10px;
       letter-spacing: 0.04em;
     }
-    .callout-mark::before { content: '/* '; opacity: 0.65; }
-    .callout-mark::after { content: ' */'; opacity: 0.65; }
+
+    .callout-mark::before {
+      content: '/* ';
+      opacity: 0.65;
+    }
+
+    .callout-mark::after {
+      content: ' */';
+      opacity: 0.65;
+    }
+
     .callout-text {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-style: italic;
@@ -295,6 +448,7 @@
 
     /* ── TIMELINE ── */
     .timeline {}
+
     .tl-item {
       display: grid;
       grid-template-columns: 72px 1fr;
@@ -304,11 +458,19 @@
       border-top: 1px dashed var(--rule);
       transition: background 0.25s, transform 0.25s;
     }
+
     .tl-item:hover {
-      background: rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.4);
     }
-    .tl-item:first-child { border-top: none; padding-top: 4px; }
-    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-item:first-child {
+      border-top: none;
+      padding-top: 4px;
+    }
+
+    .tl-item:last-child {
+      padding-bottom: 0;
+    }
 
     .tl-year {
       font-family: 'IBM Plex Mono', monospace;
@@ -319,7 +481,9 @@
       padding-top: 3px;
       letter-spacing: 0.03em;
     }
+
     .tl-body {}
+
     .tl-title {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-size: 14.5px;
@@ -328,6 +492,7 @@
       margin-bottom: 4px;
       line-height: 1.45;
     }
+
     .tl-desc {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-size: 13px;
@@ -341,23 +506,35 @@
       grid-template-columns: 1fr 1fr;
       gap: 14px;
     }
+
     .kv-row {
       padding: 18px 18px 16px;
-      background: rgba(255,255,255,0.65);
+      background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--rule);
       border-top: 3px solid var(--sec-ink, var(--link));
-      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s, border-color 0.35s;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s, border-color 0.35s;
     }
-    .kv-row:nth-child(2) { border-top-color: color-mix(in srgb, var(--sec-ink) 70%, white); }
-    .kv-row:nth-child(3) { border-top-color: color-mix(in srgb, var(--sec-ink) 45%, white); }
-    .kv-row:nth-child(4) { border-top-color: color-mix(in srgb, var(--sec-ink) 25%, white); }
+
+    .kv-row:nth-child(2) {
+      border-top-color: color-mix(in srgb, var(--sec-ink) 70%, white);
+    }
+
+    .kv-row:nth-child(3) {
+      border-top-color: color-mix(in srgb, var(--sec-ink) 45%, white);
+    }
+
+    .kv-row:nth-child(4) {
+      border-top-color: color-mix(in srgb, var(--sec-ink) 25%, white);
+    }
+
     .kv-row:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(20,20,30,0.08);
+      box-shadow: 0 12px 28px rgba(20, 20, 30, 0.08);
       border-top-color: var(--sec-ink, var(--link));
     }
+
     .kv-key {
       display: block;
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
@@ -368,6 +545,7 @@
       text-transform: uppercase;
       margin-bottom: 10px;
     }
+
     .kv-val {
       display: block;
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
@@ -380,12 +558,14 @@
     .portfolio-item {
       margin-bottom: 36px;
     }
+
     .portfolio-title {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-size: 15px;
       font-weight: 500;
       margin-bottom: 4px;
     }
+
     .portfolio-role {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 12px;
@@ -393,6 +573,7 @@
       letter-spacing: 0.02em;
       margin-bottom: 10px;
     }
+
     .portfolio-desc {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
       font-size: 13.5px;
@@ -408,6 +589,7 @@
       gap: 16px;
       margin-bottom: 18px;
     }
+
     .video-frame {
       width: 100%;
       aspect-ratio: 16/9;
@@ -415,10 +597,14 @@
       background: #000;
       border: 1px solid var(--rule);
     }
+
     .video-frame iframe {
-      width: 100%; height: 100%;
-      border: none; display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
+
     .embed-caption {
       margin-top: 8px;
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
@@ -432,6 +618,7 @@
       gap: 16px;
       margin-bottom: 18px;
     }
+
     .tiktok-wrap {
       overflow: hidden;
       background: #000;
@@ -439,7 +626,11 @@
       justify-content: center;
       border: 1px solid var(--rule);
     }
-    .tiktok-embed { margin: 0 !important; width: 100% !important; }
+
+    .tiktok-embed {
+      margin: 0 !important;
+      width: 100% !important;
+    }
 
     /* ── SPOTIFY ── */
     .spotify-wrap {
@@ -447,7 +638,12 @@
       overflow: hidden;
       margin-bottom: 12px;
     }
-    .spotify-wrap iframe { display: block; width: 100%; border: none; }
+
+    .spotify-wrap iframe {
+      display: block;
+      width: 100%;
+      border: none;
+    }
 
     .song-intro {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
@@ -459,14 +655,16 @@
     }
 
     .song-lyrics {
-      margin-top: 22px;
-      padding: 16px 20px;
-      background: var(--rule-soft);
-      border-left: 2px solid var(--ink);
-      font-family: 'IBM Plex Sans Thai', 'IBM Plex Mono', monospace;
-      font-size: 14px;
+      margin-top: 28px;
+      padding: 6px 0 6px 24px;
+      background: none;
+      border-left: 1.5px solid rgba(176, 112, 144, 0.30);
+      font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
+      font-style: italic;
+      font-size: 15px;
+      font-weight: 300;
       color: var(--ink-mid);
-      line-height: 2;
+      line-height: 2.3;
       white-space: pre-line;
     }
 
@@ -495,26 +693,61 @@
       font-size: 12px;
       color: var(--ink-muted);
     }
-    .foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .foot-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
     .foot .blink::after {
       content: '_';
       animation: blink 1.05s steps(1) infinite;
       margin-left: 2px;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
-      .wrap { padding: 36px 18px 80px; }
-      .topbar { margin-bottom: 44px; }
-      .hero { grid-template-columns: 80px 1fr; gap: 18px; }
-      .hero-portrait { width: 80px; height: 100px; }
-      .tl-item { grid-template-columns: 56px 1fr; gap: 0 14px; }
-      .kv-list { grid-template-columns: 1fr; }
-      .embed-grid, .tiktok-grid { grid-template-columns: 1fr; }
+      .wrap {
+        padding: 36px 18px 80px;
+      }
+
+      .topbar {
+        margin-bottom: 44px;
+      }
+
+      .hero {
+        grid-template-columns: 80px 1fr;
+        gap: 18px;
+      }
+
+      .hero-portrait {
+        width: 80px;
+        height: 100px;
+      }
+
+      .tl-item {
+        grid-template-columns: 56px 1fr;
+        gap: 0 14px;
+      }
+
+      .kv-list {
+        grid-template-columns: 1fr;
+      }
+
+      .embed-grid,
+      .tiktok-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
-<script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -565,9 +798,9 @@
         <h1 class="hero-name">prawee sinweeruthai</h1>
         <p class="hero-name-th" data-th="ประวีร์ สินวีรุทัย (สมาร์ท)" data-en="(smart)">ประวีร์ สินวีรุทัย (สมาร์ท)</p>
         <p class="hero-tagline" id="hero-tagline"
-           data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng) ที่ผสานการแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน"
-           data-en="m.d.-m.eng student weaving together medicine, engineering, and storytelling.">
-           นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng) ที่ผสานการแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน
+          data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng) ที่อยากผสานการแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน"
+          data-en="m.d.-m.eng student weaving together medicine, engineering, and storytelling.">
+          นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng) ที่อยากผสานการแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน
         </p>
       </div>
     </section>
@@ -580,9 +813,11 @@
         <span class="sec-rule"></span>
       </div>
       <p class="prose"
-         data-th="ผมชื่อประวีร์ ชื่อเล่น 'สมาร์ท' ครับ เป็นนักศึกษาแพทย์-วิศวกรรมชีวการแพทย์จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่"
-         data-en="i'm prawee, also known as smart. dual-degree m.d.-m.eng candidate at ramathibodi hospital, mahidol university. i work at the intersection of healthcare innovation and digital storytelling, building tools and communities that inspire the next generation.">
-         ผมชื่อประวีร์ ชื่อเล่น 'สมาร์ท' ครับ เป็นนักศึกษาแพทย์-วิศวกรรมชีวการแพทย์จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่
+        data-th="ผมชื่อประวีร์ ชื่อเล่นชื่อ 'สมาร์ท' ครับ ผมเป็นนักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่"
+        data-en="i'm prawee, also known as smart. dual-degree m.d.-m.eng candidate at ramathibodi hospital, mahidol university. i work at the intersection of healthcare innovation and digital storytelling, building tools and communities that inspire the next generation.">
+        ผมชื่อประวีร์ ชื่อเล่นชื่อ 'สมาร์ท' ครับ ผมเป็นนักศึกษาแพทย์-วิศวกรรมชีวการแพทย์
+        จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ
+        และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่
       </p>
     </section>
 
@@ -598,30 +833,40 @@
         <div class="tl-item">
           <div class="tl-year">2021<br>~ now</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล" data-en="faculty of medicine ramathibodi hospital, mahidol university">คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</div>
-            <div class="tl-desc" data-th="แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (m.d.-m.eng)" data-en="doctor of medicine + master of engineering (m.d.-m.eng)">แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (m.d.-m.eng)</div>
+            <div class="tl-title" data-th="คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล"
+              data-en="faculty of medicine ramathibodi hospital, mahidol university">คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี
+              มหาวิทยาลัยมหิดล</div>
+            <div class="tl-desc" data-th="แพทยศาสตรบัณฑิต และ วิศวกรรมศาสตรมหาบัณฑิต (m.d.-m.eng)"
+              data-en="doctor of medicine + master of engineering (m.d.-m.eng)">แพทยศาสตรบัณฑิต และ
+              วิศวกรรมศาสตรมหาบัณฑิต (m.d.-m.eng)</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2018<br>2021</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="mahidol wittayanusorn school">โรงเรียนมหิดลวิทยานุสรณ์</div>
-            <div class="tl-desc" data-th="รองประธานคณะกรรมการนักเรียน และตัวแทนนำเสนองานวิจัยระดับนานาชาติ" data-en="vice student body president + mwit representative for international science fairs">รองประธานคณะกรรมการนักเรียน และตัวแทนนำเสนองานวิจัยระดับนานาชาติ</div>
+            <div class="tl-title" data-th="โรงเรียนมหิดลวิทยานุสรณ์" data-en="mahidol wittayanusorn school">
+              โรงเรียนมหิดลวิทยานุสรณ์</div>
+            <div class="tl-desc" data-th="รองประธานคณะกรรมการนักเรียน และตัวแทนนำเสนองานวิจัยระดับนานาชาติ"
+              data-en="vice student body president + mwit representative for international science fairs">
+              รองประธานคณะกรรมการนักเรียน และตัวแทนนำเสนองานวิจัยระดับนานาชาติ</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2015<br>2018</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน" data-en="patumwan demonstration school, srinakharinwirot university">โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน</div>
+            <div class="tl-title" data-th="โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน"
+              data-en="patumwan demonstration school, srinakharinwirot university">
+              โรงเรียนสาธิตมหาวิทยาลัยศรีนครินทรวิโรฒ ปทุมวัน</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2009<br>2015</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย" data-en="chulalongkorn university demonstration school">โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย</div>
+            <div class="tl-title" data-th="โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย"
+              data-en="chulalongkorn university demonstration school">โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย</div>
           </div>
         </div>
 
@@ -640,16 +885,25 @@
         <div class="tl-item">
           <div class="tl-year">2026</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="รองประธาน rama g7 club for medical innovators" data-en="vice president, rama g7 club for medical innovators">รองประธาน rama g7 club for medical innovators</div>
-            <div class="tl-desc" data-th="ชมรมนักศึกษาแพทย์ที่มุ่งพัฒนานวัตกรรมทางการแพทย์" data-en="student-led club focused on healthcare innovation">ชมรมนักศึกษาแพทย์ที่มุ่งพัฒนานวัตกรรมทางการแพทย์</div>
+            <div class="tl-title" data-th="รองประธาน rama g7 club for medical innovators"
+              data-en="vice president, rama g7 club for medical innovators">รองประธาน rama g7 club for medical
+              innovators</div>
+            <div class="tl-desc" data-th="ชมรมนักศึกษาแพทย์ที่มุ่งพัฒนานวัตกรรมทางการแพทย์"
+              data-en="student-led club focused on healthcare innovation">
+              ชมรมนักศึกษาแพทย์ที่มุ่งพัฒนานวัตกรรมทางการแพทย์</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2026</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="ประธานโครงการ ramathon run club" data-en="ramathon run club president + projects">ประธานโครงการ ramathon run club</div>
-            <div class="tl-desc" data-th="ประธาน ramathon run club, moderator งาน ramsc career month และฝ่ายสื่อวิดีโอโครงการ road traffic injury pitching challenge" data-en="president of ramathon run club, moderator for ramsc career month, motion media team for road traffic injury pitching challenge">ประธาน ramathon run club, moderator งาน ramsc career month และฝ่ายสื่อวิดีโอโครงการ road traffic injury pitching challenge</div>
+            <div class="tl-title" data-th="ประธานโครงการ ramathon run club"
+              data-en="ramathon run club president + projects">ประธานโครงการ ramathon run club</div>
+            <div class="tl-desc"
+              data-th="ประธาน ramathon run club, moderator งาน ramsc career month และฝ่ายสื่อวิดีโอโครงการ road traffic injury pitching challenge"
+              data-en="president of ramathon run club, moderator for ramsc career month, motion media team for road traffic injury pitching challenge">
+              ประธาน ramathon run club, moderator งาน ramsc career month และฝ่ายสื่อวิดีโอโครงการ road traffic injury
+              pitching challenge</div>
           </div>
         </div>
 
@@ -657,55 +911,84 @@
           <div class="tl-year">2018<br>2026</div>
           <div class="tl-body">
             <div class="tl-title" data-th="พิธีกรดำเนินรายการ" data-en="master of ceremonies">พิธีกรดำเนินรายการ</div>
-            <div class="tl-desc" data-th="พิธีกรกว่า 8 งาน, tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa thailand (2021–2023), rama roadshow (2021), และ ramsc career month (2026)" data-en="mc across 8+ events, tisf 2019, mwit science fair 2020, amsa thailand webinars (2021–2023), rama roadshow (2021), ramsc career month (2026)">พิธีกรกว่า 8 งาน, tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa thailand (2021–2023), rama roadshow (2021), และ ramsc career month (2026)</div>
+            <div class="tl-desc"
+              data-th="พิธีกรกว่า 8 งาน, tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa thailand (2021–2023), rama roadshow (2021), และ ramsc career month (2026)"
+              data-en="mc across 8+ events, tisf 2019, mwit science fair 2020, amsa thailand webinars (2021–2023), rama roadshow (2021), ramsc career month (2026)">
+              พิธีกรกว่า 8 งาน, tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa thailand (2021–2023), rama roadshow
+              (2021), และ ramsc career month (2026)</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2025</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="นำเสนองานวิจัยระดับนานาชาติ" data-en="international research presentations">นำเสนองานวิจัยระดับนานาชาติ</div>
-            <div class="tl-desc" data-th="นำเสนองานวิจัยไบโอเซนเซอร์ที่ ieee biosensors (สหรัฐอเมริกา) และ ieee-nsens (มาเลเซีย)" data-en="research presenter on biosensor innovations at ieee biosensors (usa) and ieee-nsens (malaysia)">นำเสนองานวิจัยไบโอเซนเซอร์ที่ ieee biosensors (สหรัฐอเมริกา) และ ieee-nsens (มาเลเซีย)</div>
+            <div class="tl-title" data-th="นำเสนองานวิจัยระดับนานาชาติ" data-en="international research presentations">
+              นำเสนองานวิจัยระดับนานาชาติ</div>
+            <div class="tl-desc"
+              data-th="นำเสนองานวิจัยไบโอเซนเซอร์ที่ ieee biosensors (สหรัฐอเมริกา) และ ieee-nsens (มาเลเซีย)"
+              data-en="research presenter on biosensor innovations at ieee biosensors (usa) and ieee-nsens (malaysia)">
+              นำเสนองานวิจัยไบโอเซนเซอร์ที่ ieee biosensors (สหรัฐอเมริกา) และ ieee-nsens (มาเลเซีย)</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2024</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="virtual ramathon 2024 + dean's awards" data-en="virtual ramathon 2024 + dean's awards">virtual ramathon 2024 + dean's awards</div>
-            <div class="tl-desc" data-th="ประธานจัดงาน virtual ramathon และได้รับ dean's award for emerging leader practice และ dean's award for impactful leadership" data-en="led virtual ramathon 2024. received dean's award for emerging leader practice and dean's award for impactful leadership">ประธานจัดงาน virtual ramathon และได้รับ dean's award for emerging leader practice และ dean's award for impactful leadership</div>
+            <div class="tl-title" data-th="virtual ramathon 2024 + dean's awards"
+              data-en="virtual ramathon 2024 + dean's awards">virtual ramathon 2024 + dean's awards</div>
+            <div class="tl-desc"
+              data-th="ประธานจัดงาน virtual ramathon และได้รับ dean's award for emerging leader practice และ dean's award for impactful leadership"
+              data-en="led virtual ramathon 2024. received dean's award for emerging leader practice and dean's award for impactful leadership">
+              ประธานจัดงาน virtual ramathon และได้รับ dean's award for emerging leader practice และ dean's award for
+              impactful leadership</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2023</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="rama drama ครั้งที่ 16" data-en="16th rama drama">rama drama ครั้งที่ 16</div>
-            <div class="tl-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล 'allegro in red'" data-en="head of video production and musician for charity stage play 'allegro in red'">หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล "allegro in red"</div>
+            <div class="tl-title" data-th="rama drama ครั้งที่ 16" data-en="16th rama drama">rama drama ครั้งที่ 16
+            </div>
+            <div class="tl-desc" data-th="หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล 'allegro in red'"
+              data-en="head of video production and musician for charity stage play 'allegro in red'">
+              หัวหน้าฝ่ายวิดีโอโปรดักชั่นและนักดนตรีละครเวทีการกุศล "allegro in red"</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2021<br>2022</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="amsa thailand, ฝ่ายวิจัย" data-en="amsa thailand, research team">amsa thailand, ฝ่ายวิจัย</div>
-            <div class="tl-desc" data-th="ผู้ช่วยผู้อำนวยการฝ่ายวิจัย และจัดสัมมนาให้ความรู้ด้านการวิจัย" data-en="assistant director of research and seminar organiser">ผู้ช่วยผู้อำนวยการฝ่ายวิจัย และจัดสัมมนาให้ความรู้ด้านการวิจัย</div>
+            <div class="tl-title" data-th="amsa thailand, ฝ่ายวิจัย" data-en="amsa thailand, research team">amsa
+              thailand, ฝ่ายวิจัย</div>
+            <div class="tl-desc" data-th="ผู้ช่วยผู้อำนวยการฝ่ายวิจัย และจัดสัมมนาให้ความรู้ด้านการวิจัย"
+              data-en="assistant director of research and seminar organiser">ผู้ช่วยผู้อำนวยการฝ่ายวิจัย
+              และจัดสัมมนาให้ความรู้ด้านการวิจัย</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2020</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="รางวัลนำเสนองานวิจัยนานาชาติ (mwit)" data-en="international research awards (mwit)">รางวัลนำเสนองานวิจัยนานาชาติ (mwit)</div>
-            <div class="tl-desc" data-th="รางวัล best poster presentation (biology) จาก issf 2020 และเหรียญทอง kolmogorov readings 2020 จากงานวิจัยด้าน hiv-1 ร่วมกับศูนย์วิจัยทางการแพทย์ศิริราช" data-en="best poster presentation (biology) at issf 2020 and gold prize at kolmogorov readings for hiv-1 research at siriraj medical research center">รางวัล best poster presentation (biology) จาก issf 2020 และเหรียญทอง kolmogorov readings 2020 จากงานวิจัยด้าน hiv-1 ร่วมกับศูนย์วิจัยทางการแพทย์ศิริราช</div>
+            <div class="tl-title" data-th="รางวัลนำเสนองานวิจัยนานาชาติ (mwit)"
+              data-en="international research awards (mwit)">รางวัลนำเสนองานวิจัยนานาชาติ (mwit)</div>
+            <div class="tl-desc"
+              data-th="รางวัล best poster presentation (biology) จาก issf 2020 และเหรียญทอง kolmogorov readings 2020 จากงานวิจัยด้าน hiv-1 ร่วมกับศูนย์วิจัยทางการแพทย์ศิริราช"
+              data-en="best poster presentation (biology) at issf 2020 and gold prize at kolmogorov readings for hiv-1 research at siriraj medical research center">
+              รางวัล best poster presentation (biology) จาก issf 2020 และเหรียญทอง kolmogorov readings 2020
+              จากงานวิจัยด้าน hiv-1 ร่วมกับศูนย์วิจัยทางการแพทย์ศิริราช</div>
           </div>
         </div>
 
         <div class="tl-item">
           <div class="tl-year">2019</div>
           <div class="tl-body">
-            <div class="tl-title" data-th="โครงการแลกเปลี่ยนและสัมมนาจริยธรรม ai" data-en="science exchange + ai ethics symposium">โครงการแลกเปลี่ยนและสัมมนาจริยธรรม ai</div>
-            <div class="tl-desc" data-th="นำเสนอ 'the ethical implications of mind uploads' ณ hana academy seoul และร่วมโครงการแลกเปลี่ยน ณ john monash science school ออสเตรเลีย" data-en="presented 'the ethical implications of mind uploads' at hana academy seoul, attended a science exchange at john monash science school, australia">นำเสนอ 'the ethical implications of mind uploads' ณ hana academy seoul และร่วมโครงการแลกเปลี่ยน ณ john monash science school ออสเตรเลีย</div>
+            <div class="tl-title" data-th="โครงการแลกเปลี่ยนและสัมมนาจริยธรรม ai"
+              data-en="science exchange + ai ethics symposium">โครงการแลกเปลี่ยนและสัมมนาจริยธรรม ai</div>
+            <div class="tl-desc"
+              data-th="นำเสนอ 'the ethical implications of mind uploads' ณ hana academy seoul และร่วมโครงการแลกเปลี่ยน ณ john monash science school ออสเตรเลีย"
+              data-en="presented 'the ethical implications of mind uploads' at hana academy seoul, attended a science exchange at john monash science school, australia">
+              นำเสนอ 'the ethical implications of mind uploads' ณ hana academy seoul และร่วมโครงการแลกเปลี่ยน ณ john
+              monash science school ออสเตรเลีย</div>
           </div>
         </div>
 
@@ -722,46 +1005,65 @@
 
       <div class="portfolio-item">
         <div class="portfolio-title" data-th="กว่า-จะ-เป็น series" data-en="gwa-ja-pen series">กว่า-จะ-เป็น series</div>
-        <div class="portfolio-role" data-th="creator + strategist" data-en="creator + strategist">creator + strategist</div>
-        <div class="portfolio-desc" data-th="แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพและชีวิตของรุ่นพี่และผู้เชี่ยวชาญ" data-en="in-depth career and life journey interview platform for students and professionals">แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพและชีวิตของรุ่นพี่และผู้เชี่ยวชาญ</div>
+        <div class="portfolio-role" data-th="creator + strategist" data-en="creator + strategist">creator + strategist
+        </div>
+        <div class="portfolio-desc" data-th="แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพและชีวิตของรุ่นพี่และผู้เชี่ยวชาญ"
+          data-en="in-depth career and life journey interview platform for students and professionals">
+          แพลตฟอร์มสัมภาษณ์เจาะลึกเส้นทางอาชีพและชีวิตของรุ่นพี่และผู้เชี่ยวชาญ</div>
       </div>
 
       <div class="portfolio-item">
-        <div class="portfolio-title" data-th="นักสร้างสรรค์วิดีโออิสระ" data-en="independent videomaker">นักสร้างสรรค์วิดีโออิสระ</div>
-        <div class="portfolio-role" data-th="director + editor, 60,000+ followers" data-en="director + editor, 60,000+ followers">director + editor, 60,000+ followers</div>
-        <div class="portfolio-desc" data-th="ผลิตและตัดต่อวิดีโอเล่าเรื่องเส้นทางของนักศึกษาแพทย์-วิศวะสู่ชุมชนออนไลน์" data-en="producing and editing video narratives about the m.d.-m.eng student experience, shared with an online community">ผลิตและตัดต่อวิดีโอเล่าเรื่องเส้นทางของนักศึกษาแพทย์-วิศวะสู่ชุมชนออนไลน์</div>
+        <div class="portfolio-title" data-th="นักสร้างสรรค์วิดีโออิสระ" data-en="independent videomaker">
+          นักสร้างสรรค์วิดีโออิสระ</div>
+        <div class="portfolio-role" data-th="director + editor, 60,000+ followers"
+          data-en="director + editor, 60,000+ followers">director + editor, 60,000+ followers</div>
+        <div class="portfolio-desc" data-th="ผลิตและตัดต่อวิดีโอเล่าเรื่องเส้นทางของนักศึกษาแพทย์-วิศวะสู่ชุมชนออนไลน์"
+          data-en="producing and editing video narratives about the m.d.-m.eng student experience, shared with an online community">
+          ผลิตและตัดต่อวิดีโอเล่าเรื่องเส้นทางของนักศึกษาแพทย์-วิศวะสู่ชุมชนออนไลน์</div>
 
         <div class="tiktok-grid">
           <div>
             <div class="tiktok-wrap">
-              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@prawees/video/7478513016754015496" data-video-id="7478513016754015496" style="max-width:605px;min-width:325px;">
-                <section><a target="_blank" title="@prawees" href="https://www.tiktok.com/@prawees?refer=embed">@prawees</a></section>
+              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@prawees/video/7478513016754015496"
+                data-video-id="7478513016754015496" style="max-width:605px;min-width:325px;">
+                <section><a target="_blank" title="@prawees"
+                    href="https://www.tiktok.com/@prawees?refer=embed">@prawees</a></section>
               </blockquote>
             </div>
-            <div class="embed-caption" data-th="อธิบายโครงการแพทย์-วิศวะ" data-en="m.d.-m.eng program explained">อธิบายโครงการแพทย์-วิศวะ</div>
+            <div class="embed-caption" data-th="อธิบายโครงการแพทย์-วิศวะ" data-en="m.d.-m.eng program explained">
+              อธิบายโครงการแพทย์-วิศวะ</div>
           </div>
           <div>
             <div class="tiktok-wrap">
-              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@prawees/video/7502285412048719112" data-video-id="7502285412048719112" style="max-width:605px;min-width:325px;">
-                <section><a target="_blank" title="@prawees" href="https://www.tiktok.com/@prawees?refer=embed">@prawees</a></section>
+              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@prawees/video/7502285412048719112"
+                data-video-id="7502285412048719112" style="max-width:605px;min-width:325px;">
+                <section><a target="_blank" title="@prawees"
+                    href="https://www.tiktok.com/@prawees?refer=embed">@prawees</a></section>
               </blockquote>
             </div>
-            <div class="embed-caption" data-th="vlog พรีเซนต์วิจัยที่มาเลเซีย" data-en="vlog, research presentation in malaysia">vlog พรีเซนต์วิจัยที่มาเลเซีย</div>
+            <div class="embed-caption" data-th="vlog พรีเซนต์วิจัยที่มาเลเซีย"
+              data-en="vlog, research presentation in malaysia">vlog พรีเซนต์วิจัยที่มาเลเซีย</div>
           </div>
         </div>
 
         <div class="embed-grid">
           <div>
             <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/HxxRjaMzGc4?si=FFhsmBRvF-l248TE" title="Essence of Sickness" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+              <iframe src="https://www.youtube.com/embed/HxxRjaMzGc4?si=FFhsmBRvF-l248TE" title="Essence of Sickness"
+                loading="lazy" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             </div>
-            <div class="embed-caption" data-th="essence of sickness, หนังสั้น" data-en="essence of sickness, short film">essence of sickness, หนังสั้น</div>
+            <div class="embed-caption" data-th="งานผลิตหนังสั้น เรื่อง essence of sickness"
+              data-en="essence of sickness, short film">essence of sickness, หนังสั้น</div>
           </div>
           <div>
             <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/SHBhbCXhGsw?si=ZyVt780IVY1-59Jr" title="Allegro in Red" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+              <iframe src="https://www.youtube.com/embed/SHBhbCXhGsw?si=ZyVt780IVY1-59Jr" title="Allegro in Red"
+                loading="lazy" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             </div>
-            <div class="embed-caption" data-th="allegro in red, ตัวอย่างละครเวที" data-en="allegro in red, ramadrama trailer">allegro in red, ตัวอย่างละครเวที</div>
+            <div class="embed-caption" data-th="งานผลิตตัวอย่างละครเวทีรามาดราม่า allegro in red"
+              data-en="allegro in red, ramadrama trailer">allegro in red, ตัวอย่างละครเวที</div>
           </div>
         </div>
       </div>
@@ -778,19 +1080,30 @@
       <div class="kv-list">
         <div class="kv-row">
           <span class="kv-key" data-th="วิสัยทัศน์" data-en="vision">วิสัยทัศน์</span>
-          <span class="kv-val" data-th="เทคโนโลยีสุขภาพ, เวชศาสตร์ฟื้นฟู, ระบบสาธารณสุขโลก, งานวิจัยทางพันธุศาสตร์" data-en="healthcare technology, physical medicine + rehabilitation, global health systems, genetics + genomics">เทคโนโลยีสุขภาพ, เวชศาสตร์ฟื้นฟู, ระบบสาธารณสุขโลก, งานวิจัยทางพันธุศาสตร์</span>
+          <span class="kv-val"
+            data-th="เทคโนโลยีสุขภาพ, เวชศาสตร์ฟื้นฟู, เอไอ, คอมพิวเตอร์วิทัศน์, งานวิจัยทางพันธุศาสตร์"
+            data-en="healthcare technology, physical medicine & rehabilitation, ai, computer vision, genetics + genomics">เทคโนโลยีสุขภาพ,
+            เวชศาสตร์ฟื้นฟู, ระบบสาธารณสุขโลก, งานวิจัยทางพันธุศาสตร์</span>
         </div>
         <div class="kv-row">
           <span class="kv-key" data-th="งานอดิเรก" data-en="hobbies">งานอดิเรก</span>
-          <span class="kv-val" data-th="กีตาร์, วิ่ง, ดำน้ำ, โบว์ลิ่ง, เปตอง, กอล์ฟ" data-en="guitar, running, scuba diving, bowling, pétanque, golf">กีตาร์, วิ่ง, ดำน้ำ, โบว์ลิ่ง, เปตอง, กอล์ฟ</span>
+          <span class="kv-val"
+            data-th="การผลิตสื่อ | กีตาร์, กลอง | วิ่งระยะไกล, วิ่งเทรล | ดำน้ำลึก | กอล์ฟ, โบว์ลิ่ง, เปตอง"
+            data-en="media creation | guitar & drums | long-distance & trail running | scuba diving | golf, bowling, pétanque">การผลิตสื่อ
+            | กีตาร์, กลอง | วิ่งระยะไกล & วิ่งเทรล | ดำน้ำลึก | กอล์ฟ, โบว์ลิ่ง, เปตอง
+          </span>
         </div>
         <div class="kv-row">
           <span class="kv-key" data-th="ความชอบ" data-en="loves">ความชอบ</span>
-          <span class="kv-val" data-th="สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, แมนเชสเตอร์ ยูไนเต็ด" data-en="street photography, alt-rock + alt-r&amp;b, manchester united">สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, แมนเชสเตอร์ ยูไนเต็ด</span>
+          <span class="kv-val" data-th="สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, แมนเชสเตอร์ ยูไนเต็ด"
+            data-en="street photography, alt-rock + alt-r&amp;b, manchester united">สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ,
+            แมนเชสเตอร์ ยูไนเต็ด</span>
         </div>
         <div class="kv-row">
           <span class="kv-key" data-th="ภาพยนตร์โปรด" data-en="films">ภาพยนตร์โปรด</span>
-          <span class="kv-val" data-th="แสงศตวรรษ, เบลด รันเนอร์ 2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่" data-en="syndromes and a century, blade runner 2049, sing street, the tin mine">แสงศตวรรษ, เบลด รันเนอร์ 2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่</span>
+          <span class="kv-val" data-th="แสงศตวรรษ, เบลด รันเนอร์ 2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่"
+            data-en="syndromes and a century, blade runner 2049, sing street, the tin mine">แสงศตวรรษ, เบลด รันเนอร์
+            2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่</span>
         </div>
       </div>
     </section>
@@ -804,39 +1117,45 @@
       </div>
 
       <p class="song-intro"
-         data-th="เพลย์ลิสต์นี้รวมมากกว่า 200 เพลง จากเพื่อนๆ ที่ร่วมอ่านหนังสือกับผมกว่า 100 คน ร่วมเข้าไปกดเพิ่มเพลงได้นะครับ :-)"
-         data-en="a collaborative playlist, over 200 tracks curated by 100+ friends who've studied alongside me. feel free to add yours.">
-         เพลย์ลิสต์นี้รวมมากกว่า 200 เพลง จากเพื่อนๆ ที่ร่วมอ่านหนังสือกับผมกว่า 100 คน ร่วมเข้าไปกดเพิ่มเพลงได้นะครับ :-)
+        data-th="เพลย์ลิสต์นี้รวมมากกว่า 200 เพลง จากเพื่อนๆ ที่ร่วมอ่านหนังสือกับผมกว่า 100 คน ร่วมเข้าไปกดเพิ่มเพลงได้นะครับ :-)"
+        data-en="a collaborative playlist, over 200 tracks curated by 100+ friends who've studied alongside me. feel free to add yours.">
+        เพลย์ลิสต์นี้รวมมากกว่า 200 เพลง จากเพื่อนๆ ที่ร่วมอ่านหนังสือกับผมกว่า 100 คน ร่วมเข้าไปกดเพิ่มเพลงได้นะครับ
+        :-)
       </p>
 
       <div class="spotify-wrap">
-        <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/playlist/6TIFZk4qns5oCtxL6GHMrd?utm_source=generator" width="100%" height="352" frameborder="0" loading="lazy" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <iframe data-testid="embed-iframe"
+          src="https://open.spotify.com/embed/playlist/6TIFZk4qns5oCtxL6GHMrd?utm_source=generator" width="100%"
+          height="352" frameborder="0" loading="lazy" allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
       </div>
 
       <div style="margin-top: 44px;">
-        <p class="song-intro"
-           data-th="และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ"
-           data-en="this is a song i wrote. give it a listen.">
-           และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ
+        <p class="song-intro" data-th="และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ"
+          data-en="this is a song i wrote. give it a listen.">
+          และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ
         </p>
         <div class="spotify-wrap">
-          <iframe src="https://open.spotify.com/embed/track/5s0yqiQ1NFUyBXtuzesxcN#0:11" width="100%" height="152" frameborder="0" loading="lazy" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+          <iframe src="https://open.spotify.com/embed/track/5s0yqiQ1NFUyBXtuzesxcN#0:11" width="100%" height="152"
+            frameborder="0" loading="lazy" allowfullscreen
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         </div>
         <div class="song-lyrics">เธอบอกคืนนี้ เป็นอีกคืนที่ฉันนั้นนอนละเมอ
-ตั้งแต่แก่ตัว ฉันก็เริ่มคิดวน พูดจาพร่ำเพ้อ
-ถึงแม้ว่าหูของฉันไม่ค่อยได้ยิน
-แต่ฉันก็เริ่มจะชิน
-อย่างน้อยจมูกของฉันก็ยังได้กลิ่นของเธอ
+          ตั้งแต่แก่ตัว ฉันก็เริ่มคิดวน พูดจาพร่ำเพ้อ
+          ถึงแม้ว่าหูของฉันไม่ค่อยได้ยิน
+          แต่ฉันก็เริ่มจะชิน
+          อย่างน้อยจมูกของฉันก็ยังได้กลิ่นของเธอ
 
-เธอบอกคืนนี้ เป็นอีกคืนที่เธอนั้นนอนไม่หลับ
-เธออารมณ์เสียที่ฉันเริ่มจะฟังเธอไม่ค่อยถนัด
-ก็เพราะว่าหูของฉันไม่ค่อยได้ยิน
-ตัวฉันก็ต้องขอโทษจริงๆ
-อย่างน้อยตาของฉันก็ยังได้เห็นหน้าเธอ</div>
+          เธอบอกคืนนี้ เป็นอีกคืนที่เธอนั้นนอนไม่หลับ
+          เธออารมณ์เสียที่ฉันเริ่มจะฟังเธอไม่ค่อยถนัด
+          ก็เพราะว่าหูของฉันไม่ค่อยได้ยิน
+          ตัวฉันก็ต้องขอโทษจริงๆ
+          อย่างน้อยตาของฉันก็ยังได้เห็นหน้าเธอ</div>
       </div>
     </section>
 
-    <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·</div>
+    <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
+    </div>
 
     <!-- FOOTER -->
     <footer class="foot">
@@ -908,4 +1227,5 @@
   </script>
 
 </body>
+
 </html>
