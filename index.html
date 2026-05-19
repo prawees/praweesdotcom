@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,22 +10,33 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&family=IBM+Plex+Sans+Thai+Looped:wght@300;400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&family=IBM+Plex+Sans+Thai+Looped:wght@300;400&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
-      --bg:        #FFFFFF;
-      --ink:       #1A1A1A;
-      --ink-mid:   #555555;
+      --bg: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-mid: #555555;
       --ink-muted: #999999;
-      --rule:      #E5E5E5;
+      --rule: #E5E5E5;
       --rule-soft: #F2F2F2;
-      --link:      #1E66D0;
-      --link-hov:  #0048A3;
+      --link: #1E66D0;
+      --link-hov: #0048A3;
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -46,6 +58,7 @@
       pointer-events: none;
       overflow: hidden;
     }
+
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -53,51 +66,80 @@
       opacity: 0.35;
       will-change: transform;
     }
+
     .blob-1 {
-      width: 520px; height: 520px;
+      width: 520px;
+      height: 520px;
       background: #CFE0FF;
-      top: -12%; left: -8%;
+      top: -12%;
+      left: -8%;
       animation: float-a 18s ease-in-out infinite alternate;
     }
+
     .blob-2 {
-      width: 600px; height: 600px;
+      width: 600px;
+      height: 600px;
       background: #E8DCFA;
-      bottom: -18%; right: -10%;
+      bottom: -18%;
+      right: -10%;
       animation: float-b 22s ease-in-out infinite alternate;
       animation-delay: -6s;
       opacity: 0.28;
     }
+
     .blob-3 {
-      width: 360px; height: 360px;
+      width: 360px;
+      height: 360px;
       background: #BFE0F5;
-      top: 40%; right: -8%;
+      top: 40%;
+      right: -8%;
       animation: float-a 26s ease-in-out infinite alternate;
       animation-delay: -12s;
       opacity: 0.22;
     }
+
     @keyframes float-a {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(80px, 60px) scale(1.08); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(80px, 60px) scale(1.08);
+      }
     }
+
     @keyframes float-b {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(-60px, -40px) scale(1.05); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(-60px, -40px) scale(1.05);
+      }
     }
 
     /* ── REVEAL ON SCROLL ── */
     [data-reveal] {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
       transition-delay: var(--rd, 0ms);
     }
+
     [data-reveal].in {
       opacity: 1;
       transform: translateY(0);
     }
 
-    a { color: var(--link); text-decoration: none; transition: color 0.15s; }
-    a:hover { color: var(--link-hov); }
+    a {
+      color: var(--link);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    a:hover {
+      color: var(--link-hov);
+    }
 
     /* ── PAGE WRAP ── */
     .wrap {
@@ -116,13 +158,35 @@
       font-size: 14px;
     }
 
-    .crumbs { display: flex; align-items: center; gap: 8px; color: var(--ink-muted); }
-    .crumbs a { color: var(--ink-muted); }
-    .crumbs a:hover { color: var(--ink); }
-    .crumbs .here { color: var(--ink); }
-    .crumbs .slash { color: var(--rule); }
+    .crumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-muted);
+    }
 
-    .lang { display: flex; align-items: center; gap: 6px; }
+    .crumbs a {
+      color: var(--ink-muted);
+    }
+
+    .crumbs a:hover {
+      color: var(--ink);
+    }
+
+    .crumbs .here {
+      color: var(--ink);
+    }
+
+    .crumbs .slash {
+      color: var(--rule);
+    }
+
+    .lang {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .lang button {
       background: none;
       border: none;
@@ -132,35 +196,36 @@
       cursor: pointer;
       padding: 0;
     }
-    .lang button:hover { color: var(--ink); }
-    .lang button.active { color: var(--ink); }
-    .lang .slash { color: var(--rule); }
+
+    .lang button:hover {
+      color: var(--ink);
+    }
+
+    .lang button.active {
+      color: var(--ink);
+    }
+
+    .lang .slash {
+      color: var(--rule);
+    }
 
     /* ── HERO ── */
-    .hero { margin-bottom: 64px; padding-top: 80px; }
+    .hero {
+      margin-bottom: 64px;
+    }
 
     .hero-greeting {
-      position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 10px 28px;
-      border-radius: 40px;
-      border: 1px solid rgba(0,0,0,0.05);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+      display: block;
       font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
       font-weight: 200;
-      font-size: clamp(24px, 3.5vw, 32px);
+      font-size: clamp(26px, 4.5vw, 40px);
       line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--ink);
-      margin-bottom: 0;
+      margin-bottom: 28px;
       min-height: 1.2em;
       white-space: nowrap;
+      filter: drop-shadow(0 6px 28px rgba(20, 20, 50, 0.14));
     }
 
     .hero-name {
@@ -171,6 +236,7 @@
       margin-bottom: 4px;
       letter-spacing: 0.01em;
     }
+
     .hero-name-th {
       font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
       font-weight: 300;
@@ -201,6 +267,7 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
+
     .comment::before {
       content: '▸';
       color: var(--link);
@@ -208,121 +275,51 @@
       transform: translateY(-1px);
     }
 
-    /* ── LINKS BLOCK (social/elsewhere on the web) ── */
-    .link-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 64px;
+    /* ── SOCIAL STRIP (bottom of page) ── */
+    .social-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 0;
+      margin-bottom: 48px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.02em;
     }
 
-    .link-row {
-      display: grid;
-      grid-template-columns: 26px 1fr auto;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
-      border: 1px solid var(--rule);
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+    .ss-link {
+      color: var(--ink-muted);
       text-decoration: none;
+      padding: 3px 10px;
+      transition: color 0.15s;
       position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
-                  border-color 0.3s,
-                  box-shadow 0.3s;
     }
-    .link-row.full { grid-column: 1 / -1; }
-    .link-row::before {
+
+    .ss-link::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: var(--brand, var(--link));
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
+      bottom: 0;
+      left: 10px;
+      right: 10px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .link-row:hover::before { opacity: 0.07; }
-    .link-row:hover {
-      border-color: var(--brand, var(--link));
-      transform: translateY(-3px);
-      box-shadow: 0 10px 22px rgba(20,20,30,0.08);
-    }
-    .link-row .ico {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .link-row .ico path,
-    .link-row .ico rect,
-    .link-row .ico circle,
-    .link-row .ico polygon,
-    .link-row .ico line {
-      stroke: var(--brand, var(--link));
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
-      transition: stroke 0.15s;
-    }
-    .link-row .ico .filled {
-      fill: var(--brand, var(--link));
-      stroke: none;
-    }
-    .link-body {
-      min-width: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .link-platform {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      margin-bottom: 2px;
-      transition: color 0.25s;
-    }
-    .link-row:hover .link-platform { color: var(--brand, var(--link)); }
-    .link-handle {
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-size: 14px;
+
+    .ss-link:hover {
       color: var(--ink);
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-    .link-arrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 14px;
-      color: var(--ink-muted);
-      opacity: 0.35;
-      transform: translateX(-4px);
-      transition: opacity 0.25s, transform 0.25s, color 0.25s;
-      position: relative;
-      z-index: 1;
+
+    .ss-link:hover::after {
+      transform: scaleX(1);
     }
-    .link-row:hover .link-arrow {
-      opacity: 1;
-      transform: translateX(0);
-      color: var(--brand, var(--link));
-    }
-    /* platform brand colors */
-    .link-row.em { --brand: #4A6FB8; }
-    .link-row.fb { --brand: #1877F2; }
-    .link-row.tt { --brand: #FE2C55; }
-    .link-row.ig { --brand: #C13584; }
-    .link-row.yt { --brand: #FF0000; }
-    .link-row.ss { --brand: #FF6719; }
-    .link-row .meta {
-      color: var(--ink-muted);
-      font-size: 13px;
-      margin-left: 8px;
+
+    .ss-sep {
+      color: var(--rule);
+      user-select: none;
+      font-size: 11px;
     }
 
     /* ── PROJECTS ── */
@@ -341,7 +338,10 @@
       border-top: 1px solid var(--rule);
       align-items: start;
     }
-    .proj:last-child { border-bottom: 1px solid var(--rule); }
+
+    .proj:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
 
     /* pixel-art icon container */
     .pixel-icon {
@@ -350,12 +350,32 @@
       display: block;
       shape-rendering: crispEdges;
     }
-    .pixel-icon rect.px { fill: var(--ink); }
-    .pixel-icon rect.px-mid { fill: var(--ink-mid); }
-    .pixel-icon rect.px-soft { fill: var(--ink-muted); }
-    .proj:hover .pixel-icon rect.px { fill: var(--link); }
-    .proj:hover .pixel-icon rect.px-mid { fill: var(--link); opacity: 0.65; }
-    .proj:hover .pixel-icon rect.px-soft { fill: var(--link); opacity: 0.35; }
+
+    .pixel-icon rect.px {
+      fill: var(--ink);
+    }
+
+    .pixel-icon rect.px-mid {
+      fill: var(--ink-mid);
+    }
+
+    .pixel-icon rect.px-soft {
+      fill: var(--ink-muted);
+    }
+
+    .proj:hover .pixel-icon rect.px {
+      fill: var(--link);
+    }
+
+    .proj:hover .pixel-icon rect.px-mid {
+      fill: var(--link);
+      opacity: 0.65;
+    }
+
+    .proj:hover .pixel-icon rect.px-soft {
+      fill: var(--link);
+      opacity: 0.35;
+    }
 
     .proj-body {}
 
@@ -379,7 +399,11 @@
       font-weight: 500;
       color: var(--ink);
     }
-    .proj:hover .proj-title { color: var(--link); }
+
+    .proj:hover .proj-title {
+      color: var(--link);
+    }
+
     .proj-title-en {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 13px;
@@ -403,7 +427,10 @@
       padding-top: 3px;
       white-space: nowrap;
     }
-    .proj:hover .proj-url { color: var(--link); }
+
+    .proj:hover .proj-url {
+      color: var(--link);
+    }
 
     /* ── ASCII DIVIDER ── */
     .ascii-rule {
@@ -428,36 +455,42 @@
       margin: 8px auto 88px;
       padding: 14px 16px;
     }
+
     .sb-frame {
       position: relative;
       background: #FFFFFF;
       border: 6px solid #FFFFFF;
-      box-shadow: 0 8px 22px rgba(20,20,30,0.10),
-                  0 0 0 1px rgba(20,20,30,0.04);
+      box-shadow: 0 8px 22px rgba(20, 20, 30, 0.10),
+        0 0 0 1px rgba(20, 20, 30, 0.04);
       overflow: hidden;
-      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.45s,
-                  z-index 0s 0.4s;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.45s,
+        z-index 0s 0.4s;
       cursor: pointer;
       will-change: transform;
     }
+
     .sb-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .sb-frame:hover {
       transform: rotate(0deg) translateY(-4px) scale(1.025) !important;
-      box-shadow: 0 18px 34px rgba(20,20,30,0.18),
-                  0 0 0 1px rgba(20,20,30,0.06);
+      box-shadow: 0 18px 34px rgba(20, 20, 30, 0.18),
+        0 0 0 1px rgba(20, 20, 30, 0.06);
       z-index: 20;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.4s,
-                  z-index 0s;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s,
+        z-index 0s;
     }
-    .sb-frame:hover img { transform: scale(1.05); }
+
+    .sb-frame:hover img {
+      transform: scale(1.05);
+    }
 
     /* Photo 1 — large left, slight tilt left */
     .sb-a {
@@ -466,7 +499,10 @@
       aspect-ratio: 4/5;
       transform: rotate(-1.2deg);
     }
-    .sb-a img { object-position: 50% 18%; }
+
+    .sb-a img {
+      object-position: 50% 18%;
+    }
 
     /* Photo 2 — top right, tilt right */
     .sb-b {
@@ -476,7 +512,10 @@
       transform: rotate(1.6deg);
       margin-top: 18px;
     }
-    .sb-b img { object-position: 50% 45%; }
+
+    .sb-b img {
+      object-position: 50% 45%;
+    }
 
     /* Photo 3 — bottom right, slight tilt left */
     .sb-c {
@@ -485,17 +524,21 @@
       aspect-ratio: 4/3.4;
       transform: rotate(-0.8deg);
     }
-    .sb-c img { object-position: 50% 28%; }
+
+    .sb-c img {
+      object-position: 50% 28%;
+    }
 
     /* small caption inside frame */
     .sb-frame .sb-label {
       position: absolute;
-      top: 8px; left: 10px;
+      top: 8px;
+      left: 10px;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 9.5px;
       letter-spacing: 0.1em;
       color: #FFF;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.55);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
       z-index: 6;
       pointer-events: none;
     }
@@ -503,32 +546,62 @@
     /* corner pixel marks — outer */
     .sb-frame .pixmark {
       position: absolute;
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       background: var(--ink);
       z-index: 7;
     }
-    .sb-frame .pixmark.tl { top: -3px; left: -3px; }
-    .sb-frame .pixmark.tr { top: -3px; right: -3px; }
-    .sb-frame .pixmark.bl { bottom: -3px; left: -3px; }
-    .sb-frame .pixmark.br { bottom: -3px; right: -3px; }
+
+    .sb-frame .pixmark.tl {
+      top: -3px;
+      left: -3px;
+    }
+
+    .sb-frame .pixmark.tr {
+      top: -3px;
+      right: -3px;
+    }
+
+    .sb-frame .pixmark.bl {
+      bottom: -3px;
+      left: -3px;
+    }
+
+    .sb-frame .pixmark.br {
+      bottom: -3px;
+      right: -3px;
+    }
 
     /* tape strip on photos for scrapbook flavor */
     .sb-frame::before {
       content: '';
       position: absolute;
-      top: -10px; left: 50%;
+      top: -10px;
+      left: 50%;
       transform: translateX(-50%) rotate(-3deg);
-      width: 56px; height: 16px;
+      width: 56px;
+      height: 16px;
       background: rgba(200, 200, 180, 0.35);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
-      border: 1px dashed rgba(120,120,110,0.18);
+      border: 1px dashed rgba(120, 120, 110, 0.18);
       z-index: 8;
       pointer-events: none;
     }
-    .sb-a::before { transform: translateX(-50%) rotate(-4deg); }
-    .sb-b::before { transform: translateX(-50%) rotate(5deg); width: 44px; }
-    .sb-c::before { transform: translateX(-50%) rotate(-3deg); width: 50px; }
+
+    .sb-a::before {
+      transform: translateX(-50%) rotate(-4deg);
+    }
+
+    .sb-b::before {
+      transform: translateX(-50%) rotate(5deg);
+      width: 44px;
+    }
+
+    .sb-c::before {
+      transform: translateX(-50%) rotate(-3deg);
+      width: 50px;
+    }
 
     /* ── ONLINE PILL / STATUS ── */
     .status-pill {
@@ -540,16 +613,26 @@
       color: var(--ink-mid);
       padding: 0;
     }
+
     .status-dot {
-      width: 7px; height: 7px;
+      width: 7px;
+      height: 7px;
       background: #1FB67A;
-      box-shadow: 0 0 0 2px rgba(31,182,122,0.18);
+      box-shadow: 0 0 0 2px rgba(31, 182, 122, 0.18);
       animation: pulse-dot 1.8s infinite;
       flex-shrink: 0;
     }
+
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.55; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.55;
+      }
     }
 
     /* ── TYPEWRITER CARET ── */
@@ -570,108 +653,258 @@
 
     /* base styles */
     .cyber.s-cyber {
-      color: #FF1A6B; font-family: 'IBM Plex Sans', sans-serif; font-style: italic; font-weight: 300;
-      text-shadow: 1.5px 0 0 #00E5FF, -1.5px 0 0 #FF00FF, 0 0 14px rgba(255,26,107,0.45);
+      color: #FF1A6B;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      text-shadow: 1.5px 0 0 #00E5FF, -1.5px 0 0 #FF00FF, 0 0 14px rgba(255, 26, 107, 0.45);
     }
+
     .cyber.s-coral {
-      color: #F76F5A; font-family: 'IBM Plex Sans', sans-serif; font-style: italic; font-weight: 300;
-      text-shadow: 0 2px 0 #FFB39B, 0 5px 14px rgba(247,111,90,0.35);
+      color: #F76F5A;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      text-shadow: 0 2px 0 #FFB39B, 0 5px 14px rgba(247, 111, 90, 0.35);
     }
+
     .cyber.s-pixel {
-      color: #2EA34A; font-family: 'IBM Plex Mono', monospace; font-weight: 600; letter-spacing: -0.02em;
-      text-shadow: 2px 2px 0 #114D24, 4px 4px 0 rgba(0,0,0,0.18);
+      color: #2EA34A;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-shadow: 2px 2px 0 #114D24, 4px 4px 0 rgba(0, 0, 0, 0.18);
     }
+
     .cyber.s-film {
-      color: #1A1A1A; font-family: Georgia, serif; font-style: italic; font-weight: 500;
+      color: #1A1A1A;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-weight: 500;
       background: linear-gradient(transparent 60%, #FFE07A 60%, #FFE07A 92%, transparent 92%);
       padding: 0 6px;
     }
+
     .cyber.s-blue {
-      color: #0077C2; font-family: 'IBM Plex Mono', monospace; font-weight: 500;
+      color: #0077C2;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500;
       text-shadow: 1px 0 0 #00B4D8;
-      border-bottom: 2px dashed currentColor; padding-bottom: 2px;
+      border-bottom: 2px dashed currentColor;
+      padding-bottom: 2px;
     }
+
     .cyber.s-holo {
-      color: #B644E6; font-family: 'IBM Plex Sans', sans-serif; font-style: italic; font-weight: 300;
-      text-shadow: -1.5px 0 0 #FF7AC6, 1.5px 0 0 #4DD2E0, 0 0 18px rgba(182,68,230,0.4);
+      color: #B644E6;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      text-shadow: -1.5px 0 0 #FF7AC6, 1.5px 0 0 #4DD2E0, 0 0 18px rgba(182, 68, 230, 0.4);
     }
+
     .cyber.s-vapor {
-      color: #FF6FB3; font-family: 'IBM Plex Sans', sans-serif; font-weight: 200;
+      color: #FF6FB3;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 200;
       background: linear-gradient(90deg, #FF6FB3 0%, #6FE3FF 50%, #B388FF 100%);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 6px rgba(255,111,179,0.35));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 6px rgba(255, 111, 179, 0.35));
     }
+
     .cyber.s-stamp {
-      color: #C53030; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-style: italic;
-      border: 2px solid currentColor; padding: 0 6px;
-      transform: rotate(-3deg); transform-origin: center;
+      color: #C53030;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 700;
+      font-style: italic;
+      border: 2px solid currentColor;
+      padding: 0 6px;
+      transform: rotate(-3deg);
+      transform-origin: center;
     }
+
     .cyber.s-marquee {
-      color: #111; font-family: 'IBM Plex Sans', sans-serif; font-weight: 600;
-      background: #FFD000; padding: 0 8px; border-radius: 2px;
+      color: #111;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      background: #FFD000;
+      padding: 0 8px;
+      border-radius: 2px;
       box-shadow: 0 0 0 2px #111, 4px 4px 0 0 #111;
     }
+
     .cyber.s-zine {
-      color: #FFFFFF; font-family: Georgia, serif; font-weight: 700; font-style: italic;
-      background: #111; padding: 0 7px; transform: skewX(-6deg);
+      color: #FFFFFF;
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-style: italic;
+      background: #111;
+      padding: 0 7px;
+      transform: skewX(-6deg);
     }
+
     .cyber.s-mint {
-      color: #00A878; font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+      color: #00A878;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
       text-shadow: 3px 0 0 #FFB39B;
     }
+
     .cyber.s-acid {
-      color: #000; font-family: 'IBM Plex Sans', sans-serif; font-weight: 800;
+      color: #000;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 800;
       -webkit-text-stroke: 1px #BFFF00;
       text-shadow: 2px 2px 0 #BFFF00;
     }
+
     .cyber.s-paper {
-      color: #6E4E2E; font-family: Georgia, serif; font-weight: 400; font-style: italic;
-      text-decoration: underline; text-decoration-style: wavy; text-decoration-color: #C97D3D;
+      color: #6E4E2E;
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: #C97D3D;
       text-underline-offset: 4px;
     }
 
     /* transition animations — applied for swap */
     @keyframes c-glitch {
-      0%   { transform: translate(0,0); clip-path: inset(0 0 0 0); }
-      20%  { transform: translate(-3px,1px); clip-path: inset(40% 0 30% 0); }
-      40%  { transform: translate(3px,-1px); clip-path: inset(10% 0 60% 0); }
-      60%  { transform: translate(-2px,2px); clip-path: inset(60% 0 5% 0); }
-      80%  { transform: translate(2px,0); clip-path: inset(20% 0 40% 0); }
-      100% { transform: translate(0,0); clip-path: inset(0 0 0 0); }
-    }
-    @keyframes c-flipin {
-      0% { transform: rotateX(-90deg); opacity: 0; }
-      100% { transform: rotateX(0deg); opacity: 1; }
-    }
-    @keyframes c-slidein {
-      0% { transform: translateY(-12px); opacity: 0; filter: blur(4px); }
-      100% { transform: translateY(0); opacity: 1; filter: blur(0); }
-    }
-    @keyframes c-spinpop {
-      0% { transform: rotate(-15deg) scale(0.4); opacity: 0; }
-      60% { transform: rotate(8deg) scale(1.15); opacity: 1; }
-      100% { transform: rotate(0deg) scale(1); }
-    }
-    @keyframes c-typein {
-      0% { clip-path: inset(0 100% 0 0); }
-      100% { clip-path: inset(0 0 0 0); }
-    }
-    @keyframes c-bounce {
-      0% { transform: translateY(-20px); opacity: 0; }
-      60% { transform: translateY(4px); opacity: 1; }
-      80% { transform: translateY(-2px); }
-      100% { transform: translateY(0); }
+      0% {
+        transform: translate(0, 0);
+        clip-path: inset(0 0 0 0);
+      }
+
+      20% {
+        transform: translate(-3px, 1px);
+        clip-path: inset(40% 0 30% 0);
+      }
+
+      40% {
+        transform: translate(3px, -1px);
+        clip-path: inset(10% 0 60% 0);
+      }
+
+      60% {
+        transform: translate(-2px, 2px);
+        clip-path: inset(60% 0 5% 0);
+      }
+
+      80% {
+        transform: translate(2px, 0);
+        clip-path: inset(20% 0 40% 0);
+      }
+
+      100% {
+        transform: translate(0, 0);
+        clip-path: inset(0 0 0 0);
+      }
     }
 
-    .cyber.anim-glitch  { animation: c-glitch 0.45s steps(6) 1; }
-    .cyber.anim-flip    { animation: c-flipin 0.5s cubic-bezier(0.5,1.5,0.5,1) 1; transform-origin: center bottom; }
-    .cyber.anim-slide   { animation: c-slidein 0.45s cubic-bezier(0.16,1,0.3,1) 1; }
-    .cyber.anim-spin    { animation: c-spinpop 0.55s cubic-bezier(0.5,1.5,0.4,1) 1; transform-origin: center; }
-    .cyber.anim-type    { animation: c-typein 0.4s steps(8) 1; }
-    .cyber.anim-bounce  { animation: c-bounce 0.55s cubic-bezier(0.34,1.56,0.64,1) 1; }
+    @keyframes c-flipin {
+      0% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+      }
+
+      100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes c-slidein {
+      0% {
+        transform: translateY(-12px);
+        opacity: 0;
+        filter: blur(4px);
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+
+    @keyframes c-spinpop {
+      0% {
+        transform: rotate(-15deg) scale(0.4);
+        opacity: 0;
+      }
+
+      60% {
+        transform: rotate(8deg) scale(1.15);
+        opacity: 1;
+      }
+
+      100% {
+        transform: rotate(0deg) scale(1);
+      }
+    }
+
+    @keyframes c-typein {
+      0% {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes c-bounce {
+      0% {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+
+      60% {
+        transform: translateY(4px);
+        opacity: 1;
+      }
+
+      80% {
+        transform: translateY(-2px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .cyber.anim-glitch {
+      animation: c-glitch 0.45s steps(6) 1;
+    }
+
+    .cyber.anim-flip {
+      animation: c-flipin 0.5s cubic-bezier(0.5, 1.5, 0.5, 1) 1;
+      transform-origin: center bottom;
+    }
+
+    .cyber.anim-slide {
+      animation: c-slidein 0.45s cubic-bezier(0.16, 1, 0.3, 1) 1;
+    }
+
+    .cyber.anim-spin {
+      animation: c-spinpop 0.55s cubic-bezier(0.5, 1.5, 0.4, 1) 1;
+      transform-origin: center;
+    }
+
+    .cyber.anim-type {
+      animation: c-typein 0.4s steps(8) 1;
+    }
+
+    .cyber.anim-bounce {
+      animation: c-bounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+    }
 
     @media (prefers-reduced-motion: reduce) {
-      .cyber { animation: none !important; }
+      .cyber {
+        animation: none !important;
+      }
     }
 
     /* ── RUNNER GAME ── */
@@ -681,10 +914,12 @@
       position: relative;
       background: #FAFAFA;
     }
+
     .game-card::before {
       content: '+ - - - - - - - - - - - - - - - - - - - - - - +';
       position: absolute;
-      top: -10px; left: 14px;
+      top: -10px;
+      left: 14px;
       background: var(--bg);
       padding: 0 6px;
       font-family: 'IBM Plex Mono', monospace;
@@ -695,6 +930,7 @@
       overflow: hidden;
       max-width: calc(100% - 28px);
     }
+
     .game-header {
       display: flex;
       justify-content: space-between;
@@ -704,11 +940,17 @@
       font-size: 12px;
       color: var(--ink-muted);
     }
+
     .game-title {
       color: var(--ink);
       font-weight: 500;
     }
-    .game-title::before { content: '> '; color: var(--ink-muted); }
+
+    .game-title::before {
+      content: '> ';
+      color: var(--ink-muted);
+    }
+
     .game-canvas-wrap {
       width: 100%;
       background: #FFF;
@@ -716,6 +958,7 @@
       overflow: hidden;
       position: relative;
     }
+
     canvas#runner {
       display: block;
       width: 100%;
@@ -725,6 +968,7 @@
       image-rendering: pixelated;
       touch-action: manipulation;
     }
+
     .game-hint {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 11px;
@@ -735,6 +979,7 @@
       flex-wrap: wrap;
       gap: 6px;
     }
+
     .kbd {
       display: inline-block;
       padding: 1px 5px;
@@ -760,36 +1005,95 @@
       font-size: 12px;
       color: var(--ink-muted);
     }
+
     .foot .blink::after {
       content: '_';
       animation: blink 1.05s steps(1) infinite;
       margin-left: 2px;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
 
     /* ── MOBILE ── */
     @media (max-width: 600px) {
-      .wrap { padding: 36px 18px 80px; }
-      .topbar { margin-bottom: 36px; }
-      .hero { margin-bottom: 44px; }
-      .proj { grid-template-columns: 40px 1fr; gap: 0 14px; }
-      .proj-url { grid-column: 2; text-align: left; padding-top: 8px; }
-      .pixel-icon { width: 30px; height: 30px; }
-      .scrapbook { margin-bottom: 64px; max-width: 360px; grid-template-columns: 1.2fr 1fr; gap: 10px; padding: 8px; }
-      .sb-b { margin-top: 10px; }
-      .sb-frame::before { width: 36px; height: 12px; top: -7px; }
-      .sb-frame .sb-label { font-size: 8.5px; }
-      .link-list { grid-template-columns: 1fr; }
-      .link-row.full { grid-column: 1; }
-      .game-card { padding: 14px 12px 12px; }
-      .game-card::before { left: 10px; font-size: 10px; }
-      .game-header { font-size: 11px; }
-      .hero-greeting { font-size: 44px; }
-      .hero-role { font-size: 13.5px; }
-      .ascii-rule { margin: 36px 0; font-size: 11px; }
+      .wrap {
+        padding: 36px 18px 80px;
+      }
+
+      .topbar {
+        margin-bottom: 36px;
+      }
+
+      .hero {
+        margin-bottom: 44px;
+      }
+
+      .proj {
+        grid-template-columns: 40px 1fr;
+        gap: 0 14px;
+      }
+
+      .proj-url {
+        grid-column: 2;
+        text-align: left;
+        padding-top: 8px;
+      }
+
+      .pixel-icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      .scrapbook {
+        margin-bottom: 64px;
+        max-width: 360px;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 10px;
+        padding: 8px;
+      }
+
+      .sb-b {
+        margin-top: 10px;
+      }
+
+      .sb-frame::before {
+        width: 36px;
+        height: 12px;
+        top: -7px;
+      }
+
+      .sb-frame .sb-label {
+        font-size: 8.5px;
+      }
+
+      .game-card {
+        padding: 14px 12px 12px;
+      }
+
+      .game-card::before {
+        left: 10px;
+        font-size: 10px;
+      }
+
+      .game-header {
+        font-size: 11px;
+      }
+
+      .hero-role {
+        font-size: 13.5px;
+      }
+
+      .ascii-rule {
+        margin: 36px 0;
+        font-size: 11px;
+      }
     }
   </style>
-<script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -858,63 +1162,12 @@
       <p class="hero-name-th" data-th="ประวีร์ สินวีรุทัย (สมาร์ท)" data-en="(smart)">ประวีร์ สินวีรุทัย (สมาร์ท)</p>
 
       <p class="hero-role"
-         data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng)&#10;ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล"
-         data-en="m.d.-m.eng candidate&#10;at ramathibodi hospital, mahidol university">นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng)
-ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</p>
+        data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng)&#10;ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล"
+        data-en="m.d.-m.eng candidate&#10;at ramathibodi hospital, mahidol university">นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์
+        (m.d.-m.eng)
+        ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</p>
     </section>
 
-    <!-- ELSEWHERE / SOCIAL LINKS -->
-    <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="elsewhere">ช่องทางติดต่อ</p>
-    <div class="link-list" data-reveal>
-      <a class="link-row em" href="mailto:prawee.sin@gmail.com">
-        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><polyline points="3 7 12 13 21 7"/></svg>
-        <div class="link-body">
-          <div class="link-platform">email</div>
-          <div class="link-handle">prawee.sin@gmail.com</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-row fb" href="https://www.facebook.com/smprv/" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path class="filled" d="M14 12V9.5c0-.5.5-1 1-1h2V5h-2.5c-2 0-3.5 1.5-3.5 3.5V12H9v3h2v6h3v-6h2.5l.5-3H14z"/></svg>
-        <div class="link-body">
-          <div class="link-platform">facebook</div>
-          <div class="link-handle">facebook.com/smprv</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-row tt" href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2 2 4 5 4"/></svg>
-        <div class="link-body">
-          <div class="link-platform">tiktok</div>
-          <div class="link-handle">@prawees</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-row ig" href="https://www.instagram.com/smprv" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="0"/><circle cx="12" cy="12" r="4.5"/><rect class="filled" x="17" y="6" width="1.6" height="1.6"/></svg>
-        <div class="link-body">
-          <div class="link-platform">instagram</div>
-          <div class="link-handle">@smprv</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-row yt" href="https://www.youtube.com/smprv" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><polygon class="filled" points="10 9 16 12 10 15"/></svg>
-        <div class="link-body">
-          <div class="link-platform">youtube</div>
-          <div class="link-handle">@smprv</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-row ss" href="https://blog.prawees.com" target="_blank" rel="noopener">
-        <svg class="ico" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="11" x2="20" y2="11"/><line x1="4" y1="16" x2="20" y2="16"/></svg>
-        <div class="link-body">
-          <div class="link-platform">substack</div>
-          <div class="link-handle" data-th="เกือบจะสมาร์ทละ · blog.prawees.com" data-en="almost smart · blog.prawees.com">เกือบจะสมาร์ทละ · blog.prawees.com</div>
-        </div>
-        <span class="link-arrow">→</span>
-      </a>
-    </div>
 
     <!-- PROJECTS -->
     <p class="comment" data-reveal data-th="โปรเจกต์ของผม" data-en="things i&#39;m building">โปรเจกต์ของผม</p>
@@ -923,12 +1176,12 @@
       <a href="about/" class="proj" data-reveal>
         <!-- pixel person / about -->
         <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px"      x="6" y="2" width="4" height="4"/>
-          <rect class="px-mid"  x="7" y="6" width="2" height="1"/>
-          <rect class="px"      x="3" y="7" width="10" height="3"/>
-          <rect class="px"      x="2" y="10" width="12" height="5"/>
-          <rect class="px-soft" x="2" y="10" width="1" height="1"/>
-          <rect class="px-soft" x="13" y="10" width="1" height="1"/>
+          <rect class="px" x="6" y="2" width="4" height="4" />
+          <rect class="px-mid" x="7" y="6" width="2" height="1" />
+          <rect class="px" x="3" y="7" width="10" height="3" />
+          <rect class="px" x="2" y="10" width="12" height="5" />
+          <rect class="px-soft" x="2" y="10" width="1" height="1" />
+          <rect class="px-soft" x="13" y="10" width="1" height="1" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
@@ -936,26 +1189,25 @@
             <span class="proj-title" data-th="รู้จักสมาร์ท" data-en="about smart">รู้จักสมาร์ท</span>
             <span class="proj-title-en" data-th="about smart" data-en="(the long version)">about smart</span>
           </div>
-          <div class="proj-desc"
-               data-th="ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ"
-               data-en="background, work, interests, contact">
-               ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ</div>
+          <div class="proj-desc" data-th="ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ"
+            data-en="background, work, interests, contact">
+            ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ</div>
         </div>
         <div class="proj-url">about/ →</div>
       </a>
 
       <a href="https://gwajapen.prawees.com" class="proj" data-reveal>
         <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px-soft" x="0"  y="13" width="16" height="1"/>
-          <rect class="px-mid"  x="2"  y="11" width="2" height="2"/>
-          <rect class="px-mid"  x="4"  y="9"  width="2" height="2"/>
-          <rect class="px"      x="6"  y="7"  width="2" height="2"/>
-          <rect class="px"      x="8"  y="5"  width="2" height="2"/>
-          <rect class="px-mid"  x="10" y="7"  width="2" height="2"/>
-          <rect class="px-mid"  x="12" y="9"  width="2" height="2"/>
-          <rect class="px-soft" x="14" y="11" width="2" height="2"/>
-          <rect class="px"      x="8"  y="3"  width="2" height="2"/>
-          <rect class="px"      x="9"  y="1"  width="1" height="2"/>
+          <rect class="px-soft" x="0" y="13" width="16" height="1" />
+          <rect class="px-mid" x="2" y="11" width="2" height="2" />
+          <rect class="px-mid" x="4" y="9" width="2" height="2" />
+          <rect class="px" x="6" y="7" width="2" height="2" />
+          <rect class="px" x="8" y="5" width="2" height="2" />
+          <rect class="px-mid" x="10" y="7" width="2" height="2" />
+          <rect class="px-mid" x="12" y="9" width="2" height="2" />
+          <rect class="px-soft" x="14" y="11" width="2" height="2" />
+          <rect class="px" x="8" y="3" width="2" height="2" />
+          <rect class="px" x="9" y="1" width="1" height="2" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
@@ -964,26 +1216,26 @@
             <span class="proj-title-en" data-th="gwa-ja-pen" data-en="(unfiltered interviews)">gwa-ja-pen</span>
           </div>
           <div class="proj-desc"
-               data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ที่กว่าจะมาถึงตรงนี้ต้องเจออะไรมาบ้าง"
-               data-en="interview series with seniors and experts on the path it took to get where they are now">
-               ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ที่กว่าจะมาถึงตรงนี้ต้องเจออะไรมาบ้าง</div>
+            data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ที่กว่าจะมาถึงตรงนี้ต้องเจออะไรมาบ้าง"
+            data-en="interview series with seniors and experts on the path it took to get where they are now">
+            ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ ที่กว่าจะมาถึงตรงนี้ต้องเจออะไรมาบ้าง</div>
         </div>
         <div class="proj-url">gwajapen.prawees.com →</div>
       </a>
 
       <a href="https://ramathonrun.prawees.com" class="proj" data-reveal>
         <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="7"  y="1"  width="3" height="3"/>
-          <rect class="px" x="6"  y="4"  width="5" height="3"/>
-          <rect class="px" x="4"  y="5"  width="2" height="1"/>
-          <rect class="px" x="11" y="5"  width="2" height="1"/>
-          <rect class="px" x="12" y="6"  width="1" height="2"/>
-          <rect class="px" x="5"  y="7"  width="2" height="3"/>
-          <rect class="px" x="8"  y="7"  width="2" height="3"/>
-          <rect class="px" x="3"  y="10" width="2" height="2"/>
-          <rect class="px" x="10" y="10" width="2" height="2"/>
-          <rect class="px" x="2"  y="12" width="3" height="1"/>
-          <rect class="px" x="11" y="12" width="3" height="1"/>
+          <rect class="px" x="7" y="1" width="3" height="3" />
+          <rect class="px" x="6" y="4" width="5" height="3" />
+          <rect class="px" x="4" y="5" width="2" height="1" />
+          <rect class="px" x="11" y="5" width="2" height="1" />
+          <rect class="px" x="12" y="6" width="1" height="2" />
+          <rect class="px" x="5" y="7" width="2" height="3" />
+          <rect class="px" x="8" y="7" width="2" height="3" />
+          <rect class="px" x="3" y="10" width="2" height="2" />
+          <rect class="px" x="10" y="10" width="2" height="2" />
+          <rect class="px" x="2" y="12" width="3" height="1" />
+          <rect class="px" x="11" y="12" width="3" height="1" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
@@ -991,20 +1243,19 @@
             <span class="proj-title" data-th="รามาธอน" data-en="ramathon run club">รามาธอน</span>
             <span class="proj-title-en" data-th="ramathon" data-en="(running club)">ramathon</span>
           </div>
-          <div class="proj-desc"
-               data-th="งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ จัดประจำทุกปี"
-               data-en="annual online running event for the ramathibodi community">
-               งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ จัดประจำทุกปี</div>
+          <div class="proj-desc" data-th="งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ จัดประจำทุกปี"
+            data-en="annual online running event for the ramathibodi community">
+            งานวิ่งออนไลน์สำหรับชาวรามาธิบดีฯ จัดประจำทุกปี</div>
         </div>
         <div class="proj-url">ramathonrun.prawees.com →</div>
       </a>
 
       <a href="https://priority.prawees.com" class="proj" data-reveal>
         <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px"      x="1"  y="1"  width="6" height="6"/>
-          <rect class="px-mid"  x="9"  y="1"  width="6" height="6"/>
-          <rect class="px-mid"  x="1"  y="9"  width="6" height="6"/>
-          <rect class="px-soft" x="9"  y="9"  width="6" height="6"/>
+          <rect class="px" x="1" y="1" width="6" height="6" />
+          <rect class="px-mid" x="9" y="1" width="6" height="6" />
+          <rect class="px-mid" x="1" y="9" width="6" height="6" />
+          <rect class="px-soft" x="9" y="9" width="6" height="6" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
@@ -1012,28 +1263,27 @@
             <span class="proj-title">priority</span>
             <span class="proj-title-en" data-th="" data-en="(eisenhower matrix)"></span>
           </div>
-          <div class="proj-desc"
-               data-th="เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix"
-               data-en="a minimal web app to prioritise life using the eisenhower matrix">
-               เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix</div>
+          <div class="proj-desc" data-th="เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix"
+            data-en="a minimal web app to prioritise life using the eisenhower matrix">
+            เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix</div>
         </div>
         <div class="proj-url">priority.prawees.com →</div>
       </a>
 
       <a href="https://wisdom.prawees.com" class="proj" data-reveal target="_blank" rel="noopener">
         <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px"     x="7"  y="1"  width="2" height="2"/>
-          <rect class="px-mid" x="7"  y="3"  width="2" height="3"/>
-          <rect class="px-mid" x="3"  y="6"  width="6" height="1"/>
-          <rect class="px-mid" x="7"  y="6"  width="6" height="1"/>
-          <rect class="px-mid" x="3"  y="6"  width="1" height="3"/>
-          <rect class="px-mid" x="12" y="6"  width="1" height="3"/>
-          <rect class="px"     x="2"  y="9"  width="3" height="3"/>
-          <rect class="px"     x="11" y="9"  width="3" height="3"/>
-          <rect class="px-soft" x="1" y="12" width="2" height="2"/>
-          <rect class="px-soft" x="4" y="12" width="2" height="2"/>
-          <rect class="px-soft" x="10" y="12" width="2" height="2"/>
-          <rect class="px-soft" x="13" y="12" width="2" height="2"/>
+          <rect class="px" x="7" y="1" width="2" height="2" />
+          <rect class="px-mid" x="7" y="3" width="2" height="3" />
+          <rect class="px-mid" x="3" y="6" width="6" height="1" />
+          <rect class="px-mid" x="7" y="6" width="6" height="1" />
+          <rect class="px-mid" x="3" y="6" width="1" height="3" />
+          <rect class="px-mid" x="12" y="6" width="1" height="3" />
+          <rect class="px" x="2" y="9" width="3" height="3" />
+          <rect class="px" x="11" y="9" width="3" height="3" />
+          <rect class="px-soft" x="1" y="12" width="2" height="2" />
+          <rect class="px-soft" x="4" y="12" width="2" height="2" />
+          <rect class="px-soft" x="10" y="12" width="2" height="2" />
+          <rect class="px-soft" x="13" y="12" width="2" height="2" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
@@ -1042,23 +1292,23 @@
             <span class="proj-title-en" data-th="" data-en="(decisions sim)"></span>
           </div>
           <div class="proj-desc"
-               data-th="เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลความคิด"
-               data-en="a life simulation game on decision-making, cognitive biases, and mental models">
-               เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลความคิด</div>
+            data-th="เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลความคิด"
+            data-en="a life simulation game on decision-making, cognitive biases, and mental models">
+            เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลความคิด</div>
         </div>
         <div class="proj-url">wisdom.prawees.com →</div>
       </a>
 
       <a href="https://blog.prawees.com" class="proj" data-reveal target="_blank" rel="noopener">
         <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="2"  y="2"  width="6" height="12"/>
-          <rect class="px" x="8"  y="2"  width="6" height="12"/>
-          <rect class="px-soft" x="3"  y="4" width="4" height="1"/>
-          <rect class="px-soft" x="3"  y="6" width="4" height="1"/>
-          <rect class="px-soft" x="3"  y="8" width="3" height="1"/>
-          <rect class="px-soft" x="9"  y="4" width="4" height="1"/>
-          <rect class="px-soft" x="9"  y="6" width="4" height="1"/>
-          <rect class="px-soft" x="9"  y="8" width="3" height="1"/>
+          <rect class="px" x="2" y="2" width="6" height="12" />
+          <rect class="px" x="8" y="2" width="6" height="12" />
+          <rect class="px-soft" x="3" y="4" width="4" height="1" />
+          <rect class="px-soft" x="3" y="6" width="4" height="1" />
+          <rect class="px-soft" x="3" y="8" width="3" height="1" />
+          <rect class="px-soft" x="9" y="4" width="4" height="1" />
+          <rect class="px-soft" x="9" y="6" width="4" height="1" />
+          <rect class="px-soft" x="9" y="8" width="3" height="1" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
@@ -1066,10 +1316,9 @@
             <span class="proj-title" data-th="เกือบจะสมาร์ทละ" data-en="almost smart">เกือบจะสมาร์ทละ</span>
             <span class="proj-title-en" data-th="almost smart" data-en="(substack)">almost smart</span>
           </div>
-          <div class="proj-desc"
-               data-th="บล็อกบน substack บันทึกเรื่องราวระหว่างเรียนแพทย์-วิศวะ"
-               data-en="a substack journal of notes from medical and engineering school">
-               บล็อกบน substack บันทึกเรื่องราวระหว่างเรียนแพทย์-วิศวะ</div>
+          <div class="proj-desc" data-th="บล็อกบน substack บันทึกเรื่องราวระหว่างเรียนแพทย์-วิศวะ"
+            data-en="a substack journal of notes from medical and engineering school">
+            บล็อกบน substack บันทึกเรื่องราวระหว่างเรียนแพทย์-วิศวะ</div>
         </div>
         <div class="proj-url">blog.prawees.com →</div>
       </a>
@@ -1078,36 +1327,38 @@
         <!-- pixel lightbulb with innovation rays -->
         <svg class="pixel-icon" viewBox="0 0 16 16">
           <!-- bulb -->
-          <rect class="px"      x="5" y="2" width="6" height="1"/>
-          <rect class="px"      x="4" y="3" width="8" height="6"/>
-          <rect class="px"      x="5" y="9" width="6" height="1"/>
+          <rect class="px" x="5" y="2" width="6" height="1" />
+          <rect class="px" x="4" y="3" width="8" height="6" />
+          <rect class="px" x="5" y="9" width="6" height="1" />
           <!-- filament glow -->
-          <rect class="px-soft" x="6" y="4" width="1" height="1"/>
-          <rect class="px-soft" x="9" y="4" width="1" height="1"/>
-          <rect class="px-soft" x="7" y="6" width="2" height="1"/>
+          <rect class="px-soft" x="6" y="4" width="1" height="1" />
+          <rect class="px-soft" x="9" y="4" width="1" height="1" />
+          <rect class="px-soft" x="7" y="6" width="2" height="1" />
           <!-- base / screw -->
-          <rect class="px-mid"  x="6" y="10" width="4" height="1"/>
-          <rect class="px-mid"  x="6" y="11" width="4" height="1"/>
-          <rect class="px-mid"  x="6" y="12" width="4" height="1"/>
-          <rect class="px-mid"  x="7" y="13" width="2" height="1"/>
+          <rect class="px-mid" x="6" y="10" width="4" height="1" />
+          <rect class="px-mid" x="6" y="11" width="4" height="1" />
+          <rect class="px-mid" x="6" y="12" width="4" height="1" />
+          <rect class="px-mid" x="7" y="13" width="2" height="1" />
           <!-- innovation rays -->
-          <rect class="px-soft" x="0" y="5"  width="2" height="1"/>
-          <rect class="px-soft" x="14" y="5" width="2" height="1"/>
-          <rect class="px-soft" x="1" y="2"  width="1" height="1"/>
-          <rect class="px-soft" x="14" y="2" width="1" height="1"/>
-          <rect class="px-soft" x="2" y="0"  width="1" height="1"/>
-          <rect class="px-soft" x="13" y="0" width="1" height="1"/>
+          <rect class="px-soft" x="0" y="5" width="2" height="1" />
+          <rect class="px-soft" x="14" y="5" width="2" height="1" />
+          <rect class="px-soft" x="1" y="2" width="1" height="1" />
+          <rect class="px-soft" x="14" y="2" width="1" height="1" />
+          <rect class="px-soft" x="2" y="0" width="1" height="1" />
+          <rect class="px-soft" x="13" y="0" width="1" height="1" />
         </svg>
         <div class="proj-body">
           <div class="proj-titlebar">
             <span class="proj-num">06</span>
             <span class="proj-title">rama g7</span>
-            <span class="proj-title-en" data-th="แหล่งรวมตัวแพทย์นวัตกร" data-en="(med innovators)">แหล่งรวมตัวแพทย์นวัตกร</span>
+            <span class="proj-title-en" data-th="แหล่งรวมตัวแพทย์นวัตกร"
+              data-en="(med innovators)">แหล่งรวมตัวแพทย์นวัตกร</span>
           </div>
           <div class="proj-desc"
-               data-th="พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง"
-               data-en="a community space for ramathibodi medical students turning curiosity into innovations that change lives">
-               พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง</div>
+            data-th="พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง"
+            data-en="a community space for ramathibodi medical students turning curiosity into innovations that change lives">
+            พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี
+            ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง</div>
         </div>
         <div class="proj-url">g7club.org →</div>
       </a>
@@ -1115,10 +1366,12 @@
     </div>
 
     <!-- ASCII RULE -->
-    <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·</div>
+    <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
+    </div>
 
     <!-- MINI RUNNER GAME -->
-    <p class="comment" data-reveal data-th="take a break, run a little" data-en="take a break, run a little">take a break, run a little</p>
+    <p class="comment" data-reveal data-th="take a break, run a little" data-en="take a break, run a little">take a
+      break, run a little</p>
     <div class="game-card" data-reveal>
       <div class="game-header">
         <span class="game-title">prawee_runner.exe</span>
@@ -1132,9 +1385,26 @@
       </div>
     </div>
 
-    <p style="font-family:'IBM Plex Mono','IBM Plex Sans Thai',monospace;font-size:13.5px;color:var(--ink-mid);margin-top:48px;" data-reveal>
-      <span data-th="อยากรู้เรื่องของผมมากกว่านี้ → " data-en="want the long version → ">อยากรู้เรื่องของผมมากกว่านี้ → </span><a href="about/">about/</a>
+    <p style="font-family:'IBM Plex Mono','IBM Plex Sans Thai',monospace;font-size:13.5px;color:var(--ink-mid);margin-top:48px;"
+      data-reveal>
+      <span data-th="อยากรู้เรื่องของผมมากกว่านี้ → " data-en="want the long version → ">อยากรู้เรื่องของผมมากกว่านี้ →
+      </span><a href="about/">about/</a>
     </p>
+
+    <!-- SOCIAL STRIP -->
+    <div class="social-strip" data-reveal>
+      <a class="ss-link" href="mailto:prawee.sin@gmail.com">email</a>
+      <span class="ss-sep">/</span>
+      <a class="ss-link" href="https://www.facebook.com/smprv/" target="_blank" rel="noopener">facebook</a>
+      <span class="ss-sep">/</span>
+      <a class="ss-link" href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener">tiktok</a>
+      <span class="ss-sep">/</span>
+      <a class="ss-link" href="https://www.instagram.com/smprv" target="_blank" rel="noopener">instagram</a>
+      <span class="ss-sep">/</span>
+      <a class="ss-link" href="https://www.youtube.com/smprv" target="_blank" rel="noopener">youtube</a>
+      <span class="ss-sep">/</span>
+      <a class="ss-link" href="https://blog.prawees.com" target="_blank" rel="noopener">substack</a>
+    </div>
 
     <!-- FOOTER -->
     <footer class="foot">
@@ -1207,14 +1477,14 @@
             const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (prefersReduced) return;
 
-            const styles = ['s-cyber','s-coral','s-pixel','s-film','s-blue','s-holo','s-vapor','s-stamp','s-marquee','s-zine','s-mint','s-acid','s-paper'];
-            const anims  = ['anim-glitch','anim-flip','anim-slide','anim-spin','anim-type','anim-bounce'];
+            const styles = ['s-cyber', 's-coral', 's-pixel', 's-film', 's-blue', 's-holo', 's-vapor', 's-stamp', 's-marquee', 's-zine', 's-mint', 's-acid', 's-paper'];
+            const anims = ['anim-glitch', 'anim-flip', 'anim-slide', 'anim-spin', 'anim-type', 'anim-bounce'];
             let idx = 1;
             let aIdx = 0;
 
             function shuffleNext() {
               const nextStyle = styles[idx % styles.length];
-              const nextAnim  = anims[aIdx % anims.length];
+              const nextAnim = anims[aIdx % anims.length];
               styles.forEach(s => cyber.classList.remove(s));
               anims.forEach(a => cyber.classList.remove(a));
               // force reflow so animation re-triggers
@@ -1243,4 +1513,5 @@
     document.body.className = 'lang-th';
   </script>
 </body>
+
 </html>
