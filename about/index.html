@@ -680,6 +680,97 @@
       user-select: none;
     }
 
+    /* ── CONTACT LABEL ── */
+    .comment {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .comment::before {
+      content: '▸';
+      color: var(--link);
+      font-size: 12px;
+      transform: translateY(-1px);
+    }
+
+    /* ── SOCIAL STRIP (minimal) ── */
+    .social-strip {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 48px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .ss-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ss-item:hover {
+      padding-left: 10px;
+    }
+
+    .ss-platform {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--pc);
+      flex-shrink: 0;
+    }
+
+    .ss-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .ss-handle {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.2s;
+    }
+
+    .ss-item:hover .ss-handle {
+      color: var(--pc);
+    }
+
+    .ss-arrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      color: var(--ink-muted);
+      opacity: 0.25;
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s;
+      transform: translateX(-4px);
+    }
+
+    .ss-item:hover .ss-arrow {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--pc);
+    }
+
     /* ── FOOTER ── */
     .foot {
       margin-top: 64px;
@@ -1157,14 +1248,55 @@
     <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
     </div>
 
+    <!-- CONTACT -->
+    <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
+    <div class="social-strip" data-reveal>
+      <a class="ss-item" href="mailto:prawee.sin@gmail.com" style="--pc:#3B5FC0">
+        <span class="ss-platform">email</span>
+        <span class="ss-right">
+          <span class="ss-handle">prawee.sin@gmail.com</span>
+          <span class="ss-arrow">→</span>
+        </span>
+      </a>
+      <a class="ss-item" href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" style="--pc:#1877F2">
+        <span class="ss-platform">facebook</span>
+        <span class="ss-right">
+          <span class="ss-handle">facebook.com/smprv</span>
+          <span class="ss-arrow">→</span>
+        </span>
+      </a>
+      <a class="ss-item" href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" style="--pc:#FE2C55">
+        <span class="ss-platform">tiktok</span>
+        <span class="ss-right">
+          <span class="ss-handle">@prawees</span>
+          <span class="ss-arrow">→</span>
+        </span>
+      </a>
+      <a class="ss-item" href="https://www.instagram.com/smprv" target="_blank" rel="noopener" style="--pc:#C13584">
+        <span class="ss-platform">instagram</span>
+        <span class="ss-right">
+          <span class="ss-handle">@smprv</span>
+          <span class="ss-arrow">→</span>
+        </span>
+      </a>
+      <a class="ss-item" href="https://www.youtube.com/smprv" target="_blank" rel="noopener" style="--pc:#FF0000">
+        <span class="ss-platform">youtube</span>
+        <span class="ss-right">
+          <span class="ss-handle">@smprv</span>
+          <span class="ss-arrow">→</span>
+        </span>
+      </a>
+      <a class="ss-item" href="https://blog.prawees.com" target="_blank" rel="noopener" style="--pc:#FF6719">
+        <span class="ss-platform">substack</span>
+        <span class="ss-right">
+          <span class="ss-handle">blog.prawees.com</span>
+          <span class="ss-arrow">→</span>
+        </span>
+      </a>
+    </div>
+
     <!-- FOOTER -->
     <footer class="foot">
-      <div class="foot-links">
-        <a href="mailto:prawee.sin@gmail.com">email</a>
-        <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener">youtube</a>
-        <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener">tiktok</a>
-        <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener">instagram</a>
-      </div>
       <span class="blink">© 2026 prawees</span>
     </footer>
 
