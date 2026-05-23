@@ -4,7 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>about — prawee sinweeruthai / ประวีร์ สินวีรุทัย</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>prawee / about — prawee sinweeruthai / ประวีร์ สินวีรุทัย</title>
   <meta name="description" content="about prawee sinweeruthai (smart). m.d.-m.eng student at ramathibodi mahidol.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
 
@@ -656,16 +659,30 @@
 
     .song-lyrics {
       margin-top: 28px;
-      padding: 6px 0 6px 24px;
-      background: none;
-      border-left: 1.5px solid rgba(176, 112, 144, 0.30);
-      font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
-      font-style: italic;
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--ink-mid);
-      line-height: 2.3;
+      padding: 32px 36px;
+      background: #FDFBF7;
+      border: 1px solid #E8E4D9;
+      box-shadow: 2px 6px 16px rgba(0,0,0,0.04), inset 0 0 60px rgba(230,220,200,0.15);
+      font-family: 'IBM Plex Sans Thai Looped', 'IBM Plex Sans Thai', sans-serif;
+      font-size: 14.5px;
+      color: #4A453E;
+      line-height: 2.2;
       white-space: pre-line;
+      border-radius: 2px 8px 4px 20px;
+      position: relative;
+      transform: rotate(-1deg);
+      max-width: 440px;
+    }
+    
+    .song-lyrics::before {
+      content: '';
+      position: absolute;
+      top: -10px; left: 50%;
+      transform: translateX(-50%) rotate(2deg);
+      width: 50px; height: 20px;
+      background: rgba(220, 215, 200, 0.7);
+      border-radius: 2px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
 
     /* ── ASCII RULE ── */
@@ -702,74 +719,33 @@
     }
 
     /* ── SOCIAL STRIP (minimal) ── */
-    .social-strip {
+    .social-links-minimal {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 48px;
-      border-top: 1px solid var(--rule);
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      margin-bottom: 56px;
+      margin-top: 16px;
     }
-
-    .ss-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--rule);
-      text-decoration: none;
-      color: inherit;
-      transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .ss-item:hover {
-      padding-left: 10px;
-    }
-
-    .ss-platform {
+    
+    .sl-link {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--pc);
-      flex-shrink: 0;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
     }
-
-    .ss-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
+    
+    .sl-link:hover {
+      opacity: 0.7;
+      transform: translateY(-2px);
     }
-
-    .ss-handle {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition: color 0.2s;
-    }
-
-    .ss-item:hover .ss-handle {
-      color: var(--pc);
-    }
-
-    .ss-arrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 14px;
-      color: var(--ink-muted);
-      opacity: 0.25;
-      flex-shrink: 0;
-      transition: opacity 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s;
-      transform: translateX(-4px);
-    }
-
-    .ss-item:hover .ss-arrow {
-      opacity: 1;
-      transform: translateX(0);
-      color: var(--pc);
-    }
+    
+    .sl-link.email { color: #3B5FC0; }
+    .sl-link.fb { color: #1877F2; }
+    .sl-link.tiktok { color: #FE2C55; }
+    .sl-link.ig { color: #C13584; }
+    .sl-link.yt { color: #FF0000; }
+    .sl-link.sub { color: #FF6719; }
 
     /* ── FOOTER ── */
     .foot {
@@ -1227,10 +1203,8 @@
           data-en="this is a song i wrote. give it a listen.">
           และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ
         </p>
-        <div class="spotify-wrap">
-          <iframe src="https://open.spotify.com/embed/track/5s0yqiQ1NFUyBXtuzesxcN#0:11" width="100%" height="152"
-            frameborder="0" loading="lazy" allowfullscreen
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <div class="spotify-wrap" style="aspect-ratio: 16/9; max-width: 560px;">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/L3EMVOHlbq4?si=I_ZUzLsvCx3JCkCq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
         <div class="song-lyrics">เธอบอกคืนนี้ เป็นอีกคืนที่ฉันนั้นนอนละเมอ
           ตั้งแต่แก่ตัว ฉันก็เริ่มคิดวน พูดจาพร่ำเพ้อ
@@ -1249,51 +1223,15 @@
     <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
     </div>
 
-    <!-- CONTACT -->
+    <!-- SOCIAL STRIP -->
     <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
-    <div class="social-strip" data-reveal>
-      <a class="ss-item" href="mailto:prawee.sin@gmail.com" style="--pc:#3B5FC0">
-        <span class="ss-platform">email</span>
-        <span class="ss-right">
-          <span class="ss-handle">prawee.sin@gmail.com</span>
-          <span class="ss-arrow">→</span>
-        </span>
-      </a>
-      <a class="ss-item" href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" style="--pc:#1877F2">
-        <span class="ss-platform">facebook</span>
-        <span class="ss-right">
-          <span class="ss-handle">facebook.com/smprv</span>
-          <span class="ss-arrow">→</span>
-        </span>
-      </a>
-      <a class="ss-item" href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" style="--pc:#FE2C55">
-        <span class="ss-platform">tiktok</span>
-        <span class="ss-right">
-          <span class="ss-handle">@prawees</span>
-          <span class="ss-arrow">→</span>
-        </span>
-      </a>
-      <a class="ss-item" href="https://www.instagram.com/smprv" target="_blank" rel="noopener" style="--pc:#C13584">
-        <span class="ss-platform">instagram</span>
-        <span class="ss-right">
-          <span class="ss-handle">@smprv</span>
-          <span class="ss-arrow">→</span>
-        </span>
-      </a>
-      <a class="ss-item" href="https://www.youtube.com/smprv" target="_blank" rel="noopener" style="--pc:#FF0000">
-        <span class="ss-platform">youtube</span>
-        <span class="ss-right">
-          <span class="ss-handle">@smprv</span>
-          <span class="ss-arrow">→</span>
-        </span>
-      </a>
-      <a class="ss-item" href="https://blog.prawees.com" target="_blank" rel="noopener" style="--pc:#FF6719">
-        <span class="ss-platform">substack</span>
-        <span class="ss-right">
-          <span class="ss-handle">blog.prawees.com</span>
-          <span class="ss-arrow">→</span>
-        </span>
-      </a>
+    <div class="social-links-minimal" data-reveal>
+      <a href="mailto:prawee.sin@gmail.com" class="sl-link email">email</a>
+      <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" class="sl-link fb">facebook</a>
+      <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">tiktok</a>
+      <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">instagram</a>
+      <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">youtube</a>
+      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">substack</a>
     </div>
 
     <!-- FOOTER -->
