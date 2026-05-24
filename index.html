@@ -1119,6 +1119,7 @@
 </head>
 
 <body class="lang-th">
+  <h1 class="hero-greeting" id="hero-greeting">hi, i'm smart</h1>
   <div class="ambient" aria-hidden="true">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -1168,7 +1169,6 @@
 
     <!-- HERO -->
     <section class="hero" data-reveal style="--rd: 80ms;">
-      <h1 class="hero-greeting" id="hero-greeting">hi, i'm smart</h1>
 
       <p class="hero-name">prawee sinweeruthai</p>
       <p class="hero-name-th" data-th="ประวีร์ สินวีรุทัย (สมาร์ท)" data-en="(smart)">ประวีร์ สินวีรุทัย (สมาร์ท)</p>
@@ -1488,20 +1488,29 @@
 
             const styles = ['s-cyber', 's-coral', 's-pixel', 's-film', 's-blue', 's-holo', 's-vapor', 's-stamp', 's-marquee', 's-zine', 's-mint', 's-acid', 's-paper'];
             const anims = ['anim-glitch', 'anim-flip', 'anim-slide', 'anim-spin', 'anim-type', 'anim-bounce'];
-            let idx = 1;
-            let aIdx = 0;
-
+            let lastStyleIdx = -1;
+            let lastAnimIdx = -1;
             function shuffleNext() {
-              const nextStyle = styles[idx % styles.length];
-              const nextAnim = anims[aIdx % anims.length];
+              let nextStyleIdx;
+              do {
+                nextStyleIdx = Math.floor(Math.random() * styles.length);
+              } while (nextStyleIdx === lastStyleIdx);
+              lastStyleIdx = nextStyleIdx;
+
+              let nextAnimIdx;
+              do {
+                nextAnimIdx = Math.floor(Math.random() * anims.length);
+              } while (nextAnimIdx === lastAnimIdx);
+              lastAnimIdx = nextAnimIdx;
+
+              const nextStyle = styles[nextStyleIdx];
+              const nextAnim = anims[nextAnimIdx];
               styles.forEach(s => cyber.classList.remove(s));
               anims.forEach(a => cyber.classList.remove(a));
               // force reflow so animation re-triggers
               void cyber.offsetWidth;
               cyber.classList.add(nextStyle);
               cyber.classList.add(nextAnim);
-              idx++;
-              aIdx = (aIdx + 1 + Math.floor(Math.random() * 2)) % anims.length;
             }
             setTimeout(() => {
               setInterval(shuffleNext, 2500);
