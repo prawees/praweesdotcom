@@ -148,7 +148,7 @@
     .wrap {
       max-width: 760px;
       margin: 0 auto;
-      padding: 64px 32px 96px;
+      padding: 60px 32px 96px;
     }
 
     /* ── TOP: BREADCRUMB + LANG ── */
@@ -219,25 +219,29 @@
 
     .hero-greeting {
       position: fixed;
-      top: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
       font-weight: 200;
-      font-size: clamp(28px, 4.5vw, 40px);
+      font-size: clamp(18px, 2.5vw, 28px);
       line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--ink);
-      margin-bottom: 0;
-      min-height: 1.2em;
-      white-space: nowrap;
-      text-shadow: 
-        0 0 10px rgba(255, 255, 255, 1),
-        0 0 20px rgba(255, 255, 255, 1),
-        0 0 30px rgba(255, 255, 255, 0.8),
-        0 4px 12px rgba(255, 255, 255, 0.9);
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 100%);
+      border-bottom: 1px solid var(--rule);
       pointer-events: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6);
     }
 
     .hero-name {
@@ -1033,7 +1037,7 @@
     /* ── MOBILE ── */
     @media (max-width: 600px) {
       .wrap {
-        padding: 36px 18px 80px;
+        padding: 60px 18px 80px;
       }
 
       .topbar {
@@ -1102,6 +1106,11 @@
       .ascii-rule {
         margin: 36px 0;
         font-size: 11px;
+      }
+
+      .hero-greeting {
+        height: 50px;
+        font-size: clamp(14px, 2vw, 20px);
       }
     }
   </style>
