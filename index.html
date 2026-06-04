@@ -221,7 +221,7 @@
       display: block;
       font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
       font-weight: 200;
-      font-size: clamp(26px, 4.5vw, 40px);
+      font-size: clamp(34px, 6vw, 48px);
       line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--ink);
@@ -231,16 +231,20 @@
       filter: drop-shadow(0 6px 28px rgba(20, 20, 50, 0.14));
     }
 
+    @keyframes smooth-appear {
+      0% { opacity: 0; filter: blur(4px); transform: scale(0.98); }
+      100% { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+    .cyber-init {
+      animation: smooth-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
     .sticky-bar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 60px;
       z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -256,12 +260,48 @@
       pointer-events: auto;
     }
 
+    .sticky-wrap {
+      width: 100%;
+      max-width: 760px;
+      padding: 0 32px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
     .sticky-greeting {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
       font-weight: 200;
-      font-size: clamp(16px, 2.5vw, 22px);
+      font-size: clamp(20px, 3vw, 26px);
       color: var(--ink);
       white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .sticky-wrap {
+        height: auto;
+        padding: 12px 24px;
+        flex-wrap: wrap;
+      }
+      .sticky-greeting {
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
+        order: -1;
+        margin-bottom: 8px;
+        font-size: 26px;
+      }
+      .sticky-wrap .crumbs,
+      .sticky-wrap .lang {
+        font-size: 13px;
+      }
     }
 
     .hero-name {
@@ -1149,7 +1189,22 @@
 
 <body class="lang-th">
   <div class="sticky-bar" id="sticky-bar">
-    <span class="sticky-greeting" id="sticky-greeting">hi, i'm smart</span>
+    <div class="sticky-wrap">
+      <div class="crumbs">
+        <span class="here">home</span>
+        <span class="slash">/</span>
+        <a href="about/">about</a>
+        <span class="slash">/</span>
+        <a href="https://blog.prawees.com">blog</a>
+        <span class="slash">/</span>
+      </div>
+      <span class="sticky-greeting" id="sticky-greeting">hi, i'm smart</span>
+      <div class="lang">
+        <button class="active btn-th" onclick="setLang('th')">th</button>
+        <span class="slash">/</span>
+        <button class="btn-en" onclick="setLang('en')">en</button>
+      </div>
+    </div>
   </div>
   <div class="ambient" aria-hidden="true">
     <div class="blob blob-1"></div>
@@ -1170,9 +1225,9 @@
         <span class="slash">/</span>
       </div>
       <div class="lang">
-        <button id="btn-th" class="active" onclick="setLang('th')">th</button>
+        <button class="active btn-th" onclick="setLang('th')">th</button>
         <span class="slash">/</span>
-        <button id="btn-en" onclick="setLang('en')">en</button>
+        <button class="btn-en" onclick="setLang('en')">en</button>
       </div>
     </div>
 
@@ -1459,8 +1514,8 @@
   <script src="assets/smartie-runner.js"></script>
   <script>
     function setLang(lang) {
-      document.getElementById('btn-th').classList.toggle('active', lang === 'th');
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.querySelectorAll('.btn-th').forEach(el => el.classList.toggle('active', lang === 'th'));
+      document.querySelectorAll('.btn-en').forEach(el => el.classList.toggle('active', lang === 'en'));
       document.body.className = 'lang-' + lang;
       document.querySelectorAll('[data-th]').forEach(el => {
         const val = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
@@ -1514,12 +1569,12 @@
             const txt = greet.textContent;
             greet.innerHTML = txt.replace(
               'Smart',
-              '<span class="cyber s-cyber">Smart</span>'
+              '<span class="cyber s-cyber cyber-init">Smart</span>'
             );
             if (stickyGreet) {
               stickyGreet.innerHTML = txt.replace(
                 'Smart',
-                '<span class="cyber s-cyber">Smart</span>'
+                '<span class="cyber s-cyber cyber-init">Smart</span>'
               );
             }
 
