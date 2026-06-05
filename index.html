@@ -394,6 +394,104 @@
       }
     }
 
+    /* ── COLLAPSIBLES ── */
+    .collapser {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      transition: opacity 0.2s;
+    }
+    .collapser:hover {
+      opacity: 0.7;
+    }
+    .collapser::after {
+      content: '▼';
+      font-size: 10px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .collapser.is-collapsed::after {
+      transform: rotate(-90deg);
+    }
+
+    @keyframes pop-in {
+      0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .projects {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .projects.is-collapsed {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .projects.is-collapsed .proj {
+      display: flex;
+      padding: 10px;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      background: var(--surface);
+      width: auto;
+      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .projects.is-collapsed .proj:nth-child(1) { animation-delay: 0.05s; }
+    .projects.is-collapsed .proj:nth-child(2) { animation-delay: 0.10s; }
+    .projects.is-collapsed .proj:nth-child(3) { animation-delay: 0.15s; }
+    .projects.is-collapsed .proj:nth-child(4) { animation-delay: 0.20s; }
+    .projects.is-collapsed .proj:nth-child(5) { animation-delay: 0.25s; }
+    .projects.is-collapsed .proj:nth-child(6) { animation-delay: 0.30s; }
+    .projects.is-collapsed .proj:nth-child(7) { animation-delay: 0.35s; }
+    .projects.is-collapsed .proj:nth-child(8) { animation-delay: 0.40s; }
+
+    .projects.is-collapsed .proj:hover {
+      border-color: var(--pa, var(--link));
+      transform: translateY(-2px);
+    }
+    .projects.is-collapsed .proj-body,
+    .projects.is-collapsed .proj-url {
+      display: none;
+    }
+    .projects.is-collapsed .pixel-icon {
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .projects.is-collapsed .proj:hover .pixel-icon {
+      transform: scale(1.1);
+    }
+
+    .social-links-minimal {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .social-links-minimal.is-collapsed {
+      gap: 10px;
+    }
+    .social-links-minimal.is-collapsed .sl-link {
+      font-size: 12px;
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid currentColor;
+      border-radius: 20px;
+      opacity: 0;
+      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: all 0.2s;
+    }
+    .social-links-minimal.is-collapsed .sl-link:nth-child(1) { animation-delay: 0.05s; }
+    .social-links-minimal.is-collapsed .sl-link:nth-child(2) { animation-delay: 0.10s; }
+    .social-links-minimal.is-collapsed .sl-link:nth-child(3) { animation-delay: 0.15s; }
+    .social-links-minimal.is-collapsed .sl-link:nth-child(4) { animation-delay: 0.20s; }
+    .social-links-minimal.is-collapsed .sl-link:nth-child(5) { animation-delay: 0.25s; }
+    .social-links-minimal.is-collapsed .sl-link:nth-child(6) { animation-delay: 0.30s; }
+
+    .social-links-minimal.is-collapsed .sl-link:hover {
+      background: currentColor;
+      color: white;
+      transform: scale(1.05);
+    }
+
     /* ── PROJECTS ── */
     .projects {
       display: flex;
@@ -1264,8 +1362,8 @@
 
 
     <!-- PROJECTS -->
-    <p class="comment" data-reveal data-th="โปรเจกต์ของผม" data-en="things i&#39;m building">โปรเจกต์ของผม</p>
-    <div class="projects">
+    <p class="comment collapser" data-target="projects-list" data-reveal data-th="โปรเจกต์ของผม" data-en="things i&#39;m building">โปรเจกต์ของผม</p>
+    <div class="projects" id="projects-list">
 
       <a href="about/" class="proj" data-reveal style="--pa:#C77F3A">
         <!-- pixel person / about -->
@@ -1489,8 +1587,8 @@
     </p>
 
     <!-- SOCIAL STRIP -->
-    <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
-    <div class="social-links-minimal" data-reveal>
+    <p class="comment collapser" data-target="social-list" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
+    <div class="social-links-minimal" id="social-list" data-reveal>
       <a href="mailto:prawee.sin@gmail.com" class="sl-link email">email</a>
       <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" class="sl-link fb">facebook</a>
       <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">tiktok</a>
@@ -1640,6 +1738,18 @@
 
       // Reveal
       setupReveal();
+
+      // Collapsers
+      document.querySelectorAll('.collapser').forEach(el => {
+        el.addEventListener('click', () => {
+          el.classList.toggle('is-collapsed');
+          const targetId = el.getAttribute('data-target');
+          if (targetId) {
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) targetEl.classList.toggle('is-collapsed');
+          }
+        });
+      });
     });
 
     document.getElementById('btn-th').classList.add('active');
