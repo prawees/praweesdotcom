@@ -386,6 +386,62 @@
       display: none;
     }
 
+    /* ── SECTION COLLAPSIBLES ── */
+    .sec-head.collapser {
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s, padding-bottom 0.4s;
+    }
+    .sec-head.collapser:hover {
+      opacity: 0.7;
+    }
+    .sec-head.collapser::after {
+      content: '▼';
+      display: inline-block;
+      font-size: 10px;
+      margin-left: auto;
+      color: var(--sec-ink, var(--link));
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes subtle-nudge {
+      0%, 100% { transform: rotate(-90deg) translateY(0); }
+      10% { transform: rotate(-90deg) translateY(3px); }
+      20% { transform: rotate(-90deg) translateY(0); }
+    }
+    .section.is-collapsed .sec-head.collapser::after {
+      transform: rotate(-90deg);
+      animation: subtle-nudge 4s infinite ease-in-out;
+      animation-delay: 2s;
+    }
+    .section.is-collapsed .sec-head.collapser {
+      border-bottom-color: transparent;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .section.is-collapsed .sec-body {
+      display: none;
+    }
+
+    .sec-overview {
+      display: none;
+      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
+      font-size: 13.5px;
+      color: var(--ink-mid);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+    .section.is-collapsed .sec-overview {
+      display: block;
+      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes pop-in {
+      0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     /* ── PROSE ── */
     .prose {
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
@@ -873,12 +929,16 @@
     </section>
 
     <!-- 01 OVERVIEW -->
-    <section class="section sec-01" data-reveal>
-      <div class="sec-head">
+    <section class="section sec-01 is-collapsed" data-reveal id="sec-01">
+      <div class="sec-head collapser" data-target="sec-01">
         <span class="sec-num">01</span>
         <span class="sec-title" data-th="ภาพรวม" data-en="overview">ภาพรวม</span>
         <span class="sec-rule"></span>
       </div>
+      <div class="sec-overview" data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ รามาธิบดี มหิดล" data-en="m.d.-m.eng student at ramathibodi, mahidol">
+        นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ รามาธิบดี มหิดล
+      </div>
+      <div class="sec-body">
       <p class="prose"
         data-th="ผมชื่อประวีร์ ชื่อเล่นชื่อ 'สมาร์ท' ครับ ผมเป็นนักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่"
         data-en="i'm prawee, also known as smart. i'm a dual-degree m.d.-m.eng candidate at ramathibodi hospital, mahidol university. i'm interested in the intersection of healthcare innovation and digital storytelling, building tools and communities to inspire the next generation.">
@@ -886,15 +946,20 @@
         จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ
         และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่
       </p>
+      </div>
     </section>
 
     <!-- 02 EDUCATION -->
-    <section class="section sec-02" data-reveal>
-      <div class="sec-head">
+    <section class="section sec-02 is-collapsed" data-reveal id="sec-02">
+      <div class="sec-head collapser" data-target="sec-02">
         <span class="sec-num">02</span>
         <span class="sec-title" data-th="การศึกษา" data-en="education">การศึกษา</span>
         <span class="sec-rule"></span>
       </div>
+      <div class="sec-overview" data-th="rama57 m.d.-m.eng02 , mwit28 , pds63 , cud56" data-en="rama57 m.d.-m.eng02 , mwit28 , pds63 , cud56">
+        rama57 m.d.-m.eng02 , mwit28 , pds63 , cud56
+      </div>
+      <div class="sec-body">
       <div class="timeline">
 
         <div class="tl-item">
@@ -938,15 +1003,20 @@
         </div>
 
       </div>
+      </div>
     </section>
 
     <!-- 03 EXPERIENCE -->
-    <section class="section sec-03" data-reveal>
-      <div class="sec-head">
+    <section class="section sec-03 is-collapsed" data-reveal id="sec-03">
+      <div class="sec-head collapser" data-target="sec-03">
         <span class="sec-num">03</span>
         <span class="sec-title" data-th="ประสบการณ์" data-en="experience">ประสบการณ์</span>
         <span class="sec-rule"></span>
       </div>
+      <div class="sec-overview" data-th="mc, นำเสนองานวิจัยระดับนานาชาติ, ประธาน ramathon run club, รองประธาน rama g7" data-en="mc, international researcher, ramathon run club president, vice president rama g7">
+        mc, นำเสนองานวิจัยระดับนานาชาติ, ประธาน ramathon run club, รองประธาน rama g7
+      </div>
+      <div class="sec-body">
       <div class="timeline">
 
         <div class="tl-item">
@@ -1061,15 +1131,20 @@
         </div>
 
       </div>
+      </div>
     </section>
 
     <!-- 04 PORTFOLIO -->
-    <section class="section sec-04" data-reveal>
-      <div class="sec-head">
+    <section class="section sec-04 is-collapsed" data-reveal id="sec-04">
+      <div class="sec-head collapser" data-target="sec-04">
         <span class="sec-num">04</span>
         <span class="sec-title" data-th="ผลงาน" data-en="portfolio">ผลงาน</span>
         <span class="sec-rule"></span>
       </div>
+      <div class="sec-overview" data-th="ครีเอเตอร์ กว่า-จะ-เป็น series, ผู้กำกับหนังสั้น, วิดีโอโปรดักชั่น" data-en="content creator for gwa-ja-pen, short filmmaker, video production">
+        ครีเอเตอร์ กว่า-จะ-เป็น series, ผู้กำกับหนังสั้น, วิดีโอโปรดักชั่น
+      </div>
+      <div class="sec-body">
 
       <div class="portfolio-item">
         <div class="portfolio-title" data-th="กว่า-จะ-เป็น series" data-en="gwa-ja-pen series">กว่า-จะ-เป็น series</div>
@@ -1135,15 +1210,20 @@
           </div>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- 05 INTERESTS / KEY:VALUE -->
-    <section class="section sec-05" data-reveal>
-      <div class="sec-head">
+    <section class="section sec-05 is-collapsed" data-reveal id="sec-05">
+      <div class="sec-head collapser" data-target="sec-05">
         <span class="sec-num">05</span>
         <span class="sec-title" data-th="ความสนใจ" data-en="interests">ความสนใจ</span>
         <span class="sec-rule"></span>
       </div>
+      <div class="sec-overview" data-th="เทคโนโลยีสุขภาพ, สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, ภาพยนตร์อินดี้" data-en="health tech, street photography, alt music, indie films">
+        เทคโนโลยีสุขภาพ, สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, ภาพยนตร์อินดี้
+      </div>
+      <div class="sec-body">
 
       <div class="kv-list">
         <div class="kv-row">
@@ -1174,15 +1254,20 @@
             2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่</span>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- 06 SOUNDTRACK -->
-    <section class="section sec-06" data-reveal>
-      <div class="sec-head">
+    <section class="section sec-06 is-collapsed" data-reveal id="sec-06">
+      <div class="sec-head collapser" data-target="sec-06">
         <span class="sec-num">06</span>
         <span class="sec-title" data-th="เพลง" data-en="soundtrack">เพลง</span>
         <span class="sec-rule"></span>
       </div>
+      <div class="sec-overview" data-th="เพลย์ลิสต์เพลงอ่านหนังสือร่วมกันกว่า 200 เพลง และเพลงที่ผมแต่งเอง" data-en="collaborative 200+ study playlist, and my original music">
+        เพลย์ลิสต์เพลงอ่านหนังสือร่วมกันกว่า 200 เพลง และเพลงที่ผมแต่งเอง
+      </div>
+      <div class="sec-body">
 
       <p class="song-intro"
         data-th="เพลย์ลิสต์นี้รวมมากกว่า 200 เพลง จากเพื่อนๆ ที่ร่วมอ่านหนังสือกับผมกว่า 100 คน ร่วมเข้าไปกดเพิ่มเพลงได้นะครับ :-)"
@@ -1218,6 +1303,7 @@
           ตัวฉันก็ต้องขอโทษจริงๆ
           อย่างน้อยตาของฉันก็ยังได้เห็นหน้าเธอ</div>
       </div>
+      </div>
     </section>
 
     <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
@@ -1231,7 +1317,7 @@
       <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">tiktok</a>
       <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">instagram</a>
       <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">youtube</a>
-      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">substack</a>
+      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">blog</a>
     </div>
 
     <!-- FOOTER -->
@@ -1291,6 +1377,17 @@
       const tag = document.getElementById('hero-tagline');
       if (tag) window.typeText(tag, tag.getAttribute('data-th'), { speed: 16, delay: 250 });
       setupReveal();
+
+      // Collapsers
+      document.querySelectorAll('.collapser').forEach(el => {
+        el.addEventListener('click', () => {
+          const targetId = el.getAttribute('data-target');
+          if (targetId) {
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) targetEl.classList.toggle('is-collapsed');
+          }
+        });
+      });
     });
 
     document.getElementById('btn-th').classList.add('active');
