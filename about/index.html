@@ -386,95 +386,7 @@
       display: none;
     }
 
-    /* ── SECTION COLLAPSIBLES ── */
-    .sec-head.collapser {
-      cursor: pointer;
-      user-select: none;
-      transition: opacity 0.2s, padding-bottom 0.4s;
-    }
-    .sec-head.collapser:hover {
-      opacity: 0.7;
-    }
-    .sec-head.collapser::after {
-      content: '▼';
-      display: inline-block;
-      font-size: 10px;
-      margin-left: auto;
-      color: var(--sec-ink, var(--link));
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    
-    @keyframes subtle-nudge {
-      0%, 100% { transform: rotate(-90deg) translateY(0); }
-      10% { transform: rotate(-90deg) translateY(3px); }
-      20% { transform: rotate(-90deg) translateY(0); }
-    }
-    .section.is-collapsed .sec-head.collapser::after {
-      transform: rotate(-90deg);
-      animation: subtle-nudge 4s infinite ease-in-out;
-      animation-delay: 2s;
-    }
-    .section.is-collapsed .sec-head.collapser {
-      border-bottom-color: transparent;
-      padding-bottom: 0;
-      margin-bottom: 0;
-    }
 
-    .section.is-collapsed .sec-body {
-      display: none;
-    }
-
-    .sec-overview {
-      display: none;
-      margin-top: 14px;
-      margin-bottom: 4px;
-    }
-    .section.is-collapsed .sec-overview {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    
-    .abs-icon {
-      width: 28px;
-      height: 28px;
-      opacity: 0;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .abs-icon:hover {
-      transform: scale(1.15) translateY(-2px);
-    }
-    .abs-icon .px {
-      fill: var(--sec-ink, var(--link));
-    }
-    .abs-icon .px-soft {
-      fill: var(--sec-ink, var(--link));
-      opacity: 0.35;
-    }
-    
-    @keyframes pop-in-shimmer {
-      0% { opacity: 0; transform: translateY(10px) scale(0.98); filter: drop-shadow(0 0 0 transparent); }
-      100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 0 transparent); }
-    }
-    @keyframes shimmer-abs {
-      0%, 100% { filter: drop-shadow(0 0 0 transparent); }
-      50% { filter: drop-shadow(0 0 10px var(--sec-ink, var(--link))); }
-    }
-
-    .section.is-collapsed .abs-icon {
-      animation: pop-in-shimmer 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards, shimmer-abs 3s infinite ease-in-out;
-    }
-    .section.is-collapsed .abs-icon:nth-child(1) { animation-delay: 0.05s, 0s; }
-    .section.is-collapsed .abs-icon:nth-child(2) { animation-delay: 0.10s, 0.2s; }
-    .section.is-collapsed .abs-icon:nth-child(3) { animation-delay: 0.15s, 0.4s; }
-    .section.is-collapsed .abs-icon:nth-child(4) { animation-delay: 0.20s, 0.6s; }
-    .section.is-collapsed .abs-icon:nth-child(5) { animation-delay: 0.25s, 0.8s; }
-    .section.is-collapsed .abs-icon:nth-child(6) { animation-delay: 0.30s, 1.0s; }
-
-    @keyframes pop-in {
-      0% { opacity: 0; transform: translateY(10px) scale(0.98); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
 
     /* ── PROSE ── */
     .prose {
@@ -963,22 +875,12 @@
     </section>
 
     <!-- 01 OVERVIEW -->
-    <section class="section sec-01 is-collapsed" data-reveal id="sec-01">
-      <div class="sec-head collapser" data-target="sec-01">
+    <section class="section sec-01" data-reveal>
+      <div class="sec-head">
         <span class="sec-num">01</span>
         <span class="sec-title" data-th="ภาพรวม" data-en="overview">ภาพรวม</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview">
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="6" width="4" height="4" />
-          <rect class="px-soft" x="4" y="6" width="2" height="4" />
-          <rect class="px-soft" x="10" y="6" width="2" height="4" />
-          <rect class="px-soft" x="6" y="4" width="4" height="2" />
-          <rect class="px-soft" x="6" y="10" width="4" height="2" />
-        </svg>
-      </div>
-      <div class="sec-body">
       <p class="prose"
         data-th="ผมชื่อประวีร์ ชื่อเล่นชื่อ 'สมาร์ท' ครับ ผมเป็นนักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ จากคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล ที่อยากใช้นวัตกรรมเพื่อแก้ปัญหาสุขภาพ และสร้างคอมมูนิตี้ผ่านสื่อดิจิทัลเพื่อส่งต่อแรงบันดาลใจให้คนรุ่นใหม่"
         data-en="i'm prawee, also known as smart. i'm a dual-degree m.d.-m.eng candidate at ramathibodi hospital, mahidol university. i'm interested in the intersection of healthcare innovation and digital storytelling, building tools and communities to inspire the next generation.">
@@ -990,34 +892,12 @@
     </section>
 
     <!-- 02 EDUCATION -->
-    <section class="section sec-02 is-collapsed" data-reveal id="sec-02">
-      <div class="sec-head collapser" data-target="sec-02">
+    <section class="section sec-02" data-reveal>
+      <div class="sec-head">
         <span class="sec-num">02</span>
         <span class="sec-title" data-th="การศึกษา" data-en="education">การศึกษา</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview">
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="10" width="8" height="2" />
-          <rect class="px-soft" x="6" y="6" width="4" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="6" width="2" height="6" />
-          <rect class="px" x="8" y="4" width="2" height="8" />
-          <rect class="px-soft" x="6" y="8" width="2" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="10" y="8" width="2" height="4" />
-          <rect class="px-soft" x="6" y="6" width="4" height="2" />
-          <rect class="px-soft" x="4" y="8" width="2" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="4" width="4" height="4" />
-          <rect class="px-soft" x="4" y="8" width="8" height="2" />
-          <rect class="px-soft" x="6" y="10" width="4" height="2" />
-        </svg>
-      </div>
-      <div class="sec-body">
       <div class="timeline">
 
         <div class="tl-item">
@@ -1061,37 +941,15 @@
         </div>
 
       </div>
-      </div>
     </section>
 
     <!-- 03 EXPERIENCE -->
-    <section class="section sec-03 is-collapsed" data-reveal id="sec-03">
-      <div class="sec-head collapser" data-target="sec-03">
+    <section class="section sec-03" data-reveal>
+      <div class="sec-head">
         <span class="sec-num">03</span>
         <span class="sec-title" data-th="ประสบการณ์" data-en="experience">ประสบการณ์</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview">
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="6" width="2" height="6" />
-          <rect class="px-soft" x="8" y="4" width="2" height="8" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="8" width="4" height="2" />
-          <rect class="px" x="8" y="6" width="4" height="2" />
-          <rect class="px-soft" x="8" y="8" width="4" height="2" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="4" width="4" height="8" />
-          <rect class="px-soft" x="4" y="6" width="2" height="4" />
-          <rect class="px-soft" x="10" y="6" width="2" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="8" y="8" width="4" height="4" />
-          <rect class="px-soft" x="4" y="4" width="4" height="4" />
-        </svg>
-      </div>
-      <div class="sec-body">
       <div class="timeline">
 
         <div class="tl-item">
@@ -1206,32 +1064,15 @@
         </div>
 
       </div>
-      </div>
     </section>
 
     <!-- 04 PORTFOLIO -->
-    <section class="section sec-04 is-collapsed" data-reveal id="sec-04">
-      <div class="sec-head collapser" data-target="sec-04">
+    <section class="section sec-04" data-reveal>
+      <div class="sec-head">
         <span class="sec-num">04</span>
         <span class="sec-title" data-th="ผลงาน" data-en="portfolio">ผลงาน</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview">
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="4" width="8" height="8" />
-          <rect class="px-soft" x="6" y="6" width="4" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="6" width="4" height="4" />
-          <rect class="px-soft" x="8" y="4" width="4" height="8" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="4" width="2" height="8" />
-          <rect class="px" x="10" y="4" width="2" height="8" />
-          <rect class="px-soft" x="6" y="6" width="4" height="4" />
-        </svg>
-      </div>
-      <div class="sec-body">
 
       <div class="portfolio-item">
         <div class="portfolio-title" data-th="กว่า-จะ-เป็น series" data-en="gwa-ja-pen series">กว่า-จะ-เป็น series</div>
@@ -1297,36 +1138,15 @@
           </div>
         </div>
       </div>
-      </div>
     </section>
 
     <!-- 05 INTERESTS / KEY:VALUE -->
-    <section class="section sec-05 is-collapsed" data-reveal id="sec-05">
-      <div class="sec-head collapser" data-target="sec-05">
+    <section class="section sec-05" data-reveal>
+      <div class="sec-head">
         <span class="sec-num">05</span>
         <span class="sec-title" data-th="ความสนใจ" data-en="interests">ความสนใจ</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview">
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="4" width="4" height="4" />
-          <rect class="px-soft" x="6" y="8" width="4" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="8" y="4" width="4" height="4" />
-          <rect class="px-soft" x="4" y="8" width="4" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="6" width="8" height="4" />
-          <rect class="px-soft" x="6" y="4" width="4" height="2" />
-          <rect class="px-soft" x="6" y="10" width="4" height="2" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="4" width="4" height="8" />
-          <rect class="px-soft" x="8" y="6" width="4" height="4" />
-        </svg>
-      </div>
-      <div class="sec-body">
 
       <div class="kv-list">
         <div class="kv-row">
@@ -1357,28 +1177,15 @@
             2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่</span>
         </div>
       </div>
-      </div>
     </section>
 
     <!-- 06 SOUNDTRACK -->
-    <section class="section sec-06 is-collapsed" data-reveal id="sec-06">
-      <div class="sec-head collapser" data-target="sec-06">
+    <section class="section sec-06" data-reveal>
+      <div class="sec-head">
         <span class="sec-num">06</span>
         <span class="sec-title" data-th="เพลง" data-en="soundtrack">เพลง</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview">
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="4" y="8" width="8" height="4" />
-          <rect class="px-soft" x="4" y="4" width="8" height="4" />
-        </svg>
-        <svg class="abs-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="6" width="6" height="6" />
-          <rect class="px-soft" x="4" y="4" width="2" height="2" />
-          <rect class="px-soft" x="12" y="12" width="2" height="2" />
-        </svg>
-      </div>
-      <div class="sec-body">
 
       <p class="song-intro"
         data-th="เพลย์ลิสต์นี้รวมมากกว่า 200 เพลง จากเพื่อนๆ ที่ร่วมอ่านหนังสือกับผมกว่า 100 คน ร่วมเข้าไปกดเพิ่มเพลงได้นะครับ :-)"
@@ -1413,7 +1220,6 @@
           ก็เพราะว่าหูของฉันไม่ค่อยได้ยิน
           ตัวฉันก็ต้องขอโทษจริงๆ
           อย่างน้อยตาของฉันก็ยังได้เห็นหน้าเธอ</div>
-      </div>
       </div>
     </section>
 
@@ -1488,17 +1294,6 @@
       const tag = document.getElementById('hero-tagline');
       if (tag) window.typeText(tag, tag.getAttribute('data-th'), { speed: 16, delay: 250 });
       setupReveal();
-
-      // Collapsers
-      document.querySelectorAll('.collapser').forEach(el => {
-        el.addEventListener('click', () => {
-          const targetId = el.getAttribute('data-target');
-          if (targetId) {
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) targetEl.classList.toggle('is-collapsed');
-          }
-        });
-      });
     });
 
     document.getElementById('btn-th').classList.add('active');
