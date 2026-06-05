@@ -426,16 +426,50 @@
 
     .sec-overview {
       display: none;
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-size: 13.5px;
-      color: var(--ink-mid);
-      margin-top: 12px;
-      line-height: 1.6;
+      margin-top: 14px;
+      margin-bottom: 4px;
     }
     .section.is-collapsed .sec-overview {
-      display: block;
-      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
     }
+    
+    .abs-icon {
+      width: 28px;
+      height: 28px;
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .abs-icon:hover {
+      transform: scale(1.15) translateY(-2px);
+    }
+    .abs-icon .px {
+      fill: var(--sec-ink, var(--link));
+    }
+    .abs-icon .px-soft {
+      fill: var(--sec-ink, var(--link));
+      opacity: 0.35;
+    }
+    
+    @keyframes pop-in-shimmer {
+      0% { opacity: 0; transform: translateY(10px) scale(0.98); filter: drop-shadow(0 0 0 transparent); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 0 transparent); }
+    }
+    @keyframes shimmer-abs {
+      0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+      50% { filter: drop-shadow(0 0 10px var(--sec-ink, var(--link))); }
+    }
+
+    .section.is-collapsed .abs-icon {
+      animation: pop-in-shimmer 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards, shimmer-abs 3s infinite ease-in-out;
+    }
+    .section.is-collapsed .abs-icon:nth-child(1) { animation-delay: 0.05s, 0s; }
+    .section.is-collapsed .abs-icon:nth-child(2) { animation-delay: 0.10s, 0.2s; }
+    .section.is-collapsed .abs-icon:nth-child(3) { animation-delay: 0.15s, 0.4s; }
+    .section.is-collapsed .abs-icon:nth-child(4) { animation-delay: 0.20s, 0.6s; }
+    .section.is-collapsed .abs-icon:nth-child(5) { animation-delay: 0.25s, 0.8s; }
+    .section.is-collapsed .abs-icon:nth-child(6) { animation-delay: 0.30s, 1.0s; }
 
     @keyframes pop-in {
       0% { opacity: 0; transform: translateY(10px) scale(0.98); }
@@ -801,7 +835,7 @@
     .sl-link.tiktok { color: #FE2C55; }
     .sl-link.ig { color: #C13584; }
     .sl-link.yt { color: #FF0000; }
-    .sl-link.sub { color: #FF6719; }
+    .sl-link.blog { color: #FF6719; }
 
     /* ── FOOTER ── */
     .foot {
@@ -935,8 +969,14 @@
         <span class="sec-title" data-th="ภาพรวม" data-en="overview">ภาพรวม</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview" data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ รามาธิบดี มหิดล" data-en="m.d.-m.eng student at ramathibodi, mahidol">
-        นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ รามาธิบดี มหิดล
+      <div class="sec-overview">
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="6" y="6" width="4" height="4" />
+          <rect class="px-soft" x="4" y="6" width="2" height="4" />
+          <rect class="px-soft" x="10" y="6" width="2" height="4" />
+          <rect class="px-soft" x="6" y="4" width="4" height="2" />
+          <rect class="px-soft" x="6" y="10" width="4" height="2" />
+        </svg>
       </div>
       <div class="sec-body">
       <p class="prose"
@@ -956,8 +996,26 @@
         <span class="sec-title" data-th="การศึกษา" data-en="education">การศึกษา</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview" data-th="rama57 m.d.-m.eng02 , mwit28 , pds63 , cud56" data-en="rama57 m.d.-m.eng02 , mwit28 , pds63 , cud56">
-        rama57 m.d.-m.eng02 , mwit28 , pds63 , cud56
+      <div class="sec-overview">
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="10" width="8" height="2" />
+          <rect class="px-soft" x="6" y="6" width="4" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="6" width="2" height="6" />
+          <rect class="px" x="8" y="4" width="2" height="8" />
+          <rect class="px-soft" x="6" y="8" width="2" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="10" y="8" width="2" height="4" />
+          <rect class="px-soft" x="6" y="6" width="4" height="2" />
+          <rect class="px-soft" x="4" y="8" width="2" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="6" y="4" width="4" height="4" />
+          <rect class="px-soft" x="4" y="8" width="8" height="2" />
+          <rect class="px-soft" x="6" y="10" width="4" height="2" />
+        </svg>
       </div>
       <div class="sec-body">
       <div class="timeline">
@@ -1013,8 +1071,25 @@
         <span class="sec-title" data-th="ประสบการณ์" data-en="experience">ประสบการณ์</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview" data-th="mc, นำเสนองานวิจัยระดับนานาชาติ, ประธาน ramathon run club, รองประธาน rama g7" data-en="mc, international researcher, ramathon run club president, vice president rama g7">
-        mc, นำเสนองานวิจัยระดับนานาชาติ, ประธาน ramathon run club, รองประธาน rama g7
+      <div class="sec-overview">
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="6" y="6" width="2" height="6" />
+          <rect class="px-soft" x="8" y="4" width="2" height="8" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="8" width="4" height="2" />
+          <rect class="px" x="8" y="6" width="4" height="2" />
+          <rect class="px-soft" x="8" y="8" width="4" height="2" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="6" y="4" width="4" height="8" />
+          <rect class="px-soft" x="4" y="6" width="2" height="4" />
+          <rect class="px-soft" x="10" y="6" width="2" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="8" y="8" width="4" height="4" />
+          <rect class="px-soft" x="4" y="4" width="4" height="4" />
+        </svg>
       </div>
       <div class="sec-body">
       <div class="timeline">
@@ -1141,8 +1216,20 @@
         <span class="sec-title" data-th="ผลงาน" data-en="portfolio">ผลงาน</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview" data-th="ครีเอเตอร์ กว่า-จะ-เป็น series, ผู้กำกับหนังสั้น, วิดีโอโปรดักชั่น" data-en="content creator for gwa-ja-pen, short filmmaker, video production">
-        ครีเอเตอร์ กว่า-จะ-เป็น series, ผู้กำกับหนังสั้น, วิดีโอโปรดักชั่น
+      <div class="sec-overview">
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="4" width="8" height="8" />
+          <rect class="px-soft" x="6" y="6" width="4" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="6" width="4" height="4" />
+          <rect class="px-soft" x="8" y="4" width="4" height="8" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="4" width="2" height="8" />
+          <rect class="px" x="10" y="4" width="2" height="8" />
+          <rect class="px-soft" x="6" y="6" width="4" height="4" />
+        </svg>
       </div>
       <div class="sec-body">
 
@@ -1220,8 +1307,24 @@
         <span class="sec-title" data-th="ความสนใจ" data-en="interests">ความสนใจ</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview" data-th="เทคโนโลยีสุขภาพ, สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, ภาพยนตร์อินดี้" data-en="health tech, street photography, alt music, indie films">
-        เทคโนโลยีสุขภาพ, สตรีทโฟโต้, ดนตรีอัลเทอร์เนทีฟ, ภาพยนตร์อินดี้
+      <div class="sec-overview">
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="6" y="4" width="4" height="4" />
+          <rect class="px-soft" x="6" y="8" width="4" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="8" y="4" width="4" height="4" />
+          <rect class="px-soft" x="4" y="8" width="4" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="6" width="8" height="4" />
+          <rect class="px-soft" x="6" y="4" width="4" height="2" />
+          <rect class="px-soft" x="6" y="10" width="4" height="2" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="4" width="4" height="8" />
+          <rect class="px-soft" x="8" y="6" width="4" height="4" />
+        </svg>
       </div>
       <div class="sec-body">
 
@@ -1264,8 +1367,16 @@
         <span class="sec-title" data-th="เพลง" data-en="soundtrack">เพลง</span>
         <span class="sec-rule"></span>
       </div>
-      <div class="sec-overview" data-th="เพลย์ลิสต์เพลงอ่านหนังสือร่วมกันกว่า 200 เพลง และเพลงที่ผมแต่งเอง" data-en="collaborative 200+ study playlist, and my original music">
-        เพลย์ลิสต์เพลงอ่านหนังสือร่วมกันกว่า 200 เพลง และเพลงที่ผมแต่งเอง
+      <div class="sec-overview">
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="4" y="8" width="8" height="4" />
+          <rect class="px-soft" x="4" y="4" width="8" height="4" />
+        </svg>
+        <svg class="abs-icon" viewBox="0 0 16 16">
+          <rect class="px" x="6" y="6" width="6" height="6" />
+          <rect class="px-soft" x="4" y="4" width="2" height="2" />
+          <rect class="px-soft" x="12" y="12" width="2" height="2" />
+        </svg>
       </div>
       <div class="sec-body">
 
@@ -1317,7 +1428,7 @@
       <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">tiktok</a>
       <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">instagram</a>
       <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">youtube</a>
-      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">blog</a>
+      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link blog">blog</a>
     </div>
 
     <!-- FOOTER -->
