@@ -406,12 +406,13 @@
     .collapser:hover {
       opacity: 0.7;
     }
-    .collapser::after {
+    .collapser::before {
       content: '▼';
+      display: inline-block;
       font-size: 10px;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .collapser.is-collapsed::after {
+    .collapser.is-collapsed::before {
       transform: rotate(-90deg);
     }
 
@@ -455,29 +456,112 @@
     .projects.is-collapsed .proj-url {
       display: none;
     }
+    @keyframes shimmer-icon {
+      0%, 100% { filter: drop-shadow(0 0 0px transparent); }
+      50% { filter: drop-shadow(0 0 10px var(--pa, var(--link))); }
+    }
     .projects.is-collapsed .pixel-icon {
       transform: scale(0.9);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: shimmer-icon 2.5s infinite ease-in-out;
     }
+    .projects.is-collapsed .proj:nth-child(1) .pixel-icon { animation-delay: 0s; }
+    .projects.is-collapsed .proj:nth-child(2) .pixel-icon { animation-delay: 0.2s; }
+    .projects.is-collapsed .proj:nth-child(3) .pixel-icon { animation-delay: 0.4s; }
+    .projects.is-collapsed .proj:nth-child(4) .pixel-icon { animation-delay: 0.6s; }
+    .projects.is-collapsed .proj:nth-child(5) .pixel-icon { animation-delay: 0.8s; }
+    .projects.is-collapsed .proj:nth-child(6) .pixel-icon { animation-delay: 1.0s; }
+    .projects.is-collapsed .proj:nth-child(7) .pixel-icon { animation-delay: 1.2s; }
+    .projects.is-collapsed .proj:nth-child(8) .pixel-icon { animation-delay: 1.4s; }
+    
     .projects.is-collapsed .proj:hover .pixel-icon {
       transform: scale(1.1);
     }
 
     .social-links-minimal {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 56px;
+      margin-top: 16px;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    
+    .sl-link {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sl-link:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+    
+    .sl-link:hover {
+      border-top-color: var(--pa, var(--link));
+      opacity: 0.9;
+    }
+    
+    .sl-icon {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 24px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s;
+      color: var(--pa, var(--ink));
+    }
+    
+    .sl-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .sl-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    
+    .sl-desc {
+      font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
+      font-size: 13.5px;
+      color: var(--ink-mid);
+    }
+    
+    .sl-link.email { --pa: #3B5FC0; }
+    .sl-link.fb { --pa: #1877F2; }
+    .sl-link.tiktok { --pa: #FE2C55; }
+    .sl-link.ig { --pa: #C13584; }
+    .sl-link.yt { --pa: #FF0000; }
+    .sl-link.sub { --pa: #FF6719; }
+
     .social-links-minimal.is-collapsed {
+      flex-direction: row;
+      flex-wrap: wrap;
       gap: 10px;
     }
     .social-links-minimal.is-collapsed .sl-link {
-      font-size: 12px;
-      padding: 6px 14px;
+      display: flex;
+      padding: 8px 14px;
       background: var(--surface);
       border: 1px solid currentColor;
       border-radius: 20px;
       opacity: 0;
       animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      transition: all 0.2s;
+      color: var(--pa);
+    }
+    .social-links-minimal.is-collapsed .sl-body {
+      display: none;
+    }
+    .social-links-minimal.is-collapsed .sl-icon {
+      font-size: 12px;
+      font-weight: 600;
     }
     .social-links-minimal.is-collapsed .sl-link:nth-child(1) { animation-delay: 0.05s; }
     .social-links-minimal.is-collapsed .sl-link:nth-child(2) { animation-delay: 0.10s; }
@@ -1589,12 +1673,48 @@
     <!-- SOCIAL STRIP -->
     <p class="comment collapser" data-target="social-list" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
     <div class="social-links-minimal" id="social-list" data-reveal>
-      <a href="mailto:prawee.sin@gmail.com" class="sl-link email">email</a>
-      <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" class="sl-link fb">facebook</a>
-      <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">tiktok</a>
-      <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">instagram</a>
-      <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">youtube</a>
-      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">substack</a>
+      <a href="mailto:prawee.sin@gmail.com" class="sl-link email">
+        <span class="sl-icon">@</span>
+        <div class="sl-body">
+          <span class="sl-title">email</span>
+          <span class="sl-desc">prawee.sin@gmail.com</span>
+        </div>
+      </a>
+      <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" class="sl-link fb">
+        <span class="sl-icon">fb</span>
+        <div class="sl-body">
+          <span class="sl-title">facebook</span>
+          <span class="sl-desc">@smprv</span>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">
+        <span class="sl-icon">tt</span>
+        <div class="sl-body">
+          <span class="sl-title">tiktok</span>
+          <span class="sl-desc">@prawees</span>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">
+        <span class="sl-icon">ig</span>
+        <div class="sl-body">
+          <span class="sl-title">instagram</span>
+          <span class="sl-desc">@smprv</span>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">
+        <span class="sl-icon">yt</span>
+        <div class="sl-body">
+          <span class="sl-title">youtube</span>
+          <span class="sl-desc">@smprv</span>
+        </div>
+      </a>
+      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">
+        <span class="sl-icon">sub</span>
+        <div class="sl-body">
+          <span class="sl-title">substack</span>
+          <span class="sl-desc">almost smart (blog)</span>
+        </div>
+      </a>
     </div>
 
     <!-- FOOTER -->
