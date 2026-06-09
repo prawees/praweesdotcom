@@ -344,60 +344,7 @@
       text-transform: uppercase;
     }
 
-    .comment::before {
-      content: '▸';
-      color: var(--link);
-      font-size: 12px;
-      transform: translateY(-1px);
-    }
-
     /* ── SOCIAL STRIP (bottom of page) ── */
-    .social-links-minimal {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px 24px;
-      margin-bottom: 56px;
-      margin-top: 16px;
-    }
-    
-    .sl-link {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 18px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    
-    .sl-link:hover {
-      opacity: 0.7;
-      transform: translateY(-2px);
-    }
-    
-    .sl-link.email { color: #3B5FC0; }
-    .sl-link.fb { color: #1877F2; }
-    .sl-link.tiktok { color: #FE2C55; }
-    .sl-link.ig { color: #C13584; }
-    .sl-link.yt { color: #FF0000; }
-    .sl-link.blog { color: #FF6719; }
-
-    @media (max-width: 600px) {
-      .ss-platform {
-        font-size: 20px;
-      }
-
-      .ss-item {
-        padding: 16px 0;
-      }
-
-      .ss-handle {
-        font-size: 12px;
-      }
-    }
-
-
-
-
-
     .social-links-minimal {
       display: flex;
       flex-direction: column;
@@ -409,7 +356,7 @@
     
     .sl-link {
       display: grid;
-      grid-template-columns: 48px 1fr;
+      grid-template-columns: 80px 1fr;
       align-items: center;
       gap: 16px;
       padding: 20px 0;
