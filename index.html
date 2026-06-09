@@ -394,177 +394,9 @@
       }
     }
 
-    /* ── COLLAPSIBLES ── */
-    .collapser {
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 6px 12px;
-      border-radius: 8px;
-      margin-left: -12px;
-    }
-    .collapser:hover {
-      background: var(--surface);
-      opacity: 1;
-    }
-    .collapser.is-collapsed {
-      background: var(--surface);
-      border: 1px dashed var(--rule);
-    }
-    .collapser.is-collapsed:hover {
-      border-color: var(--link);
-      background: var(--bg);
-    }
-    .collapser::before {
-      content: '▼';
-      display: inline-block;
-      font-size: 10px;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes subtle-nudge {
-      0%, 100% { transform: rotate(-90deg) translateY(0); }
-      10% { transform: rotate(-90deg) translateY(3px); }
-      20% { transform: rotate(-90deg) translateY(0); }
-    }
-    .collapser.is-collapsed::before {
-      transform: rotate(-90deg);
-      animation: subtle-nudge 4s infinite ease-in-out;
-      animation-delay: 2s;
-    }
 
-    @keyframes pop-in {
-      0% { opacity: 0; transform: translateY(10px) scale(0.8); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
 
-    .projects {
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .projects.is-collapsed {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .projects.is-collapsed .proj {
-      display: flex;
-      padding: 10px;
-      border: 1px solid var(--rule);
-      border-radius: 12px;
-      background: var(--surface);
-      width: auto;
-      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
-    .projects.is-collapsed .proj:nth-child(1) { animation-delay: 0.05s; }
-    .projects.is-collapsed .proj:nth-child(2) { animation-delay: 0.10s; }
-    .projects.is-collapsed .proj:nth-child(3) { animation-delay: 0.15s; }
-    .projects.is-collapsed .proj:nth-child(4) { animation-delay: 0.20s; }
-    .projects.is-collapsed .proj:nth-child(5) { animation-delay: 0.25s; }
-    .projects.is-collapsed .proj:nth-child(6) { animation-delay: 0.30s; }
-    .projects.is-collapsed .proj:nth-child(7) { animation-delay: 0.35s; }
-    .projects.is-collapsed .proj:nth-child(8) { animation-delay: 0.40s; }
 
-    .projects.is-collapsed .proj:hover {
-      border-color: var(--pa, var(--link));
-      transform: translateY(-2px);
-    }
-    .projects.is-collapsed .proj-body,
-    .projects.is-collapsed .proj-url {
-      display: none;
-    }
-    @keyframes shimmer-icon {
-      0%, 100% { filter: drop-shadow(0 0 0px transparent); }
-      50% { filter: drop-shadow(0 0 12px var(--pa, var(--link))); }
-    }
-    .projects.is-collapsed .pixel-icon {
-      transform: scale(0.9);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      animation: shimmer-icon 4s infinite ease-in-out;
-    }
-    .projects.is-collapsed .proj:nth-child(1) .pixel-icon { animation-delay: 0s; }
-    .projects.is-collapsed .proj:nth-child(2) .pixel-icon { animation-delay: 0.2s; }
-    .projects.is-collapsed .proj:nth-child(3) .pixel-icon { animation-delay: 0.4s; }
-    .projects.is-collapsed .proj:nth-child(4) .pixel-icon { animation-delay: 0.6s; }
-    .projects.is-collapsed .proj:nth-child(5) .pixel-icon { animation-delay: 0.8s; }
-    .projects.is-collapsed .proj:nth-child(6) .pixel-icon { animation-delay: 1.0s; }
-    .projects.is-collapsed .proj:nth-child(7) .pixel-icon { animation-delay: 1.2s; }
-    .projects.is-collapsed .proj:nth-child(8) .pixel-icon { animation-delay: 1.4s; }
-    
-    .projects.is-collapsed .proj:hover .pixel-icon {
-      transform: scale(1.1);
-    }
-
-    /* ── ACCORDION STATES ── */
-    .projects.is-collapsed .proj.is-active {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 56px 1fr auto;
-      gap: 0 22px;
-      padding: 20px;
-      border-color: var(--pa, var(--link));
-      background: var(--surface);
-      box-shadow: 0 0 24px color-mix(in srgb, var(--pa) 15%, transparent);
-      animation: none;
-      opacity: 1;
-    }
-    .projects.is-collapsed .proj.is-active .proj-body,
-    .projects.is-collapsed .proj.is-active .proj-url {
-      display: flex;
-      animation: pop-in 0.4s forwards;
-    }
-    .projects.is-collapsed .proj.is-active .proj-body {
-      flex-direction: column;
-    }
-    .projects.is-collapsed .proj.is-muted {
-      opacity: 0.4;
-      transform: scale(0.9);
-      filter: grayscale(0.5);
-    }
-    .projects.is-collapsed .proj.is-muted:hover {
-      opacity: 1;
-      transform: scale(0.95);
-      filter: none;
-    }
-
-    /* Override mobile for active project */
-    @media (max-width: 600px) {
-      .projects.is-collapsed .proj.is-active {
-        grid-template-columns: 40px 1fr;
-        gap: 0 14px;
-      }
-      .projects.is-collapsed .proj.is-active .proj-url {
-        grid-column: 2;
-        text-align: left;
-        padding-top: 8px;
-        display: block;
-      }
-    }
-
-    /* ── LUCIO PARTY POOL AURA ── */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: -1;
-      background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--lucio-color, var(--bg)) 18%, transparent) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out, background-color 0.8s ease-in-out;
-    }
-    body.lucio-aura::before {
-      opacity: 1;
-      animation: lucio-pulse 3s infinite alternate ease-in-out;
-    }
-    @keyframes lucio-pulse {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(1.1); opacity: 1; }
-    }
 
     .social-links-minimal {
       display: flex;
@@ -629,40 +461,7 @@
     .sl-link.yt { --pa: #FF0000; }
     .sl-link.blog { --pa: #FF6719; }
 
-    .social-links-minimal.is-collapsed {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .social-links-minimal.is-collapsed .sl-link {
-      display: flex;
-      padding: 8px 14px;
-      background: var(--surface);
-      border: 1px solid currentColor;
-      border-radius: 20px;
-      opacity: 0;
-      animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      color: var(--pa);
-    }
-    .social-links-minimal.is-collapsed .sl-body {
-      display: none;
-    }
-    .social-links-minimal.is-collapsed .sl-icon {
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .social-links-minimal.is-collapsed .sl-link:nth-child(1) { animation-delay: 0.05s; }
-    .social-links-minimal.is-collapsed .sl-link:nth-child(2) { animation-delay: 0.10s; }
-    .social-links-minimal.is-collapsed .sl-link:nth-child(3) { animation-delay: 0.15s; }
-    .social-links-minimal.is-collapsed .sl-link:nth-child(4) { animation-delay: 0.20s; }
-    .social-links-minimal.is-collapsed .sl-link:nth-child(5) { animation-delay: 0.25s; }
-    .social-links-minimal.is-collapsed .sl-link:nth-child(6) { animation-delay: 0.30s; }
 
-    .social-links-minimal.is-collapsed .sl-link:hover {
-      background: currentColor;
-      color: white;
-      transform: scale(1.05);
-    }
 
     /* ── PROJECTS ── */
     .projects {
@@ -676,9 +475,12 @@
       display: grid;
       grid-template-columns: 56px 1fr auto;
       gap: 0 22px;
-      padding: 20px 0;
+      padding: 20px 16px;
+      margin: 0 -16px;
       border-top: 1px solid var(--rule);
+      border-radius: 12px;
       align-items: start;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .proj:last-child {
@@ -695,29 +497,42 @@
 
     .pixel-icon rect.px {
       fill: var(--ink);
+      transition: fill 0.3s;
     }
 
     .pixel-icon rect.px-mid {
       fill: var(--ink-mid);
+      transition: fill 0.3s, opacity 0.3s;
     }
 
     .pixel-icon rect.px-soft {
       fill: var(--ink-muted);
+      transition: fill 0.3s, opacity 0.3s;
     }
 
+    .proj.is-glowing,
     .proj:hover {
-      border-top-color: var(--pa, var(--link));
+      border-top-color: transparent;
+      background: var(--bg);
+      box-shadow: 0 4px 24px color-mix(in srgb, var(--pa) 15%, transparent), 
+                  0 0 0 1px color-mix(in srgb, var(--pa) 20%, transparent);
+      transform: translateY(-2px);
+      z-index: 10;
+      position: relative;
     }
 
+    .proj.is-glowing .pixel-icon rect.px,
     .proj:hover .pixel-icon rect.px {
       fill: var(--pa, var(--link));
     }
 
+    .proj.is-glowing .pixel-icon rect.px-mid,
     .proj:hover .pixel-icon rect.px-mid {
       fill: var(--pa, var(--link));
       opacity: 0.65;
     }
 
+    .proj.is-glowing .pixel-icon rect.px-soft,
     .proj:hover .pixel-icon rect.px-soft {
       fill: var(--pa, var(--link));
       opacity: 0.35;
@@ -1534,8 +1349,8 @@
 
 
     <!-- PROJECTS -->
-    <p class="comment collapser is-collapsed" data-target="projects-list" data-reveal data-th="โปรเจกต์ของผม" data-en="things i&#39;m building">โปรเจกต์ของผม</p>
-    <div class="projects is-collapsed" id="projects-list">
+    <p class="comment" data-reveal data-th="โปรเจกต์ของผม" data-en="things i&#39;m building">โปรเจกต์ของผม</p>
+    <div class="projects" id="projects-list">
 
       <a href="about/" class="proj" data-reveal style="--pa:#C77F3A">
         <!-- pixel person / about -->
@@ -1759,8 +1574,8 @@
     </p>
 
     <!-- SOCIAL STRIP -->
-    <p class="comment collapser is-collapsed" data-target="social-list" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
-    <div class="social-links-minimal is-collapsed" id="social-list" data-reveal>
+    <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
+    <div class="social-links-minimal" id="social-list" data-reveal>
       <a href="mailto:prawee.sin@gmail.com" class="sl-link email">
         <span class="sl-icon">@</span>
         <div class="sl-body">
@@ -1947,64 +1762,22 @@
       // Reveal
       setupReveal();
 
-      // Collapsers
-      document.querySelectorAll('.collapser').forEach(el => {
-        el.addEventListener('click', () => {
-          el.classList.toggle('is-collapsed');
-          const targetId = el.getAttribute('data-target');
-          if (targetId) {
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) {
-              targetEl.classList.toggle('is-collapsed');
-              
-              // Reset aura and accordion states if this is projects-list
-              if (targetId === 'projects-list') {
-                document.body.classList.remove('lucio-aura');
-                targetEl.querySelectorAll('.proj').forEach(p => {
-                  p.classList.remove('is-active', 'is-muted');
-                });
-              }
+      // Lightweight mobile scroll glow
+      if (window.matchMedia("(hover: none)").matches || window.innerWidth <= 768) {
+        const glowObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              entry.target.classList.add('is-glowing');
+            } else {
+              entry.target.classList.remove('is-glowing');
             }
-          }
-        });
-      });
+          });
+        }, { threshold: [0, 0.5, 1], rootMargin: "-15% 0px -15% 0px" });
 
-      // Project icon click to expand
-      document.querySelectorAll('.projects .proj').forEach(proj => {
-        proj.addEventListener('click', (e) => {
-          const container = proj.closest('.projects');
-          if (container && container.classList.contains('is-collapsed')) {
-            // Let the actual link click go through if they click .proj-url
-            if (e.target.closest('.proj-url')) return;
-            
-            e.preventDefault(); // Stop link navigation
-            
-            // If already active, do nothing
-            if (proj.classList.contains('is-active')) return;
-
-            // Activate this project, mute others
-            container.querySelectorAll('.proj').forEach(p => {
-              if (p === proj) {
-                p.classList.add('is-active');
-                p.classList.remove('is-muted');
-              } else {
-                p.classList.remove('is-active');
-                p.classList.add('is-muted');
-              }
-            });
-            
-            // Lucio Aura global effect
-            const paColor = getComputedStyle(proj).getPropertyValue('--pa').trim();
-            document.body.style.setProperty('--lucio-color', paColor);
-            document.body.classList.add('lucio-aura');
-            
-            // Scroll to the clicked project smoothly
-            setTimeout(() => {
-              proj.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-          }
+        document.querySelectorAll('.proj').forEach(proj => {
+          glowObserver.observe(proj);
         });
-      });
+      }
     });
 
     document.getElementById('btn-th').classList.add('active');
