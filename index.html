@@ -401,10 +401,22 @@
       align-items: center;
       gap: 8px;
       user-select: none;
-      transition: opacity 0.2s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 6px 12px;
+      border-radius: 8px;
+      margin-left: -12px;
     }
     .collapser:hover {
-      opacity: 0.7;
+      background: var(--surface);
+      opacity: 1;
+    }
+    .collapser.is-collapsed {
+      background: var(--surface);
+      border: 1px dashed var(--rule);
+    }
+    .collapser.is-collapsed:hover {
+      border-color: var(--link);
+      background: var(--bg);
     }
     .collapser::before {
       content: '▼';
@@ -465,12 +477,12 @@
     }
     @keyframes shimmer-icon {
       0%, 100% { filter: drop-shadow(0 0 0px transparent); }
-      50% { filter: drop-shadow(0 0 10px var(--pa, var(--link))); }
+      50% { filter: drop-shadow(0 0 12px var(--pa, var(--link))); }
     }
     .projects.is-collapsed .pixel-icon {
       transform: scale(0.9);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      animation: shimmer-icon 2.5s infinite ease-in-out;
+      animation: shimmer-icon 4s infinite ease-in-out;
     }
     .projects.is-collapsed .proj:nth-child(1) .pixel-icon { animation-delay: 0s; }
     .projects.is-collapsed .proj:nth-child(2) .pixel-icon { animation-delay: 0.2s; }
@@ -1874,6 +1886,26 @@
           if (targetId) {
             const targetEl = document.getElementById(targetId);
             if (targetEl) targetEl.classList.toggle('is-collapsed');
+          }
+        });
+      });
+
+      // Project icon click to expand
+      document.querySelectorAll('.projects .proj').forEach(proj => {
+        proj.addEventListener('click', (e) => {
+          const container = proj.closest('.projects');
+          if (container && container.classList.contains('is-collapsed')) {
+            e.preventDefault(); // Stop link navigation
+            container.classList.remove('is-collapsed');
+            
+            // Sync the collapser button
+            const collapser = document.querySelector(`.collapser[data-target="${container.id}"]`);
+            if (collapser) collapser.classList.remove('is-collapsed');
+            
+            // Scroll to the clicked project smoothly
+            setTimeout(() => {
+              proj.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
           }
         });
       });
