@@ -497,6 +497,75 @@
       transform: scale(1.1);
     }
 
+    /* ── ACCORDION STATES ── */
+    .projects.is-collapsed .proj.is-active {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 0 22px;
+      padding: 20px;
+      border-color: var(--pa, var(--link));
+      background: var(--surface);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--pa) 15%, transparent);
+      animation: none;
+      opacity: 1;
+    }
+    .projects.is-collapsed .proj.is-active .proj-body,
+    .projects.is-collapsed .proj.is-active .proj-url {
+      display: flex;
+      animation: pop-in 0.4s forwards;
+    }
+    .projects.is-collapsed .proj.is-active .proj-body {
+      flex-direction: column;
+    }
+    .projects.is-collapsed .proj.is-muted {
+      opacity: 0.4;
+      transform: scale(0.9);
+      filter: grayscale(0.5);
+    }
+    .projects.is-collapsed .proj.is-muted:hover {
+      opacity: 1;
+      transform: scale(0.95);
+      filter: none;
+    }
+
+    /* Override mobile for active project */
+    @media (max-width: 600px) {
+      .projects.is-collapsed .proj.is-active {
+        grid-template-columns: 40px 1fr;
+        gap: 0 14px;
+      }
+      .projects.is-collapsed .proj.is-active .proj-url {
+        grid-column: 2;
+        text-align: left;
+        padding-top: 8px;
+        display: block;
+      }
+    }
+
+    /* ── LUCIO PARTY POOL AURA ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--lucio-color, var(--bg)) 18%, transparent) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, background-color 0.8s ease-in-out;
+    }
+    body.lucio-aura::before {
+      opacity: 1;
+      animation: lucio-pulse 3s infinite alternate ease-in-out;
+    }
+    @keyframes lucio-pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
     .social-links-minimal {
       display: flex;
       flex-direction: column;
@@ -1885,7 +1954,17 @@
           const targetId = el.getAttribute('data-target');
           if (targetId) {
             const targetEl = document.getElementById(targetId);
-            if (targetEl) targetEl.classList.toggle('is-collapsed');
+            if (targetEl) {
+              targetEl.classList.toggle('is-collapsed');
+              
+              // Reset aura and accordion states if this is projects-list
+              if (targetId === 'projects-list') {
+                document.body.classList.remove('lucio-aura');
+                targetEl.querySelectorAll('.proj').forEach(p => {
+                  p.classList.remove('is-active', 'is-muted');
+                });
+              }
+            }
           }
         });
       });
@@ -1895,12 +1974,29 @@
         proj.addEventListener('click', (e) => {
           const container = proj.closest('.projects');
           if (container && container.classList.contains('is-collapsed')) {
-            e.preventDefault(); // Stop link navigation
-            container.classList.remove('is-collapsed');
+            // Let the actual link click go through if they click .proj-url
+            if (e.target.closest('.proj-url')) return;
             
-            // Sync the collapser button
-            const collapser = document.querySelector(`.collapser[data-target="${container.id}"]`);
-            if (collapser) collapser.classList.remove('is-collapsed');
+            e.preventDefault(); // Stop link navigation
+            
+            // If already active, do nothing
+            if (proj.classList.contains('is-active')) return;
+
+            // Activate this project, mute others
+            container.querySelectorAll('.proj').forEach(p => {
+              if (p === proj) {
+                p.classList.add('is-active');
+                p.classList.remove('is-muted');
+              } else {
+                p.classList.remove('is-active');
+                p.classList.add('is-muted');
+              }
+            });
+            
+            // Lucio Aura global effect
+            const paColor = getComputedStyle(proj).getPropertyValue('--pa').trim();
+            document.body.style.setProperty('--lucio-color', paColor);
+            document.body.classList.add('lucio-aura');
             
             // Scroll to the clicked project smoothly
             setTimeout(() => {
