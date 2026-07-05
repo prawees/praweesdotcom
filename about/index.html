@@ -654,6 +654,41 @@
       color: #666;
     }
 
+    .vsco-banner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 200px;
+      margin-bottom: 56px;
+      background: linear-gradient(135deg, #111, #333);
+      border-radius: 12px;
+      text-decoration: none;
+      color: #FFF;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+    }
+
+    .vsco-banner:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+      color: #FFF;
+    }
+
+    .vsco-logo {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .vsco-text {
+      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
     .embed-caption {
       margin-top: 8px;
       font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
@@ -1039,6 +1074,10 @@
                 <img src="../assets/emcee.jpg" alt="พิธีกร Career Month 2026 @ Ramathibodi" loading="lazy">
                 <div class="embed-caption" data-th="พิธีกร Career Month" data-en="Career Month MC">พิธีกร Career Month</div>
               </div>
+              <div class="photo-frame">
+                <img src="../assets/experience%20sharing.jpeg" alt="โครงการต้นกล้ารามาธิบดี" loading="lazy">
+                <div class="embed-caption" data-th="โครงการต้นกล้ารามาธิบดี" data-en="Tonkla Ramathibodi Project">โครงการต้นกล้ารามาธิบดี</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1311,9 +1350,10 @@
 
     <!-- VSCO GALLERY -->
     <p class="comment" data-reveal data-th="แกลลอรีของฉัน" data-en="my gallery">แกลลอรีของฉัน / my gallery</p>
-    <div class="website-preview" style="height: 380px; margin-bottom: 56px;" data-reveal>
-      <iframe src="https://vsco.co/prawees/gallery" style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" loading="lazy"></iframe>
-    </div>
+    <a href="https://vsco.co/prawees/gallery" target="_blank" rel="noopener" class="vsco-banner" data-reveal>
+      <span class="vsco-logo">VSCO</span>
+      <span class="vsco-text" data-th="ดูแกลลอรีภาพถ่ายของฉัน" data-en="View my photo gallery">ดูแกลลอรีภาพถ่ายของฉัน</span>
+    </a>
 
     <!-- SOCIAL STRIP -->
     <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
