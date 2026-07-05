@@ -221,8 +221,6 @@
     .hero-portrait {
       width: 110px;
       height: 138px;
-      overflow: hidden;
-      background: var(--rule-soft);
       position: relative;
     }
 
@@ -232,34 +230,10 @@
       object-fit: cover;
       object-position: center top;
       display: block;
-    }
-
-    /* corner pixel marks */
-    .pixmark {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: var(--ink);
-    }
-
-    .pixmark.tl {
-      top: -3px;
-      left: -3px;
-    }
-
-    .pixmark.tr {
-      top: -3px;
-      right: -3px;
-    }
-
-    .pixmark.bl {
-      bottom: -3px;
-      left: -3px;
-    }
-
-    .pixmark.br {
-      bottom: -3px;
-      right: -3px;
+      border-radius: 4px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      filter: sepia(0.15) contrast(1.05) brightness(0.95);
     }
 
     .hero-meta {
@@ -634,18 +608,50 @@
       pointer-events: none;
     }
 
-    .photo-frame {
-      width: 100%;
-      margin-top: 14px;
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--bg);
+    .photo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+      align-items: flex-start;
     }
+
+    .photo-frame {
+      background: #FFF;
+      padding: 6px 6px 20px 6px;
+      border: 1px solid #E4E0D7;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.06);
+      border-radius: 2px;
+      width: calc(50% - 8px);
+      max-width: 200px;
+      transition: transform 0.3s, box-shadow 0.3s, z-index 0.3s;
+      position: relative;
+    }
+
+    .photo-frame:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      box-shadow: 4px 8px 24px rgba(0,0,0,0.12);
+      z-index: 10;
+    }
+
     .photo-frame img {
       width: 100%;
       height: auto;
       display: block;
+      border: 1px solid #F0EEE9;
+    }
+
+    .photo-frame:nth-child(even) { transform: rotate(2.5deg); }
+    .photo-frame:nth-child(odd) { transform: rotate(-2.5deg); }
+    .photo-frame:nth-child(3n) { transform: rotate(1deg); }
+
+    .photo-frame .embed-caption {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.4;
+      font-family: 'IBM Plex Sans Thai Looped', 'IBM Plex Sans Thai', sans-serif;
+      color: #666;
     }
 
     .embed-caption {
@@ -895,11 +901,7 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-portrait">
-        <span class="pixmark tl"></span>
-        <span class="pixmark tr"></span>
-        <span class="pixmark bl"></span>
-        <span class="pixmark br"></span>
-        <img src="../assets/portrait-about.jpg" alt="prawee" loading="eager">
+        <img src="../assets/portrait.jpg" alt="prawee" loading="eager">
       </div>
       <div class="hero-meta">
         <h1 class="hero-name">prawee sinweeruthai</h1>
@@ -1004,16 +1006,7 @@
           </div>
         </div>
 
-        <div class="tl-item">
-          <div class="tl-year">2026</div>
-          <div class="tl-body">
-            <div class="tl-title" data-th="รายการ The Standard" data-en="The Standard">รายการ The Standard</div>
-            <div class="photo-frame">
-              <img src="../assets/thestandard.png" alt="ในรายการ The Standard" loading="lazy">
-            </div>
-            <div class="embed-caption" data-th="ในรายการ The Standard" data-en="Featured on The Standard">ในรายการ The Standard</div>
-          </div>
-        </div>
+
 
         <div class="tl-item">
           <div class="tl-year">2026</div>
@@ -1041,10 +1034,12 @@
               ทำหน้าที่พิธีกรทั้งในระดับสถาบันและนานาชาติ เช่น tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa
               thailand (2021–2023), rama roadshow
               (2021), และ ramsc career month (2026)</div>
-            <div class="photo-frame">
-              <img src="../assets/emcee.jpg" alt="พิธีกร Career Month 2026 @ Ramathibodi" loading="lazy">
+            <div class="photo-gallery">
+              <div class="photo-frame">
+                <img src="../assets/emcee.jpg" alt="พิธีกร Career Month 2026 @ Ramathibodi" loading="lazy">
+                <div class="embed-caption" data-th="พิธีกร Career Month" data-en="Career Month MC">พิธีกร Career Month</div>
+              </div>
             </div>
-            <div class="embed-caption" data-th="พิธีกร Career Month 2026 @ Ramathibodi" data-en="MC Career Month 2026 @ Ramathibodi">พิธีกร Career Month 2026 @ Ramathibodi</div>
           </div>
         </div>
 
@@ -1057,10 +1052,16 @@
               data-th="นำเสนองานวิจัยไบโอเซนเซอร์ที่ ieee biosensors (สหรัฐอเมริกา) และ ieee-nsens (มาเลเซีย)"
               data-en="research presenter on biosensor innovations at ieee biosensors (usa) and ieee-nsens (malaysia)">
               นำเสนองานวิจัยไบโอเซนเซอร์ที่ ieee biosensors (สหรัฐอเมริกา) และ ieee-nsens (มาเลเซีย)</div>
-            <div class="photo-frame">
-              <img src="../assets/present%20usa.png" alt="นำเสนอวิจัยที่ IEEE Biosensors 2026, San Diego, CA, USA" loading="lazy">
+            <div class="photo-gallery">
+              <div class="photo-frame">
+                <img src="../assets/present%20usa.png" alt="San Diego, CA, USA" loading="lazy">
+                <div class="embed-caption" data-th="San Diego, CA, USA" data-en="San Diego, CA, USA">San Diego, CA, USA</div>
+              </div>
+              <div class="photo-frame">
+                <img src="../assets/IEEE%20nsens.png" alt="Kuala Lumpur, Malaysia" loading="lazy">
+                <div class="embed-caption" data-th="Kuala Lumpur, Malaysia" data-en="Kuala Lumpur, Malaysia">Kuala Lumpur, Malaysia</div>
+              </div>
             </div>
-            <div class="embed-caption" data-th="นำเสนอวิจัยที่ IEEE Biosensors 2026, San Diego, CA, USA" data-en="Research Presentation at IEEE Biosensors 2026, San Diego, CA, USA">นำเสนอวิจัยที่ IEEE Biosensors 2026, San Diego, CA, USA</div>
           </div>
         </div>
 
@@ -1074,10 +1075,16 @@
               data-en="led virtual ramathon 2024. received dean's award for emerging leader practice and dean's award for impactful leadership">
               ประธานจัดงาน virtual ramathon และได้รับ dean's award for emerging leader practice และ dean's award for
               impactful leadership</div>
-            <div class="photo-frame">
-              <img src="../assets/poster_2024.png" alt="โปสเตอร์สรุปงานวิ่ง เวอร์ชวล รามาธอน 2024" loading="lazy">
+            <div class="photo-gallery">
+              <div class="photo-frame">
+                <img src="../assets/poster_2024.png" alt="โปสเตอร์สรุปงานวิ่ง" loading="lazy">
+                <div class="embed-caption" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="Virtual Run Poster">โปสเตอร์สรุปงานวิ่ง</div>
+              </div>
+              <div class="photo-frame">
+                <img src="../assets/ramathon2024.png" alt="ชาเลนจ์รวมภาพท้องฟ้า" loading="lazy">
+                <div class="embed-caption" data-th="ชาเลนจ์รวมภาพท้องฟ้า" data-en="Sky Photo Challenge">ชาเลนจ์รวมภาพท้องฟ้า</div>
+              </div>
             </div>
-            <div class="embed-caption" data-th="โปสเตอร์สรุปงานวิ่ง เวอร์ชวล รามาธอน 2024" data-en="Virtual Ramathon 2024 Summary Poster">โปสเตอร์สรุปงานวิ่ง เวอร์ชวล รามาธอน 2024</div>
           </div>
         </div>
 
@@ -1113,6 +1120,16 @@
               data-en="best poster presentation (biology) at issf 2020 and gold prize at kolmogorov readings for hiv-1 research at siriraj medical research center">
               รางวัล best poster presentation (biology) จาก issf 2020 และเหรียญทอง kolmogorov readings 2020
               จากงานวิจัยด้าน hiv-1 ร่วมกับศูนย์วิจัยทางการแพทย์ศิริราช</div>
+            <div class="photo-gallery">
+              <div class="photo-frame">
+                <img src="../assets/hiv%20mwit.png" alt="ISSI 2020" loading="lazy">
+                <div class="embed-caption" data-th="ISSI 2020" data-en="ISSI 2020">ISSI 2020</div>
+              </div>
+              <div class="photo-frame">
+                <img src="../assets/thestandard.png" alt="รายการ The Standard" loading="lazy">
+                <div class="embed-caption" data-th="ในรายการ The Standard" data-en="Featured on The Standard">ในรายการ The Standard</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1290,6 +1307,12 @@
     </section>
 
     <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
+    </div>
+
+    <!-- VSCO GALLERY -->
+    <p class="comment" data-reveal data-th="แกลลอรีของฉัน" data-en="my gallery">แกลลอรีของฉัน / my gallery</p>
+    <div class="website-preview" style="height: 380px; margin-bottom: 56px;" data-reveal>
+      <iframe src="https://vsco.co/prawees/gallery" style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" loading="lazy"></iframe>
     </div>
 
     <!-- SOCIAL STRIP -->
