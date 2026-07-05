@@ -1346,9 +1346,11 @@
 
     <!-- VSCO GALLERY -->
     <p class="comment" data-reveal data-th="แกลลอรีของฉัน" data-en="my gallery">แกลลอรีของฉัน / my gallery</p>
-    <div class="website-preview" style="height: 380px; margin-bottom: 56px;" data-reveal>
-      <iframe src="https://prawees.vsco.site" style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" loading="lazy"></iframe>
-    </div>
+    <a href="../gallery/" onclick="event.preventDefault(); this.style.transition='all 0.5s ease'; this.style.transform='scale(1.1)'; this.style.opacity='0'; setTimeout(()=>window.location.href='../gallery/', 400);" id="gallery-preview-wrap" style="display:block; text-decoration:none; cursor:pointer;" data-reveal>
+      <div class="website-preview" style="height: 380px; margin-bottom: 56px; pointer-events: none;">
+        <iframe src="../gallery/index.html" style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" scrolling="no" tabindex="-1"></iframe>
+      </div>
+    </a>
 
     <!-- SOCIAL STRIP -->
     <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>

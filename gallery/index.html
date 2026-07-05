@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Prawee Sinweeruthai</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --ink: #111111;
+      --ink-muted: #888888;
+      --ink-faint: #CCCCCC;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 24px 4vw;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0 60px;
+    }
+    
+    .site-title {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+    
+    .nav-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+    }
+    
+    .nav-links a.active {
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+    
+    /* Masonry Layout */
+    .gallery-grid {
+      column-count: 2;
+      column-gap: 24px;
+    }
+    
+    @media (max-width: 768px) {
+      .gallery-grid {
+        column-count: 1;
+      }
+    }
+    
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #F5F5F5;
+    }
+    
+    .gallery-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-muted);
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="site-title">Prawee Sinweeruthai</div>
+    <nav class="nav-links">
+      <a href="#" class="active">Selects</a>
+      <a href="../about/">About</a>
+    </nav>
+  </header>
+
+  <main class="gallery-grid" id="gallery-container">
+    <!-- Images will be injected here via JS -->
+  </main>
+
+  <script>
+    async function loadGallery() {
+      const container = document.getElementById('gallery-container');
+      
+      try {
+        const response = await fetch('../assets/vscoimages/images.json');
+        if (!response.ok) throw new Error('Failed to load images.json');
+        
+        let images = await response.json();
+        
+        // Sort by upload_date descending (newest first)
+        images.sort((a, b) => b.upload_date - a.upload_date);
+        
+        images.forEach((imgData, index) => {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          item.style.animationDelay = `${index * 0.05}s`;
+          
+          const img = document.createElement('img');
+          img.className = 'gallery-img';
+          img.src = `../assets/vscoimages/${imgData.file_name}`;
+          img.loading = 'lazy';
+          img.alt = imgData.description || 'Gallery image';
+          
+          const meta = document.createElement('div');
+          meta.className = 'gallery-meta';
+          
+          // Camera info
+          let cameraInfo = 'Unknown Camera';
+          if (imgData.image_meta && imgData.image_meta.make && imgData.image_meta.model) {
+            cameraInfo = `${imgData.image_meta.make.trim()} ${imgData.image_meta.model.trim()}`;
+          } else if (imgData.image_meta && imgData.image_meta.model) {
+            cameraInfo = imgData.image_meta.model.trim();
+          }
+          
+          // Cryptic ID
+          const crypticId = imgData.id || imgData.upload_date;
+          
+          meta.innerHTML = `
+            <span>${cameraInfo}</span>
+            <span>${crypticId}</span>
+          `;
+          
+          item.appendChild(img);
+          item.appendChild(meta);
+          container.appendChild(item);
+        });
+        
+      } catch (error) {
+        console.error('Error loading gallery:', error);
+        container.innerHTML = '<p style="font-family: monospace; font-size: 12px; color: #888;">Failed to load gallery data.</p>';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadGallery);
+  </script>
+</body>
+</html>
