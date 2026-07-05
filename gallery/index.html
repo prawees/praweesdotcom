@@ -131,15 +131,13 @@
     <!-- Images will be injected here via JS -->
   </main>
 
+  <script src="../assets/vscoimages/images.js"></script>
   <script>
-    async function loadGallery() {
+    function loadGallery() {
       const container = document.getElementById('gallery-container');
       
       try {
-        const response = await fetch('../assets/vscoimages/images.json');
-        if (!response.ok) throw new Error('Failed to load images.json');
-        
-        let images = await response.json();
+        let images = GALLERY_IMAGES;
         
         // Sort by upload_date descending (newest first)
         images.sort((a, b) => b.upload_date - a.upload_date);

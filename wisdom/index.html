@@ -550,53 +550,13 @@
 
     <div id="bg-canvas"></div>
 
-    <svg id="bg-art" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="0.5"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18h6" />
-        <path d="M10 22h4" />
-        <path
-            d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1.5.5 2.8 1.5 3.5.76.76 1.23 1.52 1.41 2.5" />
-    </svg>
+    <img id="bg-art" src="../assets/favicon.png" alt="background" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; opacity: 0.15; z-index: -5; pointer-events: none; user-select: none;">
 
     <div class="top-nav-bar">
         <div class="top-left-group">
-            <div class="roadmap-title-badge"><span class="logo-text-small">WISDOM</span></div>
             <div class="lang-switcher">
                 <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
                 <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
-            </div>
-        </div>
-
-        <div class="stats-panel" id="stats-panel">
-            <div class="stat-badge">
-                <div class="stat-header">
-                    <span>🧠 <span class="show-th">ปัญญา</span><span class="show-en">Wisdom</span></span>
-                    <span id="wisdom-val">10/100</span>
-                </div>
-                <div class="bar-bg">
-                    <div class="bar-fill" id="bar-wisdom" style="width: 10%"></div>
-                </div>
-                <div id="anim-wisdom" class="floating-text" style="color: var(--wisdom-color);"></div>
-            </div>
-            <div class="stat-badge">
-                <div class="stat-header">
-                    <span>⚡ <span class="show-th">สุขภาพ</span><span class="show-en">Health</span></span>
-                    <span id="health-val">100/100</span>
-                </div>
-                <div class="bar-bg">
-                    <div class="bar-fill" id="bar-health" style="width: 100%"></div>
-                </div>
-                <div id="anim-health" class="floating-text" style="color: var(--health-color);"></div>
-            </div>
-            <div class="stat-badge">
-                <div class="stat-header">
-                    <span>😊 <span class="show-th">ความสุข</span><span class="show-en">Happiness</span></span>
-                    <span id="happiness-val">50/100</span>
-                </div>
-                <div class="bar-bg">
-                    <div class="bar-fill" id="bar-happiness" style="width: 50%"></div>
-                </div>
-                <div id="anim-happiness" class="floating-text" style="color: var(--happiness-color);"></div>
             </div>
         </div>
     </div>
@@ -623,6 +583,39 @@
     </div>
 
     <div id="game-ui">
+        <div class="stats-panel" id="stats-panel" style="display: none; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; max-width: 700px; margin-bottom: 25px;">
+            <div class="stat-badge" style="flex: 1; min-width: 140px;">
+                <div class="stat-header">
+                    <span>🧠 <span class="show-th">ปัญญา</span><span class="show-en">Wisdom</span></span>
+                    <span id="wisdom-val">10/100</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" id="bar-wisdom" style="width: 10%"></div>
+                </div>
+                <div id="anim-wisdom" class="floating-text" style="color: var(--wisdom-color);"></div>
+            </div>
+            <div class="stat-badge" style="flex: 1; min-width: 140px;">
+                <div class="stat-header">
+                    <span>⚡ <span class="show-th">สุขภาพ</span><span class="show-en">Health</span></span>
+                    <span id="health-val">100/100</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" id="bar-health" style="width: 100%"></div>
+                </div>
+                <div id="anim-health" class="floating-text" style="color: var(--health-color);"></div>
+            </div>
+            <div class="stat-badge" style="flex: 1; min-width: 140px;">
+                <div class="stat-header">
+                    <span>😊 <span class="show-th">ความสุข</span><span class="show-en">Happiness</span></span>
+                    <span id="happiness-val">50/100</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" id="bar-happiness" style="width: 50%"></div>
+                </div>
+                <div id="anim-happiness" class="floating-text" style="color: var(--happiness-color);"></div>
+            </div>
+        </div>
+
         <div class="life-journey-container" id="life-journey-container">
             <div class="life-journey-title">
                 <span><span class="show-th">จุดเริ่มต้น</span><span class="show-en">Birth</span></span>
@@ -876,6 +869,8 @@
                 document.getElementById('stats-panel').style.display = 'flex';
                 document.getElementById('life-journey-container').style.display = 'flex';
                 document.getElementById('game-ui').style.display = 'flex';
+                
+                document.getElementById('bg-art').src = "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>";
 
                 state = { age: scenarios[0].age, wisdom: 10, health: 100, happiness: 50, currentScenario: 0, history: [] };
                 renderScenario();
