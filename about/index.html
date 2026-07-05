@@ -232,8 +232,8 @@
       object-position: center top;
       display: block;
       border-radius: 4px;
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
       filter: sepia(0.15) contrast(1.05) brightness(0.95);
     }
 
@@ -597,7 +597,7 @@
 
     .website-preview:hover {
       border-color: var(--sec-ink, var(--link));
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     }
 
     .website-preview iframe {
@@ -621,7 +621,7 @@
       background: #FFF;
       padding: 6px 6px 20px 6px;
       border: 1px solid #E4E0D7;
-      box-shadow: 2px 4px 12px rgba(0,0,0,0.06);
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
       border-radius: 2px;
       width: calc(50% - 8px);
       max-width: 200px;
@@ -631,7 +631,7 @@
 
     .photo-frame:hover {
       transform: scale(1.05) rotate(0deg) !important;
-      box-shadow: 4px 8px 24px rgba(0,0,0,0.12);
+      box-shadow: 4px 8px 24px rgba(0, 0, 0, 0.12);
       z-index: 10;
     }
 
@@ -642,9 +642,17 @@
       border: 1px solid #F0EEE9;
     }
 
-    .photo-frame:nth-child(even) { transform: rotate(2.5deg); }
-    .photo-frame:nth-child(odd) { transform: rotate(-2.5deg); }
-    .photo-frame:nth-child(3n) { transform: rotate(1deg); }
+    .photo-frame:nth-child(even) {
+      transform: rotate(2.5deg);
+    }
+
+    .photo-frame:nth-child(odd) {
+      transform: rotate(-2.5deg);
+    }
+
+    .photo-frame:nth-child(3n) {
+      transform: rotate(1deg);
+    }
 
     .photo-frame .embed-caption {
       margin-top: 8px;
@@ -672,7 +680,7 @@
 
     .vsco-banner:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
       color: #FFF;
     }
 
@@ -744,7 +752,7 @@
       padding: 32px 36px;
       background: #FDFBF7;
       border: 1px solid #E8E4D9;
-      box-shadow: 2px 6px 16px rgba(0,0,0,0.04), inset 0 0 60px rgba(230,220,200,0.15);
+      box-shadow: 2px 6px 16px rgba(0, 0, 0, 0.04), inset 0 0 60px rgba(230, 220, 200, 0.15);
       font-family: 'IBM Plex Sans Thai Looped', 'IBM Plex Sans Thai', sans-serif;
       font-size: 14.5px;
       color: #4A453E;
@@ -755,16 +763,18 @@
       transform: rotate(-1deg);
       max-width: 440px;
     }
-    
+
     .song-lyrics::before {
       content: '';
       position: absolute;
-      top: -10px; left: 50%;
+      top: -10px;
+      left: 50%;
       transform: translateX(-50%) rotate(2deg);
-      width: 50px; height: 20px;
+      width: 50px;
+      height: 20px;
       background: rgba(220, 215, 200, 0.7);
       border-radius: 2px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     }
 
     /* ── ASCII RULE ── */
@@ -808,7 +818,7 @@
       margin-bottom: 56px;
       margin-top: 16px;
     }
-    
+
     .sl-link {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 16px;
@@ -816,18 +826,35 @@
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
     }
-    
+
     .sl-link:hover {
       opacity: 0.7;
       transform: translateY(-2px);
     }
-    
-    .sl-link.email { color: #3B5FC0; }
-    .sl-link.fb { color: #1877F2; }
-    .sl-link.tiktok { color: #FE2C55; }
-    .sl-link.ig { color: #C13584; }
-    .sl-link.yt { color: #FF0000; }
-    .sl-link.sub { color: #FF6719; }
+
+    .sl-link.email {
+      color: #3B5FC0;
+    }
+
+    .sl-link.fb {
+      color: #1877F2;
+    }
+
+    .sl-link.tiktok {
+      color: #FE2C55;
+    }
+
+    .sl-link.ig {
+      color: #C13584;
+    }
+
+    .sl-link.yt {
+      color: #FF0000;
+    }
+
+    .sl-link.sub {
+      color: #FF6719;
+    }
 
     /* ── FOOTER ── */
     .foot {
@@ -1051,7 +1078,8 @@
               data-en="president of ramathon run club, moderator for ramsc career month, motion media team for road traffic injury pitching challenge">
               ประธาน ramathon run club, moderator งาน ramsc career month และฝ่ายสื่อวิดีโอโครงการ road traffic injury
               pitching challenge</div>
-            <a href="https://ramathonrun.prawees.com" target="_blank" rel="noopener" class="website-preview" style="display: block;">
+            <a href="https://ramathonrun.prawees.com" target="_blank" rel="noopener" class="website-preview"
+              style="display: block;">
               <iframe src="https://ramathonrun.prawees.com" tabindex="-1" loading="lazy"></iframe>
             </a>
           </div>
@@ -1070,11 +1098,13 @@
             <div class="photo-gallery">
               <div class="photo-frame">
                 <img src="../assets/emcee.jpg" alt="พิธีกร Career Month 2026 @ Ramathibodi" loading="lazy">
-                <div class="embed-caption" data-th="พิธีกร Career Month" data-en="Career Month MC">พิธีกร Career Month</div>
+                <div class="embed-caption" data-th="พิธีกร Career Month" data-en="Career Month MC">พิธีกร Career Month
+                </div>
               </div>
               <div class="photo-frame">
                 <img src="../assets/experience%20sharing.jpeg" alt="โครงการต้นกล้ารามาธิบดี" loading="lazy">
-                <div class="embed-caption" data-th="โครงการต้นกล้ารามาธิบดี" data-en="Tonkla Ramathibodi Project">โครงการต้นกล้ารามาธิบดี</div>
+                <div class="embed-caption" data-th="โครงการต้นกล้ารามาธิบดี" data-en="Tonkla Ramathibodi Project">
+                  โครงการต้นกล้ารามาธิบดี</div>
               </div>
             </div>
           </div>
@@ -1092,11 +1122,13 @@
             <div class="photo-gallery">
               <div class="photo-frame">
                 <img src="../assets/present%20usa.png" alt="San Diego, CA, USA" loading="lazy">
-                <div class="embed-caption" data-th="San Diego, CA, USA" data-en="San Diego, CA, USA">San Diego, CA, USA</div>
+                <div class="embed-caption" data-th="San Diego, CA, USA" data-en="San Diego, CA, USA">San Diego, CA, USA
+                </div>
               </div>
               <div class="photo-frame">
                 <img src="../assets/IEEE%20nsens.png" alt="Kuala Lumpur, Malaysia" loading="lazy">
-                <div class="embed-caption" data-th="Kuala Lumpur, Malaysia" data-en="Kuala Lumpur, Malaysia">Kuala Lumpur, Malaysia</div>
+                <div class="embed-caption" data-th="Kuala Lumpur, Malaysia" data-en="Kuala Lumpur, Malaysia">Kuala
+                  Lumpur, Malaysia</div>
               </div>
             </div>
           </div>
@@ -1115,11 +1147,13 @@
             <div class="photo-gallery">
               <div class="photo-frame">
                 <img src="../assets/poster_2024.png" alt="โปสเตอร์สรุปงานวิ่ง" loading="lazy">
-                <div class="embed-caption" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="Virtual Run Poster">โปสเตอร์สรุปงานวิ่ง</div>
+                <div class="embed-caption" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="Virtual Run Poster">
+                  โปสเตอร์สรุปงานวิ่ง</div>
               </div>
               <div class="photo-frame">
                 <img src="../assets/ramathon2024.png" alt="ชาเลนจ์รวมภาพท้องฟ้า" loading="lazy">
-                <div class="embed-caption" data-th="ชาเลนจ์รวมภาพท้องฟ้า" data-en="Sky Photo Challenge">ชาเลนจ์รวมภาพท้องฟ้า</div>
+                <div class="embed-caption" data-th="ชาเลนจ์รวมภาพท้องฟ้า" data-en="Sky Photo Challenge">
+                  ชาเลนจ์รวมภาพท้องฟ้า</div>
               </div>
             </div>
           </div>
@@ -1164,7 +1198,8 @@
               </div>
               <div class="photo-frame">
                 <img src="../assets/thestandard.png" alt="รายการ The Standard" loading="lazy">
-                <div class="embed-caption" data-th="ในรายการ The Standard" data-en="Featured on The Standard">ในรายการ The Standard</div>
+                <div class="embed-caption" data-th="ในรายการ The Standard" data-en="Featured on The Standard">ในรายการ
+                  The Standard</div>
               </div>
             </div>
           </div>
@@ -1182,7 +1217,10 @@
               monash science school ออสเตรเลีย</div>
             <div class="tl-embeds" style="margin-top: 15px;">
               <div class="embed-item" style="max-width: 100%;">
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/zqemY5XN2dY?start=1320" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 8px;"></iframe>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/zqemY5XN2dY?start"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 8px;"></iframe>
               </div>
             </div>
           </div>
@@ -1332,7 +1370,10 @@
           และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ
         </p>
         <div class="spotify-wrap" style="aspect-ratio: 16/9; max-width: 560px;">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/L3EMVOHlbq4?si=I_ZUzLsvCx3JCkCq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/L3EMVOHlbq4?si=I_ZUzLsvCx3JCkCq"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
         <div class="song-lyrics">เธอบอกคืนนี้ เป็นอีกคืนที่ฉันนั้นนอนละเมอ
           ตั้งแต่แก่ตัว ฉันก็เริ่มคิดวน พูดจาพร่ำเพ้อ
@@ -1353,9 +1394,13 @@
 
     <!-- VSCO GALLERY -->
     <p class="comment" data-reveal data-th="แกลลอรีของฉัน" data-en="my gallery">แกลลอรีของฉัน / my gallery</p>
-    <a href="../gallery/" onclick="event.preventDefault(); this.style.transition='all 0.5s ease'; this.style.transform='scale(1.1)'; this.style.opacity='0'; setTimeout(()=>window.location.href='../gallery/', 400);" id="gallery-preview-wrap" style="display:block; text-decoration:none; cursor:pointer;" data-reveal>
+    <a href="../gallery/"
+      onclick="event.preventDefault(); this.style.transition='all 0.5s ease'; this.style.transform='scale(1.1)'; this.style.opacity='0'; setTimeout(()=>window.location.href='../gallery/', 400);"
+      id="gallery-preview-wrap" style="display:block; text-decoration:none; cursor:pointer;" data-reveal>
       <div class="website-preview" style="height: 380px; margin-bottom: 56px; pointer-events: none;">
-        <iframe src="../gallery/index.html" style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" scrolling="no" tabindex="-1"></iframe>
+        <iframe src="../gallery/index.html"
+          style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" scrolling="no"
+          tabindex="-1"></iframe>
       </div>
     </a>
 
