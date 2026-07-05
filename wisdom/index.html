@@ -199,34 +199,20 @@
 
         .floating-text {
             position: absolute;
-            right: -30px;
-            top: 0;
+            right: 15px;
+            top: -15px;
             font-weight: 800;
             font-size: 1.1rem;
             opacity: 0;
             pointer-events: none;
+            z-index: 999;
         }
 
         @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(10px) scale(0.8);
-            }
-
-            20% {
-                opacity: 1;
-                transform: translateY(0) scale(1.1);
-            }
-
-            80% {
-                opacity: 1;
-                transform: translateY(-15px) scale(1);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-25px) scale(0.9);
-            }
+            0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+            20% { opacity: 1; transform: translateY(0) scale(1.1); }
+            80% { opacity: 1; transform: translateY(-15px) scale(1); }
+            100% { opacity: 0; transform: translateY(-25px) scale(0.9); }
         }
 
         /* Start Screen */
@@ -550,6 +536,7 @@
                 <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
             </div>
         </div>
+        <div style="position: absolute; left: 50%; transform: translateX(-50%); font-family: 'Kalam', cursive; font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px;">WISDOM</div>
     </div>
 
     <div id="start-screen">
@@ -1049,6 +1036,7 @@
         setLanguage('th');
     </script>
 
+    <div style="position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--text-muted); font-family: 'Mali', cursive; z-index: 50; pointer-events: none;">© Prawees 2026</div>
 </body>
 
 </html>

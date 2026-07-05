@@ -130,6 +130,10 @@
   <main class="gallery-grid" id="gallery-container">
     <!-- Images will be injected here via JS -->
   </main>
+  
+  <div style="text-align:center; padding: 60px 0 20px;">
+    <img src="../assets/favicon.png" alt="" style="width: 24px; opacity: 0.15; filter: grayscale(100%); transition: opacity 0.3s;" id="gallery-favicon">
+  </div>
 
   <script src="../assets/vscoimages/images.js"></script>
   <script>
@@ -152,6 +156,10 @@
           img.src = `../assets/vscoimages/${imgData.file_name}`;
           img.loading = 'lazy';
           img.alt = imgData.description || 'Gallery image';
+          
+          img.onerror = function() {
+            this.parentElement.style.display = 'none';
+          };
           
           const meta = document.createElement('div');
           meta.className = 'gallery-meta';
@@ -184,6 +192,28 @@
     }
     
     document.addEventListener('DOMContentLoaded', loadGallery);
+
+    // Dynamic scroll background gradient
+    window.addEventListener('scroll', () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight <= 0) return;
+      
+      const scrollRatio = Math.min(Math.max(window.scrollY / scrollHeight, 0), 1);
+      
+      const bgTone = Math.floor(255 - (255 * scrollRatio)); // 255 -> 0
+      const inkTone = Math.floor(17 + (238 * scrollRatio)); // 17 -> 255
+      const mutedTone = Math.floor(136 + (80 * scrollRatio)); // 136 -> 216
+      
+      document.documentElement.style.setProperty('--bg', `rgb(${bgTone}, ${bgTone}, ${bgTone})`);
+      document.documentElement.style.setProperty('--ink', `rgb(${inkTone}, ${inkTone}, ${inkTone})`);
+      document.documentElement.style.setProperty('--ink-muted', `rgb(${mutedTone}, ${mutedTone}, ${mutedTone})`);
+      
+      const favicon = document.getElementById('gallery-favicon');
+      if (favicon) {
+        favicon.style.filter = scrollRatio > 0.5 ? 'grayscale(100%) invert(1)' : 'grayscale(100%)';
+        favicon.style.opacity = 0.15 + (0.2 * scrollRatio);
+      }
+    });
   </script>
 </body>
 </html>
