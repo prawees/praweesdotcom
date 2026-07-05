@@ -212,15 +212,16 @@
     /* ── HERO BLOCK ── */
     .hero {
       display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 28px;
+      grid-template-columns: clamp(110px, 22vw, 180px) 1fr;
+      gap: clamp(20px, 4vw, 36px);
       align-items: start;
       margin-bottom: 56px;
     }
 
     .hero-portrait {
-      width: 110px;
-      height: 138px;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      height: auto;
       position: relative;
     }
 
@@ -871,13 +872,8 @@
       }
 
       .hero {
-        grid-template-columns: 80px 1fr;
+        grid-template-columns: clamp(80px, 25vw, 120px) 1fr;
         gap: 18px;
-      }
-
-      .hero-portrait {
-        width: 80px;
-        height: 100px;
       }
 
       .tl-item {
@@ -1350,10 +1346,9 @@
 
     <!-- VSCO GALLERY -->
     <p class="comment" data-reveal data-th="แกลลอรีของฉัน" data-en="my gallery">แกลลอรีของฉัน / my gallery</p>
-    <a href="https://vsco.co/prawees/gallery" target="_blank" rel="noopener" class="vsco-banner" data-reveal>
-      <span class="vsco-logo">VSCO</span>
-      <span class="vsco-text" data-th="ดูแกลลอรีภาพถ่ายของฉัน" data-en="View my photo gallery">ดูแกลลอรีภาพถ่ายของฉัน</span>
-    </a>
+    <div class="website-preview" style="height: 380px; margin-bottom: 56px;" data-reveal>
+      <iframe src="https://prawees.vsco.site" style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" loading="lazy"></iframe>
+    </div>
 
     <!-- SOCIAL STRIP -->
     <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
