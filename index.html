@@ -232,9 +232,19 @@
     }
 
     @keyframes smooth-appear {
-      0% { opacity: 0; filter: blur(4px); transform: scale(0.98); }
-      100% { opacity: 1; filter: blur(0); transform: scale(1); }
+      0% {
+        opacity: 0;
+        filter: blur(4px);
+        transform: scale(0.98);
+      }
+
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+      }
     }
+
     .cyber-init {
       animation: smooth-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
@@ -249,7 +259,7 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--rule);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
       transform: translateY(-100%);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
@@ -289,6 +299,7 @@
         padding: 12px 24px;
         flex-wrap: wrap;
       }
+
       .sticky-greeting {
         position: static;
         transform: none;
@@ -298,6 +309,7 @@
         margin-bottom: 8px;
         font-size: 26px;
       }
+
       .sticky-wrap .crumbs,
       .sticky-wrap .lang {
         font-size: 13px;
@@ -353,7 +365,7 @@
       margin-top: 16px;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     .sl-link {
       display: grid;
       grid-template-columns: 80px 1fr;
@@ -364,15 +376,16 @@
       text-decoration: none;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .sl-link:last-child {
       border-bottom: 1px solid var(--rule);
     }
-    
+
     .sl-link:hover {
       border-top-color: var(--pa, var(--link));
       opacity: 0.9;
     }
-    
+
     .sl-icon {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 24px;
@@ -381,32 +394,49 @@
       transition: all 0.3s;
       color: var(--pa, var(--ink));
     }
-    
+
     .sl-body {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-    
+
     .sl-title {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 16px;
       font-weight: 500;
       color: var(--ink);
     }
-    
+
     .sl-desc {
       font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
       font-size: 13.5px;
       color: var(--ink-mid);
     }
-    
-    .sl-link.email { --pa: #3B5FC0; }
-    .sl-link.fb { --pa: #1877F2; }
-    .sl-link.tiktok { --pa: #FE2C55; }
-    .sl-link.ig { --pa: #C13584; }
-    .sl-link.yt { --pa: #FF0000; }
-    .sl-link.blog { --pa: #FF6719; }
+
+    .sl-link.email {
+      --pa: #3B5FC0;
+    }
+
+    .sl-link.fb {
+      --pa: #1877F2;
+    }
+
+    .sl-link.tiktok {
+      --pa: #FE2C55;
+    }
+
+    .sl-link.ig {
+      --pa: #C13584;
+    }
+
+    .sl-link.yt {
+      --pa: #FF0000;
+    }
+
+    .sl-link.blog {
+      --pa: #FF6719;
+    }
 
 
 
@@ -461,8 +491,8 @@
     .proj:hover {
       border-top-color: transparent;
       background: var(--bg);
-      box-shadow: 0 4px 24px color-mix(in srgb, var(--pa) 15%, transparent), 
-                  0 0 0 1px color-mix(in srgb, var(--pa) 20%, transparent);
+      box-shadow: 0 4px 24px color-mix(in srgb, var(--pa) 15%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--pa) 20%, transparent);
       transform: translateY(-2px);
       z-index: 10;
       position: relative;
@@ -538,26 +568,6 @@
 
     .proj:hover .proj-url {
       color: var(--pa, var(--link));
-    }
-
-    .proj-embed {
-      margin-top: 16px;
-      width: 100%;
-      height: 160px;
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-      background: var(--rule-soft);
-      border: 1px solid var(--rule);
-    }
-
-    .proj-embed iframe {
-      width: 200%;
-      height: 200%;
-      transform: scale(0.5);
-      transform-origin: 0 0;
-      pointer-events: none;
-      border: none;
     }
 
     /* ── ASCII DIVIDER ── */
@@ -1244,7 +1254,7 @@
         <span class="slash">/</span>
         <a href="https://blog.prawees.com">blog</a>
         <span class="slash">/</span>
-        <a href="gallery/">gallery</a>
+        <a href="https://prawees.com/gallery" target="_blank" rel="noopener">gallery</a>
         <span class="slash">/</span>
       </div>
       <span class="sticky-greeting" id="sticky-greeting">hi, i'm smart</span>
@@ -1272,7 +1282,7 @@
         <span class="slash">/</span>
         <a href="https://blog.prawees.com">blog</a>
         <span class="slash">/</span>
-        <a href="gallery/">gallery</a>
+        <a href="https://prawees.vsco.site" target="_blank" rel="noopener">gallery</a>
         <span class="slash">/</span>
       </div>
       <div class="lang">
@@ -1369,7 +1379,6 @@
           <div class="proj-desc" data-th="คลับวิ่งออนไลน์สำหรับนักศึกษาและบุคลากรชาวรามาธิบดีฯ"
             data-en="online running club for the ramathibodi students and staff">
             คลับวิ่งออนไลน์สำหรับนักศึกษาและบุคลากรชาวรามาธิบดีฯ</div>
-          <div class="proj-embed"><iframe src="https://ramathonrun.prawees.com" scrolling="no" tabindex="-1"></iframe></div>
         </div>
         <div class="proj-url">ramathonrun.prawees.com →</div>
       </a>
@@ -1396,7 +1405,6 @@
           <div class="proj-desc" data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ และคู่มือค้นคว้าเส้นทางอาชีพ"
             data-en="interview series with seniors and experts, and guides to explore career paths">
             ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ และคู่มือค้นคว้าเส้นทางอาชีพ</div>
-          <div class="proj-embed"><iframe src="gwajapen/index.html" scrolling="no" tabindex="-1"></iframe></div>
         </div>
         <div class="proj-url">gwajapen.prawees.com →</div>
       </a>
@@ -1417,7 +1425,6 @@
           <div class="proj-desc" data-th="เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix"
             data-en="a minimal web app to prioritise life using the eisenhower matrix">
             เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix</div>
-          <div class="proj-embed"><iframe src="https://priority.prawees.com" scrolling="no" tabindex="-1"></iframe></div>
         </div>
         <div class="proj-url">priority.prawees.com →</div>
       </a>
@@ -1447,7 +1454,6 @@
             data-th="เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด"
             data-en="a life simulation game on decision-making, cognitive biases, and mental models">
             เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด</div>
-          <div class="proj-embed"><iframe src="wisdom/index.html" scrolling="no" tabindex="-1"></iframe></div>
         </div>
         <div class="proj-url">wisdom.prawees.com →</div>
       </a>
@@ -1525,7 +1531,8 @@
 
     <!-- MINI RUNNER GAME -->
     <div style="display: none;">
-      <p class="comment" data-reveal data-th="ถ้าเหนื่อยพักก็ดี ถ้าเจอหมีวิ่งดิรอไร" data-en="take a break, run a little">
+      <p class="comment" data-reveal data-th="ถ้าเหนื่อยพักก็ดี ถ้าเจอหมีวิ่งดิรอไร"
+        data-en="take a break, run a little">
         ถ้าเหนื่อยพักก็ดี ถ้าเจอหมีวิ่งดิรอไร</p>
       <div class="game-card" data-reveal>
         <div class="game-header">
@@ -1661,7 +1668,7 @@
           done: () => {
             const styles = ['s-cyber', 's-coral', 's-pixel', 's-film', 's-blue', 's-holo', 's-vapor', 's-stamp', 's-marquee', 's-zine', 's-mint', 's-acid', 's-paper'];
             const anims = ['anim-glitch', 'anim-flip', 'anim-slide', 'anim-spin', 'anim-type', 'anim-bounce'];
-            
+
             const firstStyleIdx = Math.floor(Math.random() * styles.length);
             const firstStyle = styles[firstStyleIdx];
 
@@ -1699,7 +1706,7 @@
 
               const nextStyle = styles[nextStyleIdx];
               const nextAnim = anims[nextAnimIdx];
-              
+
               cybers.forEach(cyber => {
                 styles.forEach(s => cyber.classList.remove(s));
                 anims.forEach(a => cyber.classList.remove(a));
