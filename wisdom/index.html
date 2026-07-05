@@ -60,11 +60,7 @@
             background-size: 100% 1.8rem;
         }
 
-        @keyframes scribble-jiggle {
-            0% { transform: rotate(-1deg) translate(0, 1px); }
-            50% { transform: rotate(1deg) translate(0, -1px); }
-            100% { transform: rotate(-1deg) translate(0, 1px); }
-        }
+
 
         /* Subtle Lightbulb Art Background */
         #bg-art {
@@ -107,7 +103,6 @@
             border: 2px solid var(--border-color);
             padding: 10px 20px;
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-            animation: scribble-jiggle 3s infinite ease-in-out alternate;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -165,7 +160,6 @@
             border: 2px solid var(--border-color);
             padding: 10px 15px;
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-            animation: scribble-jiggle 2.5s infinite ease-in-out alternate;
             position: relative;
         }
 
@@ -251,17 +245,16 @@
 
         /* Stylized Main Title */
         h1.game-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 900;
+            font-family: 'Kalam', cursive;
+            font-size: 5.5rem;
+            font-weight: 700;
             margin-bottom: 20px;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-primary) 60%, var(--accent-gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 8px 16px rgba(166, 123, 91, 0.25));
+            letter-spacing: 4px;
+            color: var(--text-main);
+            text-shadow: 4px 4px 0px rgba(166, 123, 91, 0.2);
+            transform: rotate(-3deg);
         }
 
         .project-desc {
@@ -289,7 +282,6 @@
             font-weight: 700;
             font-family: inherit;
             transition: 0.3s;
-            animation: scribble-jiggle 2.5s infinite ease-in-out alternate;
         }
 
         .start-btn:hover {
@@ -393,7 +385,7 @@
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
             white-space: normal;
             position: relative;
-            animation: slideUp 0.5s ease forwards, scribble-jiggle 3s infinite ease-in-out alternate;
+            animation: slideUp 0.5s ease forwards;
         }
 
         .node-tag {
@@ -441,7 +433,6 @@
             line-height: 1.5;
             font-weight: 500;
             transition: all 0.2s ease;
-            animation: scribble-jiggle 2.2s infinite ease-in-out alternate;
         }
 
         .choice-btn:hover {
@@ -464,7 +455,7 @@
             padding: 40px;
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
             border: 4px solid var(--accent-primary);
-            animation: slideUp 0.4s ease forwards, scribble-jiggle 3.2s infinite ease-in-out alternate;
+            animation: slideUp 0.4s ease forwards;
         }
 
         .feedback-text {
@@ -550,7 +541,7 @@
 
     <div id="bg-canvas"></div>
 
-    <img id="bg-art" src="../assets/favicon.png" alt="background" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; opacity: 0.15; z-index: -5; pointer-events: none; user-select: none;">
+    <img id="bg-art" src="../assets/favicon.png" alt="" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; opacity: 0.15; z-index: -5; pointer-events: none; user-select: none;">
 
     <div class="top-nav-bar">
         <div class="top-left-group">
