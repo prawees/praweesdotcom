@@ -54,73 +54,72 @@
       overflow-x: hidden;
     }
 
-    /* ── AMBIENT BG BLOBS ── */
-    .ambient {
+    /* ── STICKY BAR ── */
+    .sticky-bar {
       position: fixed;
-      inset: 0;
-      z-index: -1;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
-      overflow: hidden;
     }
 
-    .blob {
+    .sticky-bar.visible {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sticky-wrap {
+      width: 100%;
+      max-width: 760px;
+      padding: 0 32px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .sticky-greeting {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      will-change: transform;
+      right: 130px;
+      font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
+      font-weight: 200;
+      font-size: clamp(20px, 3vw, 26px);
+      color: var(--ink);
+      white-space: nowrap;
     }
 
-    .blob-1 {
-      width: 520px;
-      height: 520px;
-      background: #CFE0FF;
-      top: -12%;
-      left: -8%;
-      opacity: 0.35;
-      animation: float-a 18s ease-in-out infinite alternate;
-    }
-
-    .blob-2 {
-      width: 600px;
-      height: 600px;
-      background: #E8DCFA;
-      bottom: -18%;
-      right: -10%;
-      opacity: 0.28;
-      animation: float-b 22s ease-in-out infinite alternate;
-      animation-delay: -6s;
-    }
-
-    .blob-3 {
-      width: 360px;
-      height: 360px;
-      background: #BFE0F5;
-      top: 50%;
-      right: -8%;
-      opacity: 0.22;
-      animation: float-a 26s ease-in-out infinite alternate;
-      animation-delay: -12s;
-    }
-
-    @keyframes float-a {
-      0% {
-        transform: translate(0, 0) scale(1);
+    @media (max-width: 600px) {
+      .sticky-wrap {
+        height: auto;
+        padding: 12px 24px;
+        flex-wrap: wrap;
       }
 
-      100% {
-        transform: translate(80px, 60px) scale(1.08);
+      .sticky-greeting {
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
+        order: -1;
+        margin-bottom: 8px;
+        font-size: 26px;
       }
     }
 
-    @keyframes float-b {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
+    /* ── AMBIENT BG BLOBS ── */
 
-      100% {
-        transform: translate(-60px, -40px) scale(1.05);
-      }
-    }
+
+
 
     /* ── REVEAL ── */
     [data-reveal] {
@@ -268,6 +267,31 @@
       min-height: 2.6em;
     }
 
+    .hero-contact {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .hero-contact .sl-link {
+      font-size: 14px;
+    }
+
+    .hc-link {
+      color: var(--ink-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hc-link:hover {
+      color: var(--ink);
+    }
+
     /* ── TYPEWRITER CARET ── */
     .tw-typing::after {
       content: '▌';
@@ -322,6 +346,13 @@
       --sec-ink: #B07090;
       --sec-bg: linear-gradient(180deg, rgba(255, 210, 220, 0.09) 0%, transparent 70%);
       border-left-color: rgba(176, 112, 144, 0.30);
+      border-left-width: 1px;
+    }
+
+    .section.sec-07 {
+      --sec-ink: #111111;
+      --sec-bg: linear-gradient(180deg, rgba(17, 17, 17, 0.04) 0%, transparent 70%);
+      border-left-color: rgba(17, 17, 17, 0.15);
       border-left-width: 1px;
     }
 
@@ -856,6 +887,10 @@
       color: #FF6719;
     }
 
+    .sl-link.gallery {
+      color: #111111;
+    }
+
     /* ── FOOTER ── */
     .foot {
       margin-top: 64px;
@@ -931,11 +966,29 @@
 </head>
 
 <body class="lang-th">
-  <div class="ambient" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+
+  <div class="sticky-bar" id="sticky-bar">
+    <div class="sticky-wrap">
+      <div class="crumbs">
+        <a href="../">home</a>
+        <span class="slash">/</span>
+        <span class="here">about</span>
+        <span class="slash">/</span>
+        <a href="https://blog.prawees.com">blog</a>
+        <span class="slash">/</span>
+        <a href="../gallery/">gallery</a>
+        <span class="slash">/</span>
+      </div>
+      <span class="sticky-greeting" id="sticky-greeting">hi, i'm smart :-)</span>
+      <div class="lang">
+        <button class="active btn-th" onclick="setLang('th')">th</button>
+        <span class="slash">/</span>
+        <button class="btn-en" onclick="setLang('en')">en</button>
+      </div>
+    </div>
   </div>
+
+
 
   <div class="wrap">
 
@@ -959,7 +1012,7 @@
     </div>
 
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="hero-section">
       <div class="hero-portrait">
         <img src="../assets/portrait.jpg" alt="prawee" loading="eager">
       </div>
@@ -971,6 +1024,15 @@
           data-en="m.d.-m.eng student weaving together medicine, engineering, and storytelling.">
           นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng) ที่อยากผสานการแพทย์ วิศวกรรม และการเล่าเรื่องเข้าด้วยกัน
         </p>
+        <div class="hero-contact">
+          <a href="mailto:prawee.sin@gmail.com" class="sl-link email">email</a>
+          <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" class="sl-link fb">facebook</a>
+          <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">tiktok</a>
+          <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">instagram</a>
+          <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">youtube</a>
+          <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">blog</a>
+          <a href="../gallery/" class="sl-link gallery">gallery</a>
+        </div>
       </div>
     </section>
 
@@ -1147,13 +1209,25 @@
             <div class="photo-gallery">
               <div class="photo-frame">
                 <img src="../assets/poster_2024.png" alt="โปสเตอร์สรุปงานวิ่ง" loading="lazy">
-                <div class="embed-caption" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="Virtual Run Poster">
+                <div class="embed-caption" style="margin-bottom: 2px;" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="Virtual Run Poster">
                   โปสเตอร์สรุปงานวิ่ง</div>
+                <div style="font-size: 10px; color: #A0A0A0; font-family: 'IBM Plex Sans Thai', sans-serif; text-align: center; line-height: 1.4;">
+                  <span data-th="อ่านรายงานฉบับเต็มได้ที่ " data-en="Read the full recap at ">อ่านรายงานฉบับเต็มได้ที่ </span>
+                  <a href="https://ramathonrun.pythonanywhere.com/events/recap2024" target="_blank" rel="noopener" style="color: var(--link); text-decoration: none;">/recap2024</a>
+                </div>
               </div>
               <div class="photo-frame">
                 <img src="../assets/ramathon2024.png" alt="ชาเลนจ์รวมภาพท้องฟ้า" loading="lazy">
-                <div class="embed-caption" data-th="ชาเลนจ์รวมภาพท้องฟ้า" data-en="Sky Photo Challenge">
-                  ชาเลนจ์รวมภาพท้องฟ้า</div>
+                <div class="embed-caption" style="margin-bottom: 2px;"
+                  data-th="sleepy's challenge"
+                  data-en="sleepy's challenge">
+                  sleepy's challenge</div>
+                <div
+                  style="font-size: 10px; color: #A0A0A0; font-family: 'IBM Plex Sans Thai', sans-serif; text-align: center; line-height: 1.4;"
+                  data-th="ชาเลนจ์รวมภาพท้องฟ้าจากนักวิ่งกว่าร้อยท่าน เป็นภาพจากงานวิ่งเมื่อปี 2024 ที่ผมชอบที่สุดเลยครับ"
+                  data-en="Sky photo challenge from hundreds of runners. One of my favorite pictures from the 2024 run.">
+                  ชาเลนจ์รวมภาพท้องฟ้าจากนักวิ่งกว่าร้อยท่าน เป็นภาพจากงานวิ่งเมื่อปี 2024 ที่ผมชอบที่สุดเลยครับ
+                </div>
               </div>
             </div>
           </div>
@@ -1364,7 +1438,7 @@
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
       </div>
 
-      <div style="margin-top: 44px;">
+      <div style="margin-top: 80px;">
         <p class="song-intro" data-th="และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ"
           data-en="this is a song i wrote. give it a listen.">
           และนี่เป็นเพลงที่ผมแต่ง ลองฟังกันดูได้นะครับ
@@ -1386,23 +1460,56 @@
           ก็เพราะว่าหูของฉันไม่ค่อยได้ยิน
           ตัวฉันก็ต้องขอโทษจริงๆ
           อย่างน้อยตาของฉันก็ยังได้เห็นหน้าเธอ</div>
+
+        <div class="my-music-links" style="margin-top: 64px; font-family: 'IBM Plex Mono', monospace; font-size: 13px;">
+          <div style="margin-bottom: 8px;">
+            <span data-th="เพลย์ลิสต์ของผม" data-en="my playlists">เพลย์ลิสต์ของผม</span>
+            <a href="https://open.spotify.com/user/smprv?si=f5d24d61050b44e0" target="_blank" rel="noopener"
+              style="color: var(--ink-muted); text-decoration: none; margin-left: 8px; transition: opacity 0.2s;"
+              onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">spotify/myplaylists</a>
+          </div>
+          <div>
+            <span data-th="เพลงของผม" data-en="my songs">เพลงของผม</span>
+            <a href="https://open.spotify.com/artist/7caW3AAEtjkq9rvDRJHVev?si=bwc_i5pwSSKoiWc4VNbrpA" target="_blank"
+              rel="noopener"
+              style="color: var(--ink); text-decoration: none; margin-left: 8px; transition: opacity 0.2s;"
+              onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">spotify/mysongs</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
     </div>
 
-    <!-- VSCO GALLERY -->
-    <p class="comment" data-reveal data-th="แกลลอรีของฉัน" data-en="my gallery">แกลลอรีของฉัน / my gallery</p>
-    <a href="../gallery/"
-      onclick="event.preventDefault(); this.style.transition='all 0.5s ease'; this.style.transform='scale(1.1)'; this.style.opacity='0'; setTimeout(()=>window.location.href='../gallery/', 400);"
-      id="gallery-preview-wrap" style="display:block; text-decoration:none; cursor:pointer;" data-reveal>
-      <div class="website-preview" style="height: 380px; margin-bottom: 56px; pointer-events: none;">
-        <iframe src="../gallery/index.html"
-          style="width: 150%; height: 150%; transform: scale(0.6666); transform-origin: 0 0;" scrolling="no"
-          tabindex="-1"></iframe>
+    <!-- 07 GALLERY -->
+    <section class="section sec-07" data-reveal>
+      <div class="sec-head">
+        <span class="sec-num">07</span>
+        <span class="sec-title" data-th="ภาพ" data-en="photos">ภาพ</span>
+        <span class="sec-rule"></span>
       </div>
-    </a>
+
+      <p class="song-intro" data-th="อ้อ ผมชอบถ่ายภาพด้วยครับ" data-en="i also like taking photos as well.">
+        อ้อ ผมชอบถ่ายภาพด้วยครับ
+      </p>
+      <p style="font-size: 11.5px; color: var(--ink-faint); margin-top: -12px; margin-bottom: 24px; font-family: 'IBM Plex Mono', monospace;"
+        data-reveal data-th="คลิกด้านล่างเพื่อเข้าไปดูแกลลอรี่ของผมได้นะครับ c:"
+        data-en="click below to view more pics i took c:">
+        คลิกด้านล่างเพื่อเข้าไปดูแกลลอรี่ของผมได้นะครับ c:
+      </p>
+
+      <a href="../gallery/"
+        onclick="event.preventDefault(); this.style.transition='all 0.5s ease'; this.style.transform='scale(1.1)'; this.style.opacity='0'; setTimeout(()=>window.location.href='../gallery/', 400);"
+        id="gallery-preview-wrap" style="display:block; text-decoration:none; cursor:pointer;" data-reveal>
+        <div class="website-preview"
+          style="height: 420px; margin-bottom: 56px; pointer-events: none; overflow: hidden;">
+          <iframe src="../gallery/index.html" id="gallery-iframe"
+            style="width: 250%; height: 300%; transform: scale(0.4); transform-origin: 0 0;" scrolling="no"
+            tabindex="-1"></iframe>
+        </div>
+      </a>
+    </section>
 
     <!-- SOCIAL STRIP -->
     <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
@@ -1413,6 +1520,7 @@
       <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">instagram</a>
       <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">youtube</a>
       <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link sub">blog</a>
+      <a href="../gallery/" class="sl-link gallery">gallery</a>
     </div>
 
     <!-- FOOTER -->
@@ -1469,14 +1577,33 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.remove('no-transition');
       const tag = document.getElementById('hero-tagline');
       if (tag) window.typeText(tag, tag.getAttribute('data-th'), { speed: 16, delay: 250 });
       setupReveal();
+      
+      const stickyBar = document.getElementById('sticky-bar');
+      const heroSec = document.getElementById('hero-section');
+      if (stickyBar && heroSec) {
+        const obs = new IntersectionObserver((es) => {
+          es.forEach(e => {
+            if (!e.isIntersecting) {
+              stickyBar.classList.add('visible');
+            } else {
+              stickyBar.classList.remove('visible');
+            }
+          });
+        }, { threshold: 0.1 });
+        obs.observe(heroSec);
+      }
     });
+
+
 
     document.getElementById('btn-th').classList.add('active');
     document.body.className = 'lang-th';
   </script>
+
 
 </body>
 

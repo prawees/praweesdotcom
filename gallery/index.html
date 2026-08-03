@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
   <style>
     :root {
       --bg: #FFFFFF;
@@ -16,13 +19,13 @@
       --ink-muted: #888888;
       --ink-faint: #CCCCCC;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       background-color: var(--bg);
       color: var(--ink);
@@ -33,20 +36,28 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-    
+
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 0 60px;
     }
-    
+
     .site-title {
       font-size: 14px;
       font-weight: 500;
       letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--ink);
+      cursor: pointer;
+      transition: opacity 0.2s;
     }
-    
+
+    .site-title:hover {
+      opacity: 0.7;
+    }
+
     .nav-links {
       display: flex;
       gap: 24px;
@@ -55,35 +66,35 @@
       letter-spacing: 0.05em;
       font-weight: 500;
     }
-    
+
     .nav-links a {
       color: var(--ink-muted);
       text-decoration: none;
       transition: color 0.2s;
       padding-bottom: 4px;
     }
-    
+
     .nav-links a.active {
       color: var(--ink);
       border-bottom: 1px solid var(--ink);
     }
-    
+
     .nav-links a:hover {
       color: var(--ink);
     }
-    
+
     /* Masonry Layout */
     .gallery-grid {
       column-count: 2;
       column-gap: 24px;
     }
-    
+
     @media (max-width: 768px) {
       .gallery-grid {
         column-count: 1;
       }
     }
-    
+
     .gallery-item {
       break-inside: avoid;
       margin-bottom: 48px;
@@ -93,14 +104,14 @@
       animation: fadeIn 0.8s ease-out forwards;
       opacity: 0;
     }
-    
+
     .gallery-img {
       width: 100%;
       height: auto;
       display: block;
       background: #F5F5F5;
     }
-    
+
     .gallery-meta {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10px;
@@ -110,60 +121,235 @@
       text-transform: uppercase;
       letter-spacing: 0.02em;
     }
-    
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      color: var(--ink);
+      z-index: 9000;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 4vw;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      cursor: pointer;
+      margin-bottom: 40px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      transition: opacity 0.2s;
+    }
+
+    .back-btn:hover {
+      opacity: 0.6;
+    }
+
+    .gear-section {
+      margin-bottom: 40px;
+    }
+
+    .gear-section h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--ink-faint);
+      padding-bottom: 8px;
+    }
+
+    .gear-list,
+    .film-list {
+      list-style: none;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .film-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .color-box {
+      width: 16px;
+      height: 12px;
+      border-radius: 2px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* Abstract Transition */
+    #gallery-transition-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--bg);
+      z-index: 9999;
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+    }
+
+    #gallery-transition-overlay.active {
+      transform: translate(-50%, -50%) scale(400);
+      pointer-events: auto;
     }
   </style>
 </head>
+
 <body>
 
   <header>
-    <div class="site-title">Prawee Sinweeruthai</div>
+    <a href="../index.html" class="site-title gallery-home-link" id="gallery-title-link">Prawee Sinweeruthai</a>
     <nav class="nav-links">
       <a href="#" class="active">Selects</a>
-      <a href="../about/">About</a>
+      <a href="#" id="gear-btn" style="color: var(--ink); line-height: 0;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path
+            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+          </path>
+        </svg>
+      </a>
     </nav>
   </header>
 
   <main class="gallery-grid" id="gallery-container">
     <!-- Images will be injected here via JS -->
   </main>
-  
+
   <div style="text-align:center; padding: 60px 0 20px;">
-    <img src="../assets/favicon.png" alt="" style="width: 24px; opacity: 0.15; filter: grayscale(100%); transition: opacity 0.3s;" id="gallery-favicon">
+    <img src="../assets/favicon.png" alt=""
+      style="width: 24px; opacity: 0.15; filter: grayscale(100%); transition: opacity 0.3s;" id="gallery-favicon">
   </div>
+  <div style="text-align:right; padding: 0 0 60px;">
+    <a href="../index.html" class="gallery-home-link"
+      style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); text-decoration: none; transition: opacity 0.2s;">Prawee
+      Sinweeruthai →</a>
+  </div>
+
+  <!-- Gear Modal -->
+  <div id="gear-modal" class="modal">
+    <div class="modal-content">
+      <button id="close-modal" class="back-btn">← Back</button>
+
+      <div class="gear-section">
+        <h3>Cameras used</h3>
+        <ul class="gear-list">
+          <li>Ricoh GR3</li>
+          <li>Olympus XA2</li>
+          <li>Nikon FE2</li>
+        </ul>
+      </div>
+
+      <div class="gear-section">
+        <h3>Film used</h3>
+        <ul class="film-list">
+          <li><span class="color-box" style="background: #95DEBD;"></span> Fujifilm C200</li>
+          <li><span class="color-box" style="background: #27A65A;"></span> Fujifilm Superia Xtra 400</li>
+          <li><span class="color-box" style="background: #F9E273;"></span> Kodak Tmax 400</li>
+          <li><span class="color-box" style="background: #F5A943;"></span> Kodak Proimage 100</li>
+          <li><span class="color-box" style="background: #F6E272;"></span> Kodak Gold 200</li>
+          <li><span class="color-box" style="background: #85CD48;"></span> Fuji 100</li>
+          <li><span class="color-box" style="background: #F6CA68;"></span> Film Never Die IRO200</li>
+          <li><span class="color-box" style="background: #EA3E21;"></span> Agfa Sound ST8D</li>
+          <li><span class="color-box" style="background: #93DEBC;"></span> Fujifilm C200 Second Half</li>
+          <li><span class="color-box" style="background: #3C83DE;"></span> Kodak Ultramax 400</li>
+          <li><span class="color-box" style="background: #D0C3C0;"></span> Lomo 100</li>
+          <li><span class="color-box" style="background: #FA8BB2;"></span> My Heart 200</li>
+          <li><span class="color-box" style="background: #B6DE67;"></span> Fuji 400</li>
+          <li><span class="color-box" style="background: #454545;"></span> Ultrafine Xtreme 400</li>
+          <li><span class="color-box" style="background: #EA3F20;"></span> Ilford Pan 400</li>
+          <li><span class="color-box" style="background: #EFC55D;"></span> Kodak Color Plus 200</li>
+          <li><span class="color-box" style="background: #FA92B0;"></span> Film Never Die IRO400</li>
+          <li><span class="color-box" style="background: #98C4E9;"></span> Fuji F250T ei100</li>
+          <li><span class="color-box" style="background: #98C5E7;"></span> Fuji F400T ei200</li>
+          <li><span class="color-box" style="background: #CD7464;"></span> Kodak Ektar 100</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abstract Transition Overlay -->
+  <div id="gallery-transition-overlay"></div>
 
   <script src="../assets/vscoimages/images.js"></script>
   <script>
     function loadGallery() {
       const container = document.getElementById('gallery-container');
-      
+
       try {
         let images = GALLERY_IMAGES;
-        
+
         // Sort by upload_date descending (newest first)
         images.sort((a, b) => b.upload_date - a.upload_date);
-        
+
+        const seenFiles = new Set();
+
         images.forEach((imgData, index) => {
+          if (!imgData || !imgData.file_name) return;
+          if (seenFiles.has(imgData.file_name)) return;
+          seenFiles.add(imgData.file_name);
+
           const item = document.createElement('div');
           item.className = 'gallery-item';
           item.style.animationDelay = `${index * 0.05}s`;
-          
+
           const img = document.createElement('img');
           img.className = 'gallery-img';
           img.src = `../assets/vscoimages/${imgData.file_name}`;
           img.loading = 'lazy';
           img.alt = imgData.description || 'Gallery image';
-          
-          img.onerror = function() {
+
+          img.onerror = function () {
             this.parentElement.style.display = 'none';
           };
-          
+
           const meta = document.createElement('div');
           meta.className = 'gallery-meta';
-          
+
           // Camera info
           let cameraInfo = 'Unknown Camera';
           if (imgData.image_meta && imgData.image_meta.make && imgData.image_meta.model) {
@@ -171,43 +357,81 @@
           } else if (imgData.image_meta && imgData.image_meta.model) {
             cameraInfo = imgData.image_meta.model.trim();
           }
-          
+
           // Cryptic ID
           const crypticId = imgData.id || imgData.upload_date;
-          
+
           meta.innerHTML = `
             <span>${cameraInfo}</span>
             <span>${crypticId}</span>
           `;
-          
+
           item.appendChild(img);
           item.appendChild(meta);
           container.appendChild(item);
         });
-        
+
       } catch (error) {
         console.error('Error loading gallery:', error);
         container.innerHTML = '<p style="font-family: monospace; font-size: 12px; color: #888;">Failed to load gallery data.</p>';
       }
     }
-    
-    document.addEventListener('DOMContentLoaded', loadGallery);
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadGallery();
+
+      const gearBtn = document.getElementById('gear-btn');
+      const gearModal = document.getElementById('gear-modal');
+      const closeModal = document.getElementById('close-modal');
+
+      gearBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        gearModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+
+      closeModal.addEventListener('click', () => {
+        gearModal.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+
+      const titleLinks = document.querySelectorAll('.gallery-home-link');
+      const transitionOverlay = document.getElementById('gallery-transition-overlay');
+
+      titleLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+
+          // Lock the current background color so it doesn't change during transition
+          const currentBg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+          transitionOverlay.style.background = currentBg || 'var(--bg)';
+
+          transitionOverlay.classList.add('active');
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 550); // Wait for abstract animation
+        });
+      });
+    });
 
     // Dynamic scroll background gradient
     window.addEventListener('scroll', () => {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (scrollHeight <= 0) return;
-      
+
       const scrollRatio = Math.min(Math.max(window.scrollY / scrollHeight, 0), 1);
-      
+
       const bgTone = Math.floor(255 - (255 * scrollRatio)); // 255 -> 0
       const inkTone = Math.floor(17 + (238 * scrollRatio)); // 17 -> 255
       const mutedTone = Math.floor(136 + (80 * scrollRatio)); // 136 -> 216
-      
+
       document.documentElement.style.setProperty('--bg', `rgb(${bgTone}, ${bgTone}, ${bgTone})`);
       document.documentElement.style.setProperty('--ink', `rgb(${inkTone}, ${inkTone}, ${inkTone})`);
       document.documentElement.style.setProperty('--ink-muted', `rgb(${mutedTone}, ${mutedTone}, ${mutedTone})`);
-      
+
       const favicon = document.getElementById('gallery-favicon');
       if (favicon) {
         favicon.style.filter = scrollRatio > 0.5 ? 'grayscale(100%) invert(1)' : 'grayscale(100%)';
@@ -216,4 +440,5 @@
     });
   </script>
 </body>
+
 </html>
