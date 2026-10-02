@@ -19,14 +19,14 @@
 
   <style>
     :root {
-      --bg: #111111;
-      --ink: #EBEBEB;
-      --ink-mid: #A3A3A3;
-      --ink-muted: #666666;
-      --rule: #333333;
-      --rule-soft: #222222;
-      --link: #8899A6;
-      --link-hov: #FFFFFF;
+      --bg: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-mid: #555555;
+      --ink-muted: #999999;
+      --rule: #E5E5E5;
+      --rule-soft: #F2F2F2;
+      --link: #1E66D0;
+      --link-hov: #0048A3;
     }
 
     *,
@@ -60,8 +60,7 @@
       z-index: 9999;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-      opacity: 0.35;
-      mix-blend-mode: overlay;
+      opacity: 0.15;
     }
 
 
@@ -173,8 +172,7 @@
       margin-bottom: 28px;
       min-height: 1.2em;
       white-space: nowrap;
-      text-shadow: 0 0 15px rgba(235, 235, 235, 0.4);
-      filter: drop-shadow(0 6px 28px rgba(0, 0, 0, 0.4));
+      filter: drop-shadow(0 6px 28px rgba(20, 20, 50, 0.14));
     }
 
     @keyframes smooth-appear {
@@ -201,7 +199,7 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(17, 17, 17, 0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--rule);
@@ -544,8 +542,8 @@
 
     .sb-frame {
       position: relative;
-      background: #EBEBEB;
-      border: 6px solid #EBEBEB;
+      background: #FFFFFF;
+      border: 6px solid #FFFFFF;
       box-shadow: 0 8px 22px rgba(20, 20, 30, 0.10),
         0 0 0 1px rgba(20, 20, 30, 0.04);
       overflow: hidden;
@@ -997,7 +995,7 @@
       border: 1px solid var(--rule);
       padding: 18px 18px 14px;
       position: relative;
-      background: var(--bg);
+      background: #FAFAFA;
     }
 
     .game-card::before {
@@ -1038,7 +1036,7 @@
 
     .game-canvas-wrap {
       width: 100%;
-      background: var(--bg);
+      background: #FFF;
       border: 1px solid var(--rule);
       overflow: hidden;
       position: relative;
@@ -1070,7 +1068,7 @@
       padding: 1px 5px;
       border: 1px solid var(--rule);
       border-bottom-width: 2px;
-      background: var(--bg);
+      background: #FFF;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 10.5px;
       color: var(--ink);
