@@ -31,7 +31,7 @@
     var shake = 0, flash = 0;
 
     var P = { x: 46, y: groundY, vy: 0, onGround: true, leg: 0, blink: 0 };
-    var GRAV = 0.55, JUMP = -6.0;
+    var GRAV = 0.55, JUMP = -9.5;
     var SCALE = 0.42;                         // sneaker scale (engine units -> demo)
 
     var obstacles = [], coins = [], clouds = [], hills = [], marks = [], parts = [];
