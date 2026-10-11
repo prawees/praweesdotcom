@@ -83,20 +83,20 @@
       color: var(--ink);
     }
 
-    /* Masonry Layout */
+    /* Two-column masonry. Items are dealt into columns alternately by JS,
+       so the sequence reads left to right, row by row. One column on mobile. */
     .gallery-grid {
-      column-count: 2;
-      column-gap: 24px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
     }
 
-    @media (max-width: 768px) {
-      .gallery-grid {
-        column-count: 1;
-      }
+    .gallery-col {
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .gallery-item {
-      break-inside: avoid;
       margin-bottom: 48px;
       display: flex;
       flex-direction: column;
@@ -353,6 +353,7 @@
         }
 
         const seenFiles = new Set();
+        const items = [];
 
         images.forEach((imgData, index) => {
           if (!imgData || !imgData.file_name) return;
@@ -395,8 +396,23 @@
 
           item.appendChild(img);
           item.appendChild(meta);
-          container.appendChild(item);
+          items.push(item);
         });
+
+        const mq = window.matchMedia('(max-width: 768px)');
+        const layout = () => {
+          const n = mq.matches ? 1 : 2;
+          container.innerHTML = '';
+          const cols = Array.from({ length: n }, () => {
+            const c = document.createElement('div');
+            c.className = 'gallery-col';
+            container.appendChild(c);
+            return c;
+          });
+          items.forEach((it, i) => cols[i % n].appendChild(it));
+        };
+        layout();
+        mq.addEventListener('change', layout);
 
       } catch (error) {
         console.error('Error loading gallery:', error);
