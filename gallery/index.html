@@ -324,39 +324,59 @@
         // Curated edit, in display order. Files not listed here stay in
         // assets/vscoimages but are not shown. Add ?all to the URL to see every frame.
         const SELECTS = [
-          'vsco61bf736646d71.jpg', // boat bow, caustics
-          'vsco6050b64e2badb.jpg', // ncss
-          'vsco604fb4c4f2bc1.jpg', // cozy
-          'vsco604fb51a5f887.jpg', // :-
-          'vsco604fb4f47ff35.jpg', // O
-          'vsco61bf77f40ec7f.jpg', // pencils
-          'vsco61bf77e935cc1.jpg', // pinwheel, pink cloud
-          'vsco61b50364a2a36.jpg', // whisper
-          'vsco61b507d3f0a95.jpg', // forested hill, b&w
-          'vsco61b507cb14454.jpg', // leaves over harbour, b&w
-          'vsco604fb58819fc9.jpg', // effigy
-          'vsco6050b55905361.jpg', // recess
-          'vsco604fb41e3700d.jpg', // rest
-          'vsco6213e7086b0b0.jpg', // K.WANN
-          'vsco604fb5784101a.jpg', // mcleaves
-          'vsco_040723.jpg', // pier
-          'vsco61b5030a805aa.jpg', // hounds
-          'vsco6050b7bbc5c0a.jpg', // avian chaos
-          'vsco6050b7c34a060.jpg', // moca & punn
-          'vsco6050b68b4b39c.jpg', // billy
-          'vsco61bf738aa62a8.jpg', // coast
-          'vsco604fb449cc0f6.jpg', // exit
-          'vsco_021823.jpg', // sunset silhouettes
-          'vsco6050b67b72afa.jpg', // melbourne
-          'vsco61b503388ce3f.jpg', // breezy
-          'vsco604fb49a522ef.jpg'  // lost and in distress
+          'vsco61bf736646d71.jpg',
+          'vsco6050b64e2badb.jpg',
+          'vsco604fb4c4f2bc1.jpg',
+          'vsco604fb51a5f887.jpg',
+          'vsco604fb4f47ff35.jpg',
+          'vsco61bf77f40ec7f.jpg',
+          'film_xtra400_03.jpg',
+          'vsco61bf77e935cc1.jpg',
+          'vsco61b50364a2a36.jpg',
+          'film_ektar100_10.jpg',
+          'vsco61b507d3f0a95.jpg',
+          'vsco61b507cb14454.jpg',
+          'vsco604fb58819fc9.jpg',
+          'vsco6050b55905361.jpg',
+          'vsco604fb41e3700d.jpg',
+          'vsco6213e7086b0b0.jpg',
+          'vsco604fb5784101a.jpg',
+          'vsco_040723.jpg',
+          'film_xtra400_12.jpg',
+          'vsco61b5030a805aa.jpg',
+          'vsco6050b7bbc5c0a.jpg',
+          'vsco6050b7c34a060.jpg',
+          'film_xtra400_17.jpg',
+          'vsco6050b68b4b39c.jpg',
+          'film_xtra400_21.jpg',
+          'vsco61bf738aa62a8.jpg',
+          'vsco604fb449cc0f6.jpg',
+          'film_xtra400_22.jpg',
+          'vsco_021823.jpg',
+          'vsco6050b67b72afa.jpg',
+          'film_xtra400_10.jpg',
+          'vsco61b503388ce3f.jpg',
+          'film_xtra400_19.jpg',
+          'vsco604fb49a522ef.jpg'
+        ];
+
+        // Scans from the Google Drive "Film" folder (not on VSCO).
+        const EXTRAS = [
+          { file_name: 'film_xtra400_03.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
+          { file_name: 'film_ektar100_10.jpg', description: '', image_meta: { model: 'Kodak Ektar 100' } },
+          { file_name: 'film_xtra400_12.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
+          { file_name: 'film_xtra400_17.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
+          { file_name: 'film_xtra400_21.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
+          { file_name: 'film_xtra400_22.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
+          { file_name: 'film_xtra400_10.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
+          { file_name: 'film_xtra400_19.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } }
         ];
 
         let images = GALLERY_IMAGES;
         if (new URLSearchParams(location.search).has('all')) {
-          images = images.slice().sort((a, b) => b.upload_date - a.upload_date);
+          images = images.slice().sort((a, b) => b.upload_date - a.upload_date).concat(EXTRAS);
         } else {
-          const byFile = new Map(images.map(i => [i.file_name, i]));
+          const byFile = new Map(images.concat(EXTRAS).map(i => [i.file_name, i]));
           images = SELECTS.map(f => byFile.get(f)).filter(Boolean);
         }
 
