@@ -4,8 +4,8 @@
  *
  * Typeface: Arimo (a plain Helvetica-style grotesque) for Latin, IBM Plex Sans Thai for Thai.
  *           Both are self-hosted in assets/fonts. To change the face, edit --sans.
- * Sizes:    12 / 15 / --fs-h / --fs-hero. Hierarchy by size and weight only.
- * Colour:   #111 ink, #767676 and #E5E5E5 greys, white. Nothing else.
+ * Sizes:    14 / 17 / --fs-h / --fs-hero. Hierarchy by size and weight only.
+ * Colour:   #111 ink, #595959 and #E5E5E5 greys, white, plus one accent per project and per platform.
  * Grid:     4 columns on a phone, 12 from 768px. Content starts at column 4 beside a label rail.
  */
 
@@ -17,14 +17,14 @@
 :root {
   --paper: #fff;
   --ink: #111;
-  --mid: #767676;
+  --mid: #595959;
   --light: #e5e5e5;
 
   --sans: "Arimo", "Helvetica Neue", Helvetica, Arial, "IBM Plex Sans Thai", "Thonburi", "Leelawadee UI", sans-serif;
 
-  --fs-s: 12px;
-  --fs-b: 15px;
-  --fs-h: clamp(24px, 3.3vw, 38px);
+  --fs-s: 14px;
+  --fs-b: 17px;
+  --fs-h: clamp(28px, 4vw, 48px);
   --fs-hero: clamp(32px, 9vw, 120px);
 
   --gap: 16px;
@@ -49,7 +49,7 @@ body {
   font-family: var(--sans);
   font-size: var(--fs-b);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   min-height: 100svh;

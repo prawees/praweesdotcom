@@ -284,7 +284,13 @@
       g.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, cols, rows);
       var T = tone(g.getImageData(0, 0, cols, rows), { lift: 0.85, contrast: 1.25 });
       for (var i = 0; i < T.length; i++) T[i] = lo + (1 - lo) * T[i];
-      paint(L.cv, twoTone(T, cols, rows), cols, rows, block, AMB);
+      // tint: the photo's average colour, diluted into white, replaces the grey
+      var px = g.getImageData(0, 0, cols, rows).data, r = 0, gg = 0, bb = 0, n = cols * rows, k;
+      for (k = 0; k < px.length; k += 4) { r += px[k]; gg += px[k + 1]; bb += px[k + 2]; }
+      r /= n; gg /= n; bb /= n;
+      var mx = Math.max(r, gg, bb), mn = Math.min(r, gg, bb), boost = mx - mn < 40 ? 1 : 1.35;   // lift muted casts a little
+      var tint = [r, gg, bb].map(function (v) { var m = (mx + mn) / 2; v = m + (v - m) * boost; return Math.round(255 - (255 - Math.max(0, Math.min(255, v))) * 0.34); });
+      paint(L.cv, twoTone(T, cols, rows), cols, rows, block, [tint, [255, 255, 255]]);
       L.w = vw;
     }
     function layer(src) {

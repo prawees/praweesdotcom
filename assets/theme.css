@@ -8,8 +8,8 @@
   --bg: #fff;
   --ink: #111;
   --ink-mid: #111;
-  --ink-muted: #767676;
-  --ink-faint: #767676;
+  --ink-muted: #595959;
+  --ink-faint: #595959;
   --rule: #111;
   --rule-soft: #e5e5e5;
   --link: #111;
@@ -62,22 +62,21 @@ a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 /* ---------- sections: a white panel with a rule on top ---------- */
 .section, .section.sec-01, .section.sec-02, .section.sec-03, .section.sec-04, .section.sec-05, .section.sec-06, .section.sec-07 {
-  --sec-ink: var(--ink);
   --sec-bg: none;
   background: var(--paper);
   border: 0;
-  border-top: 1px solid var(--ink);
-  padding: 20px 20px 28px;
+  border-top: 4px solid var(--sec-ink, var(--ink));
+  padding: 22px 22px 30px;
   margin-bottom: 40px;
   transition: none;
 }
 .sec-head { border-bottom: 0; padding-bottom: 0; margin-bottom: 20px; align-items: baseline; }
-.sec-num { border: 0; background: none; padding: 0; font-size: var(--fs-s); font-weight: 400; letter-spacing: 0; color: var(--mid); }
-.sec-title { font-size: var(--fs-h); font-weight: 400; line-height: 1.12; letter-spacing: -.025em; }
+.sec-num { border: 0; background: none; padding: 0; font-size: var(--fs-s); font-weight: 700; letter-spacing: 0; color: var(--sec-ink, var(--mid)); color: color-mix(in srgb, var(--sec-ink, #595959) 72%, #000); }
+.sec-title { font-size: var(--fs-h); font-weight: 700; line-height: 1.1; letter-spacing: -.03em; }
 
-.prose { font-size: var(--fs-b); line-height: 1.7; max-width: 62ch; }
+.prose { font-size: var(--fs-b); line-height: 1.75; max-width: 60ch; }
 .prose::first-line { font-weight: 400; color: var(--ink); }
-.prose strong, .prose b { color: var(--ink); }
+.prose strong, .prose b { color: var(--ink); background: linear-gradient(transparent 62%, color-mix(in srgb, var(--sec-ink, #ddd) 28%, #fff) 62%); }
 
 .callout-mark { color: var(--mid); letter-spacing: 0; }
 .callout-mark::before, .callout-mark::after { content: none; }
@@ -86,17 +85,18 @@ a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 .tl-item { border-top: 1px solid var(--ink); }
 .tl-item:first-child { border-top: 0; }
 .tl-item:hover { background: none; }
-.tl-year { color: var(--mid); font-weight: 400; }
+.tl-year { color: var(--sec-ink, var(--mid)); color: color-mix(in srgb, var(--sec-ink, #595959) 72%, #000); font-weight: 700; font-size: var(--fs-s); }
 .tl-title { font-size: var(--fs-b); font-weight: 700; }
 .tl-desc { font-size: var(--fs-b); color: var(--ink); }
 
 .kv-list { gap: 0 24px; }
-.kv-row, .kv-row:nth-child(2), .kv-row:nth-child(3), .kv-row:nth-child(4) { background: none; border: 0; border-top: 1px solid var(--ink); padding: 14px 0 18px; transition: none; }
-.kv-row:hover { transform: none; border-top-color: var(--ink); }
-.kv-key { color: var(--ink); font-size: var(--fs-s); font-weight: 700; letter-spacing: 0; margin-bottom: 6px; }
+.kv-row, .kv-row:nth-child(2), .kv-row:nth-child(3), .kv-row:nth-child(4) { background: none; border: 0; border-top: 3px solid var(--sec-ink, var(--ink)); padding: 14px 0 18px; transition: none; }
+.kv-row:hover { transform: none; }
+.kv-key { color: var(--sec-ink, var(--ink)); color: color-mix(in srgb, var(--sec-ink, #111) 72%, #000); font-size: var(--fs-s); font-weight: 700; letter-spacing: 0; margin-bottom: 6px; }
 .kv-val { font-size: var(--fs-b); }
 
 .portfolio-title { font-size: var(--fs-b); font-weight: 700; }
+.portfolio-role { font-size: var(--fs-s); }
 .portfolio-role { color: var(--mid); letter-spacing: 0; }
 .portfolio-desc, .song-intro, .embed-caption { font-size: var(--fs-b); color: var(--ink); }
 .embed-caption { font-size: var(--fs-s); color: var(--mid); }
@@ -121,11 +121,18 @@ a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 /* ---------- contact and footer ---------- */
 .ascii-rule { display: none; }
-.comment { background: var(--paper); width: fit-content; font-size: var(--fs-s); font-weight: 700; letter-spacing: 0; margin-bottom: 0; padding: 14px 20px 6px; }
+.comment { background: var(--paper); width: fit-content; font-size: var(--fs-b); font-weight: 700; letter-spacing: 0; margin-bottom: 0; padding: 14px 20px 6px; }
 .comment::before { content: none; }
 .social-links-minimal { background: var(--paper); margin: 0 0 40px; padding: 8px 20px 24px; gap: 8px 24px; }
-.sl-link, .sl-link.email, .sl-link.fb, .sl-link.tiktok, .sl-link.ig, .sl-link.yt, .sl-link.sub, .sl-link.gallery { color: var(--ink); font-size: var(--fs-b); font-weight: 400; text-decoration: underline; text-decoration-color: var(--mid); text-underline-offset: 3px; transition: none; }
-.sl-link:hover { opacity: 1; transform: none; text-decoration-color: var(--ink); }
+.sl-link { font-size: var(--fs-b); font-weight: 700; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; transition: none; color: var(--ink); }
+.sl-link.email { text-decoration-color: #3B5FC0; }
+.sl-link.fb { text-decoration-color: #1877F2; }
+.sl-link.tiktok { text-decoration-color: #FE2C55; }
+.sl-link.ig { text-decoration-color: #C13584; }
+.sl-link.yt { text-decoration-color: #E00000; }
+.sl-link.sub { text-decoration-color: #FF6719; }
+.sl-link.gallery { text-decoration-color: #111; }
+.sl-link:hover { opacity: 1; transform: none; }
 .foot { background: var(--paper); border-top: 1px solid var(--ink); padding: 16px 20px; margin-top: 0; font-size: var(--fs-s); color: var(--mid); }
 
 @media (max-width: 767px) {
@@ -142,3 +149,8 @@ a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 @media (max-width: 1100px) { .tiktok-grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 600px) { .embed-grid { grid-template-columns: minmax(0, 1fr); } }
 .tiktok-embed { min-width: 0 !important; max-width: 100% !important; }
+
+/* inline-styled small text on the about page: raise it to the shared small size, darker */
+[style*="font-size: 10px"], [style*="font-size: 11.5px"], [style*="font-size: 13px"] { font-size: var(--fs-s) !important; }
+[style*="color: #A0A0A0"], [style*="color: var(--ink-faint)"] { color: var(--mid) !important; }
+.my-music-links a { color: var(--ink) !important; text-decoration: underline !important; text-decoration-color: #1db954 !important; text-decoration-thickness: 2px !important; margin-left: 8px; }
