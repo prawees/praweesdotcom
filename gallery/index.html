@@ -83,20 +83,20 @@
       color: var(--ink);
     }
 
-    /* Masonry Layout */
+    /* Two-column masonry. Items are dealt into columns alternately by JS,
+       so the sequence reads left to right, row by row. One column on mobile. */
     .gallery-grid {
-      column-count: 2;
-      column-gap: 24px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
     }
 
-    @media (max-width: 768px) {
-      .gallery-grid {
-        column-count: 1;
-      }
+    .gallery-col {
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .gallery-item {
-      break-inside: avoid;
       margin-bottom: 48px;
       display: flex;
       flex-direction: column;
@@ -321,12 +321,39 @@
       const container = document.getElementById('gallery-container');
 
       try {
-        let images = GALLERY_IMAGES;
+        // Curated edit, in display order. Files not listed here stay in
+        // assets/vscoimages but are not shown. Add ?all to the URL to see every frame.
+        const SELECTS = [
+          'vsco61bf736646d71.jpg', // boat bow, caustics
+          'vsco6050b64e2badb.jpg', // ncss
+          'vsco604fb4c4f2bc1.jpg', // cozy
+          'vsco604fb51a5f887.jpg', // :-
+          'vsco604fb4f47ff35.jpg', // O
+          'vsco61bf77f40ec7f.jpg', // pencils
+          'vsco61b50364a2a36.jpg', // whisper
+          'vsco61b507d3f0a95.jpg', // forested hill, b&w
+          'vsco604fb58819fc9.jpg', // effigy
+          'vsco6050b55905361.jpg', // recess
+          'vsco604fb41e3700d.jpg', // rest
+          'vsco6213e7086b0b0.jpg', // K.WANN
+          'vsco604fb5784101a.jpg', // mcleaves
+          'vsco61b5030a805aa.jpg', // hounds
+          'vsco6050b7bbc5c0a.jpg', // avian chaos
+          'vsco6050b68b4b39c.jpg', // billy
+          'vsco604fb449cc0f6.jpg', // exit
+          'vsco604fb49a522ef.jpg'  // lost and in distress
+        ];
 
-        // Sort by upload_date descending (newest first)
-        images.sort((a, b) => b.upload_date - a.upload_date);
+        let images = GALLERY_IMAGES;
+        if (new URLSearchParams(location.search).has('all')) {
+          images = images.slice().sort((a, b) => b.upload_date - a.upload_date);
+        } else {
+          const byFile = new Map(images.map(i => [i.file_name, i]));
+          images = SELECTS.map(f => byFile.get(f)).filter(Boolean);
+        }
 
         const seenFiles = new Set();
+        const items = [];
 
         images.forEach((imgData, index) => {
           if (!imgData || !imgData.file_name) return;
@@ -350,26 +377,42 @@
           const meta = document.createElement('div');
           meta.className = 'gallery-meta';
 
-          // Camera info
-          let cameraInfo = 'Unknown Camera';
-          if (imgData.image_meta && imgData.image_meta.make && imgData.image_meta.model) {
-            cameraInfo = `${imgData.image_meta.make.trim()} ${imgData.image_meta.model.trim()}`;
-          } else if (imgData.image_meta && imgData.image_meta.model) {
-            cameraInfo = imgData.image_meta.model.trim();
+          // Caption: the title written on VSCO, plus the camera.
+          // The SP-xxxx "models" are the lab's film scanner, not a camera.
+          const m = (imgData.image_meta && imgData.image_meta.model || '').trim();
+          const mk = (imgData.image_meta && imgData.image_meta.make || '').trim();
+          let cameraInfo = 'Film';
+          if (m && !/^SP-\d+/i.test(m) && !/FUJI PHOTO/i.test(mk)) {
+            cameraInfo = m.replace(/^RICOH\s+/i, 'Ricoh ');
           }
+          const title = (imgData.description || '').trim();
 
-          // Cryptic ID
-          const crypticId = imgData.id || imgData.upload_date;
-
-          meta.innerHTML = `
-            <span>${cameraInfo}</span>
-            <span>${crypticId}</span>
-          `;
+          const left = document.createElement('span');
+          left.textContent = title;
+          const right = document.createElement('span');
+          right.textContent = cameraInfo;
+          meta.appendChild(left);
+          meta.appendChild(right);
 
           item.appendChild(img);
           item.appendChild(meta);
-          container.appendChild(item);
+          items.push(item);
         });
+
+        const mq = window.matchMedia('(max-width: 768px)');
+        const layout = () => {
+          const n = mq.matches ? 1 : 2;
+          container.innerHTML = '';
+          const cols = Array.from({ length: n }, () => {
+            const c = document.createElement('div');
+            c.className = 'gallery-col';
+            container.appendChild(c);
+            return c;
+          });
+          items.forEach((it, i) => cols[i % n].appendChild(it));
+        };
+        layout();
+        mq.addEventListener('change', layout);
 
       } catch (error) {
         console.error('Error loading gallery:', error);
