@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <title>Gallery | Prawee Sinweeruthai</title>
+  <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/base.css">
@@ -13,19 +14,41 @@
   <style>
     .gh { padding-top: 40px; row-gap: 12px; }
     .gh h1 { grid-column: 1 / -1; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; }
-    .gh p { grid-column: 1 / -1; background: var(--paper); width: fit-content; }
+    .gh p { grid-column: 1 / -1; background: var(--paper); width: fit-content; max-width: 52ch; }
     @media (min-width: 768px) { .gh { padding-top: 72px; } .gh p { grid-column: 4 / 11; } }
 
-    .gal { padding-top: 56px; padding-bottom: 24px; }
+    /* jump list */
+    .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 8px; }
+    .jump a { background: var(--paper); font-size: var(--fs-b); font-weight: 700; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; padding: 6px 0; text-decoration-color: var(--c, #111); }
+    .jump a small { font-size: var(--fs-s); font-weight: 400; color: var(--mid); margin-left: 4px; }
+    @media (min-width: 768px) { .jump { grid-column: 4 / 13; } }
+
+    /* chapters */
+    .chap { padding-top: 64px; padding-bottom: 8px; row-gap: 20px; scroll-margin-top: 56px; }
+    .chap-h { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; border-top: 4px solid var(--c, #111); padding-top: 14px; }
+    .chap-h h2 { font-size: var(--fs-h); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; background: var(--paper); }
+    .chap-h .n { font-size: var(--fs-s); font-weight: 700; color: var(--ct, var(--mid)); background: var(--paper); }
+    .chap-h p { font-size: var(--fs-s); color: var(--mid); background: var(--paper); width: fit-content; }
     .gallery-grid { grid-column: 1 / -1; display: flex; gap: 24px; align-items: flex-start; }
     .gallery-col { flex: 1 1 0; min-width: 0; }
-    .gallery-item { margin-bottom: 40px; display: flex; flex-direction: column; gap: 10px; animation: fadeIn .6s steps(6, end) forwards; opacity: 0; }
-    .gallery-img { width: 100%; height: auto; display: block; background: var(--light); }
+    .gallery-item { margin-bottom: 36px; display: flex; flex-direction: column; gap: 10px; opacity: 0; transition: opacity .5s steps(5, end); }
+    .gallery-item.in { opacity: 1; }
+    .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
     .gallery-meta { display: flex; justify-content: space-between; gap: 12px; font-size: var(--fs-s); }
     .gallery-meta span { background: var(--paper); width: fit-content; }
     .gallery-meta span:last-child { color: var(--mid); text-align: right; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { .gallery-item { animation: none; opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; } }
+
+    /* full-screen viewer */
+    .lb { position: fixed; inset: 0; z-index: 8000; background: var(--paper); display: none; grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom)); }
+    .lb.open { display: grid; }
+    .lb .top, .lb .cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 var(--pad, 16px); font-size: var(--fs-b); }
+    .lb button { min-height: 44px; min-width: 44px; font-size: var(--fs-b); text-decoration: underline; text-underline-offset: 3px; }
+    .lb .stage { display: grid; place-items: center; min-height: 0; padding: 8px var(--pad, 16px); touch-action: pan-y; }
+    .lb img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+    .lb .cap span:first-child { font-weight: 700; }
+    .lb .cap span:last-child { color: var(--mid); }
+    .lb .nav2 { display: flex; gap: 4px; }
 
     /* gear sheet */
     .modal { position: fixed; inset: 0; background: var(--paper); z-index: 9000; overflow-y: auto; opacity: 0; pointer-events: none; padding: max(24px, env(safe-area-inset-top)) 0 max(40px, env(safe-area-inset-bottom)); }
@@ -61,20 +84,25 @@
   <main>
     <section class="g gh" data-amb="../assets/home/frame-2.jpg">
       <h1>visual dump</h1>
-      <p>selects, in order. rows read left to right. gear lists the cameras and film.</p>
+      <p id="intro">film only, in eight chapters by mood. the stock is named under each frame. tap a frame to see it large.</p>
+      <nav class="jump" id="jump" aria-label="chapters"></nav>
     </section>
 
-    <section class="g gal" data-amb="../assets/home/frame-1.jpg">
-      <div class="gallery-grid" id="gallery-container">
-        <!-- Images will be injected here via JS -->
-      </div>
-    </section>
+    <div id="chapters"></div>
+    <noscript><section class="g chap"><p>this page needs javascript to show the photographs.</p></section></noscript>
   </main>
 
   <footer class="g foot">
     <span>© 2026 prawees</span>
     <span><a href="../">prawee sinweeruthai →</a></span>
   </footer>
+
+  <!-- Viewer -->
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="photo viewer">
+    <div class="top"><button type="button" id="lb-close">close</button><span class="nav2"><button type="button" id="lb-prev" aria-label="previous">←</button><button type="button" id="lb-next" aria-label="next">→</button></span></div>
+    <div class="stage" id="lb-stage"><img id="lb-img" alt=""></div>
+    <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
+  </div>
 
   <!-- Gear sheet -->
   <div id="gear-modal" class="modal" role="dialog" aria-modal="true" aria-label="gear">
@@ -116,162 +144,131 @@
     </div>
   </div>
 
-  <script src="../assets/vscoimages/images.js"></script>
+  <script src="../assets/film/frames.js"></script>
   <script>
-    function loadGallery() {
-      const container = document.getElementById('gallery-container');
+    (function () {
+      var CHAPTERS = window.FILM_CHAPTERS || [];
+      // one accent per chapter, used for the rule and the jump link
+      var ACCENT = { haze: '#7A8FB5', blue: '#2C72C8', dusk: '#D9663A', rooms: '#C77F3A', street: '#E05A38', night: '#6B49C7', flare: '#C13584', grey: '#111111' };
+      var FRAMES = ['../assets/home/frame-4.jpg', '../assets/home/frame-3.jpg', '../assets/home/frame-1.jpg', '../assets/home/frame-2.jpg'];
 
-      try {
-        // Curated edit, in display order. Files not listed here stay in
-        // assets/vscoimages but are not shown. Add ?all to the URL to see every frame.
-        const SELECTS = [
-          'vsco61bf736646d71.jpg',
-          'vsco6050b64e2badb.jpg',
-          'vsco604fb4c4f2bc1.jpg',
-          'vsco604fb51a5f887.jpg',
-          'vsco604fb4f47ff35.jpg',
-          'vsco61bf77f40ec7f.jpg',
-          'film_xtra400_03.jpg',
-          'vsco61bf77e935cc1.jpg',
-          'vsco61b50364a2a36.jpg',
-          'film_ektar100_10.jpg',
-          'vsco61b507d3f0a95.jpg',
-          'vsco61b507cb14454.jpg',
-          'vsco604fb58819fc9.jpg',
-          'vsco6050b55905361.jpg',
-          'vsco604fb41e3700d.jpg',
-          'vsco6213e7086b0b0.jpg',
-          'vsco604fb5784101a.jpg',
-          'vsco_040723.jpg',
-          'film_xtra400_12.jpg',
-          'vsco61b5030a805aa.jpg',
-          'vsco6050b7bbc5c0a.jpg',
-          'vsco6050b7c34a060.jpg',
-          'film_xtra400_17.jpg',
-          'vsco6050b68b4b39c.jpg',
-          'film_xtra400_21.jpg',
-          'vsco61bf738aa62a8.jpg',
-          'vsco604fb449cc0f6.jpg',
-          'film_xtra400_22.jpg',
-          'vsco_021823.jpg',
-          'vsco6050b67b72afa.jpg',
-          'film_xtra400_10.jpg',
-          'vsco61b503388ce3f.jpg',
-          'film_xtra400_19.jpg',
-          'vsco604fb49a522ef.jpg'
-        ];
+      var all = [];                       // flat list for the viewer
+      var root = document.getElementById('chapters');
+      var jump = document.getElementById('jump');
+      var mq = window.matchMedia('(max-width: 768px)');
+      var chapterEls = [];
 
-        // Scans from the Google Drive "Film" folder (not on VSCO).
-        const EXTRAS = [
-          { file_name: 'film_xtra400_03.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_ektar100_10.jpg', description: '', image_meta: { model: 'Kodak Ektar 100' } },
-          { file_name: 'film_xtra400_12.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_17.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_21.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_22.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_10.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_19.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } }
-        ];
+      function pad2(n) { return n < 10 ? '0' + n : '' + n; }
 
-        let images = GALLERY_IMAGES;
-        if (new URLSearchParams(location.search).has('all')) {
-          images = images.slice().sort((a, b) => b.upload_date - a.upload_date).concat(EXTRAS);
-        } else {
-          const byFile = new Map(images.concat(EXTRAS).map(i => [i.file_name, i]));
-          images = SELECTS.map(f => byFile.get(f)).filter(Boolean);
-        }
-
-        const seenFiles = new Set();
-        const items = [];
-
-        images.forEach((imgData, index) => {
-          if (!imgData || !imgData.file_name) return;
-          if (seenFiles.has(imgData.file_name)) return;
-          seenFiles.add(imgData.file_name);
-
-          const item = document.createElement('div');
-          item.className = 'gallery-item';
-          item.style.animationDelay = `${index * 0.05}s`;
-
-          const img = document.createElement('img');
-          img.className = 'gallery-img';
-          img.src = `../assets/vscoimages/${imgData.file_name}`;
-          img.loading = 'lazy';
-          img.alt = imgData.description || 'Gallery image';
-
-          img.onerror = function () {
-            this.parentElement.style.display = 'none';
-          };
-
-          const meta = document.createElement('div');
-          meta.className = 'gallery-meta';
-
-          // Caption: the title written on VSCO, plus the camera.
-          // The SP-xxxx "models" are the lab's film scanner, not a camera.
-          const m = (imgData.image_meta && imgData.image_meta.model || '').trim();
-          const mk = (imgData.image_meta && imgData.image_meta.make || '').trim();
-          let cameraInfo = 'Film';
-          if (m && !/^SP-\d+/i.test(m) && !/FUJI PHOTO/i.test(mk)) {
-            cameraInfo = m.replace(/^RICOH\s+/i, 'Ricoh ');
-          }
-          const title = (imgData.description || '').trim();
-
-          const left = document.createElement('span');
-          left.textContent = title;
-          const right = document.createElement('span');
-          right.textContent = cameraInfo;
-          meta.appendChild(left);
-          meta.appendChild(right);
-
-          item.appendChild(img);
-          item.appendChild(meta);
-          items.push(item);
-        });
-
-        const mq = window.matchMedia('(max-width: 768px)');
-        const layout = () => {
-          const n = mq.matches ? 1 : 2;
-          container.innerHTML = '';
-          const cols = Array.from({ length: n }, () => {
-            const c = document.createElement('div');
-            c.className = 'gallery-col';
-            container.appendChild(c);
-            return c;
-          });
-          items.forEach((it, i) => cols[i % n].appendChild(it));
-        };
-        layout();
-        mq.addEventListener('change', layout);
-
-      } catch (error) {
-        console.error('Error loading gallery:', error);
-        container.innerHTML = '<p style="font-family: monospace; font-size: 12px; color: #888;">Failed to load gallery data.</p>';
+      function makeItem(it) {
+        var item = document.createElement('div');
+        item.className = 'gallery-item';
+        var img = document.createElement('img');
+        img.className = 'gallery-img';
+        img.src = '../assets/film/' + it.f;
+        img.width = it.w; img.height = it.h;
+        img.loading = 'lazy'; img.decoding = 'async';
+        img.alt = it.t ? it.t + ', ' + it.film : 'film photograph, ' + it.film;
+        var show = function () { item.classList.add('in'); };
+        img.addEventListener('load', show);
+        img.addEventListener('error', function () { item.style.display = 'none'; });
+        if (img.complete) show();
+        img.addEventListener('click', function () { openViewer(it.idx); });
+        var meta = document.createElement('div');
+        meta.className = 'gallery-meta';
+        var l = document.createElement('span'); l.textContent = it.film;
+        var r = document.createElement('span'); r.textContent = it.t || '';
+        meta.appendChild(l); meta.appendChild(r);
+        item.appendChild(img); item.appendChild(meta);
+        return item;
       }
-    }
 
+      // Deal photos two at a time, left then right, so rows read left to right.
+      // If one column runs well ahead, the taller photo of the pair goes to the shorter column.
+      function layoutChapter(c) {
+        var grid = c.grid; grid.innerHTML = '';
+        var n = mq.matches ? 1 : 2;
+        var cols = []; var hts = [];
+        for (var i = 0; i < n; i++) { var col = document.createElement('div'); col.className = 'gallery-col'; grid.appendChild(col); cols.push(col); hts.push(0); }
+        var items = c.items;
+        if (n === 1) { items.forEach(function (it) { cols[0].appendChild(it.el); }); return; }
+        var avg = items.reduce(function (s, it) { return s + it.h / it.w; }, 0) / items.length;
+        for (var k = 0; k < items.length; k += 2) {
+          var a = items[k], b = items[k + 1];
+          var ha = a.h / a.w, hb = b ? b.h / b.w : 0;
+          var left = a, right = b;
+          if (b && Math.abs(hts[0] - hts[1]) > 0.35 * avg) {
+            var shorter = hts[0] <= hts[1] ? 0 : 1;
+            var taller = ha >= hb ? a : b, lower = taller === a ? b : a;
+            if (shorter === 0) { left = taller; right = lower; } else { left = lower; right = taller; }
+          }
+          cols[0].appendChild(left.el); hts[0] += left.h / left.w;
+          if (right) { cols[1].appendChild(right.el); hts[1] += right.h / right.w; }
+        }
+      }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      loadGallery();
+      var total = 0;
+      CHAPTERS.forEach(function (ch, ci) {
+        var sec = document.createElement('section');
+        sec.className = 'g chap'; sec.id = ch.id;
+        sec.setAttribute('data-amb', FRAMES[ci % FRAMES.length]);
+        var col = ACCENT[ch.id] || '#111';
+        sec.style.setProperty('--c', col);
+        var head = document.createElement('div'); head.className = 'chap-h';
+        head.innerHTML = '<span class="n">' + pad2(ci + 1) + '</span><h2></h2><p></p>';
+        head.querySelector('h2').textContent = ch.id;
+        head.querySelector('p').textContent = ch.note + ', ' + ch.items.length + ' frames';
+        var grid = document.createElement('div'); grid.className = 'gallery-grid';
+        sec.appendChild(head); sec.appendChild(grid);
+        root.appendChild(sec);
+        var items = ch.items.map(function (raw) { var it = { f: raw.f, film: raw.film, t: raw.t, w: raw.w, h: raw.h, idx: all.length }; it.el = makeItem(it); all.push(it); return it; });
+        total += items.length;
+        var rec = { grid: grid, items: items }; chapterEls.push(rec); layoutChapter(rec);
 
-      const gearBtn = document.getElementById('gear-btn');
-      const gearModal = document.getElementById('gear-modal');
-      const closeModal = document.getElementById('close-modal');
-
-      gearBtn.addEventListener('click', () => {
-        gearModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        closeModal.focus();
+        var a = document.createElement('a'); a.href = '#' + ch.id; a.style.setProperty('--c', col);
+        a.innerHTML = '<span></span><small>' + ch.items.length + '</small>'; a.firstChild.textContent = ch.id;
+        jump.appendChild(a);
       });
-      const shut = () => {
-        gearModal.classList.remove('open');
-        document.body.style.overflow = '';
-        gearBtn.focus();
-      };
+      var intro = document.getElementById('intro');
+      if (total) intro.textContent = total + ' frames, film only, in ' + CHAPTERS.length + ' chapters by mood. the stock is named under each frame. tap a frame to see it large.';
+
+      var relayout = function () { chapterEls.forEach(layoutChapter); };
+      if (mq.addEventListener) mq.addEventListener('change', relayout); else mq.addListener(relayout);
+
+      /* viewer */
+      var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img');
+      var cur = 0, opener = null;
+      function setViewer(i) {
+        cur = (i + all.length) % all.length; var it = all[cur];
+        lbImg.src = '../assets/film/' + it.f; lbImg.alt = it.t ? it.t + ', ' + it.film : it.film;
+        document.getElementById('lb-film').textContent = it.film;
+        document.getElementById('lb-t').textContent = it.t || '';
+      }
+      function openViewer(i) { opener = document.activeElement; setViewer(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; document.getElementById('lb-close').focus(); }
+      function closeViewer() { lb.classList.remove('open'); document.body.style.overflow = ''; if (opener && opener.focus) { try { opener.focus(); } catch (e) {} } }
+      document.getElementById('lb-close').addEventListener('click', closeViewer);
+      document.getElementById('lb-prev').addEventListener('click', function () { setViewer(cur - 1); });
+      document.getElementById('lb-next').addEventListener('click', function () { setViewer(cur + 1); });
+      var sx = null;
+      var stage = document.getElementById('lb-stage');
+      stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      stage.addEventListener('touchend', function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) setViewer(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+      document.addEventListener('keydown', function (e) {
+        if (lb.classList.contains('open')) {
+          if (e.key === 'Escape') closeViewer();
+          else if (e.key === 'ArrowRight') setViewer(cur + 1);
+          else if (e.key === 'ArrowLeft') setViewer(cur - 1);
+        }
+      });
+
+      /* gear sheet */
+      var gearBtn = document.getElementById('gear-btn'), gearModal = document.getElementById('gear-modal'), closeModal = document.getElementById('close-modal');
+      gearBtn.addEventListener('click', function () { gearModal.classList.add('open'); document.body.style.overflow = 'hidden'; closeModal.focus(); });
+      function shut() { gearModal.classList.remove('open'); document.body.style.overflow = ''; gearBtn.focus(); }
       closeModal.addEventListener('click', shut);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') shut(); });
-    });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && gearModal.classList.contains('open')) shut(); });
+    })();
   </script>
   <script src="../assets/dither.js"></script>
 </body>
-
 </html>
