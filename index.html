@@ -43,7 +43,6 @@
       <nav class="nav" aria-label="main">
         <a href="./" aria-current="page">home</a>
         <a href="about/">about</a>
-        <a href="https://blog.prawees.com">blog</a>
         <a href="gallery/">gallery</a>
       </nav>
     </div>
@@ -66,9 +65,11 @@
 
     <!-- PORTRAITS: clean, in colour -->
     <section class="g prints" aria-label="portraits" data-amb="assets/home/frame-4.jpg">
-      <img class="pr1" src="assets/portrait.jpg" width="1044" height="1566" alt="prawee 01">
-      <img class="pr2" src="assets/portrait-2.jpg" width="714" height="1226" alt="prawee 02" loading="lazy">
-      <img class="pr3" src="assets/portrait-3.jpg" width="880" height="906" alt="prawee 03" loading="lazy">
+      <div class="scrap">
+        <img class="pr1" src="assets/portrait.jpg" width="1044" height="1566" alt="prawee 01">
+        <img class="pr2" src="assets/portrait-2.jpg" width="714" height="1226" alt="prawee 02" loading="lazy">
+        <img class="pr3" src="assets/portrait-3.jpg" width="880" height="906" alt="prawee 03" loading="lazy">
+      </div>
     </section>
 
     <!-- PROJECTS -->
@@ -213,6 +214,9 @@
       window.typeText(h, line, { speed: 70, delay: 200, done: settle });
     });
   </script>
+<script>
+(function () { var z = 10; document.querySelectorAll('.scrap img').forEach(function (im) { im.addEventListener('click', function () { im.style.zIndex = ++z; }); }); })();
+</script>
 </body>
 
 </html>

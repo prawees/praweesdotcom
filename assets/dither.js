@@ -245,84 +245,133 @@
     });
   }
 
-  /* ---------- ambient: a faint dithered film frame fixed behind the page ----------
-     Sections carry data-amb="path/to/photo.jpg". The frame under the middle of the
-     viewport is the one shown. Only two tones are used (#E5E5E5 and white), so text
-     stays readable. The colour switch swaps each layer to the original at low opacity. */
-  var AMB = [[229, 229, 229], [255, 255, 255]];
-
-  function twoTone(L, W, H) {
-    var b = new Float32Array(L), out = new Uint8Array(W * H);
-    for (var y = 0; y < H; y++) {
-      var rtl = (y & 1) === 1, dx = rtl ? -1 : 1;
-      for (var k = 0; k < W; k++) {
-        var x = rtl ? W - 1 - k : k, p = y * W + x, v = b[p], q = v >= 0.5 ? 1 : 0, e = v - q;
-        out[p] = q;
-        add(b, W, H, x + dx, y, e * 7 / 16); add(b, W, H, x - dx, y + 1, e * 3 / 16);
-        add(b, W, H, x, y + 1, e * 5 / 16); add(b, W, H, x + dx, y + 1, e / 16);
-      }
-    }
-    return out;
-  }
+  /* ---------- ambient: a dithered film frame fixed behind the page that morphs as you scroll ----------
+     Sections carry data-amb="path/to/photo.jpg". Where you are in the page picks two neighbouring
+     frames. Their tone maps are blended, then an ordered (Bayer 8x8) dither turns the blend into two
+     tones. Ordered dither is stable: a small change flips a few cells, so the motion reads as a slow
+     dissolve and not as shimmer. The background also drifts at a fraction of the scroll speed.
+     Everything is a function of scroll position, so nothing moves while you read. With reduced
+     motion the frame simply changes per section. The colour switch paints the photo's own colours. */
+  function smooth(x) { x = x < 0 ? 0 : x > 1 ? 1 : x; return x * x * (3 - 2 * x); }
 
   function ambient() {
-    var secs = d.querySelectorAll('[data-amb]');
+    var secs = Array.prototype.slice.call(d.querySelectorAll('[data-amb]'));
     if (!secs.length) return;
+    var reduce = !!(w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var holder = d.createElement('div');
     holder.className = 'amb'; holder.setAttribute('aria-hidden', 'true');
+    var cv = d.createElement('canvas'); holder.appendChild(cv);
     d.body.insertBefore(holder, d.body.firstChild);
-    var layers = {}, lo = 0.26;
+    var ctx = cv.getContext('2d');
+    var srcs = secs.map(function (s) { return s.getAttribute('data-amb'); });
+    var frames = {}, cols = 0, vis = 0, tot = 0, imgData = null, lastKey = '', queued = false, shown = false;
+    var LO = 0.26;
 
-    function drawLayer(L) {
-      var im = L.img; if (!(im.complete && im.naturalWidth)) return;
-      var dpr = Math.min(w.devicePixelRatio || 1, 2), block = Math.max(1, Math.round(3 * dpr));
-      var vw = w.innerWidth, vh = Math.round(w.innerHeight * 1.12);
-      var cols = Math.max(40, Math.floor(vw * dpr / block)), rows = Math.max(40, Math.floor(vh * dpr / block));
-      var sc = Math.max(cols / im.naturalWidth, rows / im.naturalHeight), sw = cols / sc, sh = rows / sc;
-      var c = d.createElement('canvas'); c.width = cols; c.height = rows;
+    function geometry() {
+      var vw = w.innerWidth, cell = vw > 900 ? 4 : 3;
+      cols = Math.max(40, Math.round(vw / cell));
+      var cs = vw / cols;
+      vis = Math.max(40, Math.round(w.innerHeight * 1.12 / cs));
+      tot = Math.round(vis * 1.3);                         // spare rows to drift through
+      cv.width = cols; cv.height = vis;
+      imgData = ctx.createImageData(cols, vis);
+    }
+
+    function prepare(F) {
+      var im = F.im; if (!(im.complete && im.naturalWidth)) return;
+      var c = d.createElement('canvas'); c.width = cols; c.height = tot;
       var g = c.getContext('2d'); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
-      g.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, cols, rows);
-      var T = tone(g.getImageData(0, 0, cols, rows), { lift: 0.85, contrast: 1.25 });
-      for (var i = 0; i < T.length; i++) T[i] = lo + (1 - lo) * T[i];
-      // tint: the photo's average colour, diluted into white, replaces the grey
-      var px = g.getImageData(0, 0, cols, rows).data, r = 0, gg = 0, bb = 0, n = cols * rows, k;
+      var sc = Math.max(cols / im.naturalWidth, tot / im.naturalHeight), sw = cols / sc, sh = tot / sc;
+      g.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, cols, tot);
+      var data = g.getImageData(0, 0, cols, tot);
+      var T = tone(data, { lift: 0.85, contrast: 1.25 });
+      for (var i = 0; i < T.length; i++) T[i] = LO + (1 - LO) * T[i];
+      var px = data.data, r = 0, gg = 0, bb = 0, n = cols * tot, k;
       for (k = 0; k < px.length; k += 4) { r += px[k]; gg += px[k + 1]; bb += px[k + 2]; }
       r /= n; gg /= n; bb /= n;
-      var mx = Math.max(r, gg, bb), mn = Math.min(r, gg, bb), boost = mx - mn < 40 ? 1 : 1.35;   // lift muted casts a little
-      var tint = [r, gg, bb].map(function (v) { var m = (mx + mn) / 2; v = m + (v - m) * boost; return Math.round(255 - (255 - Math.max(0, Math.min(255, v))) * 0.34); });
-      paint(L.cv, twoTone(T, cols, rows), cols, rows, block, [tint, [255, 255, 255]]);
-      L.w = vw;
+      var mx = Math.max(r, gg, bb), mn = Math.min(r, gg, bb), boost = mx - mn < 40 ? 1 : 1.35;
+      F.tint = [r, gg, bb].map(function (v) { var m = (mx + mn) / 2; v = m + (v - m) * boost; return Math.round(255 - (255 - Math.max(0, Math.min(255, v))) * 0.34); });
+      F.T = T; F.rgb = px; F.ok = true;
     }
-    function layer(src) {
-      if (layers[src]) return layers[src];
-      var el = d.createElement('div'); el.className = 'amb-l';
-      var im = new Image(); im.alt = ''; im.decoding = 'async';
-      var cv = d.createElement('canvas');
-      el.appendChild(im); el.appendChild(cv); holder.appendChild(el);
-      var L = layers[src] = { el: el, img: im, cv: cv, w: 0 };
-      im.addEventListener('load', function () { drawLayer(L); });
-      im.src = src;
-      return L;
+
+    function load(src) {
+      if (frames[src]) return frames[src];
+      var F = frames[src] = { im: new Image(), ok: false, T: null, rgb: null, tint: [229, 229, 229] };
+      F.im.alt = ''; F.im.decoding = 'async';
+      F.im.addEventListener('load', function () { prepare(F); lastKey = ''; schedule(); });
+      F.im.src = src;
+      return F;
     }
-    function show(src) {
-      Object.keys(layers).forEach(function (k) { layers[k].el.classList.toggle('on', k === src); });
+
+    function render() {
+      queued = false;
+      var n = secs.length, mid = w.innerHeight / 2, i = 0, t = 0, k, r;
+      for (k = 0; k < n; k++) {
+        r = secs[k].getBoundingClientRect();
+        if (r.top <= mid) { i = k; t = (mid - r.top) / Math.max(1, r.height); } else break;
+      }
+      t = t < 0 ? 0 : t > 1 ? 1 : t;
+      var a = srcs[i], b = srcs[Math.min(i + 1, n - 1)];
+      var wgt = (reduce || a === b) ? 0 : smooth((t - 0.35) / 0.65);
+      wgt = Math.round(wgt * 20) / 20;
+      var vh = w.innerHeight, docH = Math.max(d.documentElement.scrollHeight, vh + 1);
+      var frac = reduce ? 0 : Math.max(0, Math.min(1, (w.pageYOffset || d.documentElement.scrollTop || 0) / (docH - vh)));
+      var py = Math.round(frac * (tot - vis));
+      var bias = reduce ? 0 : Math.round(Math.sin(frac * Math.PI * 6) * 5) / 100;
+      var colour = d.documentElement.classList.contains('colour');
+      var key = [a, b, wgt, py, bias, colour].join('|');
+      if (key === lastKey) return;
+      var fa = frames[a], fb = frames[b];
+      if (!fa || !fa.ok) return;
+      if (!fb || !fb.ok) { fb = fa; wgt = 0; }
+      lastKey = key;
+      var Ta = fa.T, Tb = fb.T, out = imgData.data, off = py * cols, x, y, p = 0, idx, v, thr;
+      var t0 = fa.tint, t1 = fb.tint;
+      var tr = t0[0] + (t1[0] - t0[0]) * wgt, tg = t0[1] + (t1[1] - t0[1]) * wgt, tb = t0[2] + (t1[2] - t0[2]) * wgt;
+      var ra = fa.rgb, rb = fb.rgb, iw = 1 - wgt;
+      for (y = 0; y < vis; y++) {
+        for (x = 0; x < cols; x++, p += 4) {
+          idx = off + y * cols + x;
+          if (colour) {
+            var q = idx * 4;
+            out[p] = 255 - (255 - (ra[q] * iw + rb[q] * wgt)) * 0.3;
+            out[p + 1] = 255 - (255 - (ra[q + 1] * iw + rb[q + 1] * wgt)) * 0.3;
+            out[p + 2] = 255 - (255 - (ra[q + 2] * iw + rb[q + 2] * wgt)) * 0.3;
+          } else {
+            v = Ta[idx] * iw + Tb[idx] * wgt + bias;
+            thr = B8[(y & 7) * 8 + (x & 7)];
+            if (v > thr) { out[p] = 255; out[p + 1] = 255; out[p + 2] = 255; }
+            else { out[p] = tr; out[p + 1] = tg; out[p + 2] = tb; }
+          }
+          out[p + 3] = 255;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      if (!shown) { shown = true; holder.classList.add('ready'); }
     }
-    var first = secs[0].getAttribute('data-amb');
-    secs.forEach(function (s) { layer(s.getAttribute('data-amb')); });
-    show(first);
-    if ('IntersectionObserver' in w) {
-      var io2 = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) show(e.target.getAttribute('data-amb')); });
-      }, { rootMargin: '-50% 0px -50% 0px' });
-      secs.forEach(function (s) { io2.observe(s); });
+
+    function schedule() {
+      if (queued) return; queued = true;
+      (w.requestAnimationFrame || function (f) { return setTimeout(f, 16); })(render);
     }
-    var rz2;
+
+    function rebuild() {
+      geometry();
+      Object.keys(frames).forEach(function (s) { frames[s].ok = false; prepare(frames[s]); });
+      lastKey = ''; schedule();
+    }
+
+    geometry();
+    srcs.forEach(load);
+    w.addEventListener('scroll', schedule, { passive: true });
+    var rz2, lastW = w.innerWidth;
     w.addEventListener('resize', function () {
       clearTimeout(rz2);
-      rz2 = setTimeout(function () {
-        Object.keys(layers).forEach(function (k) { var L = layers[k]; if (Math.abs(w.innerWidth - L.w) > 2) drawLayer(L); });
-      }, 200);
+      rz2 = setTimeout(function () { if (Math.abs(w.innerWidth - lastW) > 2) { lastW = w.innerWidth; rebuild(); } else { lastKey = ''; schedule(); } }, 200);
     });
+    w.addEventListener('orientationchange', function () { setTimeout(function () { lastW = w.innerWidth; rebuild(); }, 300); });
+    if ('MutationObserver' in w) new MutationObserver(function () { lastKey = ''; schedule(); }).observe(d.documentElement, { attributes: true, attributeFilter: ['class'] });
+    schedule();
   }
 
   /* ---------- go ---------- */
