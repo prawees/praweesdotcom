@@ -14,29 +14,30 @@
   <style>
     .gh { padding-top: 40px; row-gap: 12px; }
     .gh h1 { grid-column: 1 / -1; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; }
-    .gh p { grid-column: 1 / -1; background: var(--paper); width: fit-content; max-width: 52ch; }
+    .gh p { grid-column: 1 / -1; width: fit-content; max-width: 52ch; color: var(--mid); font-size: var(--fs-s); }
     @media (min-width: 768px) { .gh { padding-top: 72px; } .gh p { grid-column: 4 / 11; } }
 
     /* jump list */
-    .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 8px; }
-    .jump a { background: var(--paper); font-size: var(--fs-b); font-weight: 700; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; padding: 6px 0; text-decoration-color: var(--c, #111); }
-    .jump a small { font-size: var(--fs-s); font-weight: 400; color: var(--mid); margin-left: 4px; }
+    .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 20px; }
+    .jump a { font-size: var(--fs-s); text-decoration: none; padding: 6px 0; color: var(--mid); }
+    .jump a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+    .jump a small { font-size: 12px; color: var(--mid); margin-left: 4px; }
     @media (min-width: 768px) { .jump { grid-column: 4 / 13; } }
 
     /* chapters */
-    .chap { padding-top: 64px; padding-bottom: 8px; row-gap: 20px; scroll-margin-top: 56px; }
-    .chap-h { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; border-top: 4px solid var(--c, #111); padding-top: 14px; }
-    .chap-h h2 { font-size: var(--fs-h); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; background: var(--paper); }
-    .chap-h .n { font-size: var(--fs-s); font-weight: 700; color: var(--ct, var(--mid)); background: var(--paper); }
-    .chap-h p { font-size: var(--fs-s); color: var(--mid); background: var(--paper); width: fit-content; }
+    .chap { padding-top: 88px; padding-bottom: 8px; row-gap: 28px; scroll-margin-top: 56px; }
+    .chap-h { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; border-top: 1px solid var(--ink); padding-top: 14px; }
+    .chap-h h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; }
+    .chap-h .n { font-size: var(--fs-s); color: var(--mid); }
+    .chap-h p { font-size: var(--fs-s); color: var(--mid); width: fit-content; }
     .gallery-grid { grid-column: 1 / -1; display: flex; gap: 24px; align-items: flex-start; }
     .gallery-col { flex: 1 1 0; min-width: 0; }
-    .gallery-item { margin-bottom: 36px; display: flex; flex-direction: column; gap: 10px; opacity: 0; transition: opacity .5s steps(5, end); }
+    .gallery-item { margin-bottom: 56px; display: flex; flex-direction: column; gap: 10px; opacity: 0; transition: opacity .5s steps(5, end); }
     .gallery-item.in { opacity: 1; }
     .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
     .gallery-meta { display: flex; justify-content: space-between; gap: 12px; font-size: var(--fs-s); }
-    .gallery-meta span { background: var(--paper); width: fit-content; }
-    .gallery-meta span:last-child { color: var(--mid); text-align: right; }
+    .gallery-meta span { width: fit-content; color: var(--mid); }
+    .gallery-meta span:last-child { text-align: right; color: var(--ink); }
     @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; } }
 
     /* full-screen viewer */
@@ -82,8 +83,8 @@
 
   <main>
     <section class="g gh" data-amb="../assets/home/frame-2.jpg">
-      <h1>visual dump</h1>
-      <p id="intro">film only, in eight chapters by mood. the stock is named under each frame. tap a frame to see it large.</p>
+      <h1>keep looking outside..</h1>
+      <p id="intro">กดที่ภาพเพื่อดูภาพเต็ม</p>
       <nav class="jump" id="jump" aria-label="chapters"></nav>
     </section>
 
@@ -228,8 +229,6 @@
         a.innerHTML = '<span></span><small>' + ch.items.length + '</small>'; a.firstChild.textContent = ch.id;
         jump.appendChild(a);
       });
-      var intro = document.getElementById('intro');
-      if (total) intro.textContent = total + ' frames, film only, in ' + CHAPTERS.length + ' chapters by mood. the stock is named under each frame. tap a frame to see it large.';
 
       var relayout = function () { chapterEls.forEach(layoutChapter); };
       if (mq.addEventListener) mq.addEventListener('change', relayout); else mq.addListener(relayout);

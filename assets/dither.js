@@ -246,12 +246,13 @@
   }
 
   /* ---------- ambient: a dithered film frame fixed behind the page that morphs as you scroll ----------
-     Sections carry data-amb="path/to/photo.jpg". Where you are in the page picks two neighbouring
-     frames. Their tone maps are blended, then an ordered (Bayer 8x8) dither turns the blend into two
-     tones. Ordered dither is stable: a small change flips a few cells, so the motion reads as a slow
-     dissolve and not as shimmer. The background also drifts at a fraction of the scroll speed.
-     Everything is a function of scroll position, so nothing moves while you read. With reduced
-     motion the frame simply changes per section. The colour switch paints the photo's own colours. */
+     Sections carry data-amb="path/to/photo.jpg". Each photo is dithered once with Floyd-Steinberg at
+     a fine cell size (2 to 3 device pixels), so it reads as a faint stipple and not as big pixels. Floyd-Steinberg
+     is not stable when the input changes, so the photos are never re-dithered while you scroll.
+     Instead, two neighbouring finished stipples dissolve into each other through a Bayer threshold,
+     and the whole layer drifts slowly. Everything is a function of scroll position, so nothing
+     moves while you read. With reduced motion the frame simply changes per section. The colour
+     switch paints the photo's own colours. */
   function smooth(x) { x = x < 0 ? 0 : x > 1 ? 1 : x; return x * x * (3 - 2 * x); }
 
   function ambient() {
@@ -265,16 +266,35 @@
     var ctx = cv.getContext('2d');
     var srcs = secs.map(function (s) { return s.getAttribute('data-amb'); });
     var frames = {}, cols = 0, vis = 0, tot = 0, imgData = null, lastKey = '', queued = false, shown = false;
-    var LO = 0.26;
+    var FLOOR = 0.82;                                       // the lightest 82% of the range stays paper: a sparse, quiet stipple
+    var SOFT = 0.36;                                        // how far the stipple colour is pulled from white
 
     function geometry() {
-      var vw = w.innerWidth, cell = vw > 900 ? 4 : 3;
-      cols = Math.max(40, Math.round(vw / cell));
+      var vw = w.innerWidth, dpr = Math.min(3, Math.max(1, w.devicePixelRatio || 1)), cell = (dpr >= 2 ? 3 : 2) / dpr;   // 2 or 3 device pixels per cell
+      cols = Math.max(80, Math.round(vw / cell));
       var cs = vw / cols;
-      vis = Math.max(40, Math.round(w.innerHeight * 1.12 / cs));
+      vis = Math.max(80, Math.round(w.innerHeight * 1.12 / cs));
       tot = Math.round(vis * 1.3);                         // spare rows to drift through
       cv.width = cols; cv.height = vis;
       imgData = ctx.createImageData(cols, vis);
+    }
+
+    // Floyd-Steinberg, serpentine, two tones. 1 = stipple pixel, 0 = paper.
+    function fs(L, W, H) {
+      var buf = new Float32Array(L), out = new Uint8Array(W * H), y, k, x, p, v, e, dx;
+      for (y = 0; y < H; y++) {
+        var rtl = (y & 1) === 1; dx = rtl ? -1 : 1;
+        for (k = 0; k < W; k++) {
+          x = rtl ? W - 1 - k : k; p = y * W + x;
+          v = buf[p]; var q = v >= 0.5 ? 1 : 0; e = v - q;
+          out[p] = q ? 0 : 1;
+          add(buf, W, H, x + dx, y, e * 7 / 16);
+          add(buf, W, H, x - dx, y + 1, e * 3 / 16);
+          add(buf, W, H, x, y + 1, e * 5 / 16);
+          add(buf, W, H, x + dx, y + 1, e * 1 / 16);
+        }
+      }
+      return out;
     }
 
     function prepare(F) {
@@ -285,18 +305,18 @@
       g.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, cols, tot);
       var data = g.getImageData(0, 0, cols, tot);
       var T = tone(data, { lift: 0.85, contrast: 1.25 });
-      for (var i = 0; i < T.length; i++) T[i] = LO + (1 - LO) * T[i];
+      for (var i = 0; i < T.length; i++) T[i] = FLOOR + (1 - FLOOR) * T[i];
       var px = data.data, r = 0, gg = 0, bb = 0, n = cols * tot, k;
       for (k = 0; k < px.length; k += 4) { r += px[k]; gg += px[k + 1]; bb += px[k + 2]; }
       r /= n; gg /= n; bb /= n;
       var mx = Math.max(r, gg, bb), mn = Math.min(r, gg, bb), boost = mx - mn < 40 ? 1 : 1.35;
-      F.tint = [r, gg, bb].map(function (v) { var m = (mx + mn) / 2; v = m + (v - m) * boost; return Math.round(255 - (255 - Math.max(0, Math.min(255, v))) * 0.34); });
-      F.T = T; F.rgb = px; F.ok = true;
+      F.tint = [r, gg, bb].map(function (v) { var m = (mx + mn) / 2; v = m + (v - m) * boost; return Math.round(255 - (255 - Math.max(0, Math.min(255, v))) * SOFT); });
+      F.M = fs(T, cols, tot); F.rgb = px; F.ok = true;
     }
 
     function load(src) {
       if (frames[src]) return frames[src];
-      var F = frames[src] = { im: new Image(), ok: false, T: null, rgb: null, tint: [229, 229, 229] };
+      var F = frames[src] = { im: new Image(), ok: false, M: null, rgb: null, tint: [220, 220, 220] };
       F.im.alt = ''; F.im.decoding = 'async';
       F.im.addEventListener('load', function () { prepare(F); lastKey = ''; schedule(); });
       F.im.src = src;
@@ -313,36 +333,32 @@
       t = t < 0 ? 0 : t > 1 ? 1 : t;
       var a = srcs[i], b = srcs[Math.min(i + 1, n - 1)];
       var wgt = (reduce || a === b) ? 0 : smooth((t - 0.35) / 0.65);
-      wgt = Math.round(wgt * 20) / 20;
+      wgt = Math.round(wgt * 32) / 32;
       var vh = w.innerHeight, docH = Math.max(d.documentElement.scrollHeight, vh + 1);
       var frac = reduce ? 0 : Math.max(0, Math.min(1, (w.pageYOffset || d.documentElement.scrollTop || 0) / (docH - vh)));
       var py = Math.round(frac * (tot - vis));
-      var bias = reduce ? 0 : Math.round(Math.sin(frac * Math.PI * 6) * 5) / 100;
       var colour = d.documentElement.classList.contains('colour');
-      var key = [a, b, wgt, py, bias, colour].join('|');
+      var key = [a, b, wgt, py, colour].join('|');
       if (key === lastKey) return;
       var fa = frames[a], fb = frames[b];
       if (!fa || !fa.ok) return;
       if (!fb || !fb.ok) { fb = fa; wgt = 0; }
       lastKey = key;
-      var Ta = fa.T, Tb = fb.T, out = imgData.data, off = py * cols, x, y, p = 0, idx, v, thr;
+      var Ma = fa.M, Mb = fb.M, out = imgData.data, off = py * cols, x, y, p = 0, idx, on;
       var t0 = fa.tint, t1 = fb.tint;
       var tr = t0[0] + (t1[0] - t0[0]) * wgt, tg = t0[1] + (t1[1] - t0[1]) * wgt, tb = t0[2] + (t1[2] - t0[2]) * wgt;
-      var ra = fa.rgb, rb = fb.rgb, iw = 1 - wgt;
+      var ra = fa.rgb, rb = fb.rgb;
       for (y = 0; y < vis; y++) {
         for (x = 0; x < cols; x++, p += 4) {
           idx = off + y * cols + x;
-          if (colour) {
-            var q = idx * 4;
-            out[p] = 255 - (255 - (ra[q] * iw + rb[q] * wgt)) * 0.3;
-            out[p + 1] = 255 - (255 - (ra[q + 1] * iw + rb[q + 1] * wgt)) * 0.3;
-            out[p + 2] = 255 - (255 - (ra[q + 2] * iw + rb[q + 2] * wgt)) * 0.3;
-          } else {
-            v = Ta[idx] * iw + Tb[idx] * wgt + bias;
-            thr = B8[(y & 7) * 8 + (x & 7)];
-            if (v > thr) { out[p] = 255; out[p + 1] = 255; out[p + 2] = 255; }
-            else { out[p] = tr; out[p + 1] = tg; out[p + 2] = tb; }
-          }
+          on = (wgt > B8[(y & 7) * 8 + (x & 7)]) ? Mb[idx] : Ma[idx];
+          if (!on) { out[p] = 255; out[p + 1] = 255; out[p + 2] = 255; }
+          else if (colour) {
+            var q = idx * 4, s2 = (wgt > B8[(y & 7) * 8 + (x & 7)]) ? rb : ra;
+            out[p] = 255 - (255 - s2[q]) * 0.55;
+            out[p + 1] = 255 - (255 - s2[q + 1]) * 0.55;
+            out[p + 2] = 255 - (255 - s2[q + 2]) * 0.55;
+          } else { out[p] = tr; out[p + 1] = tg; out[p + 2] = tb; }
           out[p + 3] = 255;
         }
       }
