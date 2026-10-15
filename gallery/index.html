@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
   <meta charset="UTF-8">
@@ -12,35 +12,63 @@
   <link rel="stylesheet" href="../assets/base.css">
   <link rel="stylesheet" href="../assets/site.css">
   <style>
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+    /* ---------- title ---------- */
     .gh { padding-top: 40px; row-gap: 12px; }
-    .gh h1 { grid-column: 1 / -1; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; }
+    .gh h1 { grid-column: 1 / -1; position: relative; width: fit-content; max-width: 100%; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; }
+    /* the title is scanned in once, line by line, like the photographs are; then the two dots breathe */
+    .gh h1.scan { animation: gt-clip 1.3s steps(22, end) backwards; }
+    .gh h1.scan::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--ink); animation: dz-beam 1.3s steps(22, end) both; pointer-events: none; }
+    @keyframes gt-clip { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(-.3em -.2em -.3em -.2em); } }
+    .dots i { font-style: normal; animation: gt-dot 2.8s steps(1, end) infinite; }
+    .dots i + i { animation-delay: .45s; }
+    @keyframes gt-dot { 0% { opacity: 1; } 55% { opacity: .12; } 80% { opacity: 1; } }
     .gh p { grid-column: 1 / -1; width: fit-content; max-width: 52ch; color: var(--mid); font-size: var(--fs-s); }
     @media (min-width: 768px) { .gh { padding-top: 72px; } .gh p { grid-column: 4 / 11; } }
 
-    /* jump list */
-    .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 20px; }
+    .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 20px; }
     .jump a { font-size: var(--fs-s); text-decoration: none; padding: 6px 0; color: var(--mid); }
     .jump a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
-    .jump a small { font-size: 12px; color: var(--mid); margin-left: 4px; }
+    .jump a small { font-size: 12px; margin-left: 4px; }
     @media (min-width: 768px) { .jump { grid-column: 4 / 13; } }
 
-    /* chapters */
-    .chap { padding-top: 88px; padding-bottom: 8px; row-gap: 28px; scroll-margin-top: 56px; }
-    .chap-h { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; border-top: 1px solid var(--ink); padding-top: 14px; }
-    .chap-h h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; }
-    .chap-h .n { font-size: var(--fs-s); color: var(--mid); }
-    .chap-h p { font-size: var(--fs-s); color: var(--mid); width: fit-content; }
-    .gallery-grid { grid-column: 1 / -1; display: flex; gap: 24px; align-items: flex-start; }
-    .gallery-col { flex: 1 1 0; min-width: 0; }
-    .gallery-item { margin-bottom: 56px; display: flex; flex-direction: column; gap: 10px; opacity: 0; transition: opacity .5s steps(5, end); }
-    .gallery-item.in { opacity: 1; }
-    .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
-    .gallery-meta { display: flex; justify-content: space-between; gap: 12px; font-size: var(--fs-s); }
-    .gallery-meta span { width: fit-content; color: var(--mid); }
-    .gallery-meta span:last-child { text-align: right; color: var(--ink); }
-    @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; } }
+    /* ---------- one continuous flow: two columns, photographs stacked, chapter names set into the flow ---------- */
+    .g.flow { display: block; position: relative; padding-top: 72px; padding-bottom: 8px; }
+    .cols { display: flex; gap: 12px; align-items: flex-start; }
+    .col { flex: 1 1 0; min-width: 0; }
+    .col + .col { padding-top: 40px; }
+    @media (min-width: 768px) { .cols { gap: 28px; } .col + .col { padding-top: 96px; } .g.flow { padding-top: 96px; } }
 
-    /* full-screen viewer */
+    .lab { margin: 56px 0 28px; scroll-margin-top: 88px; }
+    .col:last-child .lab { text-align: right; }
+    .lab .n { display: block; font-size: var(--fs-s); color: var(--mid); }
+    .lab h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; margin: 2px 0 8px; }
+    .lab p { font-size: var(--fs-s); color: var(--mid); }
+    .lab .ct { display: block; margin-top: 2px; }
+    @media (min-width: 768px) { .lab { margin: 96px 0 40px; } .lab p { max-width: 30ch; } .col:last-child .lab p { margin-left: auto; } }
+    .col > .lab:first-child { margin-top: 0; }
+
+    .gallery-item { margin-bottom: 36px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity .7s ease, transform .7s ease; }
+    .gallery-item.in { opacity: 1; transform: none; }
+    @media (min-width: 768px) { .gallery-item { margin-bottom: 64px; gap: 10px; } }
+    .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
+    .gallery-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; line-height: 1.35; }
+    @media (min-width: 768px) { .gallery-meta { font-size: var(--fs-s); } }
+    .gallery-meta button { text-align: left; color: var(--mid); text-decoration: none; padding: 2px 0; }
+    .gallery-meta button:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+    .gallery-meta span { color: var(--ink); text-align: right; }
+    @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; transform: none; } .dots i { animation: none; } .gh h1.scan, .gh h1.scan::after { animation: none; } }
+
+    .mk { position: absolute; left: 0; width: 1px; pointer-events: none; visibility: hidden; }
+
+    /* film filter header */
+    .fbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; margin-bottom: 48px; }
+    .fbar h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
+    .fbar .ct { color: var(--mid); font-size: var(--fs-s); }
+    .fbar button { font-size: var(--fs-s); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
+
+    /* ---------- viewer ---------- */
     .lb { position: fixed; inset: 0; z-index: 8000; background: var(--paper); display: none; grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom)); }
     .lb.open { display: grid; }
     .lb .top, .lb .cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 var(--pad, 16px); font-size: var(--fs-b); }
@@ -51,17 +79,28 @@
     .lb .cap span:last-child { color: var(--mid); }
     .lb .nav2 { display: flex; gap: 4px; }
 
-    /* gear sheet */
-    .modal { position: fixed; inset: 0; background: var(--paper); z-index: 9000; overflow-y: auto; opacity: 0; pointer-events: none; padding: max(24px, env(safe-area-inset-top)) 0 max(40px, env(safe-area-inset-bottom)); }
-    .modal.open { opacity: 1; pointer-events: auto; }
-    .modal .g { row-gap: 32px; }
-    .modal .back { grid-column: 1 / -1; width: fit-content; min-height: 44px; font-size: var(--fs-b); text-decoration: underline; text-underline-offset: 3px; }
-    .gear { grid-column: 1 / -1; }
-    .gear h3 { font-size: var(--fs-s); font-weight: 700; padding-bottom: 8px; border-bottom: 1px solid var(--ink); margin-bottom: 8px; }
-    .gear ul { list-style: none; }
-    .gear li { padding: 4px 0; display: flex; align-items: center; gap: 12px; }
-    .sw { width: 16px; height: 12px; flex-shrink: 0; display: inline-block; }
-    @media (min-width: 768px) { .gear.cam { grid-column: 4 / 8; } .gear.film { grid-column: 8 / 13; } .modal .back { grid-column: 1 / 4; } }
+    /* ---------- notes sheet ---------- */
+    .modal { position: fixed; inset: 0; background: var(--paper); z-index: 9000; overflow-y: auto; overscroll-behavior: contain; opacity: 0; visibility: hidden; transition: opacity .25s steps(5, end), visibility 0s .25s; padding: max(16px, env(safe-area-inset-top)) 0 max(56px, env(safe-area-inset-bottom)); }
+    .modal.open { opacity: 1; visibility: visible; transition: opacity .25s steps(5, end); }
+    .modal .back { display: block; min-height: 44px; font-size: var(--fs-b); text-decoration: underline; text-underline-offset: 3px; }
+    .modal .head { padding-top: 8px; row-gap: 8px; }
+    .modal .head .back { grid-column: 1 / -1; width: fit-content; }
+    .modal h2.t { grid-column: 1 / -1; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; margin-top: 24px; }
+    .modal .sec { padding-top: 48px; }
+    @media (min-width: 768px) { .modal .sec { padding-top: 72px; } .modal h2.t { margin-top: 40px; } }
+    .modal .note { font-size: var(--fs-s); color: var(--mid); margin-bottom: 16px; }
+    .list { list-style: none; }
+    .list li { border-top: 1px solid var(--light); }
+    .list .row { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 12px 0; text-align: left; font-size: var(--fs-b); }
+    .list .row .sw { width: 10px; height: 10px; flex: none; align-self: center; }
+    .list .row .nm { flex: 1 1 auto; min-width: 0; }
+    .list .row .ct { color: var(--mid); font-size: var(--fs-s); font-variant-numeric: tabular-nums; }
+    .list .row .sm { color: var(--mid); font-size: var(--fs-s); }
+    .list button.row:hover .nm { text-decoration: underline; text-underline-offset: 4px; }
+    .list button.row[aria-pressed="true"] .nm { font-weight: 700; }
+    @media (min-width: 768px) { .list.two { columns: 2; column-gap: 32px; } .list.two li { break-inside: avoid; } }
+    .ig { width: 100%; max-width: 540px; height: 600px; border: 1px solid var(--light); display: block; background: var(--paper); }
+    .ig-link { display: inline-block; margin-top: 14px; font-size: var(--fs-s); }
   </style>
 </head>
 
@@ -71,7 +110,10 @@
     <div class="g">
       <a class="brand" href="../">prawees</a>
       <div class="tools">
-        <button type="button" id="gear-btn" class="tog">gear</button>
+        <button type="button" class="btn-th active" onclick="setLang('th')">th</button>
+        <span class="sep">/</span>
+        <button type="button" class="btn-en" onclick="setLang('en')">en</button>
+        <button type="button" id="notes-btn" class="tog">notes</button>
       </div>
       <nav class="nav" aria-label="main">
         <a href="../">home</a>
@@ -83,13 +125,13 @@
 
   <main>
     <section class="g gh" data-amb="../assets/home/frame-2.jpg">
-      <h1>keep looking outside..</h1>
-      <p id="intro">กดที่ภาพเพื่อดูภาพเต็ม</p>
+      <h1 id="gt" class="scan">keep looking outside<span class="dots" aria-hidden="true"><i>.</i><i>.</i></span></h1>
+      <p data-th="กดที่รูปเพื่อดูภาพเต็มนะครับ" data-en="tap a photo to view it full size">กดที่รูปเพื่อดูภาพเต็มนะครับ</p>
       <nav class="jump" id="jump" aria-label="chapters"></nav>
     </section>
 
-    <div id="chapters"></div>
-    <noscript><section class="g chap"><p>this page needs javascript to show the photographs.</p></section></noscript>
+    <section class="g flow" id="flow"><div class="cols" id="cols"></div></section>
+    <noscript><section class="g"><p>this page needs javascript to show the photographs.</p></section></noscript>
   </main>
 
   <footer class="g foot">
@@ -99,172 +141,249 @@
 
   <!-- Viewer -->
   <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="photo viewer">
-    <div class="top"><button type="button" id="lb-close">close</button><span class="nav2"><button type="button" id="lb-prev" aria-label="previous">←</button><button type="button" id="lb-next" aria-label="next">→</button></span></div>
+    <div class="top"><button type="button" id="lb-close" data-th="ปิด" data-en="close">ปิด</button><span class="nav2"><button type="button" id="lb-prev" aria-label="previous">←</button><button type="button" id="lb-next" aria-label="next">→</button></span></div>
     <div class="stage" id="lb-stage"><img id="lb-img" alt=""></div>
     <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
   </div>
 
-  <!-- Gear sheet -->
-  <div id="gear-modal" class="modal" role="dialog" aria-modal="true" aria-label="gear">
-    <div class="g">
-      <button id="close-modal" class="back" type="button">← back</button>
-      <div class="gear cam">
-        <h3>cameras used</h3>
-        <ul>
-          <li>Ricoh GR3</li>
-          <li>Olympus XA2</li>
-          <li>Nikon FE2</li>
-        </ul>
-      </div>
-      <div class="gear film">
-        <h3>film used</h3>
-        <ul class="film-list">
-          <li><span class="sw" style="background: #95DEBD;"></span> Fujifilm C200</li>
-          <li><span class="sw" style="background: #27A65A;"></span> Fujifilm Superia Xtra 400</li>
-          <li><span class="sw" style="background: #F9E273;"></span> Kodak Tmax 400</li>
-          <li><span class="sw" style="background: #F5A943;"></span> Kodak Proimage 100</li>
-          <li><span class="sw" style="background: #F6E272;"></span> Kodak Gold 200</li>
-          <li><span class="sw" style="background: #85CD48;"></span> Fuji 100</li>
-          <li><span class="sw" style="background: #F6CA68;"></span> Film Never Die IRO200</li>
-          <li><span class="sw" style="background: #EA3E21;"></span> Agfa Sound ST8D</li>
-          <li><span class="sw" style="background: #93DEBC;"></span> Fujifilm C200 Second Half</li>
-          <li><span class="sw" style="background: #3C83DE;"></span> Kodak Ultramax 400</li>
-          <li><span class="sw" style="background: #D0C3C0;"></span> Lomo 100</li>
-          <li><span class="sw" style="background: #FA8BB2;"></span> My Heart 200</li>
-          <li><span class="sw" style="background: #B6DE67;"></span> Fuji 400</li>
-          <li><span class="sw" style="background: #454545;"></span> Ultrafine Xtreme 400</li>
-          <li><span class="sw" style="background: #EA3F20;"></span> Ilford Pan 400</li>
-          <li><span class="sw" style="background: #EFC55D;"></span> Kodak Color Plus 200</li>
-          <li><span class="sw" style="background: #FA92B0;"></span> Film Never Die IRO400</li>
-          <li><span class="sw" style="background: #98C4E9;"></span> Fuji F250T ei100</li>
-          <li><span class="sw" style="background: #98C5E7;"></span> Fuji F400T ei200</li>
-          <li><span class="sw" style="background: #CD7464;"></span> Kodak Ektar 100</li>
-        </ul>
-      </div>
+  <!-- Notes sheet: cameras, film (tap one to see every photo on it), instagram -->
+  <div id="notes" class="modal" role="dialog" aria-modal="true" aria-label="notes">
+    <div class="g head">
+      <button id="notes-close" class="back" type="button" data-th="← กลับ" data-en="← back">← กลับ</button>
+      <h2 class="t" data-th="บันทึก" data-en="notes">บันทึก</h2>
     </div>
+
+    <section class="g sec">
+      <p class="label"><b>01</b><span data-th="กล้อง" data-en="cameras">กล้อง</span></p>
+      <div class="body">
+        <ul class="list">
+          <li><span class="row"><span class="nm">Olympus XA2</span></span></li>
+          <li><span class="row"><span class="nm">Nikon FE2</span></span></li>
+          <li><span class="row"><span class="nm">Ricoh GR3</span><span class="sm" data-th="ดิจิทัล" data-en="digital">ดิจิทัล</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="g sec">
+      <p class="label"><b>02</b><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+      <div class="body">
+        <p class="note" data-th="กดที่ชื่อฟิล์มเพื่อดูภาพทั้งหมดที่ถ่ายด้วยฟิล์มนั้น" data-en="tap a film to see every photo shot on it">กดที่ชื่อฟิล์มเพื่อดูภาพทั้งหมดที่ถ่ายด้วยฟิล์มนั้น</p>
+        <ul class="list two" id="film-list"></ul>
+      </div>
+    </section>
+
+    <section class="g sec">
+      <p class="label"><b>03</b><span>instagram</span></p>
+      <div class="body" id="ig-body">
+        <a class="ig-link" href="https://www.instagram.com/prawee.sin/" target="_blank" rel="noopener" data-th="เปิดใน instagram @prawee.sin →" data-en="open @prawee.sin on instagram →">เปิดใน instagram @prawee.sin →</a>
+      </div>
+    </section>
   </div>
 
   <script src="../assets/film/frames.js"></script>
   <script>
+    /* Gallery. Everything is one flow of two columns. Photographs go into whichever column is shorter,
+       and each chapter name is set into the flow on alternating sides, so the page keeps moving with no rules or bands.
+       The film names under the photographs, and the list in the notes sheet, filter the whole gallery to that film. */
     (function () {
       var CHAPTERS = window.FILM_CHAPTERS || [];
-      // one accent per chapter, used for the rule and the jump link
-      var ACCENT = { haze: '#7A8FB5', blue: '#2C72C8', dusk: '#D9663A', rooms: '#C77F3A', street: '#E05A38', night: '#6B49C7', flare: '#C13584', grey: '#111111' };
       var FRAMES = ['../assets/home/frame-4.jpg', '../assets/home/frame-3.jpg', '../assets/home/frame-1.jpg', '../assets/home/frame-2.jpg'];
+      var SW = { fujifilmc200: '#95DEBD', fujifilmsuperiaxtra400: '#27A65A', kodaktmax400: '#F9E273', kodakproimage100: '#F5A943', kodakgold200: '#F6E272', fuji100: '#85CD48', filmneverdieiro200: '#F6CA68', agfasoundst8d: '#EA3E21', kodakultramax400: '#3C83DE', lomo100: '#D0C3C0', myheart200: '#FA8BB2', fuji400: '#B6DE67', ultrafinextreme400: '#454545', ilfordpan400: '#EA3F20', kodakcolorplus200: '#EFC55D', filmneverdieiro400: '#FA92B0', fujif250teilo100: '#98C4E9', fujif250tei100: '#98C4E9', fujif400tei200: '#98C5E7', kodakektar100: '#CD7464' };
 
-      var all = [];                       // flat list for the viewer
-      var root = document.getElementById('chapters');
-      var jump = document.getElementById('jump');
-      var mq = window.matchMedia('(max-width: 768px)');
-      var chapterEls = [];
-
+      var LANG = 'th';
+      try { var sv = localStorage.getItem('prawees.lang'); if (sv === 'en' || sv === 'th') LANG = sv; } catch (e) {}
+      function tr(th, en) { return LANG === 'th' ? th : en; }
+      function norm(s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ''); }
       function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+      function countText(n) { return LANG === 'th' ? n + ' ภาพ' : n + (n === 1 ? ' photograph' : ' photographs'); }
 
+      var flow = document.getElementById('flow'), colsEl = document.getElementById('cols'), jump = document.getElementById('jump');
+      var all = [], chapters = [], view = [], filter = null, markers = [];
+
+      /* ---------- reveal on scroll ---------- */
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -6% 0px' }) : null;
+
+      /* ---------- one photograph ---------- */
       function makeItem(it) {
-        var item = document.createElement('div');
-        item.className = 'gallery-item';
-        var img = document.createElement('img');
-        img.className = 'gallery-img';
-        img.src = '../assets/film/' + it.f;
-        img.width = it.w; img.height = it.h;
-        img.loading = 'lazy'; img.decoding = 'async';
+        var item = document.createElement('div'); item.className = 'gallery-item';
+        var img = document.createElement('img'); img.className = 'gallery-img';
+        img.src = '../assets/film/' + it.f; img.width = it.w; img.height = it.h; img.loading = 'lazy'; img.decoding = 'async';
         img.alt = it.t ? it.t + ', ' + it.film : 'film photograph, ' + it.film;
-        var show = function () { item.classList.add('in'); };
-        img.addEventListener('load', show);
         img.addEventListener('error', function () { item.style.display = 'none'; });
-        if (img.complete) show();
-        img.addEventListener('click', function () { openViewer(it.idx); });
-        var meta = document.createElement('div');
-        meta.className = 'gallery-meta';
-        var l = document.createElement('span'); l.textContent = it.film;
+        img.addEventListener('click', function () { openViewer(it); });
+        var meta = document.createElement('div'); meta.className = 'gallery-meta';
+        var l = document.createElement('button'); l.type = 'button'; l.textContent = it.film;
+        l.addEventListener('click', function () { setFilter(it.key); });
         var r = document.createElement('span'); r.textContent = it.t || '';
         meta.appendChild(l); meta.appendChild(r);
         item.appendChild(img); item.appendChild(meta);
+        it.el = item;
+        if (io) io.observe(item); else item.classList.add('in');
         return item;
       }
 
-      // Deal photos two at a time, left then right, so rows read left to right.
-      // If one column runs well ahead, the taller photo of the pair goes to the shorter column.
-      function layoutChapter(c) {
-        var grid = c.grid; grid.innerHTML = '';
-        var n = mq.matches ? 1 : 2;
-        var cols = []; var hts = [];
-        for (var i = 0; i < n; i++) { var col = document.createElement('div'); col.className = 'gallery-col'; grid.appendChild(col); cols.push(col); hts.push(0); }
-        var items = c.items;
-        if (n === 1) { items.forEach(function (it) { cols[0].appendChild(it.el); }); return; }
-        var avg = items.reduce(function (s, it) { return s + it.h / it.w; }, 0) / items.length;
-        for (var k = 0; k < items.length; k += 2) {
-          var a = items[k], b = items[k + 1];
-          var ha = a.h / a.w, hb = b ? b.h / b.w : 0;
-          var left = a, right = b;
-          if (b && Math.abs(hts[0] - hts[1]) > 0.35 * avg) {
-            var shorter = hts[0] <= hts[1] ? 0 : 1;
-            var taller = ha >= hb ? a : b, lower = taller === a ? b : a;
-            if (shorter === 0) { left = taller; right = lower; } else { left = lower; right = taller; }
-          }
-          cols[0].appendChild(left.el); hts[0] += left.h / left.w;
-          if (right) { cols[1].appendChild(right.el); hts[1] += right.h / right.w; }
+      CHAPTERS.forEach(function (ch, ci) {
+        var items = ch.items.map(function (raw) {
+          var it = { f: raw.f, film: raw.film, t: raw.t, w: raw.w, h: raw.h, key: norm(raw.film), ch: ci };
+          makeItem(it); all.push(it); return it;
+        });
+        chapters.push({ id: ch.id, note: ch.note, items: items, amb: FRAMES[ci % FRAMES.length] });
+      });
+
+      /* ambient markers: one invisible box per chapter, so the dithered background changes frame with the chapter */
+      chapters.forEach(function (c) {
+        var m = document.createElement('div'); m.className = 'mk'; m.setAttribute('data-amb', c.amb); m.setAttribute('aria-hidden', 'true');
+        flow.appendChild(m); markers.push(m);
+      });
+
+      /* ---------- layout: deal into the shorter column ---------- */
+      var CAP = 38;
+      function layout() {
+        colsEl.innerHTML = '';
+        var cs = [document.createElement('div'), document.createElement('div')], hs = [0, 0];
+        cs.forEach(function (c) { c.className = 'col'; colsEl.appendChild(c); });
+        var gap = window.innerWidth >= 768 ? 28 : 12;
+        var colW = Math.max(120, (colsEl.clientWidth - gap) / 2);
+        var margin = window.innerWidth >= 768 ? 64 : 36;
+        function shorter() { return hs[0] <= hs[1] ? 0 : 1; }
+        function put(c, it) { cs[c].appendChild(it.el); hs[c] += colW * it.h / it.w + CAP + margin; }
+        view = [];
+        var labels = [];
+        if (filter) {
+          var items = all.filter(function (it) { return it.key === filter; });
+          var bar = document.createElement('div'); bar.className = 'fbar';
+          var h = document.createElement('h2'); h.textContent = items.length ? items[0].film : '';
+          var ct = document.createElement('span'); ct.className = 'ct'; ct.textContent = countText(items.length);
+          var b = document.createElement('button'); b.type = 'button'; b.textContent = tr('ดูทั้งหมด', 'show all');
+          b.addEventListener('click', function () { setFilter(null); });
+          bar.appendChild(h); bar.appendChild(ct); bar.appendChild(b);
+          colsEl.parentNode.insertBefore(bar, colsEl);
+          items.forEach(function (it) { put(shorter(), it); view.push(it); });
+          jump.style.display = 'none';
+        } else {
+          var old = flow.querySelector('.fbar'); if (old) old.remove();
+          jump.style.display = '';
+          var lastY = -1e9;
+          chapters.forEach(function (c, ci) {
+            var side = ci % 2;                              // names alternate: left, right, left ...
+            var lab = document.createElement('div'); lab.className = 'lab'; lab.id = c.id;
+            var need = lastY + 220 - hs[side];             // keep chapter names in reading order
+            if (need > 0) { lab.style.paddingTop = need + 'px'; hs[side] += need; }
+            lab.innerHTML = '<span class="n"></span><h2></h2><p></p><p class="ct"></p>';
+            lab.querySelector('.n').textContent = pad2(ci + 1);
+            lab.querySelector('h2').textContent = c.id;
+            lab.querySelector('p').textContent = c.note;
+            lab.querySelector('.ct').textContent = countText(c.items.length);
+            cs[side].appendChild(lab); lastY = hs[side]; hs[side] += 190; labels.push(lab);
+            c.items.forEach(function (it) { put(shorter(), it); view.push(it); });
+          });
+        }
+        placeMarkers(labels);
+      }
+
+      function placeMarkers(labels) {
+        var top = flow.getBoundingClientRect().top + window.pageYOffset, H = flow.offsetHeight;
+        if (labels.length === markers.length) {
+          var ys = labels.map(function (l) { return l.getBoundingClientRect().top + window.pageYOffset - top; });
+          markers.forEach(function (m, i) { var y = ys[i], e = i + 1 < ys.length ? ys[i + 1] : H; m.style.top = Math.max(0, y) + 'px'; m.style.height = Math.max(1, e - y) + 'px'; });
+        } else {
+          markers.forEach(function (m, i) { m.style.top = (H * i / markers.length) + 'px'; m.style.height = (H / markers.length) + 'px'; });
         }
       }
 
-      var total = 0;
-      CHAPTERS.forEach(function (ch, ci) {
-        var sec = document.createElement('section');
-        sec.className = 'g chap'; sec.id = ch.id;
-        sec.setAttribute('data-amb', FRAMES[ci % FRAMES.length]);
-        var col = ACCENT[ch.id] || '#111';
-        sec.style.setProperty('--c', col);
-        var head = document.createElement('div'); head.className = 'chap-h';
-        head.innerHTML = '<span class="n">' + pad2(ci + 1) + '</span><h2></h2><p></p>';
-        head.querySelector('h2').textContent = ch.id;
-        head.querySelector('p').textContent = ch.note + ', ' + ch.items.length + ' frames';
-        var grid = document.createElement('div'); grid.className = 'gallery-grid';
-        sec.appendChild(head); sec.appendChild(grid);
-        root.appendChild(sec);
-        var items = ch.items.map(function (raw) { var it = { f: raw.f, film: raw.film, t: raw.t, w: raw.w, h: raw.h, idx: all.length }; it.el = makeItem(it); all.push(it); return it; });
-        total += items.length;
-        var rec = { grid: grid, items: items }; chapterEls.push(rec); layoutChapter(rec);
+      function renderJump() {
+        jump.innerHTML = '';
+        chapters.forEach(function (c) {
+          var a = document.createElement('a'); a.href = '#' + c.id;
+          a.innerHTML = '<span></span><small></small>'; a.firstChild.textContent = c.id; a.lastChild.textContent = c.items.length;
+          jump.appendChild(a);
+        });
+      }
 
-        var a = document.createElement('a'); a.href = '#' + ch.id; a.style.setProperty('--c', col);
-        a.innerHTML = '<span></span><small>' + ch.items.length + '</small>'; a.firstChild.textContent = ch.id;
-        jump.appendChild(a);
-      });
+      function setFilter(key) {
+        filter = key || null;
+        layout();
+        var y = flow.getBoundingClientRect().top + window.pageYOffset - 88;
+        window.scrollTo(0, Math.max(0, y));
+        buildFilmList();
+      }
 
-      var relayout = function () { chapterEls.forEach(layoutChapter); };
-      if (mq.addEventListener) mq.addEventListener('change', relayout); else mq.addListener(relayout);
-
-      /* viewer */
+      /* ---------- viewer ---------- */
       var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img');
       var cur = 0, opener = null;
       function setViewer(i) {
-        cur = (i + all.length) % all.length; var it = all[cur];
+        cur = (i + view.length) % view.length; var it = view[cur];
         lbImg.src = '../assets/film/' + it.f; lbImg.alt = it.t ? it.t + ', ' + it.film : it.film;
         document.getElementById('lb-film').textContent = it.film;
         document.getElementById('lb-t').textContent = it.t || '';
       }
-      function openViewer(i) { opener = document.activeElement; setViewer(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; document.getElementById('lb-close').focus(); }
+      function openViewer(it) { opener = document.activeElement; setViewer(view.indexOf(it)); lb.classList.add('open'); document.body.style.overflow = 'hidden'; document.getElementById('lb-close').focus(); }
       function closeViewer() { lb.classList.remove('open'); document.body.style.overflow = ''; if (opener && opener.focus) { try { opener.focus(); } catch (e) {} } }
       document.getElementById('lb-close').addEventListener('click', closeViewer);
       document.getElementById('lb-prev').addEventListener('click', function () { setViewer(cur - 1); });
       document.getElementById('lb-next').addEventListener('click', function () { setViewer(cur + 1); });
-      var sx = null;
-      var stage = document.getElementById('lb-stage');
+      var sx = null, stage = document.getElementById('lb-stage');
       stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
       stage.addEventListener('touchend', function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) setViewer(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
-      document.addEventListener('keydown', function (e) {
-        if (lb.classList.contains('open')) {
-          if (e.key === 'Escape') closeViewer();
-          else if (e.key === 'ArrowRight') setViewer(cur + 1);
-          else if (e.key === 'ArrowLeft') setViewer(cur - 1);
+
+      /* ---------- notes sheet ---------- */
+      var notes = document.getElementById('notes'), nbtn = document.getElementById('notes-btn'), nclose = document.getElementById('notes-close');
+      var igDone = false;
+      function buildFilmList() {
+        var ul = document.getElementById('film-list'); ul.innerHTML = '';
+        var m = {}; all.forEach(function (it) { (m[it.key] = m[it.key] || { name: it.film, n: 0 }).n++; });
+        Object.keys(m).map(function (k) { return { key: k, name: m[k].name, n: m[k].n }; })
+          .sort(function (a, b) { return b.n - a.n || (a.name < b.name ? -1 : 1); })
+          .forEach(function (f) {
+            var li = document.createElement('li'), b = document.createElement('button');
+            b.type = 'button'; b.className = 'row'; b.setAttribute('aria-pressed', filter === f.key ? 'true' : 'false');
+            var sw = document.createElement('span'); sw.className = 'sw'; sw.style.background = SW[f.key] || '#E5E5E5';
+            var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name;
+            var ct = document.createElement('span'); ct.className = 'ct'; ct.textContent = f.n;
+            b.appendChild(sw); b.appendChild(nm); b.appendChild(ct);
+            b.addEventListener('click', function () { shut(); setFilter(filter === f.key ? null : f.key); });
+            li.appendChild(b); ul.appendChild(li);
+          });
+      }
+      function openNotes() {
+        notes.classList.add('open'); document.body.style.overflow = 'hidden'; nclose.focus();
+        if (!igDone) {                                         // the embed loads only when the sheet is first opened
+          igDone = true;
+          var f = document.createElement('iframe'); f.className = 'ig'; f.title = 'prawee.sin on instagram'; f.setAttribute('scrolling', 'no'); f.setAttribute('loading', 'lazy');
+          f.src = 'https://www.instagram.com/prawee.sin/embed';
+          var body = document.getElementById('ig-body'); body.insertBefore(f, body.firstChild);
         }
+      }
+      function shut() { notes.classList.remove('open'); document.body.style.overflow = ''; }
+      nbtn.addEventListener('click', openNotes);
+      nclose.addEventListener('click', function () { shut(); nbtn.focus(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { if (lb.classList.contains('open')) closeViewer(); else if (notes.classList.contains('open')) { shut(); nbtn.focus(); } }
+        else if (lb.classList.contains('open')) { if (e.key === 'ArrowRight') setViewer(cur + 1); else if (e.key === 'ArrowLeft') setViewer(cur - 1); }
       });
 
-      /* gear sheet */
-      var gearBtn = document.getElementById('gear-btn'), gearModal = document.getElementById('gear-modal'), closeModal = document.getElementById('close-modal');
-      gearBtn.addEventListener('click', function () { gearModal.classList.add('open'); document.body.style.overflow = 'hidden'; closeModal.focus(); });
-      function shut() { gearModal.classList.remove('open'); document.body.style.overflow = ''; gearBtn.focus(); }
-      closeModal.addEventListener('click', shut);
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && gearModal.classList.contains('open')) shut(); });
+      /* ---------- language ---------- */
+      window.setLang = function (lang) {
+        LANG = lang === 'en' ? 'en' : 'th';
+        try { localStorage.setItem('prawees.lang', LANG); } catch (e) {}
+        document.documentElement.lang = LANG;
+        document.querySelectorAll('.btn-th').forEach(function (el) { el.classList.toggle('active', LANG === 'th'); });
+        document.querySelectorAll('.btn-en').forEach(function (el) { el.classList.toggle('active', LANG === 'en'); });
+        document.querySelectorAll('[data-th]').forEach(function (el) { var v = el.getAttribute(LANG === 'th' ? 'data-th' : 'data-en'); if (v !== null) el.textContent = v; });
+        document.getElementById('lb-prev').setAttribute('aria-label', tr('ก่อนหน้า', 'previous'));
+        document.getElementById('lb-next').setAttribute('aria-label', tr('ถัดไป', 'next'));
+        layout();
+      };
+
+      renderJump();
+      buildFilmList();
+      window.setLang(LANG);
+      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 180); });
+      window.addEventListener('load', function () { layout(); });
+      window.addEventListener('orientationchange', function () { setTimeout(layout, 300); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
     })();
   </script>
   <script src="../assets/dither.js"></script>

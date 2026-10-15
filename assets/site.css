@@ -107,6 +107,7 @@
 .projects .proj:last-of-type { border-bottom: 1px solid var(--ink); }
 
 .more { margin-top: 28px; width: fit-content; }
+.more.go { margin-top: 36px; font-size: var(--fs-b); font-weight: 700; }
 
 /* ---------- frames strip ---------- */
 .strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; align-items: start; }
@@ -145,3 +146,5 @@
 .foot .cur::after { content: "_"; animation: caret 1.05s steps(1) infinite; margin-left: 2px; }
 @media (min-width: 768px) { .foot span:first-child { grid-column: 1 / 7; } .foot span:last-child { grid-column: 7 / 13; } }
 
+
+.strip img { display: block; width: 100%; height: auto; }
