@@ -758,7 +758,7 @@
       border: 1px solid var(--rule);
     }
 
-    .tt-play { width: 100%; min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #000; color: #fff; cursor: pointer; }
+    .tt-play { width: 100%; min-height: 220px; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #000; color: #fff; cursor: pointer; }
     .tt-play .tt-mark { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
     .tt-play .tt-hint { font-size: 14px; color: #d0d0d0; text-decoration: underline; text-underline-offset: 4px; }
     .tt-play:hover .tt-hint { color: #fff; }
@@ -1315,15 +1315,15 @@
 
         <div class="tiktok-grid">
           <div>
-            <div class="tiktok-wrap" data-tt="7478513016754015496">
-              <button type="button" class="tt-play" aria-label="play on tiktok"><span class="tt-mark">tiktok</span><span class="tt-hint" data-th="แตะเพื่อเล่น" data-en="tap to play">แตะเพื่อเล่น</span></button>
+            <div class="tiktok-wrap">
+              <a class="tt-play" href="https://www.tiktok.com/@prawees/video/7478513016754015496" target="_blank" rel="noopener"><span class="tt-mark">tiktok</span><span class="tt-hint" data-th="ดูบน tiktok →" data-en="watch on tiktok →">ดูบน tiktok →</span></a>
             </div>
             <div class="embed-caption" data-th="อธิบายโครงการแพทย์-วิศวะ" data-en="m.d.-m.eng program explained">
               อธิบายโครงการแพทย์-วิศวะ</div>
           </div>
           <div>
-            <div class="tiktok-wrap" data-tt="7502285412048719112">
-              <button type="button" class="tt-play" aria-label="play on tiktok"><span class="tt-mark">tiktok</span><span class="tt-hint" data-th="แตะเพื่อเล่น" data-en="tap to play">แตะเพื่อเล่น</span></button>
+            <div class="tiktok-wrap">
+              <a class="tt-play" href="https://www.tiktok.com/@prawees/video/7502285412048719112" target="_blank" rel="noopener"><span class="tt-mark">tiktok</span><span class="tt-hint" data-th="ดูบน tiktok →" data-en="watch on tiktok →">ดูบน tiktok →</span></a>
             </div>
             <div class="embed-caption" data-th="vlog พรีเซนต์วิจัยที่มาเลเซีย"
               data-en="vlog, research presentation in malaysia">vlog พรีเซนต์วิจัยที่มาเลเซีย</div>
@@ -1502,17 +1502,7 @@
   </div>
 
   <script>
-    // TikTok videos load only when tapped, so the page never makes TikTok's servers answer several requests at once.
-    document.querySelectorAll('[data-tt]').forEach(function (w) {
-      var b = w.querySelector('.tt-play');
-      if (!b) return;
-      b.addEventListener('click', function () {
-        var f = document.createElement('iframe');
-        f.src = 'https://www.tiktok.com/embed/v2/' + w.getAttribute('data-tt');
-        f.title = 'tiktok video'; f.allow = 'encrypted-media; fullscreen'; f.allowFullscreen = true;
-        f.className = 'tt-frame'; w.classList.add('live'); w.innerHTML = ''; w.appendChild(f);
-      });
-    });
+    // (TikTok videos are plain links: TikTok's embed refuses to play on the site with an overload notice.)
     // a photograph that fails to load is hidden rather than shown broken
     document.querySelectorAll('.gal-strip img').forEach(function (im) {
       function bad() { if (im.parentNode) im.parentNode.style.display = 'none'; }
