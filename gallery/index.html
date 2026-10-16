@@ -1,515 +1,360 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
   <title>Gallery | Prawee Sinweeruthai</title>
+  <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
-    rel="stylesheet">
-
+  <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/base.css?v=6">
+  <link rel="stylesheet" href="../assets/site.css?v=6">
   <style>
-    :root {
-      --bg: #FFFFFF;
-      --ink: #111111;
-      --ink-muted: #888888;
-      --ink-faint: #CCCCCC;
-    }
+    /* ---------- title: still, no motion ---------- */
+    .gh { padding-top: 32px; }
+    .gh h1 { grid-column: 1 / -1; width: fit-content; max-width: 100%; font-size: clamp(26px, 5vw, 64px); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; }
+    @media (min-width: 768px) { .gh { padding-top: 56px; } }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ---------- the flow: rows of photographs, edge to edge, a hair apart ----------
+       Rows are filled so every photograph in a row has the same height; how many sit in a row depends on their shapes.
+       Chapter keywords are set in dither, small, on alternating sides, between the rows. */
+    .flow { position: relative; padding-top: 40px; min-height: 80vh; }
+    .row { display: flex; gap: 3px; margin-bottom: 4px; align-items: flex-start; }
+    @media (max-width: 599px) { .row { gap: 2px; } }
+    .gallery-item { min-width: 0; display: block; }
+    .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
+    .gallery-meta { padding: 0 2px; line-height: 1; }
+    .gallery-meta button { display: block; max-width: 100%; padding: 7px 0 9px; font-size: 11px; line-height: 1; letter-spacing: .01em; color: var(--mid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+    .gallery-meta button:hover { color: var(--ink); }
+    @media (pointer: coarse) { .gallery-meta button { padding: 9px 0 11px; } }
+    .sw { display: inline-block; width: 7px; height: 7px; margin-right: 6px; vertical-align: 0; }
 
-    body {
-      background-color: var(--bg);
-      color: var(--ink);
-      font-family: 'IBM Plex Sans', sans-serif;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      padding: 24px 4vw;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .lab { padding: 0 var(--padr) 0 var(--pad); margin: 72px auto 22px; max-width: none; }
+    .lab.r { text-align: right; }
+    .lab h2 { display: inline-block; font-size: clamp(34px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.04em; padding-bottom: .08em;
+      color: transparent; -webkit-text-fill-color: transparent; background-image: var(--d8); background-size: 4px 4px; -webkit-background-clip: text; background-clip: text; image-rendering: pixelated; }
+    .lab p { margin-top: 4px; font-size: 12px; color: var(--mid); }
+    .lab:first-child { margin-top: 24px; }
+    @media (min-width: 768px) { .lab { margin: 112px auto 30px; } .lab:first-child { margin-top: 32px; } }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0 60px;
-    }
+    /* film filter header */
+    .fbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; padding: 0 var(--padr) 0 var(--pad); margin: 24px 0 28px; }
+    .fbar h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
+    .fbar button { font-size: var(--fs-s); color: var(--mid); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
+    .fbar .sw { width: 10px; height: 10px; }
 
-    .site-title {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      text-decoration: none;
-      color: var(--ink);
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
+    .mk { position: absolute; left: 0; width: 1px; pointer-events: none; visibility: hidden; }
 
-    .site-title:hover {
-      opacity: 0.7;
-    }
+    /* ---------- the end: the page dissolves to black, then the cameras, the film and instagram ---------- */
+    .end { padding-top: 78vh; padding-top: 78svh; }
+    .end .sec { padding-top: 40px; }
+    @media (min-width: 768px) { .end .sec { padding-top: 56px; } }
+    .end .label { font-size: var(--fs-s); }
+    .list { list-style: none; }
+    .list li { border-top: 1px solid var(--light); }
+    .list .row2 { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 11px 0; text-align: left; font-size: var(--fs-b); }
+    .list .row2 .sw { width: 10px; height: 10px; margin: 0; align-self: center; flex: none; }
+    .list .row2 .nm { flex: 1 1 auto; min-width: 0; }
+    .list .row2 .hx { color: var(--mid); font-size: 12px; letter-spacing: .02em; font-variant-numeric: tabular-nums; text-transform: uppercase; }
+    .list button.row2 { cursor: pointer; }
+    .list button.row2:hover .nm { text-decoration: underline; text-underline-offset: 4px; }
+    .list button.row2[aria-pressed="true"] .nm { font-weight: 700; }
+    @media (min-width: 768px) { .list.two { columns: 2; column-gap: 32px; } .list.two li { break-inside: avoid; } }
+    .ig { width: 100%; max-width: 540px; height: 600px; border: 0; display: block; background: #fff; }
+    .ig-link { display: inline-block; margin-top: 14px; font-size: var(--fs-s); }
+    .end .foot { padding-top: 96px; }
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 500;
-    }
-
-    .nav-links a {
-      color: var(--ink-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-      padding-bottom: 4px;
-    }
-
-    .nav-links a.active {
-      color: var(--ink);
-      border-bottom: 1px solid var(--ink);
-    }
-
-    .nav-links a:hover {
-      color: var(--ink);
-    }
-
-    /* Two-column masonry. Items are dealt into columns alternately by JS,
-       so the sequence reads left to right, row by row. One column on mobile. */
-    .gallery-grid {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    .gallery-col {
-      flex: 1 1 0;
-      min-width: 0;
-    }
-
-    .gallery-item {
-      margin-bottom: 48px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      animation: fadeIn 0.8s ease-out forwards;
-      opacity: 0;
-    }
-
-    .gallery-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      background: #F5F5F5;
-    }
-
-    .gallery-meta {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--ink-muted);
-      display: flex;
-      justify-content: space-between;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Modal */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      color: var(--ink);
-      z-index: 9000;
-      display: flex;
-      flex-direction: column;
-      padding: 40px 4vw;
-      overflow-y: auto;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease-out;
-    }
-
-    .modal.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-content {
-      max-width: 600px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .back-btn {
-      background: none;
-      border: none;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ink);
-      cursor: pointer;
-      margin-bottom: 40px;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      transition: opacity 0.2s;
-    }
-
-    .back-btn:hover {
-      opacity: 0.6;
-    }
-
-    .gear-section {
-      margin-bottom: 40px;
-    }
-
-    .gear-section h3 {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ink-muted);
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--ink-faint);
-      padding-bottom: 8px;
-    }
-
-    .gear-list,
-    .film-list {
-      list-style: none;
-      font-size: 14px;
-      line-height: 2;
-    }
-
-    .film-list li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .color-box {
-      width: 16px;
-      height: 12px;
-      border-radius: 2px;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-
-    /* Abstract Transition */
-    #gallery-transition-overlay {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--bg);
-      z-index: 9999;
-      transform: translate(-50%, -50%) scale(0);
-      pointer-events: none;
-      transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
-    }
-
-    #gallery-transition-overlay.active {
-      transform: translate(-50%, -50%) scale(400);
-      pointer-events: auto;
-    }
+    /* ---------- viewer ---------- */
+    .lb { position: fixed; inset: 0; z-index: 8000; background: var(--paper); display: none; grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom)); }
+    .lb.open { display: grid; }
+    .lb .top, .lb .cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 var(--pad, 16px); font-size: var(--fs-b); }
+    .lb button { min-height: 44px; min-width: 44px; font-size: var(--fs-b); text-decoration: underline; text-underline-offset: 3px; }
+    .lb .stage { display: grid; place-items: center; min-height: 0; padding: 8px var(--pad, 16px); touch-action: pan-y; }
+    .lb img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+    .lb .cap span:first-child { font-weight: 700; }
+    .lb .cap span:last-child { color: var(--mid); }
+    .lb .nav2 { display: flex; gap: 4px; }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <a href="../index.html" class="site-title gallery-home-link" id="gallery-title-link">Prawee Sinweeruthai</a>
-    <nav class="nav-links">
-      <a href="#" class="active">Selects</a>
-      <a href="#" id="gear-btn" style="color: var(--ink); line-height: 0;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path
-            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-          </path>
-        </svg>
-      </a>
-    </nav>
+  <header class="bar">
+    <div class="g">
+      <a class="brand" href="../">prawees</a>
+      <div class="tools">
+        <button type="button" class="btn-th active" onclick="setLang('th')">th</button>
+        <span class="sep">/</span>
+        <button type="button" class="btn-en" onclick="setLang('en')">en</button>
+      </div>
+      <nav class="nav" aria-label="main">
+        <a href="../">home</a>
+        <a href="../about/">about</a>
+        <a href="./" aria-current="page">gallery</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="gallery-grid" id="gallery-container">
-    <!-- Images will be injected here via JS -->
+  <main>
+    <section class="g gh" data-amb="../assets/home/frame-2.jpg">
+      <h1 id="gt">keep looking outside..</h1>
+    </section>
+
+    <section class="flow" id="flow"><div id="rows"></div></section>
+    <noscript><section class="g"><p>this page needs javascript to show the photographs.</p></section></noscript>
   </main>
 
-  <div style="text-align:center; padding: 60px 0 20px;">
-    <img src="../assets/favicon.png" alt=""
-      style="width: 24px; opacity: 0.15; filter: grayscale(100%); transition: opacity 0.3s;" id="gallery-favicon">
-  </div>
-  <div style="text-align:right; padding: 0 0 60px;">
-    <a href="../index.html" class="gallery-home-link"
-      style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); text-decoration: none; transition: opacity 0.2s;">Prawee
-      Sinweeruthai →</a>
-  </div>
-
-  <!-- Gear Modal -->
-  <div id="gear-modal" class="modal">
-    <div class="modal-content">
-      <button id="close-modal" class="back-btn">← Back</button>
-
-      <div class="gear-section">
-        <h3>Cameras used</h3>
-        <ul class="gear-list">
-          <li>Ricoh GR3</li>
-          <li>Olympus XA2</li>
-          <li>Nikon FE2</li>
+  <footer class="end" id="end" data-night>
+    <section class="g sec">
+      <p class="label"><span data-th="กล้อง" data-en="cameras">กล้อง</span></p>
+      <div class="body">
+        <ul class="list">
+          <li><span class="row2"><span class="nm">Olympus XA2</span></span></li>
+          <li><span class="row2"><span class="nm">Nikon FE2</span></span></li>
+          <li><span class="row2"><span class="nm">Ricoh GR3</span></span></li>
         </ul>
       </div>
+    </section>
 
-      <div class="gear-section">
-        <h3>Film used</h3>
-        <ul class="film-list">
-          <li><span class="color-box" style="background: #95DEBD;"></span> Fujifilm C200</li>
-          <li><span class="color-box" style="background: #27A65A;"></span> Fujifilm Superia Xtra 400</li>
-          <li><span class="color-box" style="background: #F9E273;"></span> Kodak Tmax 400</li>
-          <li><span class="color-box" style="background: #F5A943;"></span> Kodak Proimage 100</li>
-          <li><span class="color-box" style="background: #F6E272;"></span> Kodak Gold 200</li>
-          <li><span class="color-box" style="background: #85CD48;"></span> Fuji 100</li>
-          <li><span class="color-box" style="background: #F6CA68;"></span> Film Never Die IRO200</li>
-          <li><span class="color-box" style="background: #EA3E21;"></span> Agfa Sound ST8D</li>
-          <li><span class="color-box" style="background: #93DEBC;"></span> Fujifilm C200 Second Half</li>
-          <li><span class="color-box" style="background: #3C83DE;"></span> Kodak Ultramax 400</li>
-          <li><span class="color-box" style="background: #D0C3C0;"></span> Lomo 100</li>
-          <li><span class="color-box" style="background: #FA8BB2;"></span> My Heart 200</li>
-          <li><span class="color-box" style="background: #B6DE67;"></span> Fuji 400</li>
-          <li><span class="color-box" style="background: #454545;"></span> Ultrafine Xtreme 400</li>
-          <li><span class="color-box" style="background: #EA3F20;"></span> Ilford Pan 400</li>
-          <li><span class="color-box" style="background: #EFC55D;"></span> Kodak Color Plus 200</li>
-          <li><span class="color-box" style="background: #FA92B0;"></span> Film Never Die IRO400</li>
-          <li><span class="color-box" style="background: #98C4E9;"></span> Fuji F250T ei100</li>
-          <li><span class="color-box" style="background: #98C5E7;"></span> Fuji F400T ei200</li>
-          <li><span class="color-box" style="background: #CD7464;"></span> Kodak Ektar 100</li>
-        </ul>
+    <section class="g sec">
+      <p class="label"><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+      <div class="body"><ul class="list two" id="film-list"></ul></div>
+    </section>
+
+    <section class="g sec">
+      <p class="label"><span>instagram</span></p>
+      <div class="body" id="ig-body">
+        <a class="ig-link" href="https://www.instagram.com/prawee.sin/" target="_blank" rel="noopener" data-th="เปิดใน instagram @prawee.sin →" data-en="open @prawee.sin on instagram →">เปิดใน instagram @prawee.sin →</a>
       </div>
+    </section>
+
+    <div class="g foot">
+      <span>© 2026 prawees</span>
+      <span><a href="../">prawee sinweeruthai →</a></span>
     </div>
+  </footer>
+
+  <!-- Viewer -->
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="photo viewer">
+    <div class="top"><button type="button" id="lb-close" data-th="ปิด" data-en="close">ปิด</button><span class="nav2"><button type="button" id="lb-prev" aria-label="previous">←</button><button type="button" id="lb-next" aria-label="next">→</button></span></div>
+    <div class="stage" id="lb-stage"><img id="lb-img" alt=""></div>
+    <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
   </div>
 
-  <!-- Abstract Transition Overlay -->
-  <div id="gallery-transition-overlay"></div>
-
-  <script src="../assets/vscoimages/images.js"></script>
+  <script src="../assets/film/frames.js?v=6"></script>
   <script>
-    function loadGallery() {
-      const container = document.getElementById('gallery-container');
+    /* Gallery. Photographs are laid out in rows that fill the width edge to edge, a few pixels apart.
+       The rows are chosen so the photographs in each row come out at about the same height, whatever their shapes.
+       Tapping the film name under a photograph, or in the list at the bottom, shows only that film. */
+    (function () {
+      var CHAPTERS = window.FILM_CHAPTERS || [];
+      var FRAMES = ['../assets/home/frame-4.jpg', '../assets/home/frame-3.jpg', '../assets/home/frame-1.jpg', '../assets/home/frame-2.jpg'];
+      var SW = { fujifilmc200: '#95DEBD', fujifilmsuperiaxtra400: '#27A65A', kodaktmax400: '#F9E273', kodakproimage100: '#F5A943', kodakgold200: '#F6E272', fuji100: '#85CD48', filmneverdieiro200: '#F6CA68', agfasoundst8d: '#EA3E21', kodakultramax400: '#3C83DE', lomo100: '#D0C3C0', myheart200: '#FA8BB2', fuji400: '#B6DE67', ultrafinextreme400: '#454545', ilfordpan400: '#EA3F20', kodakcolorplus200: '#EFC55D', filmneverdieiro400: '#FA92B0', fujif250teilo100: '#98C4E9', fujif250tei100: '#98C4E9', fujif400tei200: '#98C5E7', kodakektar100: '#CD7464' };
 
-      try {
-        // Curated edit, in display order. Files not listed here stay in
-        // assets/vscoimages but are not shown. Add ?all to the URL to see every frame.
-        const SELECTS = [
-          'vsco61bf736646d71.jpg',
-          'vsco6050b64e2badb.jpg',
-          'vsco604fb4c4f2bc1.jpg',
-          'vsco604fb51a5f887.jpg',
-          'vsco604fb4f47ff35.jpg',
-          'vsco61bf77f40ec7f.jpg',
-          'film_xtra400_03.jpg',
-          'vsco61bf77e935cc1.jpg',
-          'vsco61b50364a2a36.jpg',
-          'film_ektar100_10.jpg',
-          'vsco61b507d3f0a95.jpg',
-          'vsco61b507cb14454.jpg',
-          'vsco604fb58819fc9.jpg',
-          'vsco6050b55905361.jpg',
-          'vsco604fb41e3700d.jpg',
-          'vsco6213e7086b0b0.jpg',
-          'vsco604fb5784101a.jpg',
-          'vsco_040723.jpg',
-          'film_xtra400_12.jpg',
-          'vsco61b5030a805aa.jpg',
-          'vsco6050b7bbc5c0a.jpg',
-          'vsco6050b7c34a060.jpg',
-          'film_xtra400_17.jpg',
-          'vsco6050b68b4b39c.jpg',
-          'film_xtra400_21.jpg',
-          'vsco61bf738aa62a8.jpg',
-          'vsco604fb449cc0f6.jpg',
-          'film_xtra400_22.jpg',
-          'vsco_021823.jpg',
-          'vsco6050b67b72afa.jpg',
-          'film_xtra400_10.jpg',
-          'vsco61b503388ce3f.jpg',
-          'film_xtra400_19.jpg',
-          'vsco604fb49a522ef.jpg'
-        ];
+      var LANG = 'th';
+      try { var sv = localStorage.getItem('prawees.lang'); if (sv === 'en' || sv === 'th') LANG = sv; } catch (e) {}
+      function tr(th, en) { return LANG === 'th' ? th : en; }
+      function norm(s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ''); }
+      function hexOf(key) { return SW[key] || '#E5E5E5'; }
 
-        // Scans from the Google Drive "Film" folder (not on VSCO).
-        const EXTRAS = [
-          { file_name: 'film_xtra400_03.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_ektar100_10.jpg', description: '', image_meta: { model: 'Kodak Ektar 100' } },
-          { file_name: 'film_xtra400_12.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_17.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_21.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_22.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_10.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } },
-          { file_name: 'film_xtra400_19.jpg', description: '', image_meta: { model: 'Fujifilm Superia Xtra 400' } }
-        ];
+      var flow = document.getElementById('flow'), rowsEl = document.getElementById('rows');
+      var all = [], chapters = [], view = [], filter = null, markers = [];
 
-        let images = GALLERY_IMAGES;
-        if (new URLSearchParams(location.search).has('all')) {
-          images = images.slice().sort((a, b) => b.upload_date - a.upload_date).concat(EXTRAS);
-        } else {
-          const byFile = new Map(images.concat(EXTRAS).map(i => [i.file_name, i]));
-          images = SELECTS.map(f => byFile.get(f)).filter(Boolean);
-        }
+      /* ---------- one photograph ---------- */
+      function makeItem(it) {
+        var item = document.createElement('div'); item.className = 'gallery-item';
+        var img = document.createElement('img'); img.className = 'gallery-img';
+        img.src = '../assets/film/' + it.f; img.width = it.w; img.height = it.h; img.loading = 'lazy'; img.decoding = 'async';
+        img.alt = it.t ? it.t + ', ' + it.film : 'film photograph, ' + it.film;
+        img.addEventListener('error', function () { item.style.display = 'none'; });
+        img.addEventListener('click', function () { openViewer(it); });
+        var meta = document.createElement('div'); meta.className = 'gallery-meta';
+        var l = document.createElement('button'); l.type = 'button'; l.title = hexOf(it.key);
+        var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(it.key);
+        l.appendChild(sw); l.appendChild(document.createTextNode(it.film));
+        l.addEventListener('click', function () { setFilter(it.key); });
+        meta.appendChild(l);
+        item.appendChild(img); item.appendChild(meta);
+        it.el = item; it.ar = it.w / it.h;
+        return item;
+      }
 
-        const seenFiles = new Set();
-        const items = [];
+      CHAPTERS.forEach(function (ch, ci) {
+        var items = ch.items.map(function (raw) {
+          var it = { f: raw.f, film: raw.film, t: raw.t, w: raw.w, h: raw.h, key: norm(raw.film), ch: ci };
+          makeItem(it); all.push(it); return it;
+        });
+        chapters.push({ id: ch.id, note: ch.note, items: items, amb: FRAMES[ci % FRAMES.length] });
+      });
 
-        images.forEach((imgData, index) => {
-          if (!imgData || !imgData.file_name) return;
-          if (seenFiles.has(imgData.file_name)) return;
-          seenFiles.add(imgData.file_name);
+      /* ambient markers: one invisible box per chapter, so the dithered background changes frame with the chapter */
+      chapters.forEach(function (c) {
+        var m = document.createElement('div'); m.className = 'mk'; m.setAttribute('data-amb', c.amb); m.setAttribute('aria-hidden', 'true');
+        flow.appendChild(m); markers.push(m);
+      });
 
-          const item = document.createElement('div');
-          item.className = 'gallery-item';
-          item.style.animationDelay = `${index * 0.05}s`;
-
-          const img = document.createElement('img');
-          img.className = 'gallery-img';
-          img.src = `../assets/vscoimages/${imgData.file_name}`;
-          img.loading = 'lazy';
-          img.alt = imgData.description || 'Gallery image';
-
-          img.onerror = function () {
-            this.parentElement.style.display = 'none';
-          };
-
-          const meta = document.createElement('div');
-          meta.className = 'gallery-meta';
-
-          // Caption: the title written on VSCO, plus the camera.
-          // The SP-xxxx "models" are the lab's film scanner, not a camera.
-          const m = (imgData.image_meta && imgData.image_meta.model || '').trim();
-          const mk = (imgData.image_meta && imgData.image_meta.make || '').trim();
-          let cameraInfo = 'Film';
-          if (m && !/^SP-\d+/i.test(m) && !/FUJI PHOTO/i.test(mk)) {
-            cameraInfo = m.replace(/^RICOH\s+/i, 'Ricoh ');
+      /* ---------- rows ----------
+         Partition a chapter's photographs, in order, into rows. A row of k photographs with aspect ratios a1..ak
+         across width W has height (W - gaps) / (a1 + .. + ak); the partition whose row heights stay closest to a
+         target height wins (dynamic programming). The target wobbles a little from row to row so the page
+         does not look machined. The last row may stop short of the edge rather than blow one photograph up. */
+      function jit(n) { return ((Math.imul(n + 1, 2654435761) >>> 0) % 1000) / 1000; }
+      function partition(list, W, gap, target, seed) {
+        var n = list.length, best = [0], from = [0], capH = [], i, j;
+        for (i = 1; i <= n; i++) {
+          best[i] = 1e18;
+          var sum = 0;
+          for (j = i - 1; j >= 0 && i - j <= 5; j--) {
+            sum += list[j].ar;
+            var k = i - j, h = (W - gap * (k - 1)) / sum, tg = target * (0.88 + 0.24 * jit(seed + j)), c, hh = h;
+            if (i === n && h > tg * 1.3) { hh = tg * 1.3; c = (hh - tg) * (hh - tg) * 1.5; }
+            else c = (h - tg) * (h - tg);
+            if (k === 1 && h > target * 1.45 && i !== n) c *= 2;     // a lone enlarged photograph is rarely wanted mid-chapter
+            if (best[j] + c < best[i]) { best[i] = best[j] + c; from[i] = j; capH[i] = hh / h; }
           }
-          const title = (imgData.description || '').trim();
+        }
+        var rows = [];
+        for (i = n; i > 0; i = from[i]) rows.unshift({ items: list.slice(from[i], i), fill: i === n ? Math.min(1, capH[i]) : 1 });
+        return rows;
+      }
 
-          const left = document.createElement('span');
-          left.textContent = title;
-          const right = document.createElement('span');
-          right.textContent = cameraInfo;
-          meta.appendChild(left);
-          meta.appendChild(right);
-
-          item.appendChild(img);
-          item.appendChild(meta);
-          items.push(item);
+      function emitRows(host, list, W, gap, target, seed) {
+        partition(list, W, gap, target, seed).forEach(function (r) {
+          var row = document.createElement('div'); row.className = 'row';
+          if (r.fill < 0.999) row.style.width = (r.fill * 100).toFixed(2) + '%';
+          r.items.forEach(function (it) { it.el.style.flex = it.ar.toFixed(4) + ' 1 0%'; row.appendChild(it.el); });
+          host.appendChild(row);
         });
+      }
 
-        const mq = window.matchMedia('(max-width: 768px)');
-        const layout = () => {
-          const n = mq.matches ? 1 : 2;
-          container.innerHTML = '';
-          const cols = Array.from({ length: n }, () => {
-            const c = document.createElement('div');
-            c.className = 'gallery-col';
-            container.appendChild(c);
-            return c;
+      function layout() {
+        var W = flow.clientWidth || window.innerWidth, gap = W < 600 ? 2 : 3;
+        var target = W < 600 ? 270 : W < 1000 ? 340 : Math.min(470, W * 0.29);
+        rowsEl.innerHTML = '';
+        var old = flow.querySelector('.fbar'); if (old) old.remove();
+        view = [];
+        var labels = [];
+        if (filter) {
+          var items = all.filter(function (it) { return it.key === filter; });
+          var bar = document.createElement('div'); bar.className = 'fbar';
+          var h = document.createElement('h2');
+          var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(filter);
+          h.appendChild(sw); h.appendChild(document.createTextNode(items.length ? items[0].film : ''));
+          var b = document.createElement('button'); b.type = 'button'; b.textContent = tr('ดูทั้งหมด', 'show all');
+          b.addEventListener('click', function () { setFilter(null); });
+          bar.appendChild(h); bar.appendChild(b);
+          flow.insertBefore(bar, rowsEl);
+          emitRows(rowsEl, items, W, gap, target, 7);
+          items.forEach(function (it) { view.push(it); });
+        } else {
+          chapters.forEach(function (c, ci) {
+            var lab = document.createElement('div'); lab.className = 'lab' + (ci % 2 ? ' r' : ''); lab.id = c.id;
+            lab.innerHTML = '<h2></h2><p></p>';
+            lab.querySelector('h2').textContent = c.id;
+            lab.querySelector('p').textContent = c.note;
+            rowsEl.appendChild(lab); labels.push(lab);
+            emitRows(rowsEl, c.items, W, gap, target, ci * 37);
+            c.items.forEach(function (it) { view.push(it); });
           });
-          items.forEach((it, i) => cols[i % n].appendChild(it));
-        };
+        }
+        placeMarkers(labels);
+      }
+
+      function placeMarkers(labels) {
+        var top = flow.getBoundingClientRect().top + window.pageYOffset, H = flow.offsetHeight;
+        if (labels.length === markers.length) {
+          var ys = labels.map(function (l) { return l.getBoundingClientRect().top + window.pageYOffset - top; });
+          markers.forEach(function (m, i) { var y = ys[i], e = i + 1 < ys.length ? ys[i + 1] : H; m.style.top = Math.max(0, y) + 'px'; m.style.height = Math.max(1, e - y) + 'px'; });
+        } else {
+          markers.forEach(function (m, i) { m.style.top = (H * i / markers.length) + 'px'; m.style.height = (H / markers.length) + 'px'; });
+        }
+      }
+
+      function setFilter(key) {
+        filter = key || null;
         layout();
-        mq.addEventListener('change', layout);
-
-      } catch (error) {
-        console.error('Error loading gallery:', error);
-        container.innerHTML = '<p style="font-family: monospace; font-size: 12px; color: #888;">Failed to load gallery data.</p>';
+        buildFilmList();
+        var y = Math.max(0, flow.getBoundingClientRect().top + window.pageYOffset - 88);
+        try { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, y); }
       }
-    }
 
-
-    document.addEventListener('DOMContentLoaded', () => {
-      loadGallery();
-
-      const gearBtn = document.getElementById('gear-btn');
-      const gearModal = document.getElementById('gear-modal');
-      const closeModal = document.getElementById('close-modal');
-
-      gearBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        gearModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-
-      closeModal.addEventListener('click', () => {
-        gearModal.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-
-      const titleLinks = document.querySelectorAll('.gallery-home-link');
-      const transitionOverlay = document.getElementById('gallery-transition-overlay');
-
-      titleLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const href = link.getAttribute('href');
-
-          // Lock the current background color so it doesn't change during transition
-          const currentBg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
-          transitionOverlay.style.background = currentBg || 'var(--bg)';
-
-          transitionOverlay.classList.add('active');
-
-          setTimeout(() => {
-            window.location.href = href;
-          }, 550); // Wait for abstract animation
-        });
-      });
-    });
-
-    // Dynamic scroll background gradient
-    window.addEventListener('scroll', () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight <= 0) return;
-
-      const scrollRatio = Math.min(Math.max(window.scrollY / scrollHeight, 0), 1);
-
-      const bgTone = Math.floor(255 - (255 * scrollRatio)); // 255 -> 0
-      const inkTone = Math.floor(17 + (238 * scrollRatio)); // 17 -> 255
-      const mutedTone = Math.floor(136 + (80 * scrollRatio)); // 136 -> 216
-
-      document.documentElement.style.setProperty('--bg', `rgb(${bgTone}, ${bgTone}, ${bgTone})`);
-      document.documentElement.style.setProperty('--ink', `rgb(${inkTone}, ${inkTone}, ${inkTone})`);
-      document.documentElement.style.setProperty('--ink-muted', `rgb(${mutedTone}, ${mutedTone}, ${mutedTone})`);
-
-      const favicon = document.getElementById('gallery-favicon');
-      if (favicon) {
-        favicon.style.filter = scrollRatio > 0.5 ? 'grayscale(100%) invert(1)' : 'grayscale(100%)';
-        favicon.style.opacity = 0.15 + (0.2 * scrollRatio);
+      /* ---------- viewer ---------- */
+      var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img');
+      var cur = 0, opener = null;
+      function setViewer(i) {
+        cur = (i + view.length) % view.length; var it = view[cur];
+        lbImg.src = '../assets/film/' + it.f; lbImg.alt = it.t ? it.t + ', ' + it.film : it.film;
+        document.getElementById('lb-film').textContent = it.film;
+        document.getElementById('lb-t').textContent = it.t || '';
       }
-    });
+      function openViewer(it) { opener = document.activeElement; setViewer(view.indexOf(it)); lb.classList.add('open'); document.body.style.overflow = 'hidden'; document.getElementById('lb-close').focus(); }
+      function closeViewer() { lb.classList.remove('open'); document.body.style.overflow = ''; if (opener && opener.focus) { try { opener.focus(); } catch (e) {} } }
+      document.getElementById('lb-close').addEventListener('click', closeViewer);
+      document.getElementById('lb-prev').addEventListener('click', function () { setViewer(cur - 1); });
+      document.getElementById('lb-next').addEventListener('click', function () { setViewer(cur + 1); });
+      var sx = null, stage = document.getElementById('lb-stage');
+      stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      stage.addEventListener('touchend', function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) setViewer(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeViewer(); else if (e.key === 'ArrowRight') setViewer(cur + 1); else if (e.key === 'ArrowLeft') setViewer(cur - 1);
+      });
+
+      /* ---------- the film list at the bottom: swatch, name, hex; tap to show only that film ---------- */
+      function buildFilmList() {
+        var ul = document.getElementById('film-list'); ul.innerHTML = '';
+        var m = {}; all.forEach(function (it) { (m[it.key] = m[it.key] || { name: it.film, n: 0 }).n++; });
+        Object.keys(m).map(function (k) { return { key: k, name: m[k].name, n: m[k].n }; })
+          .sort(function (a, b) { return b.n - a.n || (a.name < b.name ? -1 : 1); })
+          .forEach(function (f) {
+            var li = document.createElement('li'), b = document.createElement('button');
+            b.type = 'button'; b.className = 'row2'; b.setAttribute('aria-pressed', filter === f.key ? 'true' : 'false');
+            var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(f.key);
+            var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name;
+            var hx = document.createElement('span'); hx.className = 'hx'; hx.textContent = hexOf(f.key);
+            b.appendChild(sw); b.appendChild(nm); b.appendChild(hx);
+            b.addEventListener('click', function () { setFilter(filter === f.key ? null : f.key); });
+            li.appendChild(b); ul.appendChild(li);
+          });
+      }
+
+      /* ---------- instagram: loads only when the bottom of the page is near ---------- */
+      var igBody = document.getElementById('ig-body'), igDone = false;
+      function loadIg() {
+        if (igDone) return; igDone = true;
+        var f = document.createElement('iframe'); f.className = 'ig'; f.title = 'prawee.sin on instagram'; f.setAttribute('scrolling', 'no'); f.setAttribute('loading', 'lazy');
+        f.src = 'https://www.instagram.com/prawee.sin/embed';
+        igBody.insertBefore(f, igBody.firstChild);
+      }
+      if ('IntersectionObserver' in window) {
+        var igo = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { igo.disconnect(); loadIg(); } }, { rootMargin: '700px 0px' });
+        igo.observe(igBody);
+      } else window.addEventListener('load', loadIg);
+
+      /* ---------- language ---------- */
+      window.setLang = function (lang) {
+        LANG = lang === 'en' ? 'en' : 'th';
+        try { localStorage.setItem('prawees.lang', LANG); } catch (e) {}
+        document.documentElement.lang = LANG;
+        document.querySelectorAll('.btn-th').forEach(function (el) { el.classList.toggle('active', LANG === 'th'); });
+        document.querySelectorAll('.btn-en').forEach(function (el) { el.classList.toggle('active', LANG === 'en'); });
+        document.querySelectorAll('[data-th]').forEach(function (el) { var v = el.getAttribute(LANG === 'th' ? 'data-th' : 'data-en'); if (v !== null) el.textContent = v; });
+        document.getElementById('lb-prev').setAttribute('aria-label', tr('ก่อนหน้า', 'previous'));
+        document.getElementById('lb-next').setAttribute('aria-label', tr('ถัดไป', 'next'));
+        layout();
+      };
+
+      buildFilmList();
+      window.setLang(LANG);
+      var rt, lastW = window.innerWidth;
+      window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lastW) > 2) { lastW = window.innerWidth; layout(); } else placeMarkers(filter ? [] : [].slice.call(rowsEl.querySelectorAll('.lab'))); }, 180); });
+      window.addEventListener('load', function () { layout(); });
+      window.addEventListener('orientationchange', function () { setTimeout(function () { lastW = window.innerWidth; layout(); }, 300); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
+    })();
   </script>
+  <script src="../assets/dither.js?v=6"></script>
 </body>
-
 </html>

@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -11,1172 +12,10 @@
   <meta name="description" content="prawee sinweeruthai (smart). m.d.-m.eng student, ramathibodi, mahidol university.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&family=IBM+Plex+Sans+Thai+Looped:wght@300;400&display=swap"
-    rel="stylesheet">
+  <link rel="preload" href="assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/base.css?v=6">
+  <link rel="stylesheet" href="assets/site.css?v=6">
 
-  <style>
-    :root {
-      --bg: #FFFFFF;
-      --ink: #1A1A1A;
-      --ink-mid: #555555;
-      --ink-muted: #999999;
-      --rule: #E5E5E5;
-      --rule-soft: #F2F2F2;
-      --link: #1E66D0;
-      --link-hov: #0048A3;
-    }
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-      opacity: 0.15;
-    }
-
-
-
-    /* ── REVEAL ON SCROLL ── */
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-      transition-delay: var(--rd, 0ms);
-    }
-
-    [data-reveal].in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    a:hover {
-      color: var(--link-hov);
-    }
-
-    /* ── PAGE WRAP ── */
-    .wrap {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 60px 32px 96px;
-    }
-
-    /* ── TOP: BREADCRUMB + LANG ── */
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 96px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 14px;
-    }
-
-    .crumbs {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--ink-muted);
-    }
-
-    .crumbs a {
-      color: var(--ink-muted);
-    }
-
-    .crumbs a:hover {
-      color: var(--ink);
-    }
-
-    .crumbs .here {
-      color: var(--ink);
-    }
-
-    .crumbs .slash {
-      color: var(--rule);
-    }
-
-    .lang {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .lang button {
-      background: none;
-      border: none;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--ink-muted);
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .lang button:hover {
-      color: var(--ink);
-    }
-
-    .lang button.active {
-      color: var(--ink);
-    }
-
-    .lang .slash {
-      color: var(--rule);
-    }
-
-    /* ── HERO ── */
-    .hero {
-      margin-bottom: 64px;
-    }
-
-    .hero-greeting {
-      display: block;
-      font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
-      font-weight: 200;
-      font-size: clamp(42px, 8vw, 56px);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 28px;
-      min-height: 1.2em;
-      white-space: nowrap;
-      filter: drop-shadow(0 6px 28px rgba(20, 20, 50, 0.14));
-    }
-
-    @keyframes smooth-appear {
-      0% {
-        opacity: 0;
-        filter: blur(4px);
-        transform: scale(0.98);
-      }
-
-      100% {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1);
-      }
-    }
-
-    .cyber-init {
-      animation: smooth-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .sticky-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-      transform: translateY(-100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-    }
-
-    .sticky-bar.visible {
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .sticky-wrap {
-      width: 100%;
-      max-width: 760px;
-      padding: 0 32px;
-      margin: 0 auto;
-      height: 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-
-    .sticky-greeting {
-      position: absolute;
-      right: 130px;
-      font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
-      font-weight: 200;
-      font-size: clamp(20px, 3vw, 26px);
-      color: var(--ink);
-      white-space: nowrap;
-    }
-
-    @media (max-width: 600px) {
-      .sticky-wrap {
-        height: auto;
-        padding: 12px 24px;
-        flex-wrap: wrap;
-      }
-
-      .sticky-greeting {
-        position: static;
-        transform: none;
-        width: 100%;
-        text-align: center;
-        order: -1;
-        margin-bottom: 8px;
-        font-size: 26px;
-      }
-
-      .sticky-wrap .crumbs,
-      .sticky-wrap .lang {
-        font-size: 13px;
-      }
-    }
-
-    .hero-name {
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-weight: 500;
-      font-size: 15px;
-      color: var(--ink);
-      margin-bottom: 4px;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-name-th {
-      font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      font-size: 15px;
-      color: var(--ink-mid);
-      margin-bottom: 18px;
-    }
-
-    .hero-role {
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-size: 14px;
-      color: var(--ink-mid);
-      line-height: 1.6;
-      max-width: 55ch;
-      white-space: pre-line;
-    }
-
-    /* ── COMMENT / SECTION LABEL ── */
-    .comment {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 22px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    /* ── SOCIAL STRIP (bottom of page) ── */
-    .social-links-minimal {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 56px;
-      margin-top: 16px;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sl-link {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      align-items: center;
-      gap: 16px;
-      padding: 20px 0;
-      border-top: 1px solid var(--rule);
-      text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sl-link:last-child {
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .sl-link:hover {
-      border-top-color: var(--pa, var(--link));
-      opacity: 0.9;
-    }
-
-    .sl-icon {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 24px;
-      font-weight: 500;
-      text-align: center;
-      transition: all 0.3s;
-      color: var(--pa, var(--ink));
-    }
-
-    .sl-body {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .sl-title {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .sl-desc {
-      font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', sans-serif;
-      font-size: 13.5px;
-      color: var(--ink-mid);
-    }
-
-    .sl-link.email {
-      --pa: #3B5FC0;
-    }
-
-    .sl-link.fb {
-      --pa: #1877F2;
-    }
-
-    .sl-link.tiktok {
-      --pa: #FE2C55;
-    }
-
-    .sl-link.ig {
-      --pa: #C13584;
-    }
-
-    .sl-link.yt {
-      --pa: #FF0000;
-    }
-
-    .sl-link.blog {
-      --pa: #FF6719;
-    }
-
-    .sl-link.gallery {
-      --pa: #111111;
-    }
-
-
-
-    /* ── PROJECTS ── */
-    .projects {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 64px;
-    }
-
-    .proj {
-      display: grid;
-      grid-template-columns: 56px 1fr auto;
-      gap: 0 22px;
-      padding: 20px 16px;
-      margin: 0 -16px;
-      border: 1px solid transparent;
-      border-bottom: 1px solid var(--rule);
-      border-radius: 0;
-      align-items: start;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .proj:last-child {
-      border-bottom: 1px solid var(--rule);
-    }
-
-    /* pixel-art icon container */
-    .pixel-icon {
-      width: 40px;
-      height: 40px;
-      display: block;
-      shape-rendering: crispEdges;
-    }
-
-    .pixel-icon rect.px {
-      fill: var(--ink);
-      transition: fill 0.3s;
-    }
-
-    .pixel-icon rect.px-mid {
-      fill: var(--ink-mid);
-      transition: fill 0.3s, opacity 0.3s;
-    }
-
-    .pixel-icon rect.px-soft {
-      fill: var(--ink-muted);
-      transition: fill 0.3s, opacity 0.3s;
-    }
-
-    .proj.is-glowing,
-    .proj:hover {
-      background: var(--bg);
-      border: 1px solid var(--pa, var(--ink));
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-      z-index: 10;
-      position: relative;
-    }
-
-    .proj.is-glowing .pixel-icon rect.px,
-    .proj:hover .pixel-icon rect.px {
-      fill: var(--pa, var(--link));
-    }
-
-    .proj.is-glowing .pixel-icon rect.px-mid,
-    .proj:hover .pixel-icon rect.px-mid {
-      fill: var(--pa, var(--link));
-      opacity: 0.65;
-    }
-
-    .proj.is-glowing .pixel-icon rect.px-soft,
-    .proj:hover .pixel-icon rect.px-soft {
-      fill: var(--pa, var(--link));
-      opacity: 0.35;
-    }
-
-    .proj-body {}
-
-    .proj-titlebar {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 4px;
-      flex-wrap: wrap;
-    }
-
-    .proj-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--pa, var(--ink-muted));
-    }
-
-    .proj-title {
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .proj:hover .proj-title {
-      color: var(--pa, var(--link));
-    }
-
-    .proj-title-en {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      color: var(--ink-muted);
-      font-weight: 400;
-    }
-
-    .proj-desc {
-      font-family: 'IBM Plex Mono', 'IBM Plex Sans Thai', monospace;
-      font-size: 13.5px;
-      color: var(--ink-mid);
-      line-height: 1.6;
-      max-width: 55ch;
-    }
-
-    .proj-url {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
-      text-align: right;
-      padding-top: 3px;
-      white-space: nowrap;
-    }
-
-    .proj:hover .proj-url {
-      color: var(--pa, var(--link));
-    }
-
-    /* ── ASCII DIVIDER ── */
-    .ascii-rule {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      color: var(--rule);
-      letter-spacing: 0.2em;
-      overflow: hidden;
-      white-space: nowrap;
-      margin: 48px 0;
-      user-select: none;
-    }
-
-    /* ── PORTRAIT SCRAPBOOK (editorial, asymmetric) ── */
-    .scrapbook {
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 16px;
-      width: 100%;
-      max-width: 540px;
-      margin: 8px auto 88px;
-      padding: 14px 16px;
-    }
-
-    .sb-frame {
-      position: relative;
-      background: #FFFFFF;
-      border: 6px solid #FFFFFF;
-      box-shadow: 0 8px 22px rgba(20, 20, 30, 0.10),
-        0 0 0 1px rgba(20, 20, 30, 0.04);
-      overflow: hidden;
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.45s,
-        z-index 0s 0.4s;
-      cursor: pointer;
-      will-change: transform;
-    }
-
-    .sb-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sb-frame:hover {
-      transform: rotate(0deg) translateY(-4px) scale(1.025) !important;
-      box-shadow: 0 18px 34px rgba(20, 20, 30, 0.18),
-        0 0 0 1px rgba(20, 20, 30, 0.06);
-      z-index: 20;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.4s,
-        z-index 0s;
-    }
-
-    .sb-frame:hover img {
-      transform: scale(1.05);
-    }
-
-    /* Photo 1 — large left, slight tilt left */
-    .sb-a {
-      grid-column: 1;
-      grid-row: 1 / 3;
-      aspect-ratio: 4/5;
-      transform: rotate(-1.2deg);
-    }
-
-    .sb-a img {
-      object-position: 50% 18%;
-    }
-
-    /* Photo 2 — top right, tilt right */
-    .sb-b {
-      grid-column: 2;
-      grid-row: 1;
-      aspect-ratio: 4/3.4;
-      transform: rotate(1.6deg);
-      margin-top: 18px;
-    }
-
-    .sb-b img {
-      object-position: 50% 45%;
-    }
-
-    /* Photo 3 — bottom right, slight tilt left */
-    .sb-c {
-      grid-column: 2;
-      grid-row: 2;
-      aspect-ratio: 4/3.4;
-      transform: rotate(-0.8deg);
-    }
-
-    .sb-c img {
-      object-position: 50% 28%;
-    }
-
-    /* small caption inside frame */
-    .sb-frame .sb-label {
-      position: absolute;
-      top: 8px;
-      left: 10px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.1em;
-      color: #FFF;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
-      z-index: 6;
-      pointer-events: none;
-    }
-
-    /* corner pixel marks — outer */
-    .sb-frame .pixmark {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: var(--ink);
-      z-index: 7;
-    }
-
-    .sb-frame .pixmark.tl {
-      top: -3px;
-      left: -3px;
-    }
-
-    .sb-frame .pixmark.tr {
-      top: -3px;
-      right: -3px;
-    }
-
-    .sb-frame .pixmark.bl {
-      bottom: -3px;
-      left: -3px;
-    }
-
-    .sb-frame .pixmark.br {
-      bottom: -3px;
-      right: -3px;
-    }
-
-    /* tape strip on photos for scrapbook flavor */
-    .sb-frame::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-3deg);
-      width: 56px;
-      height: 16px;
-      background: rgba(200, 200, 180, 0.35);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      border: 1px dashed rgba(120, 120, 110, 0.18);
-      z-index: 8;
-      pointer-events: none;
-    }
-
-    .sb-a::before {
-      transform: translateX(-50%) rotate(-4deg);
-    }
-
-    .sb-b::before {
-      transform: translateX(-50%) rotate(5deg);
-      width: 44px;
-    }
-
-    .sb-c::before {
-      transform: translateX(-50%) rotate(-3deg);
-      width: 50px;
-    }
-
-    /* ── ONLINE PILL / STATUS ── */
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--ink-mid);
-      padding: 0;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      background: #1FB67A;
-      box-shadow: 0 0 0 2px rgba(31, 182, 122, 0.18);
-      animation: pulse-dot 1.8s infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes pulse-dot {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.55;
-      }
-    }
-
-    /* ── TYPEWRITER CARET ── */
-    .tw-typing::after {
-      content: '▌';
-      color: var(--link);
-      animation: blink 0.8s steps(1) infinite;
-      margin-left: 1px;
-    }
-
-    /* ── CYCLING "Smart" STYLES ── */
-    .cyber {
-      display: inline-block;
-      position: relative;
-      font-weight: 400;
-      will-change: transform, opacity, filter, color;
-    }
-
-    /* base styles */
-    .cyber.s-cyber {
-      color: #FF1A6B;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      text-shadow: 1.5px 0 0 #00E5FF, -1.5px 0 0 #FF00FF, 0 0 14px rgba(255, 26, 107, 0.45);
-    }
-
-    .cyber.s-coral {
-      color: #F76F5A;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-style: italic;
-      font-weight: 300;
-      text-shadow: 0 2px 0 #FFB39B, 0 5px 14px rgba(247, 111, 90, 0.35);
-    }
-
-    .cyber.s-pixel {
-      color: #2EA34A;
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      text-shadow: 2px 2px 0 #114D24, 4px 4px 0 rgba(0, 0, 0, 0.18);
-    }
-
-    .cyber.s-film {
-      color: #1A1A1A;
-      font-family: Georgia, serif;
-      font-style: italic;
-      font-weight: 500;
-      background: linear-gradient(transparent 60%, #FFE07A 60%, #FFE07A 92%, transparent 92%);
-      padding: 0 6px;
-    }
-
-    .cyber.s-blue {
-      color: #0077C2;
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 500;
-      text-shadow: 1px 0 0 #00B4D8;
-      border-bottom: 2px dashed currentColor;
-      padding-bottom: 2px;
-    }
-
-    .cyber.s-holo {
-      color: #B644E6;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-style: italic;
-      font-weight: 300;
-      text-shadow: -1.5px 0 0 #FF7AC6, 1.5px 0 0 #4DD2E0, 0 0 18px rgba(182, 68, 230, 0.4);
-    }
-
-    .cyber.s-vapor {
-      color: #FF6FB3;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 200;
-      background: linear-gradient(90deg, #FF6FB3 0%, #6FE3FF 50%, #B388FF 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 6px rgba(255, 111, 179, 0.35));
-    }
-
-    .cyber.s-stamp {
-      color: #C53030;
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 700;
-      font-style: italic;
-      border: 2px solid currentColor;
-      padding: 0 6px;
-      transform: rotate(-3deg);
-      transform-origin: center;
-    }
-
-    .cyber.s-marquee {
-      color: #111;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 600;
-      background: #FFD000;
-      padding: 0 8px;
-      border-radius: 2px;
-      box-shadow: 0 0 0 2px #111, 4px 4px 0 0 #111;
-    }
-
-    .cyber.s-zine {
-      color: #FFFFFF;
-      font-family: Georgia, serif;
-      font-weight: 700;
-      font-style: italic;
-      background: #111;
-      padding: 0 7px;
-      transform: skewX(-6deg);
-    }
-
-    .cyber.s-mint {
-      color: #00A878;
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 600;
-      text-shadow: 3px 0 0 #FFB39B;
-    }
-
-    .cyber.s-acid {
-      color: #000;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 800;
-      -webkit-text-stroke: 1px #BFFF00;
-      text-shadow: 2px 2px 0 #BFFF00;
-    }
-
-    .cyber.s-paper {
-      color: #6E4E2E;
-      font-family: Georgia, serif;
-      font-weight: 400;
-      font-style: italic;
-      text-decoration: underline;
-      text-decoration-style: wavy;
-      text-decoration-color: #C97D3D;
-      text-underline-offset: 4px;
-    }
-
-    /* transition animations — applied for swap */
-    @keyframes c-glitch {
-      0% {
-        transform: translate(0, 0);
-        clip-path: inset(0 0 0 0);
-      }
-
-      20% {
-        transform: translate(-3px, 1px);
-        clip-path: inset(40% 0 30% 0);
-      }
-
-      40% {
-        transform: translate(3px, -1px);
-        clip-path: inset(10% 0 60% 0);
-      }
-
-      60% {
-        transform: translate(-2px, 2px);
-        clip-path: inset(60% 0 5% 0);
-      }
-
-      80% {
-        transform: translate(2px, 0);
-        clip-path: inset(20% 0 40% 0);
-      }
-
-      100% {
-        transform: translate(0, 0);
-        clip-path: inset(0 0 0 0);
-      }
-    }
-
-    @keyframes c-flipin {
-      0% {
-        transform: rotateX(-90deg);
-        opacity: 0;
-      }
-
-      100% {
-        transform: rotateX(0deg);
-        opacity: 1;
-      }
-    }
-
-    @keyframes c-slidein {
-      0% {
-        transform: translateY(-12px);
-        opacity: 0;
-        filter: blur(4px);
-      }
-
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-        filter: blur(0);
-      }
-    }
-
-    @keyframes c-spinpop {
-      0% {
-        transform: rotate(-15deg) scale(0.4);
-        opacity: 0;
-      }
-
-      60% {
-        transform: rotate(8deg) scale(1.15);
-        opacity: 1;
-      }
-
-      100% {
-        transform: rotate(0deg) scale(1);
-      }
-    }
-
-    @keyframes c-typein {
-      0% {
-        clip-path: inset(0 100% 0 0);
-      }
-
-      100% {
-        clip-path: inset(0 0 0 0);
-      }
-    }
-
-    @keyframes c-bounce {
-      0% {
-        transform: translateY(-20px);
-        opacity: 0;
-      }
-
-      60% {
-        transform: translateY(4px);
-        opacity: 1;
-      }
-
-      80% {
-        transform: translateY(-2px);
-      }
-
-      100% {
-        transform: translateY(0);
-      }
-    }
-
-    .cyber.anim-glitch {
-      animation: c-glitch 0.45s steps(6) 1;
-    }
-
-    .cyber.anim-flip {
-      animation: c-flipin 0.5s cubic-bezier(0.5, 1.5, 0.5, 1) 1;
-      transform-origin: center bottom;
-    }
-
-    .cyber.anim-slide {
-      animation: c-slidein 0.45s cubic-bezier(0.16, 1, 0.3, 1) 1;
-    }
-
-    .cyber.anim-spin {
-      animation: c-spinpop 0.55s cubic-bezier(0.5, 1.5, 0.4, 1) 1;
-      transform-origin: center;
-    }
-
-    .cyber.anim-type {
-      animation: c-typein 0.4s steps(8) 1;
-    }
-
-    .cyber.anim-bounce {
-      animation: c-bounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .cyber {
-        animation: none !important;
-      }
-    }
-
-    /* ── RUNNER GAME ── */
-    .game-card {
-      border: 1px solid var(--rule);
-      padding: 18px 18px 14px;
-      position: relative;
-      background: #FAFAFA;
-    }
-
-    .game-card::before {
-      content: '+ - - - - - - - - - - - - - - - - - - - - - - +';
-      position: absolute;
-      top: -10px;
-      left: 14px;
-      background: var(--bg);
-      padding: 0 6px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--rule);
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-      overflow: hidden;
-      max-width: calc(100% - 28px);
-    }
-
-    .game-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
-    }
-
-    .game-title {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .game-title::before {
-      content: '> ';
-      color: var(--ink-muted);
-    }
-
-    .game-canvas-wrap {
-      width: 100%;
-      background: #FFF;
-      border: 1px solid var(--rule);
-      overflow: hidden;
-      position: relative;
-    }
-
-    canvas#runner {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 200px;
-      cursor: pointer;
-      image-rendering: pixelated;
-      touch-action: manipulation;
-    }
-
-    .game-hint {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--ink-muted);
-      margin-top: 8px;
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .kbd {
-      display: inline-block;
-      padding: 1px 5px;
-      border: 1px solid var(--rule);
-      border-bottom-width: 2px;
-      background: #FFF;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10.5px;
-      color: var(--ink);
-      line-height: 1.2;
-    }
-
-    /* ── FOOTER ── */
-    .foot {
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid var(--rule);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 14px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      color: var(--ink-muted);
-    }
-
-    .foot .blink::after {
-      content: '_';
-      animation: blink 1.05s steps(1) infinite;
-      margin-left: 2px;
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 600px) {
-      .wrap {
-        padding: 60px 18px 80px;
-      }
-
-      .topbar {
-        margin-bottom: 36px;
-      }
-
-      .hero {
-        margin-bottom: 44px;
-      }
-
-      .proj {
-        grid-template-columns: 40px 1fr;
-        gap: 0 14px;
-      }
-
-      .proj-url {
-        grid-column: 2;
-        text-align: left;
-        padding-top: 8px;
-      }
-
-      .pixel-icon {
-        width: 30px;
-        height: 30px;
-      }
-
-      .scrapbook {
-        margin-bottom: 64px;
-        max-width: 360px;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 10px;
-        padding: 8px;
-      }
-
-      .sb-b {
-        margin-top: 10px;
-      }
-
-      .sb-frame::before {
-        width: 36px;
-        height: 12px;
-        top: -7px;
-      }
-
-      .sb-frame .sb-label {
-        font-size: 8.5px;
-      }
-
-      .game-card {
-        padding: 14px 12px 12px;
-      }
-
-      .game-card::before {
-        left: 10px;
-        font-size: 10px;
-      }
-
-      .game-header {
-        font-size: 11px;
-      }
-
-      .hero-role {
-        font-size: 13.5px;
-      }
-
-      .ascii-rule {
-        margin: 36px 0;
-        font-size: 11px;
-      }
-
-    }
-  </style>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -1187,533 +26,234 @@
       "image": "https://prawees.com/portrait.jpg",
       "jobTitle": "Medical Student & Content Creator"
     }
-    </script>
+  </script>
 </head>
 
-<body class="lang-th">
-  <div class="sticky-bar" id="sticky-bar">
-    <div class="sticky-wrap">
-      <div class="crumbs">
-        <span class="here">home</span>
-        <span class="slash">/</span>
+<body>
+
+  <header class="bar">
+    <div class="g">
+      <a class="brand" href="./">prawees</a>
+      <div class="tools">
+        <button type="button" class="btn-th active" onclick="setLang('th')">th</button>
+        <span class="sep">/</span>
+        <button type="button" class="btn-en" onclick="setLang('en')">en</button>
+      </div>
+      <nav class="nav" aria-label="main">
+        <a href="./" aria-current="page">home</a>
         <a href="about/">about</a>
-        <span class="slash">/</span>
-        <a href="https://blog.prawees.com">blog</a>
-        <span class="slash">/</span>
-        <a href="https://prawees.com/gallery" target="_blank" rel="noopener">gallery</a>
-        <span class="slash">/</span>
-      </div>
-      <span class="sticky-greeting" id="sticky-greeting">hi, i'm smart</span>
-      <div class="lang">
-        <button class="active btn-th" onclick="setLang('th')">th</button>
-        <span class="slash">/</span>
-        <button class="btn-en" onclick="setLang('en')">en</button>
-      </div>
+        <a href="gallery/">gallery</a>
+      </nav>
+      <span class="hi" id="hi" aria-hidden="true">hi, i'm <b>Smart</b> :-)</span>
     </div>
-  </div>
+  </header>
 
-
-  <div class="wrap">
-
-    <!-- TOP -->
-    <div class="topbar">
-      <div class="crumbs">
-        <span class="here">home</span>
-        <span class="slash">/</span>
-        <a href="about/">about</a>
-        <span class="slash">/</span>
-        <a href="https://blog.prawees.com">blog</a>
-        <span class="slash">/</span>
-        <a href="https://prawees.com/gallery" target="_blank" rel="noopener">gallery</a>
-        <span class="slash">/</span>
-      </div>
-      <div class="lang">
-        <button class="active btn-th" onclick="setLang('th')">th</button>
-        <span class="slash">/</span>
-        <button class="btn-en" onclick="setLang('en')">en</button>
-      </div>
-    </div>
-
-    <!-- PORTRAIT SCRAPBOOK -->
-    <div class="scrapbook" data-reveal>
-      <div class="sb-frame sb-a">
-        <span class="pixmark tl"></span><span class="pixmark tr"></span>
-        <span class="pixmark bl"></span><span class="pixmark br"></span>
-        <span class="sb-label">01.jpg</span>
-        <img src="assets/portrait.jpg" alt="prawee 01">
-      </div>
-      <div class="sb-frame sb-b">
-        <span class="pixmark tl"></span><span class="pixmark tr"></span>
-        <span class="pixmark bl"></span><span class="pixmark br"></span>
-        <span class="sb-label">02.jpg</span>
-        <img src="assets/portrait-2.jpg" alt="prawee 02">
-      </div>
-      <div class="sb-frame sb-c">
-        <span class="pixmark tl"></span><span class="pixmark tr"></span>
-        <span class="pixmark bl"></span><span class="pixmark br"></span>
-        <span class="sb-label">03.jpg</span>
-        <img src="assets/portrait-3.jpg" alt="prawee 03">
-      </div>
-    </div>
+  <main>
 
     <!-- HERO -->
-    <section class="hero" data-reveal style="--rd: 80ms;">
-      <h1 class="hero-greeting" id="hero-greeting">hi, i'm smart</h1>
-
-      <p class="hero-name">prawee sinweeruthai</p>
-      <p class="hero-name-th" data-th="ประวีร์ สินวีรุทัย (สมาร์ท)" data-en="(smart)">ประวีร์ สินวีรุทัย (สมาร์ท)</p>
-
-      <p class="hero-role"
-        data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng)&#10;ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล"
-        data-en="m.d.-m.eng candidate&#10;at ramathibodi hospital, mahidol university">นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์
-        (m.d.-m.eng)
-        ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</p>
+    <section class="g hero" data-amb="assets/home/frame-4.jpg">
+      <h1 id="hero-greeting">hi, i'm Smart :-)</h1>
+      <div class="id">
+        <p class="name">prawee sinweeruthai</p>
+        <p class="name-th" data-th="ประวีร์ สินวีรุทัย (สมาร์ท)" data-en="(smart)">ประวีร์ สินวีรุทัย (สมาร์ท)</p>
+        <p class="role"
+          data-th="นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng)&#10;ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล"
+          data-en="m.d.-m.eng candidate&#10;at ramathibodi hospital, mahidol university">นักศึกษาแพทย์-วิศวกรรมชีวการแพทย์ (m.d.-m.eng)
+ที่คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล</p>
+      </div>
     </section>
 
+    <!-- PORTRAITS: clean, in colour -->
+    <section class="g prints" aria-label="portraits" data-amb="assets/home/frame-4.jpg">
+      <div class="scrap">
+        <img class="pr1" src="assets/portrait.jpg" width="1044" height="1566" alt="prawee 01">
+        <img class="pr2" src="assets/portrait-2.jpg" width="714" height="1226" alt="prawee 02" loading="lazy">
+        <img class="pr3" src="assets/portrait-3.jpg" width="880" height="906" alt="prawee 03" loading="lazy">
+      </div>
+    </section>
 
     <!-- PROJECTS -->
-    <p class="comment" data-reveal data-th="โปรเจกต์ของผม" data-en="things i&#39;m building">โปรเจกต์ของผม</p>
-    <div class="projects" id="projects-list">
+    <section class="g sec" data-amb="assets/home/frame-3.jpg">
+      <p class="label"><span data-th="โปรเจกต์" data-en="projects">โปรเจกต์</span></p>
+      <div class="body projects" id="projects-list">
 
-      <a href="about/" class="proj" data-reveal style="--pa:#C77F3A">
-        <!-- pixel person / about -->
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="6" y="2" width="4" height="4" />
-          <rect class="px-mid" x="7" y="6" width="2" height="1" />
-          <rect class="px" x="3" y="7" width="10" height="3" />
-          <rect class="px" x="2" y="10" width="12" height="5" />
-          <rect class="px-soft" x="2" y="10" width="1" height="1" />
-          <rect class="px-soft" x="13" y="10" width="1" height="1" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">01</span>
-            <span class="proj-title" data-th="รู้จักสมาร์ท" data-en="about smart">รู้จักสมาร์ท</span>
-            <span class="proj-title-en" data-th="about smart" data-en="(the long version)">about smart</span>
-          </div>
-          <div class="proj-desc" data-th="ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ"
-            data-en="background, work, interests, contact">
-            ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ</div>
+        <a href="about/" class="proj" data-fx="flip" style="--a:#C77F3A;--s:#F6E9DB">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="6" y="2" width="4" height="4"/><rect class="px-mid" x="7" y="6" width="2" height="1"/><rect class="px" x="3" y="7" width="10" height="3"/><rect class="px" x="2" y="10" width="12" height="5"/><rect class="px-soft" x="2" y="10" width="1" height="1"/><rect class="px-soft" x="13" y="10" width="1" height="1"/></svg></span>
+          <span class="l"><span class="tt"><span data-th="รู้จักสมาร์ท" data-en="about smart">รู้จักสมาร์ท</span></span><span class="sub" data-th="about smart" data-en="(the long version)">about smart</span></span>
+          <span class="r"><span class="d" data-th="ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ" data-en="background, work, interests, contact">ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ</span><span class="u">about/ →</span></span>
+        </a>
+
+        <p class="grp" data-th="ชุมชน" data-en="community">ชุมชน</p>
+        <a href="https://ramathonrun.prawees.com" class="proj" data-fx="roll" style="--a:#7B49C7;--s:#ECE3F8">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="7" y="1" width="3" height="3"/><rect class="px" x="6" y="4" width="5" height="3"/><rect class="px" x="4" y="5" width="2" height="1"/><rect class="px" x="11" y="5" width="2" height="1"/><rect class="px" x="12" y="6" width="1" height="2"/><rect class="px" x="5" y="7" width="2" height="3"/><rect class="px" x="8" y="7" width="2" height="3"/><rect class="px" x="3" y="10" width="2" height="2"/><rect class="px" x="10" y="10" width="2" height="2"/><rect class="px" x="2" y="12" width="3" height="1"/><rect class="px" x="11" y="12" width="3" height="1"/></svg></span>
+          <span class="l"><span class="tt"><span data-th="รามาธอน" data-en="ramathon run club">รามาธอน</span></span><span class="sub" data-th="ramathon" data-en="(running club)">ramathon</span></span>
+          <span class="r"><span class="d" data-th="คลับวิ่งออนไลน์สำหรับนักศึกษาและบุคลากรชาวรามาธิบดีฯ" data-en="an online running club for ramathibodi students and staff">คลับวิ่งออนไลน์สำหรับนักศึกษาและบุคลากรชาวรามาธิบดีฯ</span><span class="u">ramathonrun.prawees.com →</span></span>
+        </a>
+        <a href="https://g7club.org" class="proj" data-fx="swing" target="_blank" rel="noopener" style="--a:#B58800;--s:#F6EBC8">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="5" y="2" width="6" height="1"/><rect class="px" x="4" y="3" width="8" height="6"/><rect class="px" x="5" y="9" width="6" height="1"/><rect class="px-soft" x="6" y="4" width="1" height="1"/><rect class="px-soft" x="9" y="4" width="1" height="1"/><rect class="px-soft" x="7" y="6" width="2" height="1"/><rect class="px-mid" x="6" y="10" width="4" height="1"/><rect class="px-mid" x="6" y="11" width="4" height="1"/><rect class="px-mid" x="6" y="12" width="4" height="1"/><rect class="px-mid" x="7" y="13" width="2" height="1"/><rect class="px-soft" x="0" y="5" width="2" height="1"/><rect class="px-soft" x="14" y="5" width="2" height="1"/><rect class="px-soft" x="1" y="2" width="1" height="1"/><rect class="px-soft" x="14" y="2" width="1" height="1"/><rect class="px-soft" x="2" y="0" width="1" height="1"/><rect class="px-soft" x="13" y="0" width="1" height="1"/></svg></span>
+          <span class="l"><span class="tt"><span>rama g7</span></span><span class="sub" data-th="แหล่งรวมตัวแพทย์นวัตกร" data-en="(med innovators)">แหล่งรวมตัวแพทย์นวัตกร</span></span>
+          <span class="r"><span class="d" data-th="พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง" data-en="a community space for ramathibodi medical students turning curiosity into innovations that change lives">พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง</span><span class="u">g7club.org →</span></span>
+        </a>
+
+        <p class="grp" data-th="แอปและเว็บไซต์" data-en="apps and sites">แอปและเว็บไซต์</p>
+        <a href="https://gwajapen.prawees.com" class="proj" data-fx="iso" style="--a:#E05A38;--s:#FBE3DC">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px-soft" x="0" y="13" width="16" height="1"/><rect class="px-mid" x="2" y="11" width="2" height="2"/><rect class="px-mid" x="4" y="9" width="2" height="2"/><rect class="px" x="6" y="7" width="2" height="2"/><rect class="px" x="8" y="5" width="2" height="2"/><rect class="px-mid" x="10" y="7" width="2" height="2"/><rect class="px-mid" x="12" y="9" width="2" height="2"/><rect class="px-soft" x="14" y="11" width="2" height="2"/><rect class="px" x="8" y="3" width="2" height="2"/><rect class="px" x="9" y="1" width="1" height="2"/></svg></span>
+          <span class="l"><span class="tt"><span data-th="กว่า-จะ-เป็น" data-en="gwa-ja-pen">กว่า-จะ-เป็น</span></span><span class="sub" data-th="gwa-ja-pen" data-en="(interviews and interactives)">gwa-ja-pen</span></span>
+          <span class="r"><span class="d" data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ และคู่มือค้นคว้าเส้นทางอาชีพ" data-en="interview series with seniors and experts, and guides to explore career paths">ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ และคู่มือค้นคว้าเส้นทางอาชีพ</span><span class="u">gwajapen.prawees.com →</span></span>
+        </a>
+        <a href="https://priority.prawees.com" class="proj" data-fx="grid" style="--a:#2C72C8;--s:#DDE9F7">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="1" y="1" width="6" height="6"/><rect class="px-mid" x="9" y="1" width="6" height="6"/><rect class="px-mid" x="1" y="9" width="6" height="6"/><rect class="px-soft" x="9" y="9" width="6" height="6"/></svg></span>
+          <span class="l"><span class="tt"><span>priority</span></span><span class="sub" data-th="" data-en="(eisenhower matrix)"></span></span>
+          <span class="r"><span class="d" data-th="เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix" data-en="a web app for prioritising life with the eisenhower matrix">เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix</span><span class="u">priority.prawees.com →</span></span>
+        </a>
+        <a href="https://wisdom.prawees.com" class="proj" data-fx="grow" target="_blank" rel="noopener" style="--a:#0E8B6E;--s:#D9EFE9">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="7" y="1" width="2" height="2"/><rect class="px-mid" x="7" y="3" width="2" height="3"/><rect class="px-mid" x="3" y="6" width="6" height="1"/><rect class="px-mid" x="7" y="6" width="6" height="1"/><rect class="px-mid" x="3" y="6" width="1" height="3"/><rect class="px-mid" x="12" y="6" width="1" height="3"/><rect class="px" x="2" y="9" width="3" height="3"/><rect class="px" x="11" y="9" width="3" height="3"/><rect class="px-soft" x="1" y="12" width="2" height="2"/><rect class="px-soft" x="4" y="12" width="2" height="2"/><rect class="px-soft" x="10" y="12" width="2" height="2"/><rect class="px-soft" x="13" y="12" width="2" height="2"/></svg></span>
+          <span class="l"><span class="tt"><span>wisdom</span></span><span class="sub" data-th="" data-en="(decisions sim)"></span></span>
+          <span class="r"><span class="d" data-th="เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด" data-en="a life simulation game on decision-making, cognitive biases, and mental models">เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด</span><span class="u">wisdom.prawees.com →</span></span>
+        </a>
+
+        <p class="grp" data-th="งานเขียน" data-en="writing">งานเขียน</p>
+        <a href="https://prawees.substack.com" class="proj" data-fx="page" target="_blank" rel="noopener" style="--a:#D03535;--s:#F9DEDE">
+          <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="2" y="2" width="6" height="12"/><rect class="px" x="8" y="2" width="6" height="12"/><rect class="px-soft" x="3" y="4" width="4" height="1"/><rect class="px-soft" x="3" y="6" width="4" height="1"/><rect class="px-soft" x="3" y="8" width="3" height="1"/><rect class="px-soft" x="9" y="4" width="4" height="1"/><rect class="px-soft" x="9" y="6" width="4" height="1"/><rect class="px-soft" x="9" y="8" width="3" height="1"/></svg></span>
+          <span class="l"><span class="tt"><span data-th="เกือบจะสมาร์ทละ" data-en="almost smart">เกือบจะสมาร์ทละ</span></span><span class="sub" data-th="almost smart" data-en="(substack)">almost smart</span></span>
+          <span class="r"><span class="d" data-th="บล็อกบน substack บันทึกเรื่องราวระหว่างการเรียนของผมเอง" data-en="a substack blog of notes from my time studying">บล็อกบน substack บันทึกเรื่องราวระหว่างการเรียนของผมเอง</span><span class="u">prawees.substack.com →</span></span>
+        </a>
+
+        <p class="more">
+          <span data-th="ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → " data-en="want to know me better? read more here → ">ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → </span><a href="about/">about/</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FRAMES -->
+    <section class="g sec" data-amb="assets/home/frame-1.jpg">
+      <p class="label"><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+      <div class="body">
+        <div class="strip">
+          <a class="s1" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
+          <a class="s2" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
+          <a class="s3" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
+          <a class="s4" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-4.jpg" width="1000" height="666" alt="a bamboo frame against the sky"></a>
         </div>
-        <div class="proj-url">about/ →</div>
-      </a>
+        <p class="more go"><a href="gallery/" data-th="กดตรงนี้เพื่อชม film gallery ของผมได้เลยครับ" data-en="tap here to see my film gallery">กดตรงนี้เพื่อชม film gallery ของผมได้เลยครับ</a></p>
+      </div>
+    </section>
 
-      <a href="https://ramathonrun.prawees.com" class="proj" data-reveal style="--pa:#7B49C7">
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="7" y="1" width="3" height="3" />
-          <rect class="px" x="6" y="4" width="5" height="3" />
-          <rect class="px" x="4" y="5" width="2" height="1" />
-          <rect class="px" x="11" y="5" width="2" height="1" />
-          <rect class="px" x="12" y="6" width="1" height="2" />
-          <rect class="px" x="5" y="7" width="2" height="3" />
-          <rect class="px" x="8" y="7" width="2" height="3" />
-          <rect class="px" x="3" y="10" width="2" height="2" />
-          <rect class="px" x="10" y="10" width="2" height="2" />
-          <rect class="px" x="2" y="12" width="3" height="1" />
-          <rect class="px" x="11" y="12" width="3" height="1" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">02</span>
-            <span class="proj-title" data-th="รามาธอน" data-en="ramathon run club">รามาธอน</span>
-            <span class="proj-title-en" data-th="ramathon" data-en="(running club)">ramathon</span>
-          </div>
-          <div class="proj-desc" data-th="คลับวิ่งออนไลน์สำหรับนักศึกษาและบุคลากรชาวรามาธิบดีฯ"
-            data-en="online running club for the ramathibodi students and staff">
-            คลับวิ่งออนไลน์สำหรับนักศึกษาและบุคลากรชาวรามาธิบดีฯ</div>
-        </div>
-        <div class="proj-url">ramathonrun.prawees.com →</div>
-      </a>
-
-      <a href="https://gwajapen.prawees.com" class="proj" data-reveal style="--pa:#E05A38">
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px-soft" x="0" y="13" width="16" height="1" />
-          <rect class="px-mid" x="2" y="11" width="2" height="2" />
-          <rect class="px-mid" x="4" y="9" width="2" height="2" />
-          <rect class="px" x="6" y="7" width="2" height="2" />
-          <rect class="px" x="8" y="5" width="2" height="2" />
-          <rect class="px-mid" x="10" y="7" width="2" height="2" />
-          <rect class="px-mid" x="12" y="9" width="2" height="2" />
-          <rect class="px-soft" x="14" y="11" width="2" height="2" />
-          <rect class="px" x="8" y="3" width="2" height="2" />
-          <rect class="px" x="9" y="1" width="1" height="2" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">03</span>
-            <span class="proj-title" data-th="กว่า-จะ-เป็น" data-en="gwa-ja-pen">กว่า-จะ-เป็น</span>
-            <span class="proj-title-en" data-th="gwa-ja-pen" data-en="(interviews and interactives)">gwa-ja-pen</span>
-          </div>
-          <div class="proj-desc" data-th="ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ และคู่มือค้นคว้าเส้นทางอาชีพ"
-            data-en="interview series with seniors and experts, and guides to explore career paths">
-            ซีรีส์สัมภาษณ์เส้นทางรุ่นพี่และผู้เชี่ยวชาญ และคู่มือค้นคว้าเส้นทางอาชีพ</div>
-        </div>
-        <div class="proj-url">gwajapen.prawees.com →</div>
-      </a>
-
-      <a href="https://priority.prawees.com" class="proj" data-reveal style="--pa:#2C72C8">
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="1" y="1" width="6" height="6" />
-          <rect class="px-mid" x="9" y="1" width="6" height="6" />
-          <rect class="px-mid" x="1" y="9" width="6" height="6" />
-          <rect class="px-soft" x="9" y="9" width="6" height="6" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">04</span>
-            <span class="proj-title">priority</span>
-            <span class="proj-title-en" data-th="" data-en="(eisenhower matrix)"></span>
-          </div>
-          <div class="proj-desc" data-th="เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix"
-            data-en="a minimal web app to prioritise life using the eisenhower matrix">
-            เว็บแอปจัดลำดับความสำคัญในชีวิตด้วยหลัก eisenhower matrix</div>
-        </div>
-        <div class="proj-url">priority.prawees.com →</div>
-      </a>
-
-      <a href="https://wisdom.prawees.com" class="proj" data-reveal target="_blank" rel="noopener" style="--pa:#0E8B6E">
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="7" y="1" width="2" height="2" />
-          <rect class="px-mid" x="7" y="3" width="2" height="3" />
-          <rect class="px-mid" x="3" y="6" width="6" height="1" />
-          <rect class="px-mid" x="7" y="6" width="6" height="1" />
-          <rect class="px-mid" x="3" y="6" width="1" height="3" />
-          <rect class="px-mid" x="12" y="6" width="1" height="3" />
-          <rect class="px" x="2" y="9" width="3" height="3" />
-          <rect class="px" x="11" y="9" width="3" height="3" />
-          <rect class="px-soft" x="1" y="12" width="2" height="2" />
-          <rect class="px-soft" x="4" y="12" width="2" height="2" />
-          <rect class="px-soft" x="10" y="12" width="2" height="2" />
-          <rect class="px-soft" x="13" y="12" width="2" height="2" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">05</span>
-            <span class="proj-title">wisdom</span>
-            <span class="proj-title-en" data-th="" data-en="(decisions sim)"></span>
-          </div>
-          <div class="proj-desc"
-            data-th="เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด"
-            data-en="a life simulation game on decision-making, cognitive biases, and mental models">
-            เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด</div>
-        </div>
-        <div class="proj-url">wisdom.prawees.com →</div>
-      </a>
-
-      <a href="https://prawees.substack.com" class="proj" data-reveal target="_blank" rel="noopener"
-        style="--pa:#D03535">
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <rect class="px" x="2" y="2" width="6" height="12" />
-          <rect class="px" x="8" y="2" width="6" height="12" />
-          <rect class="px-soft" x="3" y="4" width="4" height="1" />
-          <rect class="px-soft" x="3" y="6" width="4" height="1" />
-          <rect class="px-soft" x="3" y="8" width="3" height="1" />
-          <rect class="px-soft" x="9" y="4" width="4" height="1" />
-          <rect class="px-soft" x="9" y="6" width="4" height="1" />
-          <rect class="px-soft" x="9" y="8" width="3" height="1" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">06</span>
-            <span class="proj-title" data-th="เกือบจะสมาร์ทละ" data-en="almost smart">เกือบจะสมาร์ทละ</span>
-            <span class="proj-title-en" data-th="almost smart" data-en="(substack)">almost smart</span>
-          </div>
-          <div class="proj-desc" data-th="บล็อกบน substack บันทึกเรื่องราวระหว่างการเรียนของผมเอง"
-            data-en="a substack journal of notes from my life">
-            บล็อกบน substack บันทึกเรื่องราวระหว่างการเรียนของผมเอง</div>
-        </div>
-        <div class="proj-url">prawees.substack.com →</div>
-      </a>
-
-      <a href="https://g7club.org" class="proj" data-reveal target="_blank" rel="noopener" style="--pa:#B58800">
-        <!-- pixel lightbulb with innovation rays -->
-        <svg class="pixel-icon" viewBox="0 0 16 16">
-          <!-- bulb -->
-          <rect class="px" x="5" y="2" width="6" height="1" />
-          <rect class="px" x="4" y="3" width="8" height="6" />
-          <rect class="px" x="5" y="9" width="6" height="1" />
-          <!-- filament glow -->
-          <rect class="px-soft" x="6" y="4" width="1" height="1" />
-          <rect class="px-soft" x="9" y="4" width="1" height="1" />
-          <rect class="px-soft" x="7" y="6" width="2" height="1" />
-          <!-- base / screw -->
-          <rect class="px-mid" x="6" y="10" width="4" height="1" />
-          <rect class="px-mid" x="6" y="11" width="4" height="1" />
-          <rect class="px-mid" x="6" y="12" width="4" height="1" />
-          <rect class="px-mid" x="7" y="13" width="2" height="1" />
-          <!-- innovation rays -->
-          <rect class="px-soft" x="0" y="5" width="2" height="1" />
-          <rect class="px-soft" x="14" y="5" width="2" height="1" />
-          <rect class="px-soft" x="1" y="2" width="1" height="1" />
-          <rect class="px-soft" x="14" y="2" width="1" height="1" />
-          <rect class="px-soft" x="2" y="0" width="1" height="1" />
-          <rect class="px-soft" x="13" y="0" width="1" height="1" />
-        </svg>
-        <div class="proj-body">
-          <div class="proj-titlebar">
-            <span class="proj-num">07</span>
-            <span class="proj-title">rama g7</span>
-            <span class="proj-title-en" data-th="แหล่งรวมตัวแพทย์นวัตกร"
-              data-en="(med innovators)">แหล่งรวมตัวแพทย์นวัตกร</span>
-          </div>
-          <div class="proj-desc"
-            data-th="พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง"
-            data-en="a community space for ramathibodi medical students turning curiosity into innovations that change lives">
-            พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี
-            ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง</div>
-        </div>
-        <div class="proj-url">g7club.org →</div>
-      </a>
-
-    </div>
-
-    <!-- ASCII RULE -->
-    <div class="ascii-rule">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
-    </div>
-
-    <!-- MINI RUNNER GAME -->
-    <div style="display: none;">
-      <p class="comment" data-reveal data-th="ถ้าเหนื่อยพักก็ดี ถ้าเจอหมีวิ่งดิรอไร"
-        data-en="take a break, run a little">
-        ถ้าเหนื่อยพักก็ดี ถ้าเจอหมีวิ่งดิรอไร</p>
-      <div class="game-card" data-reveal>
-        <div class="game-header">
-          <span class="game-title">smartie_running_game.exe</span>
-          <span data-th="สนุกมั้ย 55" data-en="r u having fun lol">สนุกมั้ย 55</span>
-        </div>
-        <div class="game-canvas-wrap">
-          <canvas id="runner" width="640" height="160" aria-label="Runner mini game"></canvas>
-        </div>
-        <div class="game-hint">
-          <span><span class="kbd">space</span> / <span class="kbd">tap</span></span>
+    <!-- CONTACT -->
+    <section class="g sec" data-amb="assets/home/frame-2.jpg">
+      <p class="label"><span data-th="ติดต่อ" data-en="contact">ติดต่อ</span></p>
+      <div class="body" id="social-list">
+        <a class="mail" href="mailto:prawee.sin@gmail.com">prawee.sin@gmail.com</a>
+        <div class="rows">
+          <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" style="--a:#1877F2"><span class="k">facebook</span><span class="v">@smprv</span></a>
+          <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" style="--a:#FE2C55"><span class="k">tiktok</span><span class="v">@prawees</span></a>
+          <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" style="--a:#C13584"><span class="k">instagram</span><span class="v">@smprv</span></a>
+          <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" style="--a:#E00000"><span class="k">youtube</span><span class="v">@smprv</span></a>
+          <a href="https://blog.prawees.com" target="_blank" rel="noopener" style="--a:#FF6719"><span class="k">blog</span><span class="v">almost smart</span></a>
+          <a href="gallery/" style="--a:#111111"><span class="k">gallery</span><span class="v">film</span></a>
         </div>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <p style="font-family:'IBM Plex Mono','IBM Plex Sans Thai',monospace;font-size:13.5px;color:var(--ink-mid);margin-top:56px;margin-bottom:56px;"
-      data-reveal>
-      <span data-th="ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → "
-        data-en="want the long version → ">ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ →
-      </span><a href="about/">about/</a>
-    </p>
+  <footer class="g foot">
+    <span>© 2026 prawees</span>
+    <span class="cur">last edit: 2026.10</span>
+  </footer>
 
-    <!-- SOCIAL STRIP -->
-    <p class="comment" data-reveal data-th="ช่องทางติดต่อ" data-en="contact info">ช่องทางติดต่อ / contact info</p>
-    <div class="social-links-minimal" id="social-list" data-reveal>
-      <a href="mailto:prawee.sin@gmail.com" class="sl-link email">
-        <span class="sl-icon">@</span>
-        <div class="sl-body">
-          <span class="sl-title">email</span>
-          <span class="sl-desc">prawee.sin@gmail.com</span>
-        </div>
-      </a>
-      <a href="https://www.facebook.com/smprv/" target="_blank" rel="noopener" class="sl-link fb">
-        <span class="sl-icon">fb</span>
-        <div class="sl-body">
-          <span class="sl-title">facebook</span>
-          <span class="sl-desc">@smprv</span>
-        </div>
-      </a>
-      <a href="https://www.tiktok.com/@prawees" target="_blank" rel="noopener" class="sl-link tiktok">
-        <span class="sl-icon">tt</span>
-        <div class="sl-body">
-          <span class="sl-title">tiktok</span>
-          <span class="sl-desc">@prawees</span>
-        </div>
-      </a>
-      <a href="https://www.instagram.com/smprv" target="_blank" rel="noopener" class="sl-link ig">
-        <span class="sl-icon">ig</span>
-        <div class="sl-body">
-          <span class="sl-title">instagram</span>
-          <span class="sl-desc">@smprv</span>
-        </div>
-      </a>
-      <a href="https://www.youtube.com/smprv" target="_blank" rel="noopener" class="sl-link yt">
-        <span class="sl-icon">yt</span>
-        <div class="sl-body">
-          <span class="sl-title">youtube</span>
-          <span class="sl-desc">@smprv</span>
-        </div>
-      </a>
-      <a href="https://blog.prawees.com" target="_blank" rel="noopener" class="sl-link blog">
-        <span class="sl-icon">blog</span>
-        <div class="sl-body">
-          <span class="sl-title">blog</span>
-          <span class="sl-desc">almost smart</span>
-        </div>
-      </a>
-      <a href="gallery/" class="sl-link gallery">
-        <span class="sl-icon">gal</span>
-        <div class="sl-body">
-          <span class="sl-title">gallery</span>
-          <span class="sl-desc">visual dump</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="foot">
-      <span>© 2026 prawees</span>
-      <span class="blink">last edit: 2026.05</span>
-    </footer>
-
-  </div>
-
-  <script src="assets/typewriter.js"></script>
-  <script src="assets/smartie-runner.js"></script>
+  <script src="assets/typewriter.js?v=6"></script>
+  <script src="assets/dither.js?v=6"></script>
+  <script src="assets/scroll3d.js?v=6"></script>
   <script>
     function setLang(lang) {
-      document.querySelectorAll('.btn-th').forEach(el => el.classList.toggle('active', lang === 'th'));
-      document.querySelectorAll('.btn-en').forEach(el => el.classList.toggle('active', lang === 'en'));
-      document.body.className = 'lang-' + lang;
-      document.querySelectorAll('[data-th]').forEach(el => {
-        const val = lang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
-        if (val !== null && val !== undefined) {
-          el.style.opacity = '0';
-          setTimeout(() => { el.textContent = val; el.style.opacity = ''; }, 120);
-        }
+      try { localStorage.setItem('prawees.lang', lang); } catch (e) {}
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.btn-th').forEach(function (el) { el.classList.toggle('active', lang === 'th'); });
+      document.querySelectorAll('.btn-en').forEach(function (el) { el.classList.toggle('active', lang === 'en'); });
+      document.querySelectorAll('[data-th]').forEach(function (el) {
+        var v = el.getAttribute(lang === 'th' ? 'data-th' : 'data-en');
+        if (v !== null) el.textContent = v;
       });
     }
 
-    // Scroll reveal — robust: things above the fold get revealed instantly,
-    // things below get observed.
-    function setupReveal() {
-      const els = document.querySelectorAll('[data-reveal]');
-      if (!('IntersectionObserver' in window)) {
-        els.forEach(el => el.classList.add('in'));
-        return;
-      }
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+    (function () { var l; try { l = localStorage.getItem('prawees.lang'); } catch (e) {} if (l === 'en') setLang('en'); })();
 
-      els.forEach((el, i) => {
-        const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight * 0.95) {
-          // stagger items already in view
-          el.style.setProperty('--rd', (i * 50) + 'ms');
-          setTimeout(() => el.classList.add('in'), 30);
-        } else {
-          obs.observe(el);
+    // Once the big greeting has scrolled up under the bar, it moves into the bar's empty space.
+    (function () {
+      var hi = document.getElementById('hi'), h = document.getElementById('hero-greeting'), bar = document.querySelector('.bar');
+      if (!hi || !h || !bar) return;
+      var q = false;
+      function chk() { q = false; hi.classList.toggle('on', h.getBoundingClientRect().bottom < bar.getBoundingClientRect().bottom + 4); }
+      function sch() { if (!q) { q = true; (window.requestAnimationFrame || setTimeout)(chk); } }
+      window.addEventListener('scroll', sch, { passive: true }); window.addEventListener('resize', sch); sch();
+    })();
+
+    // A frame that fails to load is tried once more with a fresh address, then hidden, so there is never a broken-image icon.
+    (function () {
+      document.querySelectorAll('img[data-strip]').forEach(function (im) {
+        var tries = 0;
+        function bad() {
+          if (tries++ === 0) { im.src = im.getAttribute('src').split('?')[0] + '?r=' + Date.now(); }
+          else { im.parentNode.style.display = 'none'; }
         }
+        im.addEventListener('error', bad);
+        if (im.complete && im.naturalWidth === 0 && im.getAttribute('src')) bad();
       });
-    }
+    })();
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Typewriter on greeting + cycle styles on "Smart"
-      const greet = document.getElementById('hero-greeting');
-      const stickyGreet = document.getElementById('sticky-greeting');
-      const stickyBar = document.getElementById('sticky-bar');
-
-      if (greet) {
-        window.typeText(greet, "hi, i'm Smart :-)", {
-          speed: 80,
-          delay: 200,
-          done: () => {
-            const styles = ['s-cyber', 's-coral', 's-pixel', 's-film', 's-blue', 's-holo', 's-vapor', 's-stamp', 's-marquee', 's-zine', 's-mint', 's-acid', 's-paper'];
-            const anims = ['anim-glitch', 'anim-flip', 'anim-slide', 'anim-spin', 'anim-type', 'anim-bounce'];
-
-            const firstStyleIdx = Math.floor(Math.random() * styles.length);
-            const firstStyle = styles[firstStyleIdx];
-
-            const txt = greet.textContent;
-            greet.innerHTML = txt.replace(
-              'Smart',
-              `<span class="cyber ${firstStyle} cyber-init">Smart</span>`
-            );
-            if (stickyGreet) {
-              stickyGreet.innerHTML = txt.replace(
-                'Smart',
-                `<span class="cyber ${firstStyle} cyber-init">Smart</span>`
-              );
-            }
-
-            const cybers = document.querySelectorAll('.cyber');
-            if (cybers.length === 0) return;
-            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (prefersReduced) return;
-
-            let lastStyleIdx = firstStyleIdx;
-            let lastAnimIdx = -1;
-            function shuffleNext() {
-              let nextStyleIdx;
-              do {
-                nextStyleIdx = Math.floor(Math.random() * styles.length);
-              } while (nextStyleIdx === lastStyleIdx);
-              lastStyleIdx = nextStyleIdx;
-
-              let nextAnimIdx;
-              do {
-                nextAnimIdx = Math.floor(Math.random() * anims.length);
-              } while (nextAnimIdx === lastAnimIdx);
-              lastAnimIdx = nextAnimIdx;
-
-              const nextStyle = styles[nextStyleIdx];
-              const nextAnim = anims[nextAnimIdx];
-
-              cybers.forEach(cyber => {
-                styles.forEach(s => cyber.classList.remove(s));
-                anims.forEach(a => cyber.classList.remove(a));
-                // force reflow so animation re-triggers
-                void cyber.offsetWidth;
-                cyber.classList.add(nextStyle);
-                cyber.classList.add(nextAnim);
-              });
-            }
-            setTimeout(() => {
-              setInterval(shuffleNext, 2500);
-            }, 1200);
-          }
-        });
+    // Greeting: typed once, then "Smart" steps through dither densities and colours.
+    // Each step dissolves into the next (density and colour move together in small steps) instead of cutting.
+    // The same colour is carried to the small greeting in the bar.
+    document.addEventListener('DOMContentLoaded', function () {
+      var h = document.getElementById('hero-greeting');
+      if (!h || !window.typeText) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var line = "hi, i'm Smart :-)";
+      var BAY = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+      function pat(level, col) {
+        var d = '', x, y;
+        for (y = 0; y < 4; y++) for (x = 0; x < 4; x++) if (BAY[y][x] < level) d += 'M' + x + ' ' + y + 'h1v1h-1z';
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'><path fill='" + col + "' d='" + d + "'/></svg>";
+        return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
       }
-
-      // Sticky Bar Observer
-      if (greet && stickyBar) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-              stickyBar.classList.add('visible');
-            } else {
-              stickyBar.classList.remove('visible');
-            }
-          });
-        }, { threshold: 0 });
-        observer.observe(greet);
+      function rgb(hex) { return [parseInt(hex.substr(1, 2), 16), parseInt(hex.substr(3, 2), 16), parseInt(hex.substr(5, 2), 16)]; }
+      function hex(c) { return '#' + c.map(function (v) { v = Math.round(v); return (v < 16 ? '0' : '') + v.toString(16); }).join(''); }
+      // each step: [dither level out of 16, colour]. 0 means outline, 16 means solid ink.
+      var STEPS = [[12, '#E05A38'], [8, '#2C72C8'], [5, '#0E8B6E'], [0, '#7B49C7'], [8, '#B58800'], [12, '#D03535'], [8, '#C13584'], [12, '#111111'], [16, '#111111']];
+      var hiB = document.querySelector('#hi b');
+      function show(w, lv, col) {
+        if (lv >= 16) { w.className = 'smart'; w.removeAttribute('style'); return; }
+        if (lv <= 0) { w.className = 'smart ol'; w.style.backgroundImage = 'none'; w.style.webkitTextStroke = '2px ' + col; return; }
+        w.className = 'smart px';
+        w.style.backgroundImage = pat(lv, col);
+        w.style.webkitTextStroke = '1px ' + col;
       }
-
-      // Game
-      const canvas = document.getElementById('runner');
-      if (canvas && window.initRunnerGame) window.initRunnerGame(canvas, {});
-
-      // Reveal
-      setupReveal();
-
-      // Lightweight mobile scroll glow
-      if (window.matchMedia("(hover: none)").matches || window.innerWidth <= 768) {
-        const glowObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-              entry.target.classList.add('is-glowing');
-            } else {
-              entry.target.classList.remove('is-glowing');
-            }
-          });
-        }, { threshold: [0, 0.5, 1], rootMargin: "-15% 0px -15% 0px" });
-
-        document.querySelectorAll('.proj').forEach(proj => {
-          glowObserver.observe(proj);
-        });
+      function settle() {
+        h.innerHTML = line.replace('Smart', '<span class="smart">Smart</span>');
+        if (reduce) return;
+        var w = h.querySelector('.smart'), i = -1, cur = { lv: 16, c: rgb('#111111') }, timer = 0;
+        function step() {
+          i = (i + 1) % STEPS.length;
+          var from = cur, to = { lv: STEPS[i][0], c: rgb(STEPS[i][1]) }, f = 0, N = 6;
+          if (hiB) hiB.style.color = (STEPS[i][0] >= 16 || STEPS[i][1] === '#111111') ? '' : STEPS[i][1];
+          clearInterval(timer);
+          timer = setInterval(function () {
+            f++;
+            var t = f / N, lv = Math.round(from.lv + (to.lv - from.lv) * t);
+            var c = from.c.map(function (v, k) { return v + (to.c[k] - v) * t; });
+            show(w, lv, hex(c));
+            if (f >= N) { clearInterval(timer); cur = to; }
+          }, 60);
+        }
+        setTimeout(function () { step(); setInterval(step, 1100); }, 700);
       }
+      if (reduce) { settle(); return; }
+      window.typeText(h, line, { speed: 70, delay: 200, done: settle });
     });
-
-    document.getElementById('btn-th').classList.add('active');
-    document.body.className = 'lang-th';
   </script>
+<script>
+(function () { var z = 10; document.querySelectorAll('.scrap img').forEach(function (im) { im.addEventListener('click', function () { im.style.zIndex = ++z; }); }); })();
+</script>
 </body>
 
 </html>

@@ -11,11 +11,8 @@
   <meta name="description" content="about prawee sinweeruthai (smart). m.d.-m.eng student at ramathibodi mahidol.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap"
-    rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/base.css?v=6">
 
   <style>
     :root {
@@ -963,6 +960,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../assets/theme.css?v=6">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -977,52 +975,26 @@
 
 <body class="lang-th">
 
-  <div class="sticky-bar" id="sticky-bar">
-    <div class="sticky-wrap">
-      <div class="crumbs">
+  <header class="bar">
+    <div class="g">
+      <a class="brand" href="../">prawees</a>
+      <div class="tools">
+        <button type="button" id="btn-th" class="active" onclick="setLang('th')">th</button>
+        <span class="sep">/</span>
+        <button type="button" id="btn-en" onclick="setLang('en')">en</button>
+      </div>
+      <nav class="nav" aria-label="main">
         <a href="../">home</a>
-        <span class="slash">/</span>
-        <span class="here">about</span>
-        <span class="slash">/</span>
-        <a href="https://blog.prawees.com">blog</a>
-        <span class="slash">/</span>
+        <a href="./" aria-current="page">about</a>
         <a href="../gallery/">gallery</a>
-        <span class="slash">/</span>
-      </div>
-      <span class="sticky-greeting" id="sticky-greeting">hi, i'm smart :-)</span>
-      <div class="lang">
-        <button class="active btn-th" onclick="setLang('th')">th</button>
-        <span class="slash">/</span>
-        <button class="btn-en" onclick="setLang('en')">en</button>
-      </div>
+      </nav>
     </div>
-  </div>
-
-
+  </header>
 
   <div class="wrap">
 
-    <!-- TOP -->
-    <div class="topbar">
-      <div class="crumbs">
-        <a href="../">home</a>
-        <span class="slash">/</span>
-        <span class="here">about</span>
-        <span class="slash">/</span>
-        <a href="https://blog.prawees.com">blog</a>
-        <span class="slash">/</span>
-        <a href="../gallery/">gallery</a>
-        <span class="slash">/</span>
-      </div>
-      <div class="lang">
-        <button id="btn-th" class="active" onclick="setLang('th')">th</button>
-        <span class="slash">/</span>
-        <button id="btn-en" onclick="setLang('en')">en</button>
-      </div>
-    </div>
-
     <!-- HERO -->
-    <section class="hero" id="hero-section">
+    <section class="hero" id="hero-section" data-amb="../assets/home/frame-4.jpg">
       <div class="hero-portrait">
         <img src="../assets/portrait.jpg" alt="prawee" loading="eager">
       </div>
@@ -1047,7 +1019,7 @@
     </section>
 
     <!-- 01 OVERVIEW -->
-    <section class="section sec-01" data-reveal>
+    <section class="section sec-01" data-reveal data-amb="../assets/home/frame-4.jpg">
       <div class="sec-head">
         <span class="sec-num">01</span>
         <span class="sec-title" data-th="ภาพรวม" data-en="overview">ภาพรวม</span>
@@ -1063,7 +1035,7 @@
     </section>
 
     <!-- 02 EDUCATION -->
-    <section class="section sec-02" data-reveal>
+    <section class="section sec-02" data-reveal data-amb="../assets/home/frame-3.jpg">
       <div class="sec-head">
         <span class="sec-num">02</span>
         <span class="sec-title" data-th="การศึกษา" data-en="education">การศึกษา</span>
@@ -1115,7 +1087,7 @@
     </section>
 
     <!-- 03 EXPERIENCE -->
-    <section class="section sec-03" data-reveal>
+    <section class="section sec-03" data-reveal data-amb="../assets/home/frame-1.jpg">
       <div class="sec-head">
         <span class="sec-num">03</span>
         <span class="sec-title" data-th="ประสบการณ์" data-en="experience">ประสบการณ์</span>
@@ -1163,19 +1135,19 @@
             <div class="tl-title" data-th="พิธีกรดำเนินรายการ" data-en="master of ceremonies">พิธีกรดำเนินรายการ</div>
             <div class="tl-desc"
               data-th="ทำหน้าที่พิธีกรทั้งในระดับสถาบันและนานาชาติ เช่น tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa thailand (2021–2023), rama roadshow (2021), และ ramsc career month (2026)"
-              data-en="mc across 8+ events, tisf 2019, mwit science fair 2020, amsa thailand webinars (2021–2023), rama roadshow (2021), ramsc career month (2026)">
+              data-en="mc at institutional and international events, including tisf 2019, mwit science fair 2020, amsa thailand webinars (2021–2023), rama roadshow (2021), ramsc career month (2026)">
               ทำหน้าที่พิธีกรทั้งในระดับสถาบันและนานาชาติ เช่น tisf 2019, mwit science fair 2020, เว็บบินาร์ amsa
               thailand (2021–2023), rama roadshow
               (2021), และ ramsc career month (2026)</div>
             <div class="photo-gallery">
               <div class="photo-frame">
                 <img src="../assets/emcee.jpg" alt="พิธีกร Career Month 2026 @ Ramathibodi" loading="lazy">
-                <div class="embed-caption" data-th="พิธีกร Career Month" data-en="Career Month MC">พิธีกร Career Month
+                <div class="embed-caption" data-th="พิธีกร Career Month" data-en="career month mc">พิธีกร Career Month
                 </div>
               </div>
               <div class="photo-frame">
                 <img src="../assets/experience%20sharing.jpeg" alt="โครงการต้นกล้ารามาธิบดี" loading="lazy">
-                <div class="embed-caption" data-th="โครงการต้นกล้ารามาธิบดี" data-en="Tonkla Ramathibodi Project">
+                <div class="embed-caption" data-th="โครงการต้นกล้ารามาธิบดี" data-en="tonkla ramathibodi project">
                   โครงการต้นกล้ารามาธิบดี</div>
               </div>
             </div>
@@ -1219,10 +1191,10 @@
             <div class="photo-gallery">
               <div class="photo-frame">
                 <img src="../assets/poster_2024.png" alt="โปสเตอร์สรุปงานวิ่ง" loading="lazy">
-                <div class="embed-caption" style="margin-bottom: 2px;" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="Virtual Run Poster">
+                <div class="embed-caption" style="margin-bottom: 2px;" data-th="โปสเตอร์สรุปงานวิ่ง" data-en="virtual run poster">
                   โปสเตอร์สรุปงานวิ่ง</div>
                 <div style="font-size: 10px; color: #A0A0A0; font-family: 'IBM Plex Sans Thai', sans-serif; text-align: center; line-height: 1.4;">
-                  <span data-th="อ่านรายงานฉบับเต็มได้ที่ " data-en="Read the full recap at ">อ่านรายงานฉบับเต็มได้ที่ </span>
+                  <span data-th="อ่านรายงานฉบับเต็มได้ที่ " data-en="read the full recap at ">อ่านรายงานฉบับเต็มได้ที่ </span>
                   <a href="https://ramathonrun.pythonanywhere.com/events/recap2024" target="_blank" rel="noopener" style="color: var(--link); text-decoration: none;">/recap2024</a>
                 </div>
               </div>
@@ -1235,7 +1207,7 @@
                 <div
                   style="font-size: 10px; color: #A0A0A0; font-family: 'IBM Plex Sans Thai', sans-serif; text-align: center; line-height: 1.4;"
                   data-th="ชาเลนจ์รวมภาพท้องฟ้าจากนักวิ่งกว่าร้อยท่าน เป็นภาพจากงานวิ่งเมื่อปี 2024 ที่ผมชอบที่สุดเลยครับ"
-                  data-en="Sky photo challenge from hundreds of runners. One of my favorite pictures from the 2024 run.">
+                  data-en="a sky photo challenge with over a hundred runners. my favourite picture from the 2024 run.">
                   ชาเลนจ์รวมภาพท้องฟ้าจากนักวิ่งกว่าร้อยท่าน เป็นภาพจากงานวิ่งเมื่อปี 2024 ที่ผมชอบที่สุดเลยครับ
                 </div>
               </div>
@@ -1314,7 +1286,7 @@
     </section>
 
     <!-- 04 PORTFOLIO -->
-    <section class="section sec-04" data-reveal>
+    <section class="section sec-04" data-reveal data-amb="../assets/home/frame-2.jpg">
       <div class="sec-head">
         <span class="sec-num">04</span>
         <span class="sec-title" data-th="ผลงาน" data-en="portfolio">ผลงาน</span>
@@ -1388,7 +1360,7 @@
     </section>
 
     <!-- 05 INTERESTS / KEY:VALUE -->
-    <section class="section sec-05" data-reveal>
+    <section class="section sec-05" data-reveal data-amb="../assets/home/frame-4.jpg">
       <div class="sec-head">
         <span class="sec-num">05</span>
         <span class="sec-title" data-th="ความสนใจ" data-en="interests">ความสนใจ</span>
@@ -1418,7 +1390,7 @@
             แมนเชสเตอร์ ยูไนเต็ด</span>
         </div>
         <div class="kv-row">
-          <span class="kv-key" data-th="ภาพยนตร์โปรด" data-en="films">ภาพยนตร์โปรด</span>
+          <span class="kv-key" data-th="ภาพยนตร์โปรด" data-en="favourite films">ภาพยนตร์โปรด</span>
           <span class="kv-val" data-th="แสงศตวรรษ, เบลด รันเนอร์ 2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่"
             data-en="syndromes and a century, blade runner 2049, sing street, the tin mine">แสงศตวรรษ, เบลด รันเนอร์
             2049, รักใครให้ร้องเพลงรัก, มหา'ลัยเหมืองแร่</span>
@@ -1427,7 +1399,7 @@
     </section>
 
     <!-- 06 SOUNDTRACK -->
-    <section class="section sec-06" data-reveal>
+    <section class="section sec-06" data-reveal data-amb="../assets/home/frame-3.jpg">
       <div class="sec-head">
         <span class="sec-num">06</span>
         <span class="sec-title" data-th="เพลง" data-en="soundtrack">เพลง</span>
@@ -1493,32 +1465,27 @@
     </div>
 
     <!-- 07 GALLERY -->
-    <section class="section sec-07" data-reveal>
+    <section class="section sec-07" data-reveal data-amb="../assets/home/frame-1.jpg">
       <div class="sec-head">
         <span class="sec-num">07</span>
         <span class="sec-title" data-th="ภาพ" data-en="photos">ภาพ</span>
         <span class="sec-rule"></span>
       </div>
 
-      <p class="song-intro" data-th="อ้อ ผมชอบถ่ายภาพด้วยครับ" data-en="i also like taking photos as well.">
+      <p class="song-intro" data-th="อ้อ ผมชอบถ่ายภาพด้วยครับ" data-en="oh, i like taking photos too.">
         อ้อ ผมชอบถ่ายภาพด้วยครับ
       </p>
       <p style="font-size: 11.5px; color: var(--ink-faint); margin-top: -12px; margin-bottom: 24px; font-family: 'IBM Plex Mono', monospace;"
         data-reveal data-th="คลิกด้านล่างเพื่อเข้าไปดูแกลลอรี่ของผมได้นะครับ c:"
-        data-en="click below to view more pics i took c:">
+        data-en="click below to visit my gallery c:">
         คลิกด้านล่างเพื่อเข้าไปดูแกลลอรี่ของผมได้นะครับ c:
       </p>
 
-      <a href="../gallery/"
-        onclick="event.preventDefault(); this.style.transition='all 0.5s ease'; this.style.transform='scale(1.1)'; this.style.opacity='0'; setTimeout(()=>window.location.href='../gallery/', 400);"
-        id="gallery-preview-wrap" style="display:block; text-decoration:none; cursor:pointer;" data-reveal>
-        <div class="website-preview"
-          style="height: 420px; margin-bottom: 56px; pointer-events: none; overflow: hidden;">
-          <iframe src="../gallery/index.html" id="gallery-iframe"
-            style="width: 250%; height: 300%; transform: scale(0.4); transform-origin: 0 0;" scrolling="no"
-            tabindex="-1"></iframe>
-        </div>
-      </a>
+      <div class="gal-strip" data-reveal>
+        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1.5" src="../assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
+        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1" src="../assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
+        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1" src="../assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
+      </div>
     </section>
 
     <!-- SOCIAL STRIP -->
@@ -1541,10 +1508,12 @@
   </div>
 
   <script async src="https://www.tiktok.com/embed.js"></script>
-  <script src="../assets/typewriter.js"></script>
+  <script src="../assets/typewriter.js?v=6"></script>
+  <script src="../assets/dither.js?v=6"></script>
 
   <script>
     function setLang(lang) {
+      try { localStorage.setItem('prawees.lang', lang); } catch (e) {}
       document.getElementById('btn-th').classList.toggle('active', lang === 'th');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.body.className = 'lang-' + lang;
@@ -1589,29 +1558,14 @@
     document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.remove('no-transition');
       const tag = document.getElementById('hero-tagline');
-      if (tag) window.typeText(tag, tag.getAttribute('data-th'), { speed: 16, delay: 250 });
+      let saved = null; try { saved = localStorage.getItem('prawees.lang'); } catch (e) {}
+      if (saved === 'en') setLang('en');
+      else if (tag) window.typeText(tag, tag.getAttribute('data-th'), { speed: 16, delay: 250 });
       setupReveal();
-      
-      const stickyBar = document.getElementById('sticky-bar');
-      const heroSec = document.getElementById('hero-section');
-      if (stickyBar && heroSec) {
-        const obs = new IntersectionObserver((es) => {
-          es.forEach(e => {
-            if (!e.isIntersecting) {
-              stickyBar.classList.add('visible');
-            } else {
-              stickyBar.classList.remove('visible');
-            }
-          });
-        }, { threshold: 0.1 });
-        obs.observe(heroSec);
-      }
     });
 
 
 
-    document.getElementById('btn-th').classList.add('active');
-    document.body.className = 'lang-th';
   </script>
 
 
