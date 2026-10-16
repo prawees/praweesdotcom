@@ -39,6 +39,9 @@
   --d2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Cpath fill='%23111' d='M0 0h1v1h-1zM2 2h1v1h-1z'/%3E%3C/svg%3E");
 }
 
+/* the gallery ends in a dithered fade to black (assets/dither.js adds .night once it is dark enough to read light text) */
+html.night { --paper: #0b0b0b; --ink: #f2f2f2; --mid: #a6a6a6; --light: #2a2a2a; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--paper); }
@@ -87,12 +90,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav { grid-row: 2; grid-column: 1 / 5; display: flex; gap: 22px; font-size: var(--fs-s); padding-bottom: 2px; }
 .nav a { text-decoration: none; color: var(--mid); }
 /* "hi, i'm Smart" sits in the bar's empty space once the big greeting has scrolled away */
-.hi { grid-row: 2; grid-column: 3 / 5; justify-self: end; align-self: center; white-space: nowrap; pointer-events: none; font-size: var(--fs-s); line-height: 1.2; color: var(--mid); opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s .35s; }
-.hi b { color: var(--ink); font-weight: 700; }
+.hi { grid-row: 2; grid-column: 3 / 5; justify-self: end; align-self: center; white-space: nowrap; pointer-events: none; font-size: var(--fs-b); line-height: 1.2; letter-spacing: -.01em; color: var(--mid); opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s .35s; }
+.hi b { color: var(--ink); font-weight: 700; transition: color .5s ease; }
 .hi.on { opacity: 1; visibility: visible; transition: opacity .35s ease; }
 @media (min-width: 768px) { .hi { grid-row: 1; grid-column: 7 / 10; justify-self: start; } }
 @media (max-width: 359px) { .hi { display: none; } }
-@media (prefers-reduced-motion: reduce) { .hi, .hi.on { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .hi, .hi.on, .hi b { transition: none; } }
 .nav a:hover, .nav a[aria-current] { color: var(--ink); }
 .nav a[aria-current] { text-decoration: underline; text-decoration-color: var(--ink); }
 .tools button { padding: 12px 6px; color: var(--mid); min-height: 44px; }

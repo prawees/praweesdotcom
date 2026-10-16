@@ -9,63 +9,62 @@
   <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/base.css?v=5">
-  <link rel="stylesheet" href="../assets/site.css?v=5">
+  <link rel="stylesheet" href="../assets/base.css?v=6">
+  <link rel="stylesheet" href="../assets/site.css?v=6">
   <style>
-    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-
-    /* ---------- title ---------- */
-    .gh { padding-top: 32px; row-gap: 10px; }
+    /* ---------- title: still, no motion ---------- */
+    .gh { padding-top: 32px; }
     .gh h1 { grid-column: 1 / -1; width: fit-content; max-width: 100%; font-size: clamp(26px, 5vw, 64px); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; }
-    /* each word comes up out of a soft blur, one after the other, then the two dots breathe slowly */
-    .gh h1 .w { display: inline-block; opacity: 0; filter: blur(7px); transform: translate3d(0, 5px, 0); animation: gt-in 2s ease-out both; animation-delay: calc(.25s + var(--i) * .35s); }
-    @keyframes gt-in { 0% { opacity: 0; filter: blur(7px); transform: translate3d(0, 5px, 0); } 100% { opacity: 1; filter: blur(0); transform: none; } }
-    .dots i { font-style: normal; animation: gt-dot 4s ease-in-out infinite; }
-    .dots i + i { animation-delay: .7s; }
-    @keyframes gt-dot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-    .gh p { grid-column: 1 / -1; width: fit-content; max-width: 52ch; color: var(--mid); font-size: var(--fs-s); }
-    @media (min-width: 768px) { .gh { padding-top: 56px; } .gh p { grid-column: 4 / 11; } }
+    @media (min-width: 768px) { .gh { padding-top: 56px; } }
 
-    .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 20px; }
-    .jump a { font-size: var(--fs-s); text-decoration: none; padding: 6px 0; color: var(--mid); }
-    .jump a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
-    .jump a small { font-size: 12px; margin-left: 4px; }
-    @media (min-width: 768px) { .jump { grid-column: 4 / 13; } }
-
-    /* ---------- one continuous flow: two columns, photographs stacked, chapter names set into the flow ---------- */
-    .g.flow { display: block; position: relative; padding-top: 72px; padding-bottom: 8px; }
-    .cols { display: flex; gap: 12px; align-items: flex-start; }
-    .col { flex: 1 1 0; min-width: 0; }
-    .col + .col { padding-top: 40px; }
-    @media (min-width: 768px) { .cols { gap: 28px; } .col + .col { padding-top: 96px; } .g.flow { padding-top: 96px; } }
-
-    .lab { margin: 56px 0 28px; scroll-margin-top: 88px; }
-    .col:last-child .lab { text-align: right; }
-    .lab .n { display: block; font-size: var(--fs-s); color: var(--mid); }
-    .lab h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; margin: 2px 0 8px; }
-    .lab p { font-size: var(--fs-s); color: var(--mid); }
-    .lab .ct { display: block; margin-top: 2px; }
-    @media (min-width: 768px) { .lab { margin: 96px 0 40px; } .lab p { max-width: 30ch; } .col:last-child .lab p { margin-left: auto; } }
-    .col > .lab:first-child { margin-top: 0; }
-
-    .gallery-item { margin-bottom: 36px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity .7s ease, transform .7s ease; }
-    .gallery-item.in { opacity: 1; transform: none; }
-    @media (min-width: 768px) { .gallery-item { margin-bottom: 64px; gap: 10px; } }
+    /* ---------- the flow: rows of photographs, edge to edge, a hair apart ----------
+       Rows are filled so every photograph in a row has the same height; how many sit in a row depends on their shapes.
+       Chapter keywords are set in dither, small, on alternating sides, between the rows. */
+    .flow { position: relative; padding-top: 40px; min-height: 80vh; }
+    .row { display: flex; gap: 3px; margin-bottom: 4px; align-items: flex-start; }
+    @media (max-width: 599px) { .row { gap: 2px; } }
+    .gallery-item { min-width: 0; display: block; }
     .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
-    .gallery-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; line-height: 1.35; }
-    @media (min-width: 768px) { .gallery-meta { font-size: var(--fs-s); } }
-    .gallery-meta button { text-align: left; color: var(--mid); text-decoration: none; padding: 2px 0; }
-    .gallery-meta button:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-    .gallery-meta span { color: var(--ink); text-align: right; }
-    @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; transform: none; } .dots i { animation: none; } .gh h1 .w { animation: none; opacity: 1; filter: none; transform: none; } }
+    .gallery-meta { padding: 0 2px; line-height: 1; }
+    .gallery-meta button { display: block; max-width: 100%; padding: 7px 0 9px; font-size: 11px; line-height: 1; letter-spacing: .01em; color: var(--mid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+    .gallery-meta button:hover { color: var(--ink); }
+    @media (pointer: coarse) { .gallery-meta button { padding: 9px 0 11px; } }
+    .sw { display: inline-block; width: 7px; height: 7px; margin-right: 6px; vertical-align: 0; }
+
+    .lab { padding: 0 var(--padr) 0 var(--pad); margin: 72px auto 22px; max-width: none; }
+    .lab.r { text-align: right; }
+    .lab h2 { display: inline-block; font-size: clamp(34px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.04em; padding-bottom: .08em;
+      color: transparent; -webkit-text-fill-color: transparent; background-image: var(--d8); background-size: 4px 4px; -webkit-background-clip: text; background-clip: text; image-rendering: pixelated; }
+    .lab p { margin-top: 4px; font-size: 12px; color: var(--mid); }
+    .lab:first-child { margin-top: 24px; }
+    @media (min-width: 768px) { .lab { margin: 112px auto 30px; } .lab:first-child { margin-top: 32px; } }
+
+    /* film filter header */
+    .fbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; padding: 0 var(--padr) 0 var(--pad); margin: 24px 0 28px; }
+    .fbar h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
+    .fbar button { font-size: var(--fs-s); color: var(--mid); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
+    .fbar .sw { width: 10px; height: 10px; }
 
     .mk { position: absolute; left: 0; width: 1px; pointer-events: none; visibility: hidden; }
 
-    /* film filter header */
-    .fbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; margin-bottom: 48px; }
-    .fbar h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
-    .fbar .ct { color: var(--mid); font-size: var(--fs-s); }
-    .fbar button { font-size: var(--fs-s); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
+    /* ---------- the end: the page dissolves to black, then the cameras, the film and instagram ---------- */
+    .end { padding-top: 78vh; padding-top: 78svh; }
+    .end .sec { padding-top: 40px; }
+    @media (min-width: 768px) { .end .sec { padding-top: 56px; } }
+    .end .label { font-size: var(--fs-s); }
+    .list { list-style: none; }
+    .list li { border-top: 1px solid var(--light); }
+    .list .row2 { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 11px 0; text-align: left; font-size: var(--fs-b); }
+    .list .row2 .sw { width: 10px; height: 10px; margin: 0; align-self: center; flex: none; }
+    .list .row2 .nm { flex: 1 1 auto; min-width: 0; }
+    .list .row2 .hx { color: var(--mid); font-size: 12px; letter-spacing: .02em; font-variant-numeric: tabular-nums; text-transform: uppercase; }
+    .list button.row2 { cursor: pointer; }
+    .list button.row2:hover .nm { text-decoration: underline; text-underline-offset: 4px; }
+    .list button.row2[aria-pressed="true"] .nm { font-weight: 700; }
+    @media (min-width: 768px) { .list.two { columns: 2; column-gap: 32px; } .list.two li { break-inside: avoid; } }
+    .ig { width: 100%; max-width: 540px; height: 600px; border: 0; display: block; background: #fff; }
+    .ig-link { display: inline-block; margin-top: 14px; font-size: var(--fs-s); }
+    .end .foot { padding-top: 96px; }
 
     /* ---------- viewer ---------- */
     .lb { position: fixed; inset: 0; z-index: 8000; background: var(--paper); display: none; grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom)); }
@@ -77,29 +76,6 @@
     .lb .cap span:first-child { font-weight: 700; }
     .lb .cap span:last-child { color: var(--mid); }
     .lb .nav2 { display: flex; gap: 4px; }
-
-    /* ---------- notes sheet ---------- */
-    .modal { position: fixed; inset: 0; background: var(--paper); z-index: 9000; overflow-y: auto; overscroll-behavior: contain; opacity: 0; visibility: hidden; transition: opacity .25s steps(5, end), visibility 0s .25s; padding: max(16px, env(safe-area-inset-top)) 0 max(56px, env(safe-area-inset-bottom)); }
-    .modal.open { opacity: 1; visibility: visible; transition: opacity .25s steps(5, end); }
-    .modal .back { display: block; min-height: 44px; font-size: var(--fs-b); text-decoration: underline; text-underline-offset: 3px; }
-    .modal .head { padding-top: 8px; row-gap: 8px; }
-    .modal .head .back { grid-column: 1 / -1; width: fit-content; }
-    .modal h2.t { grid-column: 1 / -1; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; margin-top: 24px; }
-    .modal .sec { padding-top: 48px; }
-    @media (min-width: 768px) { .modal .sec { padding-top: 72px; } .modal h2.t { margin-top: 40px; } }
-    .modal .note { font-size: var(--fs-s); color: var(--mid); margin-bottom: 16px; }
-    .list { list-style: none; }
-    .list li { border-top: 1px solid var(--light); }
-    .list .row { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 12px 0; text-align: left; font-size: var(--fs-b); }
-    .list .row .sw { width: 10px; height: 10px; flex: none; align-self: center; }
-    .list .row .nm { flex: 1 1 auto; min-width: 0; }
-    .list .row .ct { color: var(--mid); font-size: var(--fs-s); font-variant-numeric: tabular-nums; }
-    .list .row .sm { color: var(--mid); font-size: var(--fs-s); }
-    .list button.row:hover .nm { text-decoration: underline; text-underline-offset: 4px; }
-    .list button.row[aria-pressed="true"] .nm { font-weight: 700; }
-    @media (min-width: 768px) { .list.two { columns: 2; column-gap: 32px; } .list.two li { break-inside: avoid; } }
-    .ig { width: 100%; max-width: 540px; height: 600px; border: 1px solid var(--light); display: block; background: var(--paper); }
-    .ig-link { display: inline-block; margin-top: 14px; font-size: var(--fs-s); }
   </style>
 </head>
 
@@ -112,7 +88,6 @@
         <button type="button" class="btn-th active" onclick="setLang('th')">th</button>
         <span class="sep">/</span>
         <button type="button" class="btn-en" onclick="setLang('en')">en</button>
-        <button type="button" id="notes-btn" class="tog">notes</button>
       </div>
       <nav class="nav" aria-label="main">
         <a href="../">home</a>
@@ -124,18 +99,41 @@
 
   <main>
     <section class="g gh" data-amb="../assets/home/frame-2.jpg">
-      <h1 id="gt"><span class="w" style="--i:0">keep</span> <span class="w" style="--i:1">looking</span> <span class="w" style="--i:2">outside<span class="dots" aria-hidden="true"><i>.</i><i>.</i></span></span></h1>
-      <p data-th="กดที่รูปเพื่อดูภาพเต็มนะครับ" data-en="tap a photo to view it full size">กดที่รูปเพื่อดูภาพเต็มนะครับ</p>
-      <nav class="jump" id="jump" aria-label="chapters"></nav>
+      <h1 id="gt">keep looking outside..</h1>
     </section>
 
-    <section class="g flow" id="flow"><div class="cols" id="cols"></div></section>
+    <section class="flow" id="flow"><div id="rows"></div></section>
     <noscript><section class="g"><p>this page needs javascript to show the photographs.</p></section></noscript>
   </main>
 
-  <footer class="g foot">
-    <span>© 2026 prawees</span>
-    <span><a href="../">prawee sinweeruthai →</a></span>
+  <footer class="end" id="end" data-night>
+    <section class="g sec">
+      <p class="label"><span data-th="กล้อง" data-en="cameras">กล้อง</span></p>
+      <div class="body">
+        <ul class="list">
+          <li><span class="row2"><span class="nm">Olympus XA2</span></span></li>
+          <li><span class="row2"><span class="nm">Nikon FE2</span></span></li>
+          <li><span class="row2"><span class="nm">Ricoh GR3</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="g sec">
+      <p class="label"><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+      <div class="body"><ul class="list two" id="film-list"></ul></div>
+    </section>
+
+    <section class="g sec">
+      <p class="label"><span>instagram</span></p>
+      <div class="body" id="ig-body">
+        <a class="ig-link" href="https://www.instagram.com/prawee.sin/" target="_blank" rel="noopener" data-th="เปิดใน instagram @prawee.sin →" data-en="open @prawee.sin on instagram →">เปิดใน instagram @prawee.sin →</a>
+      </div>
+    </section>
+
+    <div class="g foot">
+      <span>© 2026 prawees</span>
+      <span><a href="../">prawee sinweeruthai →</a></span>
+    </div>
   </footer>
 
   <!-- Viewer -->
@@ -145,45 +143,11 @@
     <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
   </div>
 
-  <!-- Notes sheet: cameras, film (tap one to see every photo on it), instagram -->
-  <div id="notes" class="modal" role="dialog" aria-modal="true" aria-label="notes">
-    <div class="g head">
-      <button id="notes-close" class="back" type="button" data-th="← กลับ" data-en="← back">← กลับ</button>
-      <h2 class="t" data-th="บันทึก" data-en="notes">บันทึก</h2>
-    </div>
-
-    <section class="g sec">
-      <p class="label"><b>01</b><span data-th="กล้อง" data-en="cameras">กล้อง</span></p>
-      <div class="body">
-        <ul class="list">
-          <li><span class="row"><span class="nm">Olympus XA2</span></span></li>
-          <li><span class="row"><span class="nm">Nikon FE2</span></span></li>
-          <li><span class="row"><span class="nm">Ricoh GR3</span><span class="sm" data-th="ดิจิทัล" data-en="digital">ดิจิทัล</span></span></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="g sec">
-      <p class="label"><b>02</b><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
-      <div class="body">
-        <p class="note" data-th="กดที่ชื่อฟิล์มเพื่อดูภาพทั้งหมดที่ถ่ายด้วยฟิล์มนั้น" data-en="tap a film to see every photo shot on it">กดที่ชื่อฟิล์มเพื่อดูภาพทั้งหมดที่ถ่ายด้วยฟิล์มนั้น</p>
-        <ul class="list two" id="film-list"></ul>
-      </div>
-    </section>
-
-    <section class="g sec">
-      <p class="label"><b>03</b><span>instagram</span></p>
-      <div class="body" id="ig-body">
-        <a class="ig-link" href="https://www.instagram.com/prawee.sin/" target="_blank" rel="noopener" data-th="เปิดใน instagram @prawee.sin →" data-en="open @prawee.sin on instagram →">เปิดใน instagram @prawee.sin →</a>
-      </div>
-    </section>
-  </div>
-
-  <script src="../assets/film/frames.js?v=5"></script>
+  <script src="../assets/film/frames.js?v=6"></script>
   <script>
-    /* Gallery. Everything is one flow of two columns. Photographs go into whichever column is shorter,
-       and each chapter name is set into the flow on alternating sides, so the page keeps moving with no rules or bands.
-       The film names under the photographs, and the list in the notes sheet, filter the whole gallery to that film. */
+    /* Gallery. Photographs are laid out in rows that fill the width edge to edge, a few pixels apart.
+       The rows are chosen so the photographs in each row come out at about the same height, whatever their shapes.
+       Tapping the film name under a photograph, or in the list at the bottom, shows only that film. */
     (function () {
       var CHAPTERS = window.FILM_CHAPTERS || [];
       var FRAMES = ['../assets/home/frame-4.jpg', '../assets/home/frame-3.jpg', '../assets/home/frame-1.jpg', '../assets/home/frame-2.jpg'];
@@ -193,16 +157,10 @@
       try { var sv = localStorage.getItem('prawees.lang'); if (sv === 'en' || sv === 'th') LANG = sv; } catch (e) {}
       function tr(th, en) { return LANG === 'th' ? th : en; }
       function norm(s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ''); }
-      function pad2(n) { return n < 10 ? '0' + n : '' + n; }
-      function countText(n) { return LANG === 'th' ? n + ' ภาพ' : n + (n === 1 ? ' photograph' : ' photographs'); }
+      function hexOf(key) { return SW[key] || '#E5E5E5'; }
 
-      var flow = document.getElementById('flow'), colsEl = document.getElementById('cols'), jump = document.getElementById('jump');
+      var flow = document.getElementById('flow'), rowsEl = document.getElementById('rows');
       var all = [], chapters = [], view = [], filter = null, markers = [];
-
-      /* ---------- reveal on scroll ---------- */
-      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { rootMargin: '0px 0px -6% 0px' }) : null;
 
       /* ---------- one photograph ---------- */
       function makeItem(it) {
@@ -213,13 +171,13 @@
         img.addEventListener('error', function () { item.style.display = 'none'; });
         img.addEventListener('click', function () { openViewer(it); });
         var meta = document.createElement('div'); meta.className = 'gallery-meta';
-        var l = document.createElement('button'); l.type = 'button'; l.textContent = it.film;
+        var l = document.createElement('button'); l.type = 'button'; l.title = hexOf(it.key);
+        var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(it.key);
+        l.appendChild(sw); l.appendChild(document.createTextNode(it.film));
         l.addEventListener('click', function () { setFilter(it.key); });
-        var r = document.createElement('span'); r.textContent = it.t || '';
-        meta.appendChild(l); meta.appendChild(r);
+        meta.appendChild(l);
         item.appendChild(img); item.appendChild(meta);
-        it.el = item;
-        if (io) io.observe(item); else item.classList.add('in');
+        it.el = item; it.ar = it.w / it.h;
         return item;
       }
 
@@ -237,46 +195,68 @@
         flow.appendChild(m); markers.push(m);
       });
 
-      /* ---------- layout: deal into the shorter column ---------- */
-      var CAP = 38;
+      /* ---------- rows ----------
+         Partition a chapter's photographs, in order, into rows. A row of k photographs with aspect ratios a1..ak
+         across width W has height (W - gaps) / (a1 + .. + ak); the partition whose row heights stay closest to a
+         target height wins (dynamic programming). The target wobbles a little from row to row so the page
+         does not look machined. The last row may stop short of the edge rather than blow one photograph up. */
+      function jit(n) { return ((Math.imul(n + 1, 2654435761) >>> 0) % 1000) / 1000; }
+      function partition(list, W, gap, target, seed) {
+        var n = list.length, best = [0], from = [0], capH = [], i, j;
+        for (i = 1; i <= n; i++) {
+          best[i] = 1e18;
+          var sum = 0;
+          for (j = i - 1; j >= 0 && i - j <= 5; j--) {
+            sum += list[j].ar;
+            var k = i - j, h = (W - gap * (k - 1)) / sum, tg = target * (0.88 + 0.24 * jit(seed + j)), c, hh = h;
+            if (i === n && h > tg * 1.3) { hh = tg * 1.3; c = (hh - tg) * (hh - tg) * 1.5; }
+            else c = (h - tg) * (h - tg);
+            if (k === 1 && h > target * 1.45 && i !== n) c *= 2;     // a lone enlarged photograph is rarely wanted mid-chapter
+            if (best[j] + c < best[i]) { best[i] = best[j] + c; from[i] = j; capH[i] = hh / h; }
+          }
+        }
+        var rows = [];
+        for (i = n; i > 0; i = from[i]) rows.unshift({ items: list.slice(from[i], i), fill: i === n ? Math.min(1, capH[i]) : 1 });
+        return rows;
+      }
+
+      function emitRows(host, list, W, gap, target, seed) {
+        partition(list, W, gap, target, seed).forEach(function (r) {
+          var row = document.createElement('div'); row.className = 'row';
+          if (r.fill < 0.999) row.style.width = (r.fill * 100).toFixed(2) + '%';
+          r.items.forEach(function (it) { it.el.style.flex = it.ar.toFixed(4) + ' 1 0%'; row.appendChild(it.el); });
+          host.appendChild(row);
+        });
+      }
+
       function layout() {
-        colsEl.innerHTML = '';
-        var cs = [document.createElement('div'), document.createElement('div')], hs = [0, 0];
-        cs.forEach(function (c) { c.className = 'col'; colsEl.appendChild(c); });
-        var gap = window.innerWidth >= 768 ? 28 : 12;
-        var colW = Math.max(120, (colsEl.clientWidth - gap) / 2);
-        var margin = window.innerWidth >= 768 ? 64 : 36;
-        function shorter() { return hs[0] <= hs[1] ? 0 : 1; }
-        function put(c, it) { cs[c].appendChild(it.el); hs[c] += colW * it.h / it.w + CAP + margin; }
+        var W = flow.clientWidth || window.innerWidth, gap = W < 600 ? 2 : 3;
+        var target = W < 600 ? 270 : W < 1000 ? 340 : Math.min(470, W * 0.29);
+        rowsEl.innerHTML = '';
+        var old = flow.querySelector('.fbar'); if (old) old.remove();
         view = [];
         var labels = [];
         if (filter) {
           var items = all.filter(function (it) { return it.key === filter; });
           var bar = document.createElement('div'); bar.className = 'fbar';
-          var h = document.createElement('h2'); h.textContent = items.length ? items[0].film : '';
-          var ct = document.createElement('span'); ct.className = 'ct'; ct.textContent = countText(items.length);
+          var h = document.createElement('h2');
+          var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(filter);
+          h.appendChild(sw); h.appendChild(document.createTextNode(items.length ? items[0].film : ''));
           var b = document.createElement('button'); b.type = 'button'; b.textContent = tr('ดูทั้งหมด', 'show all');
           b.addEventListener('click', function () { setFilter(null); });
-          bar.appendChild(h); bar.appendChild(ct); bar.appendChild(b);
-          colsEl.parentNode.insertBefore(bar, colsEl);
-          items.forEach(function (it) { put(shorter(), it); view.push(it); });
-          jump.style.display = 'none';
+          bar.appendChild(h); bar.appendChild(b);
+          flow.insertBefore(bar, rowsEl);
+          emitRows(rowsEl, items, W, gap, target, 7);
+          items.forEach(function (it) { view.push(it); });
         } else {
-          var old = flow.querySelector('.fbar'); if (old) old.remove();
-          jump.style.display = '';
-          var lastY = -1e9;
           chapters.forEach(function (c, ci) {
-            var side = ci % 2;                              // names alternate: left, right, left ...
-            var lab = document.createElement('div'); lab.className = 'lab'; lab.id = c.id;
-            var need = lastY + 220 - hs[side];             // keep chapter names in reading order
-            if (need > 0) { lab.style.paddingTop = need + 'px'; hs[side] += need; }
-            lab.innerHTML = '<span class="n"></span><h2></h2><p></p><p class="ct"></p>';
-            lab.querySelector('.n').textContent = pad2(ci + 1);
+            var lab = document.createElement('div'); lab.className = 'lab' + (ci % 2 ? ' r' : ''); lab.id = c.id;
+            lab.innerHTML = '<h2></h2><p></p>';
             lab.querySelector('h2').textContent = c.id;
             lab.querySelector('p').textContent = c.note;
-            lab.querySelector('.ct').textContent = countText(c.items.length);
-            cs[side].appendChild(lab); lastY = hs[side]; hs[side] += 190; labels.push(lab);
-            c.items.forEach(function (it) { put(shorter(), it); view.push(it); });
+            rowsEl.appendChild(lab); labels.push(lab);
+            emitRows(rowsEl, c.items, W, gap, target, ci * 37);
+            c.items.forEach(function (it) { view.push(it); });
           });
         }
         placeMarkers(labels);
@@ -292,21 +272,12 @@
         }
       }
 
-      function renderJump() {
-        jump.innerHTML = '';
-        chapters.forEach(function (c) {
-          var a = document.createElement('a'); a.href = '#' + c.id;
-          a.innerHTML = '<span></span><small></small>'; a.firstChild.textContent = c.id; a.lastChild.textContent = c.items.length;
-          jump.appendChild(a);
-        });
-      }
-
       function setFilter(key) {
         filter = key || null;
         layout();
-        var y = flow.getBoundingClientRect().top + window.pageYOffset - 88;
-        window.scrollTo(0, Math.max(0, y));
         buildFilmList();
+        var y = Math.max(0, flow.getBoundingClientRect().top + window.pageYOffset - 88);
+        try { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, y); }
       }
 
       /* ---------- viewer ---------- */
@@ -326,10 +297,12 @@
       var sx = null, stage = document.getElementById('lb-stage');
       stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
       stage.addEventListener('touchend', function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) setViewer(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeViewer(); else if (e.key === 'ArrowRight') setViewer(cur + 1); else if (e.key === 'ArrowLeft') setViewer(cur - 1);
+      });
 
-      /* ---------- notes sheet ---------- */
-      var notes = document.getElementById('notes'), nbtn = document.getElementById('notes-btn'), nclose = document.getElementById('notes-close');
-      var igDone = false;
+      /* ---------- the film list at the bottom: swatch, name, hex; tap to show only that film ---------- */
       function buildFilmList() {
         var ul = document.getElementById('film-list'); ul.innerHTML = '';
         var m = {}; all.forEach(function (it) { (m[it.key] = m[it.key] || { name: it.film, n: 0 }).n++; });
@@ -337,31 +310,28 @@
           .sort(function (a, b) { return b.n - a.n || (a.name < b.name ? -1 : 1); })
           .forEach(function (f) {
             var li = document.createElement('li'), b = document.createElement('button');
-            b.type = 'button'; b.className = 'row'; b.setAttribute('aria-pressed', filter === f.key ? 'true' : 'false');
-            var sw = document.createElement('span'); sw.className = 'sw'; sw.style.background = SW[f.key] || '#E5E5E5';
+            b.type = 'button'; b.className = 'row2'; b.setAttribute('aria-pressed', filter === f.key ? 'true' : 'false');
+            var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(f.key);
             var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name;
-            var ct = document.createElement('span'); ct.className = 'ct'; ct.textContent = f.n;
-            b.appendChild(sw); b.appendChild(nm); b.appendChild(ct);
-            b.addEventListener('click', function () { shut(); setFilter(filter === f.key ? null : f.key); });
+            var hx = document.createElement('span'); hx.className = 'hx'; hx.textContent = hexOf(f.key);
+            b.appendChild(sw); b.appendChild(nm); b.appendChild(hx);
+            b.addEventListener('click', function () { setFilter(filter === f.key ? null : f.key); });
             li.appendChild(b); ul.appendChild(li);
           });
       }
-      function openNotes() {
-        notes.classList.add('open'); document.body.style.overflow = 'hidden'; nclose.focus();
-        if (!igDone) {                                         // the embed loads only when the sheet is first opened
-          igDone = true;
-          var f = document.createElement('iframe'); f.className = 'ig'; f.title = 'prawee.sin on instagram'; f.setAttribute('scrolling', 'no'); f.setAttribute('loading', 'lazy');
-          f.src = 'https://www.instagram.com/prawee.sin/embed';
-          var body = document.getElementById('ig-body'); body.insertBefore(f, body.firstChild);
-        }
+
+      /* ---------- instagram: loads only when the bottom of the page is near ---------- */
+      var igBody = document.getElementById('ig-body'), igDone = false;
+      function loadIg() {
+        if (igDone) return; igDone = true;
+        var f = document.createElement('iframe'); f.className = 'ig'; f.title = 'prawee.sin on instagram'; f.setAttribute('scrolling', 'no'); f.setAttribute('loading', 'lazy');
+        f.src = 'https://www.instagram.com/prawee.sin/embed';
+        igBody.insertBefore(f, igBody.firstChild);
       }
-      function shut() { notes.classList.remove('open'); document.body.style.overflow = ''; }
-      nbtn.addEventListener('click', openNotes);
-      nclose.addEventListener('click', function () { shut(); nbtn.focus(); });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') { if (lb.classList.contains('open')) closeViewer(); else if (notes.classList.contains('open')) { shut(); nbtn.focus(); } }
-        else if (lb.classList.contains('open')) { if (e.key === 'ArrowRight') setViewer(cur + 1); else if (e.key === 'ArrowLeft') setViewer(cur - 1); }
-      });
+      if ('IntersectionObserver' in window) {
+        var igo = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { igo.disconnect(); loadIg(); } }, { rootMargin: '700px 0px' });
+        igo.observe(igBody);
+      } else window.addEventListener('load', loadIg);
 
       /* ---------- language ---------- */
       window.setLang = function (lang) {
@@ -376,15 +346,15 @@
         layout();
       };
 
-      renderJump();
       buildFilmList();
       window.setLang(LANG);
-      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 180); });
+      var rt, lastW = window.innerWidth;
+      window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lastW) > 2) { lastW = window.innerWidth; layout(); } else placeMarkers(filter ? [] : [].slice.call(rowsEl.querySelectorAll('.lab'))); }, 180); });
       window.addEventListener('load', function () { layout(); });
-      window.addEventListener('orientationchange', function () { setTimeout(layout, 300); });
+      window.addEventListener('orientationchange', function () { setTimeout(function () { lastW = window.innerWidth; layout(); }, 300); });
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
     })();
   </script>
-  <script src="../assets/dither.js?v=5"></script>
+  <script src="../assets/dither.js?v=6"></script>
 </body>
 </html>

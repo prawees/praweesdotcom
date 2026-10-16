@@ -233,13 +233,12 @@
       var t = on ? b.getAttribute('data-on') : b.getAttribute('data-off');
       if (t) b.textContent = t;
     });
-    try { localStorage.setItem(STORE, on ? '1' : '0'); } catch (e) { /* private mode */ }
   }
 
   function initToggle() {
-    var on = false;
-    try { on = localStorage.getItem(STORE) === '1'; } catch (e) { /* ignore */ }
-    setColour(on);
+    // the page-wide colour button has been retired: always start plain and forget any stored choice
+    try { localStorage.removeItem(STORE); } catch (e) { /* ignore */ }
+    setColour(false);
     d.querySelectorAll('[data-dz-toggle]').forEach(function (b) {
       b.addEventListener('click', function () { setColour(!d.documentElement.classList.contains('colour')); });
     });
@@ -266,6 +265,8 @@
     var ctx = cv.getContext('2d');
     var srcs = secs.map(function (s) { return s.getAttribute('data-amb'); });
     var frames = {}, cols = 0, vis = 0, tot = 0, imgData = null, lastKey = '', queued = false, shown = false;
+    var nightEl = d.querySelector('[data-night]');           // an element marked data-night brings the page down to black as it scrolls in
+    var blank = null;
     var FLOOR = 0.82;                                       // the lightest 82% of the range stays paper: a sparse, quiet stipple
     var SOFT = 0.36;                                        // how far the stipple colour is pulled from white
 
@@ -338,23 +339,35 @@
       var frac = reduce ? 0 : Math.max(0, Math.min(1, (w.pageYOffset || d.documentElement.scrollTop || 0) / (docH - vh)));
       var py = Math.round(frac * (tot - vis));
       var colour = d.documentElement.classList.contains('colour');
-      var key = [a, b, wgt, py, colour].join('|');
+      var night = 0, root = d.documentElement;
+      if (nightEl) {
+        var nr = nightEl.getBoundingClientRect();
+        night = Math.round(smooth((vh - nr.top) / (vh * 0.8)) * 32) / 32;
+        var want = night >= 0.5;
+        if (root.classList.contains('night') !== want) root.classList.toggle('night', want);
+      }
+      var key = [a, b, wgt, py, colour, night].join('|');
       if (key === lastKey) return;
       var fa = frames[a], fb = frames[b];
-      if (!fa || !fa.ok) return;
+      if (!fa || !fa.ok) {
+        if (night <= 0) return;                              // wait for the photograph, unless the page is already going dark
+        if (!blank || blank.n !== cols * tot) blank = { n: cols * tot, ok: true, M: new Uint8Array(cols * tot), rgb: new Uint8ClampedArray(cols * tot * 4), tint: [255, 255, 255] };
+        fa = blank;
+      }
       if (!fb || !fb.ok) { fb = fa; wgt = 0; }
       lastKey = key;
-      var Ma = fa.M, Mb = fb.M, out = imgData.data, off = py * cols, x, y, p = 0, idx, on;
+      var Ma = fa.M, Mb = fb.M, out = imgData.data, off = py * cols, x, y, p = 0, idx, on, bv;
       var t0 = fa.tint, t1 = fb.tint;
       var tr = t0[0] + (t1[0] - t0[0]) * wgt, tg = t0[1] + (t1[1] - t0[1]) * wgt, tb = t0[2] + (t1[2] - t0[2]) * wgt;
       var ra = fa.rgb, rb = fb.rgb;
       for (y = 0; y < vis; y++) {
         for (x = 0; x < cols; x++, p += 4) {
-          idx = off + y * cols + x;
-          on = (wgt > B8[(y & 7) * 8 + (x & 7)]) ? Mb[idx] : Ma[idx];
-          if (!on) { out[p] = 255; out[p + 1] = 255; out[p + 2] = 255; }
+          idx = off + y * cols + x; bv = B8[(y & 7) * 8 + (x & 7)];
+          on = (wgt > bv) ? Mb[idx] : Ma[idx];
+          if (night > bv) { var dk = on ? 36 : 11; out[p] = dk; out[p + 1] = dk; out[p + 2] = dk; }   // ordered-dither fade to black
+          else if (!on) { out[p] = 255; out[p + 1] = 255; out[p + 2] = 255; }
           else if (colour) {
-            var q = idx * 4, s2 = (wgt > B8[(y & 7) * 8 + (x & 7)]) ? rb : ra;
+            var q = idx * 4, s2 = (wgt > bv) ? rb : ra;
             out[p] = 255 - (255 - s2[q]) * 0.55;
             out[p + 1] = 255 - (255 - s2[q + 1]) * 0.55;
             out[p + 2] = 255 - (255 - s2[q + 2]) * 0.55;

@@ -13,8 +13,8 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
   <link rel="preload" href="assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/base.css?v=5">
-  <link rel="stylesheet" href="assets/site.css?v=5">
+  <link rel="stylesheet" href="assets/base.css?v=6">
+  <link rel="stylesheet" href="assets/site.css?v=6">
 
   <script type="application/ld+json">
     {
@@ -38,7 +38,6 @@
         <button type="button" class="btn-th active" onclick="setLang('th')">th</button>
         <span class="sep">/</span>
         <button type="button" class="btn-en" onclick="setLang('en')">en</button>
-        <button type="button" class="tog" data-dz-toggle data-off="colour" data-on="colour" aria-pressed="false">colour</button>
       </div>
       <nav class="nav" aria-label="main">
         <a href="./" aria-current="page">home</a>
@@ -75,7 +74,7 @@
 
     <!-- PROJECTS -->
     <section class="g sec" data-amb="assets/home/frame-3.jpg">
-      <p class="label"><b>01</b><span data-th="โปรเจกต์" data-en="projects">โปรเจกต์</span></p>
+      <p class="label"><span data-th="โปรเจกต์" data-en="projects">โปรเจกต์</span></p>
       <div class="body projects" id="projects-list">
 
         <a href="about/" class="proj" data-fx="flip" style="--a:#C77F3A;--s:#F6E9DB">
@@ -128,13 +127,13 @@
 
     <!-- FRAMES -->
     <section class="g sec" data-amb="assets/home/frame-1.jpg">
-      <p class="label"><b>02</b><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+      <p class="label"><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
       <div class="body">
         <div class="strip">
-          <a class="s1" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
-          <a class="s2" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
-          <a class="s3" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
-          <a class="s4" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-4.jpg" width="1000" height="666" alt="a bamboo frame against the sky"></a>
+          <a class="s1" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
+          <a class="s2" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
+          <a class="s3" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
+          <a class="s4" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/home/frame-4.jpg" width="1000" height="666" alt="a bamboo frame against the sky"></a>
         </div>
         <p class="more go"><a href="gallery/" data-th="กดตรงนี้เพื่อชม film gallery ของผมได้เลยครับ" data-en="tap here to see my film gallery">กดตรงนี้เพื่อชม film gallery ของผมได้เลยครับ</a></p>
       </div>
@@ -142,7 +141,7 @@
 
     <!-- CONTACT -->
     <section class="g sec" data-amb="assets/home/frame-2.jpg">
-      <p class="label"><b>03</b><span data-th="ติดต่อ" data-en="contact">ติดต่อ</span></p>
+      <p class="label"><span data-th="ติดต่อ" data-en="contact">ติดต่อ</span></p>
       <div class="body" id="social-list">
         <a class="mail" href="mailto:prawee.sin@gmail.com">prawee.sin@gmail.com</a>
         <div class="rows">
@@ -162,9 +161,9 @@
     <span class="cur">last edit: 2026.10</span>
   </footer>
 
-  <script src="assets/typewriter.js?v=5"></script>
-  <script src="assets/dither.js?v=5"></script>
-  <script src="assets/scroll3d.js?v=5"></script>
+  <script src="assets/typewriter.js?v=6"></script>
+  <script src="assets/dither.js?v=6"></script>
+  <script src="assets/scroll3d.js?v=6"></script>
   <script>
     function setLang(lang) {
       try { localStorage.setItem('prawees.lang', lang); } catch (e) {}
@@ -189,7 +188,22 @@
       window.addEventListener('scroll', sch, { passive: true }); window.addEventListener('resize', sch); sch();
     })();
 
-    // Greeting: typed once, then "Smart" steps through dither densities.
+    // A frame that fails to load is tried once more with a fresh address, then hidden, so there is never a broken-image icon.
+    (function () {
+      document.querySelectorAll('img[data-strip]').forEach(function (im) {
+        var tries = 0;
+        function bad() {
+          if (tries++ === 0) { im.src = im.getAttribute('src').split('?')[0] + '?r=' + Date.now(); }
+          else { im.parentNode.style.display = 'none'; }
+        }
+        im.addEventListener('error', bad);
+        if (im.complete && im.naturalWidth === 0 && im.getAttribute('src')) bad();
+      });
+    })();
+
+    // Greeting: typed once, then "Smart" steps through dither densities and colours.
+    // Each step dissolves into the next (density and colour move together in small steps) instead of cutting.
+    // The same colour is carried to the small greeting in the bar.
     document.addEventListener('DOMContentLoaded', function () {
       var h = document.getElementById('hero-greeting');
       if (!h || !window.typeText) return;
@@ -202,23 +216,36 @@
         var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'><path fill='" + col + "' d='" + d + "'/></svg>";
         return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
       }
+      function rgb(hex) { return [parseInt(hex.substr(1, 2), 16), parseInt(hex.substr(3, 2), 16), parseInt(hex.substr(5, 2), 16)]; }
+      function hex(c) { return '#' + c.map(function (v) { v = Math.round(v); return (v < 16 ? '0' : '') + v.toString(16); }).join(''); }
       // each step: [dither level out of 16, colour]. 0 means outline, 16 means solid ink.
-      var STEPS = [[12, '#E05A38'], [8, '#2C72C8'], [5, '#0E8B6E'], [0, '#7B49C7'], [8, '#B58800'], [12, '#D03535'], [8, '#C13584'], [12, '#111111'], [16, '']];
+      var STEPS = [[12, '#E05A38'], [8, '#2C72C8'], [5, '#0E8B6E'], [0, '#7B49C7'], [8, '#B58800'], [12, '#D03535'], [8, '#C13584'], [12, '#111111'], [16, '#111111']];
+      var hiB = document.querySelector('#hi b');
+      function show(w, lv, col) {
+        if (lv >= 16) { w.className = 'smart'; w.removeAttribute('style'); return; }
+        if (lv <= 0) { w.className = 'smart ol'; w.style.backgroundImage = 'none'; w.style.webkitTextStroke = '2px ' + col; return; }
+        w.className = 'smart px';
+        w.style.backgroundImage = pat(lv, col);
+        w.style.webkitTextStroke = '1px ' + col;
+      }
       function settle() {
         h.innerHTML = line.replace('Smart', '<span class="smart">Smart</span>');
         if (reduce) return;
-        var w = h.querySelector('.smart'), i = -1;
+        var w = h.querySelector('.smart'), i = -1, cur = { lv: 16, c: rgb('#111111') }, timer = 0;
         function step() {
           i = (i + 1) % STEPS.length;
-          var lv = STEPS[i][0], col = STEPS[i][1];
-          w.removeAttribute('style');
-          if (lv === 16) { w.className = 'smart'; return; }
-          if (lv === 0) { w.className = 'smart ol'; w.style.webkitTextStroke = '2px ' + col; return; }
-          w.className = 'smart px';
-          w.style.backgroundImage = pat(lv, col);
-          w.style.webkitTextStroke = '1px ' + col;
+          var from = cur, to = { lv: STEPS[i][0], c: rgb(STEPS[i][1]) }, f = 0, N = 6;
+          if (hiB) hiB.style.color = (STEPS[i][0] >= 16 || STEPS[i][1] === '#111111') ? '' : STEPS[i][1];
+          clearInterval(timer);
+          timer = setInterval(function () {
+            f++;
+            var t = f / N, lv = Math.round(from.lv + (to.lv - from.lv) * t);
+            var c = from.c.map(function (v, k) { return v + (to.c[k] - v) * t; });
+            show(w, lv, hex(c));
+            if (f >= N) { clearInterval(timer); cur = to; }
+          }, 60);
         }
-        setTimeout(function () { step(); setInterval(step, 800); }, 700);
+        setTimeout(function () { step(); setInterval(step, 1100); }, 700);
       }
       if (reduce) { settle(); return; }
       window.typeText(h, line, { speed: 70, delay: 200, done: settle });
