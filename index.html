@@ -13,8 +13,8 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
   <link rel="preload" href="assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/base.css">
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/base.css?v=5">
+  <link rel="stylesheet" href="assets/site.css?v=5">
 
   <script type="application/ld+json">
     {
@@ -44,8 +44,8 @@
         <a href="./" aria-current="page">home</a>
         <a href="about/">about</a>
         <a href="gallery/">gallery</a>
-        <span class="hi" id="hi" aria-hidden="true">hi, i'm <b>Smart</b> :-)</span>
       </nav>
+      <span class="hi" id="hi" aria-hidden="true">hi, i'm <b>Smart</b> :-)</span>
     </div>
   </header>
 
@@ -131,10 +131,10 @@
       <p class="label"><b>02</b><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
       <div class="body">
         <div class="strip">
-          <a class="s1" href="gallery/" aria-label="gallery"><img loading="lazy" src="assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
-          <a class="s2" href="gallery/" aria-label="gallery"><img loading="lazy" src="assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
-          <a class="s3" href="gallery/" aria-label="gallery"><img loading="lazy" src="assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
-          <a class="s4" href="gallery/" aria-label="gallery"><img loading="lazy" src="assets/home/frame-4.jpg" width="1000" height="666" alt="a bamboo frame against the sky"></a>
+          <a class="s1" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
+          <a class="s2" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
+          <a class="s3" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
+          <a class="s4" href="gallery/" aria-label="gallery"><img loading="lazy" style="display:block;width:100%;height:auto" src="assets/home/frame-4.jpg" width="1000" height="666" alt="a bamboo frame against the sky"></a>
         </div>
         <p class="more go"><a href="gallery/" data-th="กดตรงนี้เพื่อชม film gallery ของผมได้เลยครับ" data-en="tap here to see my film gallery">กดตรงนี้เพื่อชม film gallery ของผมได้เลยครับ</a></p>
       </div>
@@ -162,9 +162,9 @@
     <span class="cur">last edit: 2026.10</span>
   </footer>
 
-  <script src="assets/typewriter.js"></script>
-  <script src="assets/dither.js"></script>
-  <script src="assets/scroll3d.js"></script>
+  <script src="assets/typewriter.js?v=5"></script>
+  <script src="assets/dither.js?v=5"></script>
+  <script src="assets/scroll3d.js?v=5"></script>
   <script>
     function setLang(lang) {
       try { localStorage.setItem('prawees.lang', lang); } catch (e) {}

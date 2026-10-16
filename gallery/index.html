@@ -9,23 +9,22 @@
   <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/base.css">
-  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/base.css?v=5">
+  <link rel="stylesheet" href="../assets/site.css?v=5">
   <style>
     @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 
     /* ---------- title ---------- */
-    .gh { padding-top: 40px; row-gap: 12px; }
-    .gh h1 { grid-column: 1 / -1; position: relative; width: fit-content; max-width: 100%; font-size: var(--fs-hero); font-weight: 400; line-height: 1; letter-spacing: -.045em; }
-    /* the title is scanned in once, line by line, like the photographs are; then the two dots breathe */
-    .gh h1.scan { animation: gt-clip 1.3s steps(22, end) backwards; }
-    .gh h1.scan::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--ink); animation: dz-beam 1.3s steps(22, end) both; pointer-events: none; }
-    @keyframes gt-clip { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(-.3em -.2em -.3em -.2em); } }
-    .dots i { font-style: normal; animation: gt-dot 2.8s steps(1, end) infinite; }
-    .dots i + i { animation-delay: .45s; }
-    @keyframes gt-dot { 0% { opacity: 1; } 55% { opacity: .12; } 80% { opacity: 1; } }
+    .gh { padding-top: 32px; row-gap: 10px; }
+    .gh h1 { grid-column: 1 / -1; width: fit-content; max-width: 100%; font-size: clamp(26px, 5vw, 64px); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; }
+    /* each word comes up out of a soft blur, one after the other, then the two dots breathe slowly */
+    .gh h1 .w { display: inline-block; opacity: 0; filter: blur(7px); transform: translate3d(0, 5px, 0); animation: gt-in 2s ease-out both; animation-delay: calc(.25s + var(--i) * .35s); }
+    @keyframes gt-in { 0% { opacity: 0; filter: blur(7px); transform: translate3d(0, 5px, 0); } 100% { opacity: 1; filter: blur(0); transform: none; } }
+    .dots i { font-style: normal; animation: gt-dot 4s ease-in-out infinite; }
+    .dots i + i { animation-delay: .7s; }
+    @keyframes gt-dot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
     .gh p { grid-column: 1 / -1; width: fit-content; max-width: 52ch; color: var(--mid); font-size: var(--fs-s); }
-    @media (min-width: 768px) { .gh { padding-top: 72px; } .gh p { grid-column: 4 / 11; } }
+    @media (min-width: 768px) { .gh { padding-top: 56px; } .gh p { grid-column: 4 / 11; } }
 
     .jump { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 20px; }
     .jump a { font-size: var(--fs-s); text-decoration: none; padding: 6px 0; color: var(--mid); }
@@ -58,7 +57,7 @@
     .gallery-meta button { text-align: left; color: var(--mid); text-decoration: none; padding: 2px 0; }
     .gallery-meta button:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
     .gallery-meta span { color: var(--ink); text-align: right; }
-    @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; transform: none; } .dots i { animation: none; } .gh h1.scan, .gh h1.scan::after { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { .gallery-item { transition: none; transform: none; } .dots i { animation: none; } .gh h1 .w { animation: none; opacity: 1; filter: none; transform: none; } }
 
     .mk { position: absolute; left: 0; width: 1px; pointer-events: none; visibility: hidden; }
 
@@ -125,7 +124,7 @@
 
   <main>
     <section class="g gh" data-amb="../assets/home/frame-2.jpg">
-      <h1 id="gt" class="scan">keep looking outside<span class="dots" aria-hidden="true"><i>.</i><i>.</i></span></h1>
+      <h1 id="gt"><span class="w" style="--i:0">keep</span> <span class="w" style="--i:1">looking</span> <span class="w" style="--i:2">outside<span class="dots" aria-hidden="true"><i>.</i><i>.</i></span></span></h1>
       <p data-th="กดที่รูปเพื่อดูภาพเต็มนะครับ" data-en="tap a photo to view it full size">กดที่รูปเพื่อดูภาพเต็มนะครับ</p>
       <nav class="jump" id="jump" aria-label="chapters"></nav>
     </section>
@@ -180,7 +179,7 @@
     </section>
   </div>
 
-  <script src="../assets/film/frames.js"></script>
+  <script src="../assets/film/frames.js?v=5"></script>
   <script>
     /* Gallery. Everything is one flow of two columns. Photographs go into whichever column is shorter,
        and each chapter name is set into the flow on alternating sides, so the page keeps moving with no rules or bands.
@@ -386,6 +385,6 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
     })();
   </script>
-  <script src="../assets/dither.js"></script>
+  <script src="../assets/dither.js?v=5"></script>
 </body>
 </html>
