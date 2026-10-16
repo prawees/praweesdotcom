@@ -154,3 +154,48 @@ a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 [style*="font-size: 10px"], [style*="font-size: 11.5px"], [style*="font-size: 13px"] { font-size: var(--fs-s) !important; }
 [style*="color: #A0A0A0"], [style*="color: var(--ink-faint)"] { color: var(--mid) !important; }
 .my-music-links a { color: var(--ink) !important; text-decoration: underline !important; text-decoration-color: #1db954 !important; text-decoration-thickness: 2px !important; margin-left: 8px; }
+
+/* ---------- room to breathe: one rhythm of spacing for the whole page ----------
+   Sections are separated by a wide gap. Inside a section the heading, each entry and each block get their own air. */
+.hero { margin-bottom: clamp(88px, 14vw, 144px); }
+.section, .section.sec-01, .section.sec-02, .section.sec-03, .section.sec-04, .section.sec-05, .section.sec-06, .section.sec-07 {
+  padding: 36px 20px 52px;
+  margin-bottom: clamp(112px, 18vw, 192px);
+}
+@media (min-width: 768px) {
+  .section, .section.sec-01, .section.sec-02, .section.sec-03, .section.sec-04, .section.sec-05, .section.sec-06, .section.sec-07 { padding: 48px 32px 68px; }
+}
+.sec-head { margin-bottom: 44px; }
+.prose { line-height: 1.9; }
+.prose + .prose, .prose p + p { margin-top: 26px; }
+.callout-text { line-height: 1.4; }
+.tl-item { padding: 32px 0; gap: 0 24px; }
+.tl-item:first-child { padding-top: 0; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-year { padding-top: 4px; line-height: 1.6; }
+.tl-title { margin-bottom: 10px; line-height: 1.5; }
+.tl-desc { line-height: 1.8; }
+.tl-desc + .gal-strip, .tl-desc + .photo-gallery, .tl-desc + a, .tl-desc + .website-preview { margin-top: 20px; }
+.kv-list { gap: 12px 32px; }
+.kv-row, .kv-row:nth-child(2), .kv-row:nth-child(3), .kv-row:nth-child(4) { padding: 20px 0 30px; }
+.kv-key { margin-bottom: 12px; }
+.kv-val { line-height: 1.8; }
+.portfolio-item { margin-bottom: 80px; }
+.portfolio-item:last-child { margin-bottom: 0; }
+.portfolio-role { margin-bottom: 16px; }
+.portfolio-desc { line-height: 1.8; margin-bottom: 32px; }
+.tiktok-grid { gap: 32px; margin-bottom: 48px; }
+.embed-grid { gap: 32px; }
+.embed-caption { margin-top: 12px; line-height: 1.6; }
+.photo-gallery { gap: 28px; margin-top: 28px; }
+.gal-strip { gap: 16px; margin-bottom: 0; }
+.song-intro { margin-bottom: 24px; line-height: 1.8; }
+.song-lyrics { line-height: 2.1; margin-top: 36px; }
+.comment { padding-top: 0; padding-bottom: 12px; }
+.social-links-minimal { margin-bottom: 96px; padding-bottom: 32px; gap: 14px 28px; }
+.foot { padding-top: 24px; padding-bottom: 40px; }
+@media (max-width: 767px) {
+  .section, .section.sec-01, .section.sec-02, .section.sec-03, .section.sec-04, .section.sec-05, .section.sec-06, .section.sec-07 { padding: 32px 20px 48px; }
+  .comment, .social-links-minimal, .foot { padding-left: 20px; padding-right: 20px; }
+  .tl-item { grid-template-columns: 64px minmax(0, 1fr); gap: 0 18px; }
+}

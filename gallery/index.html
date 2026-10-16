@@ -9,8 +9,8 @@
   <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/base.css?v=7">
-  <link rel="stylesheet" href="../assets/site.css?v=7">
+  <link rel="stylesheet" href="../assets/base.css?v=8">
+  <link rel="stylesheet" href="../assets/site.css?v=8">
   <style>
     /* ---------- title: still, no motion ---------- */
     .gh { padding-top: 32px; }
@@ -98,7 +98,7 @@
   </header>
 
   <main>
-    <section class="g gh" data-amb="../assets/home/frame-2.jpg">
+    <section class="g gh" data-amb="../assets/film/lomo100-38.jpg">
       <h1 id="gt">keep looking outside..</h1>
     </section>
 
@@ -143,14 +143,14 @@
     <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
   </div>
 
-  <script src="../assets/film/frames.js?v=7"></script>
+  <script src="../assets/film/frames.js?v=8"></script>
   <script>
     /* Gallery. Photographs are laid out in rows that fill the width edge to edge, a few pixels apart.
        The rows are chosen so the photographs in each row come out at about the same height, whatever their shapes.
        Tapping the film name under a photograph, or in the list at the bottom, shows only that film. */
     (function () {
       var CHAPTERS = window.FILM_CHAPTERS || [];
-      var FRAMES = ['../assets/home/frame-4.jpg', '../assets/home/frame-3.jpg', '../assets/home/frame-1.jpg', '../assets/home/frame-2.jpg'];
+      var FRAMES = ['../assets/film/ektar100-33.jpg', '../assets/film/ultramax-34.jpg', '../assets/film/ultramax-15.jpg', '../assets/film/lomo100-38.jpg'];
       var SW = { fujifilmc200: '#95DEBD', fujifilmsuperiaxtra400: '#27A65A', kodaktmax400: '#F9E273', kodakproimage100: '#F5A943', kodakgold200: '#F6E272', fuji100: '#85CD48', filmneverdieiro200: '#F6CA68', agfasoundst8d: '#EA3E21', kodakultramax400: '#3C83DE', lomo100: '#D0C3C0', myheart200: '#FA8BB2', fuji400: '#B6DE67', ultrafinextreme400: '#454545', ilfordpan400: '#EA3F20', kodakcolorplus200: '#EFC55D', filmneverdieiro400: '#FA92B0', fujif250teilo100: '#98C4E9', fujif250tei100: '#98C4E9', fujif400tei200: '#98C5E7', kodakektar100: '#CD7464' };
 
       var LANG = 'th';
@@ -354,6 +354,6 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
     })();
   </script>
-  <script src="../assets/dither.js?v=7"></script>
+  <script src="../assets/dither.js?v=8"></script>
 </body>
 </html>

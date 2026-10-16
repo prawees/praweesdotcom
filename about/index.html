@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" href="../assets/favicon.png">
 
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/base.css?v=7">
+  <link rel="stylesheet" href="../assets/base.css?v=8">
 
   <style>
     :root {
@@ -758,6 +758,11 @@
       border: 1px solid var(--rule);
     }
 
+    .tt-play { width: 100%; min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #000; color: #fff; cursor: pointer; }
+    .tt-play .tt-mark { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+    .tt-play .tt-hint { font-size: 14px; color: #d0d0d0; text-decoration: underline; text-underline-offset: 4px; }
+    .tt-play:hover .tt-hint { color: #fff; }
+    .tt-frame { width: 100%; max-width: 340px; height: 740px; border: 0; display: block; background: #000; }
     .tiktok-embed {
       margin: 0 !important;
       width: 100% !important;
@@ -960,7 +965,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="../assets/theme.css?v=7">
+  <link rel="stylesheet" href="../assets/theme.css?v=8">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -994,7 +999,7 @@
   <div class="wrap">
 
     <!-- HERO -->
-    <section class="hero" id="hero-section" data-amb="../assets/home/frame-4.jpg">
+    <section class="hero" id="hero-section" data-amb="../assets/film/ektar100-33.jpg">
       <div class="hero-portrait">
         <img src="../assets/portrait.jpg" alt="prawee" loading="eager">
       </div>
@@ -1019,7 +1024,7 @@
     </section>
 
     <!-- 01 OVERVIEW -->
-    <section class="section sec-01" data-reveal data-amb="../assets/home/frame-4.jpg">
+    <section class="section sec-01" data-reveal data-amb="../assets/film/ektar100-33.jpg">
       <div class="sec-head">
         <span class="sec-num">01</span>
         <span class="sec-title" data-th="ภาพรวม" data-en="overview">ภาพรวม</span>
@@ -1035,7 +1040,7 @@
     </section>
 
     <!-- 02 EDUCATION -->
-    <section class="section sec-02" data-reveal data-amb="../assets/home/frame-3.jpg">
+    <section class="section sec-02" data-reveal data-amb="../assets/film/ultramax-34.jpg">
       <div class="sec-head">
         <span class="sec-num">02</span>
         <span class="sec-title" data-th="การศึกษา" data-en="education">การศึกษา</span>
@@ -1087,7 +1092,7 @@
     </section>
 
     <!-- 03 EXPERIENCE -->
-    <section class="section sec-03" data-reveal data-amb="../assets/home/frame-1.jpg">
+    <section class="section sec-03" data-reveal data-amb="../assets/film/ultramax-15.jpg">
       <div class="sec-head">
         <span class="sec-num">03</span>
         <span class="sec-title" data-th="ประสบการณ์" data-en="experience">ประสบการณ์</span>
@@ -1104,9 +1109,8 @@
             <div class="tl-desc" data-th="ชมรมนักศึกษาแพทย์ที่มุ่งพัฒนานวัตกรรมทางการแพทย์"
               data-en="student-led club focused on healthcare innovation">
               ชมรมนักศึกษาแพทย์ที่มุ่งพัฒนานวัตกรรมทางการแพทย์</div>
-            <a href="https://g7club.org" target="_blank" rel="noopener" class="website-preview" style="display: block;">
-              <iframe src="https://g7club.org" tabindex="-1" loading="lazy"></iframe>
-            </a>
+            <a href="https://g7club.org" target="_blank" rel="noopener"
+              style="display: inline-block; margin-top: 12px; color: var(--link); font-size: 14px;">g7club.org →</a>
           </div>
         </div>
 
@@ -1284,7 +1288,7 @@
     </section>
 
     <!-- 04 PORTFOLIO -->
-    <section class="section sec-04" data-reveal data-amb="../assets/home/frame-2.jpg">
+    <section class="section sec-04" data-reveal data-amb="../assets/film/lomo100-38.jpg">
       <div class="sec-head">
         <span class="sec-num">04</span>
         <span class="sec-title" data-th="ผลงาน" data-en="portfolio">ผลงาน</span>
@@ -1311,23 +1315,15 @@
 
         <div class="tiktok-grid">
           <div>
-            <div class="tiktok-wrap">
-              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@prawees/video/7478513016754015496"
-                data-video-id="7478513016754015496" style="max-width:605px;min-width:325px;">
-                <section><a target="_blank" title="@prawees"
-                    href="https://www.tiktok.com/@prawees?refer=embed">@prawees</a></section>
-              </blockquote>
+            <div class="tiktok-wrap" data-tt="7478513016754015496">
+              <button type="button" class="tt-play" aria-label="play on tiktok"><span class="tt-mark">tiktok</span><span class="tt-hint" data-th="แตะเพื่อเล่น" data-en="tap to play">แตะเพื่อเล่น</span></button>
             </div>
             <div class="embed-caption" data-th="อธิบายโครงการแพทย์-วิศวะ" data-en="m.d.-m.eng program explained">
               อธิบายโครงการแพทย์-วิศวะ</div>
           </div>
           <div>
-            <div class="tiktok-wrap">
-              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@prawees/video/7502285412048719112"
-                data-video-id="7502285412048719112" style="max-width:605px;min-width:325px;">
-                <section><a target="_blank" title="@prawees"
-                    href="https://www.tiktok.com/@prawees?refer=embed">@prawees</a></section>
-              </blockquote>
+            <div class="tiktok-wrap" data-tt="7502285412048719112">
+              <button type="button" class="tt-play" aria-label="play on tiktok"><span class="tt-mark">tiktok</span><span class="tt-hint" data-th="แตะเพื่อเล่น" data-en="tap to play">แตะเพื่อเล่น</span></button>
             </div>
             <div class="embed-caption" data-th="vlog พรีเซนต์วิจัยที่มาเลเซีย"
               data-en="vlog, research presentation in malaysia">vlog พรีเซนต์วิจัยที่มาเลเซีย</div>
@@ -1358,7 +1354,7 @@
     </section>
 
     <!-- 05 INTERESTS / KEY:VALUE -->
-    <section class="section sec-05" data-reveal data-amb="../assets/home/frame-4.jpg">
+    <section class="section sec-05" data-reveal data-amb="../assets/film/ektar100-33.jpg">
       <div class="sec-head">
         <span class="sec-num">05</span>
         <span class="sec-title" data-th="ความสนใจ" data-en="interests">ความสนใจ</span>
@@ -1397,7 +1393,7 @@
     </section>
 
     <!-- 06 SOUNDTRACK -->
-    <section class="section sec-06" data-reveal data-amb="../assets/home/frame-3.jpg">
+    <section class="section sec-06" data-reveal data-amb="../assets/film/ultramax-34.jpg">
       <div class="sec-head">
         <span class="sec-num">06</span>
         <span class="sec-title" data-th="เพลง" data-en="soundtrack">เพลง</span>
@@ -1463,7 +1459,7 @@
     </div>
 
     <!-- 07 GALLERY -->
-    <section class="section sec-07" data-reveal data-amb="../assets/home/frame-1.jpg">
+    <section class="section sec-07" data-reveal data-amb="../assets/film/ultramax-15.jpg">
       <div class="sec-head">
         <span class="sec-num">07</span>
         <span class="sec-title" data-th="ภาพ" data-en="photos">ภาพ</span>
@@ -1480,9 +1476,9 @@
       </p>
 
       <div class="gal-strip" data-reveal>
-        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1.5" src="../assets/home/frame-1.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
-        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1" src="../assets/home/frame-2.jpg" width="1000" height="675" alt="a door and its handle"></a>
-        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1" src="../assets/home/frame-3.jpg" width="1000" height="675" alt="an aeroplane window"></a>
+        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1.5" src="../assets/film/ultramax-15.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
+        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1" src="../assets/film/lomo100-38.jpg" width="1000" height="675" alt="a door and its handle"></a>
+        <a href="../gallery/" aria-label="gallery"><img data-dither="fs" data-px="1" src="../assets/film/ultramax-34.jpg" width="1000" height="675" alt="an aeroplane window"></a>
       </div>
     </section>
 
@@ -1505,9 +1501,27 @@
 
   </div>
 
-  <script async src="https://www.tiktok.com/embed.js"></script>
-  <script src="../assets/typewriter.js?v=7"></script>
-  <script src="../assets/dither.js?v=7"></script>
+  <script>
+    // TikTok videos load only when tapped, so the page never makes TikTok's servers answer several requests at once.
+    document.querySelectorAll('[data-tt]').forEach(function (w) {
+      var b = w.querySelector('.tt-play');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.tiktok.com/embed/v2/' + w.getAttribute('data-tt');
+        f.title = 'tiktok video'; f.allow = 'encrypted-media; fullscreen'; f.allowFullscreen = true;
+        f.className = 'tt-frame'; w.classList.add('live'); w.innerHTML = ''; w.appendChild(f);
+      });
+    });
+    // a photograph that fails to load is hidden rather than shown broken
+    document.querySelectorAll('.gal-strip img').forEach(function (im) {
+      function bad() { if (im.parentNode) im.parentNode.style.display = 'none'; }
+      im.addEventListener('error', bad);
+      if (im.complete && im.naturalWidth === 0) bad();
+    });
+  </script>
+  <script src="../assets/typewriter.js?v=8"></script>
+  <script src="../assets/dither.js?v=8"></script>
 
   <script>
     function setLang(lang) {
