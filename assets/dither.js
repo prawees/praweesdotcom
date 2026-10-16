@@ -341,8 +341,13 @@
       var colour = d.documentElement.classList.contains('colour');
       var night = 0, root = d.documentElement;
       if (nightEl) {
-        var nr = nightEl.getBoundingClientRect();
-        night = Math.round(smooth((vh - nr.top) / (vh * 0.8)) * 32) / 32;
+        // The page darkens with scroll progress, from the top of the page to the point where the marked element
+        // is nearly in view. Slow at first (a few sparse dark specks), quick through the middle (where light text
+        // would be hardest to read), then slow again into black.
+        var nr = nightEl.getBoundingClientRect(), endAt = Math.max(1, nr.top + (w.pageYOffset || 0) - vh * 0.2);
+        var pp = Math.max(0, Math.min(1, (w.pageYOffset || 0) / endAt));
+        var nv = pp < 0.5 ? 0.16 * (pp / 0.5) : pp < 0.66 ? 0.16 + 0.68 * ((pp - 0.5) / 0.16) : 0.84 + 0.16 * ((pp - 0.66) / 0.34);
+        night = Math.round(nv * 64) / 64;
         var want = night >= 0.5;
         if (root.classList.contains('night') !== want) root.classList.toggle('night', want);
       }

@@ -9,8 +9,8 @@
   <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/base.css?v=6">
-  <link rel="stylesheet" href="../assets/site.css?v=6">
+  <link rel="stylesheet" href="../assets/base.css?v=7">
+  <link rel="stylesheet" href="../assets/site.css?v=7">
   <style>
     /* ---------- title: still, no motion ---------- */
     .gh { padding-top: 32px; }
@@ -25,17 +25,17 @@
     @media (max-width: 599px) { .row { gap: 2px; } }
     .gallery-item { min-width: 0; display: block; }
     .gallery-img { width: 100%; height: auto; display: block; background: var(--light); cursor: zoom-in; }
-    .gallery-meta { padding: 0 2px; line-height: 1; }
-    .gallery-meta button { display: block; max-width: 100%; padding: 7px 0 9px; font-size: 11px; line-height: 1; letter-spacing: .01em; color: var(--mid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
-    .gallery-meta button:hover { color: var(--ink); }
-    @media (pointer: coarse) { .gallery-meta button { padding: 9px 0 11px; } }
-    .sw { display: inline-block; width: 7px; height: 7px; margin-right: 6px; vertical-align: 0; }
+    .gallery-meta { display: flex; justify-content: flex-end; line-height: 1; }
+    .gallery-meta button { display: block; max-width: 100%; padding: 5px 1px 7px; font-size: 10px; line-height: 1; letter-spacing: .04em; color: var(--mid); opacity: .62; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; transition: opacity .2s; }
+    .gallery-meta button:hover { opacity: 1; }
+    @media (pointer: coarse) { .gallery-meta button { padding: 8px 1px 10px; } }
+    .sw { display: inline-block; width: 5px; height: 5px; margin-left: 6px; vertical-align: 1px; }
 
     .lab { padding: 0 var(--padr) 0 var(--pad); margin: 72px auto 22px; max-width: none; }
     .lab.r { text-align: right; }
-    .lab h2 { display: inline-block; font-size: clamp(34px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.04em; padding-bottom: .08em;
+    html.night .lab h2 { background-image: var(--d8w); }
+    .lab h2 { display: inline-block; font-size: clamp(34px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.04em; padding-bottom: .08em; opacity: .42;
       color: transparent; -webkit-text-fill-color: transparent; background-image: var(--d8); background-size: 4px 4px; -webkit-background-clip: text; background-clip: text; image-rendering: pixelated; }
-    .lab p { margin-top: 4px; font-size: 12px; color: var(--mid); }
     .lab:first-child { margin-top: 24px; }
     @media (min-width: 768px) { .lab { margin: 112px auto 30px; } .lab:first-child { margin-top: 32px; } }
 
@@ -43,19 +43,19 @@
     .fbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; padding: 0 var(--padr) 0 var(--pad); margin: 24px 0 28px; }
     .fbar h2 { font-size: var(--fs-h); font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
     .fbar button { font-size: var(--fs-s); color: var(--mid); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
-    .fbar .sw { width: 10px; height: 10px; }
+    .fbar .sw { width: 10px; height: 10px; margin: 0 10px 0 0; }
 
     .mk { position: absolute; left: 0; width: 1px; pointer-events: none; visibility: hidden; }
 
     /* ---------- the end: the page dissolves to black, then the cameras, the film and instagram ---------- */
-    .end { padding-top: 78vh; padding-top: 78svh; }
+    .end { padding-top: 30vh; padding-top: 30svh; }
     .end .sec { padding-top: 40px; }
     @media (min-width: 768px) { .end .sec { padding-top: 56px; } }
     .end .label { font-size: var(--fs-s); }
     .list { list-style: none; }
     .list li { border-top: 1px solid var(--light); }
     .list .row2 { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 11px 0; text-align: left; font-size: var(--fs-b); }
-    .list .row2 .sw { width: 10px; height: 10px; margin: 0; align-self: center; flex: none; }
+    .list .row2 .sw { width: 10px; height: 10px; margin: 0; vertical-align: baseline; align-self: center; flex: none; }
     .list .row2 .nm { flex: 1 1 auto; min-width: 0; }
     .list .row2 .hx { color: var(--mid); font-size: 12px; letter-spacing: .02em; font-variant-numeric: tabular-nums; text-transform: uppercase; }
     .list button.row2 { cursor: pointer; }
@@ -143,7 +143,7 @@
     <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
   </div>
 
-  <script src="../assets/film/frames.js?v=6"></script>
+  <script src="../assets/film/frames.js?v=7"></script>
   <script>
     /* Gallery. Photographs are laid out in rows that fill the width edge to edge, a few pixels apart.
        The rows are chosen so the photographs in each row come out at about the same height, whatever their shapes.
@@ -173,7 +173,7 @@
         var meta = document.createElement('div'); meta.className = 'gallery-meta';
         var l = document.createElement('button'); l.type = 'button'; l.title = hexOf(it.key);
         var sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = hexOf(it.key);
-        l.appendChild(sw); l.appendChild(document.createTextNode(it.film));
+        l.appendChild(document.createTextNode(it.film)); l.appendChild(sw);
         l.addEventListener('click', function () { setFilter(it.key); });
         meta.appendChild(l);
         item.appendChild(img); item.appendChild(meta);
@@ -251,9 +251,8 @@
         } else {
           chapters.forEach(function (c, ci) {
             var lab = document.createElement('div'); lab.className = 'lab' + (ci % 2 ? ' r' : ''); lab.id = c.id;
-            lab.innerHTML = '<h2></h2><p></p>';
+            lab.innerHTML = '<h2></h2>';
             lab.querySelector('h2').textContent = c.id;
-            lab.querySelector('p').textContent = c.note;
             rowsEl.appendChild(lab); labels.push(lab);
             emitRows(rowsEl, c.items, W, gap, target, ci * 37);
             c.items.forEach(function (it) { view.push(it); });
@@ -355,6 +354,6 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
     })();
   </script>
-  <script src="../assets/dither.js?v=6"></script>
+  <script src="../assets/dither.js?v=7"></script>
 </body>
 </html>

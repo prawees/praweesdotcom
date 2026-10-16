@@ -20,13 +20,6 @@ window.FILM_CHAPTERS = [
     "h": 1085
    },
    {
-    "f": "ektar100-6.jpg",
-    "film": "Kodak Ektar 100",
-    "t": "whisper",
-    "w": 1600,
-    "h": 1064
-   },
-   {
     "f": "fuji400-51.jpg",
     "film": "Fuji 400",
     "t": "",
@@ -41,25 +34,11 @@ window.FILM_CHAPTERS = [
     "h": 1085
    },
    {
-    "f": "fuji400-4.jpg",
-    "film": "Fuji 400",
-    "t": "trusty sidekick",
-    "w": 1600,
-    "h": 1085
-   },
-   {
     "f": "fuji400-64.jpg",
     "film": "Fuji 400",
     "t": "",
     "w": 1600,
     "h": 1085
-   },
-   {
-    "f": "fuji400-62.jpg",
-    "film": "Fuji 400",
-    "t": "",
-    "w": 1085,
-    "h": 1600
    }
   ]
  },
@@ -67,13 +46,6 @@ window.FILM_CHAPTERS = [
   "id": "blue",
   "note": "sky, sea, wires",
   "items": [
-   {
-    "f": "ultramax-40.jpg",
-    "film": "Kodak Ultramax 400",
-    "t": "",
-    "w": 1600,
-    "h": 1081
-   },
    {
     "f": "ektar100-8.jpg",
     "film": "Kodak Ektar 100",
@@ -90,13 +62,6 @@ window.FILM_CHAPTERS = [
    },
    {
     "f": "myheart200-53.jpg",
-    "film": "My Heart 200",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "myheart200-50.jpg",
     "film": "My Heart 200",
     "t": "",
     "w": 1600,
@@ -151,13 +116,6 @@ window.FILM_CHAPTERS = [
     "h": 1064
    },
    {
-    "f": "colorplus200-31.jpg",
-    "film": "Kodak ColorPlus 200",
-    "t": "",
-    "w": 1078,
-    "h": 1600
-   },
-   {
     "f": "ektar100-34.jpg",
     "film": "Kodak Ektar 100",
     "t": "",
@@ -174,13 +132,6 @@ window.FILM_CHAPTERS = [
    {
     "f": "myheart200-3.jpg",
     "film": "My Heart 200",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "fndiro200-59.jpg",
-    "film": "Film Never Die IRO 200",
     "t": "",
     "w": 1600,
     "h": 1085
@@ -221,13 +172,6 @@ window.FILM_CHAPTERS = [
   "items": [
    {
     "f": "gold200-71.jpg",
-    "film": "Kodak Gold 200",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "gold200-72.jpg",
     "film": "Kodak Gold 200",
     "t": "",
     "w": 1600,
@@ -288,13 +232,6 @@ window.FILM_CHAPTERS = [
     "t": "",
     "w": 1600,
     "h": 1081
-   },
-   {
-    "f": "ektar100-26.jpg",
-    "film": "Kodak Ektar 100",
-    "t": "",
-    "w": 1600,
-    "h": 1064
    }
   ]
  },
@@ -324,21 +261,7 @@ window.FILM_CHAPTERS = [
     "h": 1085
    },
    {
-    "f": "c2000314b-69.jpg",
-    "film": "Fujifilm C200",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
     "f": "c2000314b-61.jpg",
-    "film": "Fujifilm C200",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "c2000314b-49.jpg",
     "film": "Fujifilm C200",
     "t": "",
     "w": 1600,
@@ -361,13 +284,6 @@ window.FILM_CHAPTERS = [
    {
     "f": "proimage100-55.jpg",
     "film": "Kodak Pro Image 100",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "myheart200-66.jpg",
-    "film": "My Heart 200",
     "t": "",
     "w": 1600,
     "h": 1085
@@ -421,13 +337,6 @@ window.FILM_CHAPTERS = [
     "h": 1072
    },
    {
-    "f": "fuji400t-14.jpg",
-    "film": "Fuji F400T ei 200",
-    "t": "",
-    "w": 1072,
-    "h": 1600
-   },
-   {
     "f": "fuji400t-16.jpg",
     "film": "Fuji F400T ei 200",
     "t": "",
@@ -450,13 +359,6 @@ window.FILM_CHAPTERS = [
    },
    {
     "f": "superiaxtra400-47.jpg",
-    "film": "Fujifilm Superia Xtra 400",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "superiaxtra400-52.jpg",
     "film": "Fujifilm Superia Xtra 400",
     "t": "",
     "w": 1600,
@@ -489,13 +391,6 @@ window.FILM_CHAPTERS = [
     "t": "",
     "w": 1600,
     "h": 1081
-   },
-   {
-    "f": "superiaxtra400-46.jpg",
-    "film": "Fujifilm Superia Xtra 400",
-    "t": "",
-    "w": 1600,
-    "h": 1085
    }
   ]
  },
@@ -516,20 +411,6 @@ window.FILM_CHAPTERS = [
     "t": "billy",
     "w": 1072,
     "h": 1600
-   },
-   {
-    "f": "fuji250t-28.jpg",
-    "film": "Fuji F250T ei 100",
-    "t": "",
-    "w": 1072,
-    "h": 1600
-   },
-   {
-    "f": "fuji250t-35.jpg",
-    "film": "Fuji F250T ei 100",
-    "t": "",
-    "w": 1600,
-    "h": 1072
    },
    {
     "f": "fuji250t-36.jpg",
@@ -558,20 +439,6 @@ window.FILM_CHAPTERS = [
     "t": "",
     "w": 1600,
     "h": 1085
-   },
-   {
-    "f": "fuji100-76.jpg",
-    "film": "Fuji 100",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
-    "f": "colorplus200-28.jpg",
-    "film": "Kodak ColorPlus 200",
-    "t": "",
-    "w": 1600,
-    "h": 1078
    }
   ]
  },
@@ -634,13 +501,6 @@ window.FILM_CHAPTERS = [
     "t": "",
     "w": 1085,
     "h": 1600
-   },
-   {
-    "f": "ultrafine-49.jpg",
-    "film": "Ultrafine Xtreme 400",
-    "t": "",
-    "w": 1600,
-    "h": 1085
    },
    {
     "f": "tmax400-67.jpg",
