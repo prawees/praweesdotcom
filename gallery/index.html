@@ -9,8 +9,8 @@
   <meta name="description" content="Film photographs by Prawee Sinweeruthai, grouped by mood, with the film stock named under each frame.">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="preload" href="../assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/base.css?v=8">
-  <link rel="stylesheet" href="../assets/site.css?v=8">
+  <link rel="stylesheet" href="../assets/base.css?v=9">
+  <link rel="stylesheet" href="../assets/site.css?v=9">
   <style>
     /* ---------- title: still, no motion ---------- */
     .gh { padding-top: 32px; }
@@ -47,11 +47,33 @@
 
     .mk { position: absolute; left: 0; width: 1px; pointer-events: none; visibility: hidden; }
 
+
+    /* ---------- chapter cloud: every chapter name, in mixed sizes and faces. Inline above the first chapter, and as a floating index. ---------- */
+    .cloud { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 22px; margin-top: 36px; }
+    .cloud a { text-decoration: none; color: var(--ink); line-height: 1.05; padding: 6px 0; white-space: nowrap; }
+    .cloud a:hover, .cloud a[aria-current="true"] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .cloud a.c0 { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 1.1em; }
+    .cloud a.c1 { font-weight: 700; font-size: 1.9em; letter-spacing: -.045em; }
+    .cloud a.c2 { font-family: "Courier New", Menlo, monospace; font-size: .78em; letter-spacing: .2em; text-transform: uppercase; }
+    .cloud a.c3 { font-size: 2.3em; letter-spacing: -.06em; font-weight: 400; }
+    .cloud a.c4 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: 1.45em; }
+    .cloud a.c5 { font-weight: 700; font-size: .82em; letter-spacing: .32em; text-transform: uppercase; }
+    .cloud a.c6 { font-size: 2em; font-weight: 700; letter-spacing: -.04em; color: transparent; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px var(--ink); }
+    .cloud a.c7 { font-size: 1.6em; font-weight: 700; letter-spacing: -.04em; color: transparent; -webkit-text-fill-color: transparent; background-image: var(--d8); background-size: 4px 4px; -webkit-background-clip: text; background-clip: text; image-rendering: pixelated; }
+    html.night .cloud a.c7 { background-image: var(--d8w); }
+    .cloud { font-size: 17px; }
+    @media (min-width: 768px) { .cloud { font-size: 22px; gap: 6px 34px; } .gh .cloud { max-width: 900px; } }
+    .cloud-btn { position: fixed; right: max(12px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); z-index: 60; background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 0 14px; min-height: 40px; font-size: var(--fs-s); opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+    .cloud-btn.show { opacity: 1; visibility: visible; transition: opacity .25s; }
+    .cloud.pop { position: fixed; right: max(12px, env(safe-area-inset-right)); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 50px); z-index: 60; margin: 0; width: min(420px, calc(100vw - 24px)); max-height: 70vh; overflow-y: auto; background: var(--paper); border: 1px solid var(--ink); padding: 14px 18px 12px; font-size: 18px; gap: 2px 20px; }
+    .cloud.pop[hidden] { display: none; }
+    @media (prefers-reduced-motion: reduce) { .cloud-btn { transition: none; } }
+
     /* ---------- the end: the page dissolves to black, then the cameras, the film and instagram ---------- */
     .end { padding-top: 30vh; padding-top: 30svh; }
     .end .sec { padding-top: 40px; }
     @media (min-width: 768px) { .end .sec { padding-top: 56px; } }
-    .end .label { font-size: var(--fs-s); }
+    .end .hd { font-size: clamp(30px, 5.5vw, 56px); }
     .list { list-style: none; }
     .list li { border-top: 1px solid var(--light); }
     .list .row2 { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 11px 0; text-align: left; font-size: var(--fs-b); }
@@ -64,7 +86,8 @@
     @media (min-width: 768px) { .list.two { columns: 2; column-gap: 32px; } .list.two li { break-inside: avoid; } }
     .ig { width: 100%; max-width: 540px; height: 600px; border: 0; display: block; background: #fff; }
     .ig-link { display: inline-block; margin-top: 14px; font-size: var(--fs-s); }
-    .end .foot { padding-top: 96px; }
+    .end .foot { padding-top: 96px; padding-bottom: max(88px, env(safe-area-inset-bottom)); }
+    .end .quote { padding-top: 56px; }
 
     /* ---------- viewer ---------- */
     .lb { position: fixed; inset: 0; z-index: 8000; background: var(--paper); display: none; grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom)); }
@@ -100,7 +123,10 @@
   <main>
     <section class="g gh" data-amb="../assets/film/lomo100-38.jpg">
       <h1 id="gt">keep looking outside..</h1>
+      <nav class="cloud" id="cloud" aria-label="chapters"></nav>
     </section>
+    <button type="button" class="cloud-btn" id="cloud-btn" aria-expanded="false" aria-controls="cloud-pop">index</button>
+    <nav class="cloud pop" id="cloud-pop" aria-label="chapters" hidden></nav>
 
     <section class="flow" id="flow"><div id="rows"></div></section>
     <noscript><section class="g"><p>this page needs javascript to show the photographs.</p></section></noscript>
@@ -108,7 +134,7 @@
 
   <footer class="end" id="end" data-night>
     <section class="g sec">
-      <p class="label"><span data-th="กล้อง" data-en="cameras">กล้อง</span></p>
+      <h2 class="hd" data-th="กล้อง" data-en="cameras">กล้อง</h2>
       <div class="body">
         <ul class="list">
           <li><span class="row2"><span class="nm">Olympus XA2</span></span></li>
@@ -119,14 +145,22 @@
     </section>
 
     <section class="g sec">
-      <p class="label"><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+      <h2 class="hd r" data-th="ฟิล์ม" data-en="film">ฟิล์ม</h2>
       <div class="body"><ul class="list two" id="film-list"></ul></div>
     </section>
 
     <section class="g sec">
-      <p class="label"><span>instagram</span></p>
+      <h2 class="hd">instagram</h2>
       <div class="body" id="ig-body">
         <a class="ig-link" href="https://www.instagram.com/prawee.sin/" target="_blank" rel="noopener" data-th="เปิดใน instagram @prawee.sin →" data-en="open @prawee.sin on instagram →">เปิดใน instagram @prawee.sin →</a>
+      </div>
+    </section>
+
+    <section class="g sec">
+      <div class="quote" style="grid-column: 1 / -1" role="img" aria-label="Living is easy with eyes closed. John Lennon">
+        <span class="q1" aria-hidden="true">Living is easy</span>
+        <span class="q2" aria-hidden="true">with eyes closed</span>
+        <span class="q3" aria-hidden="true">- John Lennon -</span>
       </div>
     </section>
 
@@ -143,7 +177,7 @@
     <div class="cap"><span id="lb-film"></span><span id="lb-t"></span></div>
   </div>
 
-  <script src="../assets/film/frames.js?v=8"></script>
+  <script src="../assets/film/frames.js?v=9"></script>
   <script>
     /* Gallery. Photographs are laid out in rows that fill the width edge to edge, a few pixels apart.
        The rows are chosen so the photographs in each row come out at about the same height, whatever their shapes.
@@ -258,6 +292,8 @@
             c.items.forEach(function (it) { view.push(it); });
           });
         }
+        cloud.style.display = filter ? 'none' : '';
+        if (typeof schedCloud === 'function') schedCloud();
         placeMarkers(labels);
       }
 
@@ -319,6 +355,47 @@
           });
       }
 
+
+      /* ---------- chapter cloud and floating index ---------- */
+      var cloud = document.getElementById('cloud'), pop = document.getElementById('cloud-pop'), cbtn = document.getElementById('cloud-btn');
+      var ORDER = [3, 1, 6, 0, 7, 4, 2, 5];                    // which face each chapter wears, so neighbours never match
+      function fillCloud(host) {
+        host.innerHTML = '';
+        chapters.forEach(function (c, ci) {
+          var a = document.createElement('a'); a.href = '#' + c.id; a.textContent = c.id; a.className = 'c' + ORDER[ci % ORDER.length]; a.setAttribute('data-ch', c.id);
+          if (ci % 3 === 1) a.style.alignSelf = 'center'; else if (ci % 3 === 2) a.style.alignSelf = 'flex-end';
+          a.addEventListener('click', function (e) {
+            e.preventDefault();
+            var el = document.getElementById(c.id); if (!el) return;
+            var y = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 84);
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            try { window.scrollTo({ top: y, left: 0, behavior: reduce ? 'instant' : 'smooth' }); } catch (er) { window.scrollTo(0, y); }
+            closePop();
+          });
+          host.appendChild(a);
+        });
+      }
+      function closePop() { pop.hidden = true; cbtn.setAttribute('aria-expanded', 'false'); }
+      cbtn.addEventListener('click', function () { var open = pop.hidden; pop.hidden = !open; cbtn.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+      document.addEventListener('click', function (e) { if (!pop.hidden && !pop.contains(e.target) && e.target !== cbtn) closePop(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) closePop(); });
+      var cq = false;
+      function cloudState() {
+        cq = false;
+        var inline = cloud.getBoundingClientRect();
+        var show = !filter && inline.bottom < 40;
+        cbtn.classList.toggle('show', show);
+        if (!show && !pop.hidden) closePop();
+        if (show) {                                              // mark the chapter being read
+          var cur = null;
+          rowsEl.querySelectorAll('.lab').forEach(function (l) { if (l.getBoundingClientRect().top < window.innerHeight * 0.5) cur = l.id; });
+          pop.querySelectorAll('a').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-ch') === cur ? 'true' : 'false'); });
+        }
+      }
+      function schedCloud() { if (!cq) { cq = true; (window.requestAnimationFrame || setTimeout)(cloudState); } }
+      window.addEventListener('scroll', schedCloud, { passive: true }); window.addEventListener('resize', schedCloud);
+      fillCloud(cloud); fillCloud(pop);
+
       /* ---------- instagram: loads only when the bottom of the page is near ---------- */
       var igBody = document.getElementById('ig-body'), igDone = false;
       function loadIg() {
@@ -354,6 +431,6 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layout(); });
     })();
   </script>
-  <script src="../assets/dither.js?v=8"></script>
+  <script src="../assets/dither.js?v=9"></script>
 </body>
 </html>

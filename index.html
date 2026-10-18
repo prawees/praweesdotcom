@@ -13,8 +13,8 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
   <link rel="preload" href="assets/fonts/arimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/base.css?v=8">
-  <link rel="stylesheet" href="assets/site.css?v=8">
+  <link rel="stylesheet" href="assets/base.css?v=9">
+  <link rel="stylesheet" href="assets/site.css?v=9">
 
   <script type="application/ld+json">
     {
@@ -72,18 +72,25 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section class="g sec" data-amb="assets/film/ultramax-34.jpg">
-      <p class="label"><span data-th="โปรเจกต์" data-en="projects">โปรเจกต์</span></p>
-      <div class="body projects" id="projects-list">
-
+    <!-- ABOUT ME, CLUBS, PROJECTS, WRITING -->
+    <section class="g sec" id="about-me" data-amb="assets/film/ultramax-34.jpg">
+      <h2 class="hd">About me</h2>
+      <div class="body projects">
         <a href="about/" class="proj" data-fx="flip" style="--a:#C77F3A;--s:#F6E9DB">
           <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="6" y="2" width="4" height="4"/><rect class="px-mid" x="7" y="6" width="2" height="1"/><rect class="px" x="3" y="7" width="10" height="3"/><rect class="px" x="2" y="10" width="12" height="5"/><rect class="px-soft" x="2" y="10" width="1" height="1"/><rect class="px-soft" x="13" y="10" width="1" height="1"/></svg></span>
           <span class="l"><span class="tt"><span data-th="รู้จักสมาร์ท" data-en="about smart">รู้จักสมาร์ท</span></span><span class="sub" data-th="about smart" data-en="(the long version)">about smart</span></span>
           <span class="r"><span class="d" data-th="ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ" data-en="background, work, interests, contact">ประวัติ ผลงาน ความสนใจ และช่องทางติดต่อ</span><span class="u">about/ →</span></span>
         </a>
 
-        <p class="grp" data-th="ชุมชน" data-en="community">ชุมชน</p>
+        <p class="more">
+          <span data-th="ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → " data-en="want to know me better? read more here → ">ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → </span><a href="about/">about/</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="g sec" id="clubs" data-amb="assets/film/ultramax-15.jpg">
+      <h2 class="hd r">Clubs</h2>
+      <div class="body projects">
         <a href="https://ramathonrun.prawees.com" class="proj" data-fx="roll" style="--a:#7B49C7;--s:#ECE3F8">
           <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="7" y="1" width="3" height="3"/><rect class="px" x="6" y="4" width="5" height="3"/><rect class="px" x="4" y="5" width="2" height="1"/><rect class="px" x="11" y="5" width="2" height="1"/><rect class="px" x="12" y="6" width="1" height="2"/><rect class="px" x="5" y="7" width="2" height="3"/><rect class="px" x="8" y="7" width="2" height="3"/><rect class="px" x="3" y="10" width="2" height="2"/><rect class="px" x="10" y="10" width="2" height="2"/><rect class="px" x="2" y="12" width="3" height="1"/><rect class="px" x="11" y="12" width="3" height="1"/></svg></span>
           <span class="l"><span class="tt"><span data-th="รามาธอน" data-en="ramathon run club">รามาธอน</span></span><span class="sub" data-th="ramathon" data-en="(running club)">ramathon</span></span>
@@ -94,8 +101,12 @@
           <span class="l"><span class="tt"><span>rama g7</span></span><span class="sub" data-th="แหล่งรวมตัวแพทย์นวัตกร" data-en="(med innovators)">แหล่งรวมตัวแพทย์นวัตกร</span></span>
           <span class="r"><span class="d" data-th="พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง" data-en="a community space for ramathibodi medical students turning curiosity into innovations that change lives">พื้นที่แบ่งปันความคิดของนักศึกษาแพทย์รามาธิบดี ที่อยากเปลี่ยนความสงสัยให้เป็นนวัตกรรมที่เปลี่ยนชีวิตคนได้จริง</span><span class="u">g7club.org →</span></span>
         </a>
+      </div>
+    </section>
 
-        <p class="grp" data-th="แอปและเว็บไซต์" data-en="apps and sites">แอปและเว็บไซต์</p>
+    <section class="g sec" id="projects" data-amb="assets/film/lomo100-38.jpg">
+      <h2 class="hd">Projects</h2>
+      <div class="body projects">
         <a href="https://gwajapen.prawees.com" class="proj" data-fx="iso" style="--a:#E05A38;--s:#FBE3DC">
           <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px-soft" x="0" y="13" width="16" height="1"/><rect class="px-mid" x="2" y="11" width="2" height="2"/><rect class="px-mid" x="4" y="9" width="2" height="2"/><rect class="px" x="6" y="7" width="2" height="2"/><rect class="px" x="8" y="5" width="2" height="2"/><rect class="px-mid" x="10" y="7" width="2" height="2"/><rect class="px-mid" x="12" y="9" width="2" height="2"/><rect class="px-soft" x="14" y="11" width="2" height="2"/><rect class="px" x="8" y="3" width="2" height="2"/><rect class="px" x="9" y="1" width="1" height="2"/></svg></span>
           <span class="l"><span class="tt"><span data-th="กว่า-จะ-เป็น" data-en="gwa-ja-pen">กว่า-จะ-เป็น</span></span><span class="sub" data-th="gwa-ja-pen" data-en="(interviews and interactives)">gwa-ja-pen</span></span>
@@ -111,23 +122,23 @@
           <span class="l"><span class="tt"><span>wisdom</span></span><span class="sub" data-th="" data-en="(decisions sim)"></span></span>
           <span class="r"><span class="d" data-th="เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด" data-en="a life simulation game on decision-making, cognitive biases, and mental models">เกมจำลองสถานการณ์ชีวิต ที่สอนทักษะการตัดสินใจ การรู้เท่าทันอคติ และโมเดลทางความคิด</span><span class="u">wisdom.prawees.com →</span></span>
         </a>
+      </div>
+    </section>
 
-        <p class="grp" data-th="งานเขียน" data-en="writing">งานเขียน</p>
+    <section class="g sec" id="writing" data-amb="assets/film/ektar100-33.jpg">
+      <h2 class="hd r">Writing</h2>
+      <div class="body projects">
         <a href="https://prawees.substack.com" class="proj" data-fx="page" target="_blank" rel="noopener" style="--a:#D03535;--s:#F9DEDE">
           <span class="tile" aria-hidden="true"><svg viewBox="0 0 16 16"><rect class="px" x="2" y="2" width="6" height="12"/><rect class="px" x="8" y="2" width="6" height="12"/><rect class="px-soft" x="3" y="4" width="4" height="1"/><rect class="px-soft" x="3" y="6" width="4" height="1"/><rect class="px-soft" x="3" y="8" width="3" height="1"/><rect class="px-soft" x="9" y="4" width="4" height="1"/><rect class="px-soft" x="9" y="6" width="4" height="1"/><rect class="px-soft" x="9" y="8" width="3" height="1"/></svg></span>
           <span class="l"><span class="tt"><span data-th="เกือบจะสมาร์ทละ" data-en="almost smart">เกือบจะสมาร์ทละ</span></span><span class="sub" data-th="almost smart" data-en="(substack)">almost smart</span></span>
           <span class="r"><span class="d" data-th="บล็อกบน substack บันทึกเรื่องราวระหว่างการเรียนของผมเอง" data-en="a substack blog of notes from my time studying">บล็อกบน substack บันทึกเรื่องราวระหว่างการเรียนของผมเอง</span><span class="u">prawees.substack.com →</span></span>
         </a>
-
-        <p class="more">
-          <span data-th="ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → " data-en="want to know me better? read more here → ">ถ้าอยากรู้จักผมมากขึ้น อ่านเพิ่มได้ที่นี่ครับ → </span><a href="about/">about/</a>
-        </p>
       </div>
     </section>
 
     <!-- FRAMES -->
-    <section class="g sec" data-amb="assets/film/ultramax-15.jpg">
-      <p class="label"><span data-th="ฟิล์ม" data-en="film">ฟิล์ม</span></p>
+    <section class="g sec" id="gallery" data-amb="assets/film/ultramax-15.jpg">
+      <h2 class="hd">Gallery</h2>
       <div class="body">
         <div class="strip">
           <a class="s1" href="gallery/" aria-label="gallery"><img data-strip style="display:block;width:100%;height:auto" decoding="async" src="assets/film/ultramax-15.jpg" width="1000" height="675" alt="a cat asleep on a pavement"></a>
@@ -140,8 +151,8 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="g sec" data-amb="assets/film/lomo100-38.jpg">
-      <p class="label"><span data-th="ติดต่อ" data-en="contact">ติดต่อ</span></p>
+    <section class="g sec" id="contact" data-amb="assets/film/lomo100-38.jpg">
+      <h2 class="hd r">Contact</h2>
       <div class="body" id="social-list">
         <a class="mail" href="mailto:prawee.sin@gmail.com">prawee.sin@gmail.com</a>
         <div class="rows">
@@ -154,6 +165,15 @@
         </div>
       </div>
     </section>
+
+    <!-- CLOSING QUOTE -->
+    <section class="g sec" id="quote" data-amb="assets/film/ektar100-33.jpg">
+      <div class="quote" style="grid-column: 1 / -1" role="img" aria-label="Living is easy with eyes closed. John Lennon">
+        <span class="q1" aria-hidden="true">Living is easy</span>
+        <span class="q2" aria-hidden="true">with eyes closed</span>
+        <span class="q3" aria-hidden="true">- John Lennon -</span>
+      </div>
+    </section>
   </main>
 
   <footer class="g foot">
@@ -161,9 +181,9 @@
     <span class="cur">last edit: 2026.10</span>
   </footer>
 
-  <script src="assets/typewriter.js?v=8"></script>
-  <script src="assets/dither.js?v=8"></script>
-  <script src="assets/scroll3d.js?v=8"></script>
+  <script src="assets/typewriter.js?v=9"></script>
+  <script src="assets/dither.js?v=9"></script>
+  <script src="assets/scroll3d.js?v=9"></script>
   <script>
     function setLang(lang) {
       try { localStorage.setItem('prawees.lang', lang); } catch (e) {}

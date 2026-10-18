@@ -199,3 +199,20 @@ a:hover { color: var(--ink); text-decoration-color: var(--ink); }
   .comment, .social-links-minimal, .foot { padding-left: 20px; padding-right: 20px; }
   .tl-item { grid-template-columns: 64px minmax(0, 1fr); gap: 0 18px; }
 }
+
+/* ---------- section headings in dither (same device as the home page and the gallery) ---------- */
+.sec-head { display: block; margin-bottom: 40px; }
+.sec-num { display: none; }
+.sec-title { display: inline-block; font-family: var(--sans); font-size: clamp(34px, 7vw, 72px); font-weight: 700; line-height: 1; letter-spacing: -.04em; padding-bottom: .08em; opacity: .42;
+  color: transparent; -webkit-text-fill-color: transparent; background-image: var(--d8); background-size: 4px 4px; -webkit-background-clip: text; background-clip: text; image-rendering: pixelated; }
+.sec-02 .sec-head, .sec-04 .sec-head, .sec-06 .sec-head { text-align: right; }
+
+/* ---------- lyrics: a hand-written face, not a machine one ---------- */
+:root body .song-lyrics, :root body .song-lyrics * { font-family: "Mali", "IBM Plex Sans Thai", sans-serif !important; font-size: 18px; line-height: 2.15; font-weight: 400; letter-spacing: 0; color: var(--ink); }
+
+/* the TikTok cards are the one place the flat rules above are lifted: round play button, hard colour offsets */
+:root body .tt-play .tt-disc, :root body .tt-play .tt-disc::after { border-radius: 50% !important; }
+:root body .tt-play .tt-disc { box-shadow: -4px -4px 0 #25F4EE, 4px 4px 0 #FE2C55 !important; }
+:root body .tt-play .tt-pill { box-shadow: 4px 4px 0 #25F4EE !important; }
+:root body .tt-play:hover .tt-pill { box-shadow: 6px 6px 0 #25F4EE !important; }
+:root body .tt-play:active .tt-pill { box-shadow: 0 0 0 #25F4EE !important; }
