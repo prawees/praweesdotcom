@@ -20,13 +20,6 @@ window.FILM_CHAPTERS = [
     "h": 1085
    },
    {
-    "f": "fuji400-51.jpg",
-    "film": "Fuji 400",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
     "f": "fuji400-55.jpg",
     "film": "Fuji 400",
     "t": "",
@@ -36,6 +29,13 @@ window.FILM_CHAPTERS = [
    {
     "f": "fuji400-64.jpg",
     "film": "Fuji 400",
+    "t": "",
+    "w": 1600,
+    "h": 1085
+   },
+   {
+    "f": "myheart200-3.jpg",
+    "film": "My Heart 200",
     "t": "",
     "w": 1600,
     "h": 1085
@@ -128,13 +128,6 @@ window.FILM_CHAPTERS = [
     "t": "melbourne",
     "w": 1600,
     "h": 1072
-   },
-   {
-    "f": "myheart200-3.jpg",
-    "film": "My Heart 200",
-    "t": "",
-    "w": 1600,
-    "h": 1085
    },
    {
     "f": "fndiro200-73.jpg",
@@ -323,20 +316,6 @@ window.FILM_CHAPTERS = [
     "h": 1085
    },
    {
-    "f": "fuji400t-12.jpg",
-    "film": "Fuji F400T ei 200",
-    "t": "",
-    "w": 1600,
-    "h": 1072
-   },
-   {
-    "f": "fuji400t-13.jpg",
-    "film": "Fuji F400T ei 200",
-    "t": "",
-    "w": 1600,
-    "h": 1072
-   },
-   {
     "f": "fuji400t-16.jpg",
     "film": "Fuji F400T ei 200",
     "t": "",
@@ -358,13 +337,6 @@ window.FILM_CHAPTERS = [
     "h": 1085
    },
    {
-    "f": "superiaxtra400-47.jpg",
-    "film": "Fujifilm Superia Xtra 400",
-    "t": "",
-    "w": 1600,
-    "h": 1085
-   },
-   {
     "f": "fndiro400-9.jpg",
     "film": "Film Never Die IRO 400",
     "t": "",
@@ -377,13 +349,6 @@ window.FILM_CHAPTERS = [
     "t": "",
     "w": 1600,
     "h": 1078
-   },
-   {
-    "f": "fuji100-65.jpg",
-    "film": "Fuji 100",
-    "t": "",
-    "w": 1600,
-    "h": 1085
    },
    {
     "f": "ultramax-44.jpg",
